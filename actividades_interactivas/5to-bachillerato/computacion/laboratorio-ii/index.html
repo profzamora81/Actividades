@@ -32,6 +32,9 @@
             header, nav, .no-print {
                 display: none !important;
             }
+            .tab-content {
+                display: none !important;
+            }
             #content-borrador {
                 display: block !important;
             }
@@ -43,8 +46,25 @@
                 width: 100% !important;
                 max-width: 100% !important;
             }
-            .page-break {
-                page-break-before: always;
+            .activity-block {
+                page-break-inside: avoid;
+                margin-bottom: 1.5rem;
+            }
+            .img-upload-box {
+                border: none !important;
+                background-color: transparent !important;
+                padding: 0 !important;
+            }
+            .img-upload-box:has(img.hidden) {
+                display: none !important;
+            }
+            img {
+                max-height: 380px !important;
+                width: auto !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                display: block !important;
+                object-fit: contain !important;
             }
         }
     </style>
@@ -482,21 +502,37 @@
                     <p class="text-xs text-slate-500">Curso: Laboratorio II — Guía de Trabajo No. 5: Generación de Reportes</p>
                 </div>
 
+                <!-- Datos del Estudiante -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Nombre Completo del Estudiante:</label>
+                        <input type="text" id="student-name" oninput="saveFormData()" placeholder="Escribe tu nombre completo" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Fecha de Entrega:</label>
+                        <input type="text" id="student-date" oninput="saveFormData()" value="14 de agosto de 2026" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Grado y Sección:</label>
+                        <input type="text" id="student-section" oninput="saveFormData()" placeholder="5to Bachillerato 'A'" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    </div>
+                </div>
+
                 <!-- Actividad 1 en Borrador -->
-                <div class="space-y-3">
+                <div class="space-y-3 activity-block">
                     <h3 class="font-extrabold text-sm text-slate-900 uppercase tracking-wider border-l-4 border-sky-500 pl-2">Actividad 1: Modelado y Conexión del Origen de Datos</h3>
                     
-                    <div class="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-4 text-center relative hover:border-sky-400 transition no-print">
+                    <div class="img-upload-box bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-4 text-center relative hover:border-sky-400 transition">
                         <input type="file" id="file-act1" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'img-preview-act1', 'ph-act1')">
-                        <div id="ph-act1" class="space-y-2 py-4">
+                        <div id="ph-act1" class="space-y-2 py-4 no-print">
                             <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400"></i>
                             <p class="text-xs text-slate-600 font-medium">Adjuntar Captura de Pantalla - Actividad 1</p>
                             <button onclick="document.getElementById('file-act1').click()" class="bg-sky-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-sky-700 transition">
                                 <i class="fa-solid fa-image mr-1"></i> Seleccionar Imagen
                             </button>
                         </div>
-                        <img id="img-preview-act1" class="hidden max-h-80 mx-auto rounded-lg border border-slate-300 shadow-sm my-2" alt="Evidencia Actividad 1">
-                        <button id="btn-change-act1" onclick="document.getElementById('file-act1').click()" class="hidden text-xs text-sky-600 font-semibold mt-2 hover:underline">
+                        <img id="img-preview-act1" class="hidden max-h-80 mx-auto rounded-lg border border-slate-300 shadow-sm my-2 block" alt="Evidencia Actividad 1">
+                        <button id="btn-change-act1" onclick="document.getElementById('file-act1').click()" class="hidden text-xs text-sky-600 font-semibold mt-2 hover:underline no-print">
                             <i class="fa-solid fa-arrows-rotate mr-1"></i> Cambiar imagen
                         </button>
                     </div>
@@ -510,20 +546,20 @@
                 </div>
 
                 <!-- Actividad 2 en Borrador -->
-                <div class="space-y-3">
+                <div class="space-y-3 activity-block">
                     <h3 class="font-extrabold text-sm text-slate-900 uppercase tracking-wider border-l-4 border-emerald-500 pl-2">Actividad 2: Parámetros de Filtrado y Agrupamiento</h3>
                     
-                    <div class="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-4 text-center relative hover:border-emerald-400 transition no-print">
+                    <div class="img-upload-box bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-4 text-center relative hover:border-emerald-400 transition">
                         <input type="file" id="file-act2" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'img-preview-act2', 'ph-act2')">
-                        <div id="ph-act2" class="space-y-2 py-4">
+                        <div id="ph-act2" class="space-y-2 py-4 no-print">
                             <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400"></i>
                             <p class="text-xs text-slate-600 font-medium">Adjuntar Captura de Pantalla - Actividad 2</p>
                             <button onclick="document.getElementById('file-act2').click()" class="bg-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-emerald-700 transition">
                                 <i class="fa-solid fa-image mr-1"></i> Seleccionar Imagen
                             </button>
                         </div>
-                        <img id="img-preview-act2" class="hidden max-h-80 mx-auto rounded-lg border border-slate-300 shadow-sm my-2" alt="Evidencia Actividad 2">
-                        <button id="btn-change-act2" onclick="document.getElementById('file-act2').click()" class="hidden text-xs text-emerald-600 font-semibold mt-2 hover:underline">
+                        <img id="img-preview-act2" class="hidden max-h-80 mx-auto rounded-lg border border-slate-300 shadow-sm my-2 block" alt="Evidencia Actividad 2">
+                        <button id="btn-change-act2" onclick="document.getElementById('file-act2').click()" class="hidden text-xs text-emerald-600 font-semibold mt-2 hover:underline no-print">
                             <i class="fa-solid fa-arrows-rotate mr-1"></i> Cambiar imagen
                         </button>
                     </div>
@@ -537,20 +573,20 @@
                 </div>
 
                 <!-- Actividad 3 en Borrador -->
-                <div class="space-y-3">
+                <div class="space-y-3 activity-block">
                     <h3 class="font-extrabold text-sm text-slate-900 uppercase tracking-wider border-l-4 border-violet-500 pl-2">Actividad 3: Exportación Limpia a Formatos Universales</h3>
                     
-                    <div class="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-4 text-center relative hover:border-violet-400 transition no-print">
+                    <div class="img-upload-box bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-4 text-center relative hover:border-violet-400 transition">
                         <input type="file" id="file-act3" accept="image/*" class="hidden" onchange="handleImageUpload(event, 'img-preview-act3', 'ph-act3')">
-                        <div id="ph-act3" class="space-y-2 py-4">
+                        <div id="ph-act3" class="space-y-2 py-4 no-print">
                             <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400"></i>
                             <p class="text-xs text-slate-600 font-medium">Adjuntar Captura de Pantalla - Actividad 3</p>
                             <button onclick="document.getElementById('file-act3').click()" class="bg-violet-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-violet-700 transition">
                                 <i class="fa-solid fa-image mr-1"></i> Seleccionar Imagen
                             </button>
                         </div>
-                        <img id="img-preview-act3" class="hidden max-h-80 mx-auto rounded-lg border border-slate-300 shadow-sm my-2" alt="Evidencia Actividad 3">
-                        <button id="btn-change-act3" onclick="document.getElementById('file-act3').click()" class="hidden text-xs text-violet-600 font-semibold mt-2 hover:underline">
+                        <img id="img-preview-act3" class="hidden max-h-80 mx-auto rounded-lg border border-slate-300 shadow-sm my-2 block" alt="Evidencia Actividad 3">
+                        <button id="btn-change-act3" onclick="document.getElementById('file-act3').click()" class="hidden text-xs text-violet-600 font-semibold mt-2 hover:underline no-print">
                             <i class="fa-solid fa-arrows-rotate mr-1"></i> Cambiar imagen
                         </button>
                     </div>
@@ -731,6 +767,7 @@
                 target.innerText = `[Aún no has redactado el análisis de la Actividad ${actId.replace('act', '')} en la pestaña de Actividades]`;
                 target.classList.add('italic');
             }
+            saveFormData();
         }
 
         function handleImageUpload(event, imgPreviewId, placeholderId) {
@@ -747,8 +784,59 @@
                     imgElement.classList.remove('hidden');
                     placeholderElement.classList.add('hidden');
                     if(changeBtn) changeBtn.classList.remove('hidden');
+
+                    saveFormData();
                 };
                 reader.readAsDataURL(file);
+            }
+        }
+
+        function saveFormData() {
+            try {
+                const data = {
+                    act1: document.getElementById('input-act1').value,
+                    act2: document.getElementById('input-act2').value,
+                    act3: document.getElementById('input-act3').value,
+                    name: document.getElementById('student-name').value,
+                    date: document.getElementById('student-date').value,
+                    section: document.getElementById('student-section').value,
+                    img1: document.getElementById('img-preview-act1').src || '',
+                    img2: document.getElementById('img-preview-act2').src || '',
+                    img3: document.getElementById('img-preview-act3').src || ''
+                };
+                localStorage.setItem('lab_reportes_guia5_data', JSON.stringify(data));
+            } catch(e) {
+                console.warn("No se pudo guardar localmente debido a límites del navegador.", e);
+            }
+        }
+
+        function loadFormData() {
+            try {
+                const saved = localStorage.getItem('lab_reportes_guia5_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.act1) { document.getElementById('input-act1').value = data.act1; syncDraftText('act1'); }
+                    if (data.act2) { document.getElementById('input-act2').value = data.act2; syncDraftText('act2'); }
+                    if (data.act3) { document.getElementById('input-act3').value = data.act3; syncDraftText('act3'); }
+                    if (data.name) document.getElementById('student-name').value = data.name;
+                    if (data.date) document.getElementById('student-date').value = data.date;
+                    if (data.section) document.getElementById('student-section').value = data.section;
+
+                    ['act1', 'act2', 'act3'].forEach((actKey, idx) => {
+                        const imgSrc = data['img' + (idx + 1)];
+                        if (imgSrc && imgSrc.startsWith('data:image')) {
+                            const imgEl = document.getElementById(`img-preview-${actKey}`);
+                            const phEl = document.getElementById(`ph-${actKey}`);
+                            const btnEl = document.getElementById(`btn-change-${actKey}`);
+                            imgEl.src = imgSrc;
+                            imgEl.classList.remove('hidden');
+                            phEl.classList.add('hidden');
+                            if (btnEl) btnEl.classList.remove('hidden');
+                        }
+                    });
+                }
+            } catch(e) {
+                console.warn("Error al restaurar datos guardados.", e);
             }
         }
 
@@ -775,9 +863,9 @@
             document.getElementById('rubric-score-total').innerText = `${total} / 10 pts`;
         }
 
-        // Inicializar al cargar la página
         window.onload = function() {
             runSimulation();
+            loadFormData();
         };
     </script>
 </body>
