@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio Interactivo: Seguridad Inalámbrica TP-Link</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Armonía de Seguridad (Fondo Zinc-50, Acentos Blue-600 y Slate-800) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        .step-card {
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-active {
+            border-bottom: 3px solid #2563eb;
+            color: #2563eb;
+        }
+
+        canvas {
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Application Structure Plan: 
+         La aplicación se organiza en una arquitectura de pestañas (Tabs) para facilitar la navegación modular. 
+         1. Dashboard: Resumen de objetivos y estado de progreso.
+         2. Actividades (1, 2, 3): Cada una con una sección teórica interactiva (gráficos de comparación), el procedimiento paso a paso para el simulador y un área de autoevaluación.
+         3. Rúbrica: Una tabla dinámica para que el estudiante comprenda los pesos de calificación.
+         Se ha elegido este flujo para que el estudiante pueda alternar entre la teoría visual (Chart.js) y la ejecución práctica sin perder el contexto. -->
+
+    <!-- Visualization & Content Choices: 
+         - Report Info -> Gráfico de barras (Chart.js) para comparar seguridad de protocolos (WEP vs WPA2).
+         - Logic Flow -> Representación visual del filtrado MAC usando estados CSS dinámicos (Allow/Deny).
+         - Goal Context -> Cada sección inicia con un párrafo explicativo que vincula la teoría con la acción en el simulador.
+         - NO SVG/Mermaid: Se utilizan divs con bordes redondeados y Canvas para diagramas. -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">W</div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900 leading-tight">Seguridad Inalámbrica & Hardening</h1>
+                    <p class="text-xs text-slate-500 uppercase tracking-widest">Router TP-Link TL-WR841N</p>
+                </div>
+            </div>
+            <nav class="flex space-x-6 text-sm font-semibold">
+                <button onclick="switchTab('intro')" id="tab-intro" class="nav-btn nav-active pb-1">Inicio</button>
+                <button onclick="switchTab('act1')" id="tab-act1" class="nav-btn pb-1 text-slate-500 hover:text-blue-600">Actividad 1</button>
+                <button onclick="switchTab('act2')" id="tab-act2" class="nav-btn pb-1 text-slate-500 hover:text-blue-600">Actividad 2</button>
+                <button onclick="switchTab('act3')" id="tab-act3" class="nav-btn pb-1 text-slate-500 hover:text-blue-600">Actividad 3</button>
+                <button onclick="switchTab('rubrica')" id="tab-rubrica" class="nav-btn pb-1 text-slate-500 hover:text-blue-600">Rúbrica</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+
+        <!-- INTRO SECTION -->
+        <section id="content-intro" class="tab-content block">
+            <div class="bg-blue-600 rounded-3xl p-8 text-white mb-8 flex flex-col md:flex-row items-center justify-between shadow-xl">
+                <div class="md:w-2/3">
+                    <h2 class="text-3xl font-bold mb-4">Bienvenido al Laboratorio Práctico</h2>
+                    <p class="text-blue-100 text-lg mb-6">Esta guía interactiva te preparará para configurar y asegurar redes inalámbricas reales. Aprenderás a mitigar ataques de fuerza bruta y a controlar el acceso mediante direccionamiento físico.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://emulator.tp-link.com/WR841NV13_EU/index.htm" target="_blank" class="bg-white text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-50 transition-colors">Abrir Simulador</a>
+                        <button onclick="switchTab('act1')" class="bg-blue-700 text-white border border-blue-400 px-6 py-2 rounded-full font-bold hover:bg-blue-800 transition-colors">Empezar Guía</button>
+                    </div>
+                </div>
+                <div class="md:w-1/3 mt-8 md:mt-0 flex justify-center">
+                    <div class="w-48 h-48 bg-blue-500/30 rounded-full flex items-center justify-center border-4 border-white/20">
+                        <span class="text-6xl text-white">🔒</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-lg mb-2 flex items-center"><span class="mr-2">📊</span> Diagnóstico</h3>
+                    <p class="text-sm text-slate-600">Analiza por qué los estándares antiguos ya no son seguros frente a ataques modernos.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-lg mb-2 flex items-center"><span class="mr-2">🛠️</span> Hardening</h3>
+                    <p class="text-sm text-slate-600">Aplica técnicas de endurecimiento desactivando funciones vulnerables como WPS.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-lg mb-2 flex items-center"><span class="mr-2">🛡️</span> Control MAC</h3>
+                    <p class="text-sm text-slate-600">Aprende la diferencia entre seguridad lógica y física mediante el filtrado de direcciones.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACTIVITY 1: SSID & ENCRYPTION -->
+        <section id="content-act1" class="tab-content hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Actividad 1: SSID y Cifrado WPA2/WPA3</h2>
+                <p class="text-slate-600 leading-relaxed">En esta sección, configuraremos la identidad de nuestra red y su primera barrera de defensa. El objetivo es entender por qué el algoritmo AES es la piedra angular de la seguridad Wi-Fi moderna, comparándolo con protocolos obsoletos que pueden ser vulnerados en cuestión de minutos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-2xl shadow-md">
+                    <h3 class="font-bold mb-4 text-blue-600 uppercase text-xs tracking-widest">Visualización de Seguridad</h3>
+                    <div class="chart-container">
+                        <canvas id="encryptionChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4 italic text-center">Gráfico: Eficiencia de Resistencia al Cifrado (Tiempo estimado de vulneración).</p>
+                </div>
+                <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-xl">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">1</span> 
+                        Pasos en el Simulador
+                    </h3>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex items-start">
+                            <div class="h-2 w-2 mt-2 bg-blue-500 rounded-full mr-3 shrink-0"></div>
+                            <span>Accede a <b>Wireless > Wireless Settings</b>. Cambia el SSID predeterminado por uno único.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="h-2 w-2 mt-2 bg-blue-500 rounded-full mr-3 shrink-0"></div>
+                            <span>Ve a <b>Wireless Security</b>. Selecciona <b>WPA/WPA2 - Personal</b>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="h-2 w-2 mt-2 bg-blue-500 rounded-full mr-3 shrink-0"></div>
+                            <span>Asegúrate de que la versión sea <b>WPA2-PSK</b> y la encriptación <b>AES</b>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="h-2 w-2 mt-2 bg-green-500 rounded-full mr-3 shrink-0"></div>
+                            <span>Crea una contraseña compleja y presiona <b>Save</b>.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACTIVITY 2: WPS & WAN HARDENING -->
+        <section id="content-act2" class="tab-content hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Actividad 2: Fortalecimiento WAN y Desactivación de WPS</h2>
+                <p class="text-slate-600 leading-relaxed">El "Hardening" consiste en reducir la superficie de ataque de un dispositivo. Aquí aprenderás por qué funciones diseñadas para la "conveniencia" (como WPS) son puertas abiertas para ataques de fuerza bruta y por qué nunca debes permitir que un extraño en internet vea la consola de administración de tu router.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl">
+                        <h4 class="font-bold text-red-700 flex items-center mb-2">
+                            ⚠️ Alerta de Vulnerabilidad: WPS
+                        </h4>
+                        <p class="text-sm text-red-600">El PIN de WPS solo tiene 8 dígitos. Herramientas automatizadas pueden probar todas las combinaciones en pocas horas, revelando tu contraseña WPA2 sin importar qué tan larga sea.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                        <h3 class="font-bold mb-4">Checklist de Hardening</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center space-x-3 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition-colors">
+                                <input type="checkbox" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm font-medium">Desactivar WPS (Wireless > WPS)</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition-colors">
+                                <input type="checkbox" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm font-medium">Gestión Remota a 0.0.0.0 (Security > Remote)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 text-white p-8 rounded-2xl shadow-xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-6 flex items-center">
+                            <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">2</span> 
+                            Configuración Crítica
+                        </h3>
+                        <p class="text-slate-400 text-sm mb-6">Bloquear la WAN es como cerrar la puerta principal con llave desde adentro; nadie fuera de tu casa podrá ni siquiera intentar abrirla.</p>
+                        <div class="p-4 bg-slate-700 rounded-lg border border-slate-600 font-mono text-xs text-blue-300">
+                            Remote Management IP: 0.0.0.0<br>
+                            WPS Status: Disabled
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 right-0 opacity-10 text-9xl p-4">🛠️</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACTIVITY 3: MAC FILTERING -->
+        <section id="content-act3" class="tab-content hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Actividad 3: Control por MAC Físico</h2>
+                <p class="text-slate-600 leading-relaxed">El filtrado por dirección MAC permite identificar cada dispositivo por su "huella digital" de fábrica. Aunque es una capa extra de control muy útil, exploraremos también por qué no es infalible ante usuarios avanzados que saben falsificar sus direcciones físicas.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 mb-8">
+                <h3 class="text-center font-bold text-blue-600 mb-8 uppercase tracking-widest text-sm">Simulación de Lógica de Filtrado</h3>
+                
+                <div class="flex flex-col md:flex-row items-center justify-around gap-8">
+                    <!-- Dispositivo 1 -->
+                    <div class="text-center p-6 border-2 border-green-200 rounded-2xl bg-green-50 w-full max-w-xs">
+                        <div class="text-4xl mb-2">💻</div>
+                        <p class="font-bold text-xs font-mono text-green-700">00:1A:2B:3C:4D:5E</p>
+                        <span class="text-[10px] bg-green-500 text-white px-2 py-0.5 rounded-full mt-2 inline-block">EN LISTA BLANCA</span>
+                        <div class="mt-4 h-1 w-full bg-green-300 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-600 w-full"></div>
+                        </div>
+                        <p class="text-xs mt-2 text-green-600 font-bold uppercase">Acceso Concedido</p>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center border-2 border-slate-200">
+                            <span class="text-slate-400 font-bold">VS</span>
+                        </div>
+                        <div class="h-20 w-0.5 bg-slate-200"></div>
+                    </div>
+
+                    <!-- Dispositivo 2 -->
+                    <div class="text-center p-6 border-2 border-red-200 rounded-2xl bg-red-50 w-full max-w-xs">
+                        <div class="text-4xl mb-2">📱</div>
+                        <p class="font-bold text-xs font-mono text-red-700">FF:EE:DD:11:22:33</p>
+                        <span class="text-[10px] bg-red-500 text-white px-2 py-0.5 rounded-full mt-2 inline-block">NO REGISTRADO</span>
+                        <div class="mt-4 h-1 w-full bg-red-300 rounded-full overflow-hidden">
+                            <div class="h-full bg-red-600 w-0"></div>
+                        </div>
+                        <p class="text-xs mt-2 text-red-600 font-bold uppercase">Acceso Denegado</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-8 rounded-2xl flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <h3 class="font-bold text-lg mb-2">Reflexión Técnica</h3>
+                    <p class="text-sm text-slate-600 mb-4">El filtrado MAC es excelente para evitar que el vecino use tu Wi-Fi, pero un atacante real puede "escuchar" el aire, ver una dirección MAC autorizada y clonarla en su propio equipo (MAC Spoofing).</p>
+                    <div class="bg-white p-3 rounded-lg border border-blue-100 text-xs text-blue-600 italic">
+                        * Siempre usa Filtrado MAC + WPA2-AES en conjunto para una seguridad robusta.
+                    </div>
+                </div>
+                <div class="md:w-1/2 w-full">
+                    <div class="bg-slate-900 rounded-xl p-6 text-white font-mono text-sm">
+                        <div class="text-blue-400 mb-2">// Procedimiento Actividad 3</div>
+                        <div class="mb-1"><span class="text-pink-400">1.</span> Wireless MAC Filtering</div>
+                        <div class="mb-1"><span class="text-pink-400">2.</span> Add New...</div>
+                        <div class="mb-1"><span class="text-pink-400">3.</span> Rule: ALLOW</div>
+                        <div class="mb-1"><span class="text-pink-400">4.</span> Click ENABLE</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RUBRIC SECTION -->
+        <section id="content-rubrica" class="tab-content hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Rúbrica de Calificación</h2>
+                <p class="text-slate-600">Revisa los criterios necesarios para obtener la máxima puntuación en tu entrega. Tu reporte debe ser claro, técnico y estar bien documentado.</p>
+            </div>
+
+            <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-900 text-white uppercase text-xs">
+                        <tr>
+                            <th class="px-6 py-4">Criterio</th>
+                            <th class="px-6 py-4">Excelente (Máx)</th>
+                            <th class="px-6 py-4">Aceptable</th>
+                            <th class="px-6 py-4">Deficiente</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 bg-white">
+                        <tr>
+                            <td class="px-6 py-4 font-bold">Cifrado (4pts)</td>
+                            <td class="px-6 py-4 text-slate-600">Captura clara de WPA2/AES + Explicación profunda de protocolos.</td>
+                            <td class="px-6 py-4 text-slate-600">Captura imprecisa o explicación incompleta.</td>
+                            <td class="px-6 py-4 text-slate-600 text-red-500">Sin capturas o sin explicación.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold">Hardening (3pts)</td>
+                            <td class="px-6 py-4 text-slate-600">2 capturas (WPS off / Remote off) + Justificación técnica de riesgos.</td>
+                            <td class="px-6 py-4 text-slate-600">Falta una captura o explicación superficial.</td>
+                            <td class="px-6 py-4 text-slate-600 text-red-500">Omisión total de requisitos.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold">Filtrado MAC (3pts)</td>
+                            <td class="px-6 py-4 text-slate-600">Captura de tabla MAC activa + Análisis de Spoofing.</td>
+                            <td class="px-6 py-4 text-slate-600">Falta análisis de limitaciones o tabla mal configurada.</td>
+                            <td class="px-6 py-4 text-slate-600 text-red-500">Sin evidencia o sin análisis.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-8 p-6 bg-yellow-50 border border-yellow-200 rounded-xl flex items-center">
+                <span class="text-3xl mr-4">📝</span>
+                <p class="text-sm text-yellow-800 italic">Recuerda: Las capturas de pantalla deben mostrar toda la ventana del navegador para verificar el uso del simulador.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t mt-12 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">Laboratorio de Redes y Seguridad Inalámbrica - Herramienta de Soporte Educativo</p>
+        </div>
+    </footer>
+
+    <script>
+        // State Management
+        let currentTab = 'intro';
+        let chartsInitialized = false;
+
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
+            
+            // Show target content
+            document.getElementById('content-' + tabId).classList.add('block');
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+
+            // Update Nav Styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('nav-active', 'text-blue-600');
+                btn.classList.add('text-slate-500');
+            });
+            document.getElementById('tab-' + tabId).classList.add('nav-active', 'text-blue-600');
+
+            // Initialize charts if needed
+            if (tabId === 'act1' && !chartsInitialized) {
+                initCharts();
+            }
+        }
+
+        function initCharts() {
+            const ctx = document.getElementById('encryptionChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['WEP (2001)', 'WPA (2003)', 'WPA2/AES (2004)', 'WPA3 (2018)'],
+                    datasets: [{
+                        label: 'Nivel de Seguridad Percibido',
+                        data: [5, 35, 95, 100],
+                        backgroundColor: [
+                            'rgba(239, 68, 68, 0.7)',
+                            'rgba(245, 158, 11, 0.7)',
+                            'rgba(37, 99, 235, 0.7)',
+                            'rgba(16, 185, 129, 0.7)'
+                        ],
+                        borderColor: [
+                            '#ef4444',
+                            '#f59e0b',
+                            '#2563eb',
+                            '#10b981'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let labels = [
+                                        "Vulnerable en segundos",
+                                        "Ataques de diccionario rápidos",
+                                        "Seguro para uso masivo",
+                                        "Cifrado de última generación"
+                                    ];
+                                    return labels[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            max: 100,
+                            ticks: {
+                                display: false
+                            },
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            chartsInitialized = true;
+        }
+
+        // Handle URL parameters or initial state
+        window.onload = () => {
+            console.log("Aplicación de Laboratorio Iniciada.");
+        };
+    </script>
+</body>
+</html>
