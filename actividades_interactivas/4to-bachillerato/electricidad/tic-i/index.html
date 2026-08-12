@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva No. 5 - TIC I | Electricidad</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        industrial: {
+                            50: '#f4f6f8',
+                            100: '#e5e9f0',
+                            200: '#cdd5e1',
+                            500: '#475569',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        amberAccent: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- html2pdf for direct assignment generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        .tab-active {
+            border-bottom: 3px solid #f59e0b;
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.08);
+        }
+        
+        /* Evita que los bloques se corten a la mitad en el PDF */
+        .avoid-page-break {
+            page-break-inside: avoid;
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; color: black; }
+        }
+        
+        /* Estilos para áreas editables y simuladores */
+        .editable-area:empty:before {
+            content: attr(placeholder);
+            color: #94a3b8;
+            pointer-events: none;
+            display: block; 
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col custom-scrollbar">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Branding -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-600 flex items-center justify-center text-slate-900 font-bold text-xl shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-100 leading-tight">Guía Interactiva No. 5 - TIC I</h1>
+                        <p class="text-xs text-amber-400 font-medium">Orientación en Electricidad | 4to Bachillerato</p>
+                    </div>
+                </div>
+
+                <!-- Global Progress Bar -->
+                <div class="hidden md:flex items-center space-x-4 bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/50">
+                    <div class="text-xs text-slate-300 font-medium">Progreso Global:</div>
+                    <div class="w-32 bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                        <div id="global-progress-bar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full w-0 transition-all duration-500"></div>
+                    </div>
+                    <span id="global-progress-text" class="text-xs font-bold text-amber-400">0/10 pts</span>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="flex items-center space-x-2">
+                    <button onclick="openModal('modal-rubrica')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-medium rounded-lg transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-award text-amber-400"></i>
+                        <span class="hidden sm:inline">Rúbrica</span> (10 pts)
+                    </button>
+                    <button onclick="switchTab('tab-entregable')" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg transition shadow-md shadow-amber-500/20 flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="bg-slate-900/90 border-t border-slate-800/80 overflow-x-auto custom-scrollbar">
+            <div class="max-w-7xl mx-auto px-4 flex whitespace-nowrap">
+                <button onclick="switchTab('tab-inicio')" id="nav-tab-inicio" class="tab-btn tab-active px-4 py-3 text-xs sm:text-sm font-semibold flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-house"></i> 1. Inicio y Reglas
+                </button>
+                <button onclick="switchTab('tab-act1')" id="nav-tab-act1" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-list-check"></i> 2. Actividad 1 (4pts)
+                </button>
+                <button onclick="switchTab('tab-act2')" id="nav-tab-act2" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-file-lines"></i> 3. Actividad 2 (3pts)
+                </button>
+                <button onclick="switchTab('tab-act3')" id="nav-tab-act3" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-file-export"></i> 4. Actividad 3 (3pts)
+                </button>
+                <button onclick="switchTab('tab-entregable')" id="nav-tab-entregable" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-print"></i> 5. Compilador Final
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- TAB 1: INICIO Y REGLAS -->
+        <section id="tab-inicio" class="tab-content space-y-6">
+            <!-- Header Banner -->
+            <div class="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-700/70 overflow-hidden shadow-2xl">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-amber-500 pointer-events-none">
+                    <i class="fa-solid fa-plug text-9xl"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+                        <i class="fa-solid fa-graduation-cap"></i> Instituto Industrial Central General Lázaro Chacón González
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                        Taller Práctico Digital: Levantamiento de Requerimientos en Sitio y Presupuestos
+                    </h2>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Esta herramienta guiada te asistirá paso a paso en el diseño de tu <span class="text-amber-400 font-medium">Formulario de Levantamiento Eléctrico</span> y tu <span class="text-amber-400 font-medium">Presupuesto e Informe de Instalación</span>. Aprenderás a estructurar datos técnicos, maquetar con jerarquía visual y generar tu PDF entregable.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4 text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-tie text-amber-400"></i> Docente: Erick Enrique Zamora Paz</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar-check text-amber-400"></i> Asignación: 12/08/2026</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock text-rose-400 font-bold"></i> Entrega: Viernes 14/08/2026 18:00 hrs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mandatory Rules & Competencies Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Rules Card -->
+                <div class="bg-slate-800/80 rounded-xl p-5 border border-slate-700/60 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                        Reglas Generales de Entregable
+                    </h3>
+                    <ul class="space-y-2.5 text-xs text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-pen-nib text-amber-400 mt-0.5"></i>
+                            <span><strong class="text-white">TEXTO DE ANÁLISIS:</strong> Toda explicación o justificación solicitada debe escribirse directamente como texto en los cuadros de esta guía.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-image text-amber-400 mt-0.5"></i>
+                            <span><strong class="text-white">EVIDENCIAS:</strong> Utiliza los botones de "Subir captura" en cada actividad para adjuntar tus imágenes personalizadas de los simuladores.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-comment-dots text-amber-400 mt-0.5"></i>
+                            <span><strong class="text-white">REDACCIÓN PROPIA:</strong> Escribe con tus propias palabras orientadas al entorno de electricidad. No copies las instrucciones.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-file-pdf text-rose-400 mt-0.5"></i>
+                            <span><strong class="text-white">FORMATO PDF:</strong> Al finalizar, ve a la pestaña 5 para descargar el documento PDF y súbelo a Classroom.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Competencies & Tools Card -->
+                <div class="bg-slate-800/80 rounded-xl p-5 border border-slate-700/60 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
+                        <i class="fa-solid fa-bullseye text-emerald-400"></i>
+                        Competencia e Indicador de Logro
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-700/40">
+                            <p class="font-semibold text-amber-400 mb-1">Competencia:</p>
+                            <p class="text-slate-300">Utiliza las Tecnologías de la Información y la Comunicación para estructurar, procesar y presentar información técnica y presupuestaria de forma limpia y colaborativa en la resolución de tareas profesionales.</p>
+                        </div>
+                        <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-700/40">
+                            <p class="font-semibold text-emerald-400 mb-1">Indicador de Logro:</p>
+                            <p class="text-slate-300">Diseña e integra herramientas de ofimática en la nube (formularios e informes) para la recolección de datos en sitio y presentación de presupuestos eléctricos ajustados a estándares técnicos y de gestión.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Roadmap / Quick Start -->
+            <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
+                <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-amber-400"></i> Ruta Recomendada de Trabajo
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div onclick="switchTab('tab-act1')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-sm">1</span>
+                            <span class="text-xs font-bold text-amber-400">4 Puntos</span>
+                        </div>
+                        <h4 class="font-semibold text-white text-sm group-hover:text-amber-400 transition">Google Forms</h4>
+                        <p class="text-xs text-slate-400 mt-1">Crea tus propias preguntas en el simulador de requerimientos, sube tu captura y redacta el Análisis 1.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-act2')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 font-bold flex items-center justify-center text-sm">2</span>
+                            <span class="text-xs font-bold text-sky-400">3 Puntos</span>
+                        </div>
+                        <h4 class="font-semibold text-white text-sm group-hover:text-sky-400 transition">Google Docs</h4>
+                        <p class="text-xs text-slate-400 mt-1">Edita y diseña el presupuesto eléctrico, toma captura y añade la Justificación 2 sobre transparencia.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-act3')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-sm">3</span>
+                            <span class="text-xs font-bold text-emerald-400">3 Puntos</span>
+                        </div>
+                        <h4 class="font-semibold text-white text-sm group-hover:text-emerald-400 transition">PDF e Integración</h4>
+                        <p class="text-xs text-slate-400 mt-1">Sube captura del visor PDF, redacta el análisis 3 sobre garantías de obra y exporta la tarea.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: ACTIVIDAD 1 - GOOGLE FORMS -->
+        <section id="tab-act1" class="tab-content hidden space-y-6">
+            <!-- Header info -->
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold uppercase">Actividad 1 - Valor: 4 Puntos</span>
+                    <h2 class="text-xl font-bold text-white mt-1">Diseño Técnico de Formulario (Levantamiento Eléctrico)</h2>
+                    <p class="text-xs text-slate-300 mt-1">Edita las preguntas directamente en el simulador. Luego sube tu captura y redacta el análisis requerido.</p>
+                </div>
+                <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-amber-400 text-base"></i>
+                    <div>
+                        <span id="act1-status" class="font-bold text-amber-400">Incompleto</span>
+                        <p class="text-slate-400 text-[10px]">Requisitos cumplidos: <span id="act1-count">0</span>/5</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Interactive Forms Simulator (Left) -->
+                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-700 overflow-hidden shadow-xl flex flex-col">
+                    <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-slate-200">
+                            <i class="fa-solid fa-laptop-code text-amber-400"></i>
+                            <span>Simulador Editable de Google Forms</span>
+                        </div>
+                        <span class="text-[11px] text-slate-400">¡Puedes editar el texto!</span>
+                    </div>
+
+                    <div class="p-5 space-y-5 custom-scrollbar overflow-y-auto max-h-[600px]">
+                        <!-- Form Header Banner Preview -->
+                        <div id="forms-banner" class="bg-gradient-to-r from-slate-700 to-slate-800 rounded-lg p-5 border-t-8 border-purple-600 shadow-md">
+                            <input type="text" id="form-title-input" value="Levantamiento de Requerimientos Eléctricos en Sitio" oninput="checkAct1Validation()" class="w-full bg-transparent text-lg font-bold text-white border-b border-slate-600 focus:border-amber-400 outline-none pb-1" placeholder="Escribe el título de tu formulario...">
+                            <input type="text" value="Recolección de datos técnicos para el cálculo de cargas e instalación de redes eléctricas de campo." class="w-full bg-transparent text-xs text-slate-300 mt-2 border-b border-transparent hover:border-slate-600 focus:border-amber-400 outline-none pb-1" placeholder="Descripción del formulario...">
+                        </div>
+
+                        <!-- Question 1: Texto Corto -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 relative group transition-all focus-within:border-purple-500">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-font"></i>
+                                    <input type="text" value="Datos del cliente y ubicación del proyecto" class="bg-transparent border-b border-slate-600 focus:border-purple-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 1 (Texto corto)...">
+                                </span>
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-purple-500 w-3.5 h-3.5"> Obligatorio
+                                </label>
+                            </div>
+                            <div class="p-2 bg-slate-900 border-b border-slate-600 border-dashed text-slate-500 text-xs mt-2 w-3/4">
+                                <input type="text" value="Texto de respuesta corta" disabled class="bg-transparent w-full outline-none text-slate-500">
+                            </div>
+                        </div>
+
+                        <!-- Question 2: Varias opciones / Casillas -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 group transition-all focus-within:border-purple-500">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-square-check"></i>
+                                    <input type="text" value="Tipo de instalación o servicio requerido" class="bg-transparent border-b border-slate-600 focus:border-purple-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 2 (Casillas)...">
+                                </span>
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-purple-500 w-3.5 h-3.5"> Obligatorio
+                                </label>
+                            </div>
+                            <!-- Opciones editables -->
+                            <div class="space-y-2 text-xs text-slate-300 mt-2 pl-1">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Residencial (120V / 240V)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 1">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Comercial (Iluminación y fuerza)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 2">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Industrial (Trifásica / Maquinaria)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 3">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Acometida y Tableros" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question 3: Párrafo -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 group transition-all focus-within:border-purple-500">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-align-left"></i>
+                                    <input type="text" value="Inventario preliminar de cargas o puntos eléctricos requeridos" class="bg-transparent border-b border-slate-600 focus:border-purple-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 3 (Párrafo)...">
+                                </span>
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-purple-500 w-3.5 h-3.5"> Obligatorio
+                                </label>
+                            </div>
+                            <div class="p-2.5 bg-slate-900 border-b border-slate-600 border-dashed text-slate-500 text-xs mt-2 w-full">
+                                Texto de respuesta larga
+                            </div>
+                        </div>
+
+                        <!-- Question 4: Desplegable -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 group transition-all focus-within:border-amber-500">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-500 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-list"></i>
+                                    <input type="text" value="Nivel de prioridad o condición del sitio" class="bg-transparent border-b border-slate-600 focus:border-amber-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 4 (Desplegable)...">
+                                </span>
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-amber-500 w-3.5 h-3.5"> Obligatorio
+                                </label>
+                            </div>
+                            <!-- Opciones Desplegables Editables -->
+                            <div class="space-y-2 text-xs text-slate-300 mt-2 pl-1 bg-slate-900/50 p-2 rounded border border-slate-700/50">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-500 font-mono text-xs w-4">1.</span> 
+                                    <input type="text" value="Alta (Emergencia / Cortocircuito)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-amber-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Primera opción...">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-500 font-mono text-xs w-4">2.</span> 
+                                    <input type="text" value="Media (Instalación programada)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-amber-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Segunda opción...">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-500 font-mono text-xs w-4">3.</span> 
+                                    <input type="text" value="Baja (Evaluación y cotización simple)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-amber-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Tercera opción...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Written Requirement & Evidence Box (Right) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Evidence Checklist & Upload -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-amber-400"></i> Sube tu Evidencia (Act. 1)
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            Edita el formulario de la izquierda a tu gusto (temática eléctrica), tómale una captura de pantalla y súbela aquí.
+                        </p>
+                        <div class="mt-2">
+                            <input type="file" accept="image/*" onchange="loadImage(event, 'pdf-img-act1')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-400 hover:file:bg-amber-500/30 cursor-pointer transition">
+                        </div>
+                    </div>
+
+                    <!-- Written Justification -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-pen-fancy text-amber-400"></i> Análisis Requerido
+                            </h3>
+                            <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">
+                                "Actividad 1:"
+                            </span>
+                        </div>
+                        <textarea id="act1-text" oninput="checkAct1Validation(); updatePDFPreview();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-amber-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu análisis. Ejemplo:
+Actividad 1:
+Digitalizar el levantamiento de datos técnicos en sitio es vital porque nos permite evitar omisiones de materiales y calcular adecuadamente las cargas del circuito..."></textarea>
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span id="act1-word-count">Palabras: 0</span>
+                            <span id="act1-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 1:' o texto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: ACTIVIDAD 2 - PRESUPUESTO (DOCS) -->
+        <section id="tab-act2" class="tab-content hidden space-y-6">
+            <!-- Header info -->
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-sky-500/20 text-sky-400 text-xs font-bold uppercase">Actividad 2 - Valor: 3 Puntos</span>
+                    <h2 class="text-xl font-bold text-white mt-1">Estructuración de Presupuesto e Informe de Instalación</h2>
+                    <p class="text-xs text-slate-300 mt-1">Puedes hacer clic y editar los datos del documento directamente. Luego toma tu captura y súbela.</p>
+                </div>
+                <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-file-invoice text-sky-400 text-base"></i>
+                    <div>
+                        <span id="act2-status" class="font-bold text-amber-400">Incompleto</span>
+                        <p class="text-slate-400 text-[10px]">Requisitos cumplidos: <span id="act2-count">0</span>/5</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Google Docs OT Simulator (Left) -->
+                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-700 overflow-hidden shadow-xl flex flex-col">
+                    <div class="bg-slate-800 px-4 py-2.5 border-b border-slate-700 flex items-center justify-between">
+                        <div class="flex items-center gap-3 text-xs font-semibold text-slate-200">
+                            <i class="fa-solid fa-file-word text-sky-400 text-sm"></i>
+                            <span>Simulador de Documento Editable</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-[11px] text-slate-400">
+                            <span><i class="fa-solid fa-pen"></i> Haz clic en el texto para editar</span>
+                        </div>
+                    </div>
+
+                    <!-- Page Canvas View (Simulated Google Docs Page) -->
+                    <div class="p-6 bg-slate-950 custom-scrollbar overflow-y-auto max-h-[620px]">
+                        <!-- SE HACE CONTENTEDITABLE PARA QUE EL ESTUDIANTE MODIFIQUE LO QUE QUIERA -->
+                        <div contenteditable="true" class="bg-white text-slate-900 rounded p-6 shadow-2xl space-y-4 max-w-xl mx-auto text-xs font-sans outline-none focus:ring-4 focus:ring-sky-500/30 transition-all">
+                            
+                            <!-- Page Header (Header/Footer Feature) -->
+                            <div class="border-b border-slate-300 pb-2 flex justify-between items-center text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                                <span>IICGLCG - ÁREA DE ELECTRICIDAD</span>
+                                <span>COTIZACIÓN FORMAL</span>
+                            </div>
+
+                            <!-- Document Main Title (Título 1) -->
+                            <div class="text-center py-2 border-b-2 border-slate-800">
+                                <h1 class="text-lg font-extrabold text-slate-900 tracking-tight uppercase">PRESUPUESTO TÉCNICO E INFORME DE INSTALACIÓN ELÉCTRICA</h1>
+                                <p class="text-[10px] text-slate-600 font-mono">Documento #ELE-2026-0812 | Asignación TIC I</p>
+                            </div>
+
+                            <!-- Section: Datos Generales (Título 2) -->
+                            <div class="space-y-2">
+                                <h2 class="text-xs font-bold text-slate-800 uppercase bg-slate-100 p-1.5 rounded border-l-4 border-slate-800">
+                                    1. Datos Generales del Cliente y del Proyecto
+                                </h2>
+                                <div class="grid grid-cols-2 gap-2 text-[11px] p-2 bg-slate-50 rounded border border-slate-200">
+                                    <div><span class="font-bold">Cliente:</span> [Nombre del cliente]</div>
+                                    <div><span class="font-bold">Ubicación:</span> [Dirección del proyecto]</div>
+                                    <div><span class="font-bold">Tipo de Red:</span> [Ej. Monofásica / Trifásica]</div>
+                                    <div><span class="font-bold">Tensión/Voltaje:</span> [Ej. 120V / 240V]</div>
+                                </div>
+                            </div>
+
+                            <!-- Section: Alcance Técnico (Título 2) -->
+                            <div class="space-y-1.5">
+                                <h2 class="text-xs font-bold text-slate-800 uppercase bg-slate-100 p-1.5 rounded border-l-4 border-slate-800">
+                                    2. Alcance Técnico de la Obra
+                                </h2>
+                                <p class="text-[11px] text-slate-700 leading-relaxed p-2 bg-slate-50 rounded border border-slate-200 editable-area">
+                                    Instalación de nuevos circuitos derivados para iluminación de la planta comercial, canalización en tubería EMT y reemplazo de tablero principal de 12 espacios. Incluye cálculo de balanceo de cargas.
+                                </p>
+                            </div>
+
+                            <!-- Section: Tabla de Tareas (Tabla técnica) -->
+                            <div class="space-y-2">
+                                <h2 class="text-xs font-bold text-slate-800 uppercase bg-slate-100 p-1.5 rounded border-l-4 border-slate-800">
+                                    3. Tabla de Materiales, Mano de Obra y Costos Estimativos
+                                </h2>
+                                <table class="w-full text-left border-collapse border border-slate-300 text-[10px]">
+                                    <thead>
+                                        <tr class="bg-slate-800 text-white font-bold">
+                                            <th class="p-1.5 border border-slate-400">Ítem</th>
+                                            <th class="p-1.5 border border-slate-400">Descripción del Insumo / Servicio</th>
+                                            <th class="p-1.5 border border-slate-400">Cant.</th>
+                                            <th class="p-1.5 border border-slate-400">P. Unitario</th>
+                                            <th class="p-1.5 border border-slate-400">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200">
+                                        <tr>
+                                            <td class="p-1.5 border border-slate-300">01</td>
+                                            <td class="p-1.5 border border-slate-300 font-medium">Cable THHN Calibre 12 (Rollo)</td>
+                                            <td class="p-1.5 border border-slate-300 text-center">2</td>
+                                            <td class="p-1.5 border border-slate-300">Q. 450.00</td>
+                                            <td class="p-1.5 border border-slate-300 font-bold">Q. 900.00</td>
+                                        </tr>
+                                        <tr class="bg-slate-50">
+                                            <td class="p-1.5 border border-slate-300">02</td>
+                                            <td class="p-1.5 border border-slate-300 font-medium">Tablero de Distribución 12 Espacios</td>
+                                            <td class="p-1.5 border border-slate-300 text-center">1</td>
+                                            <td class="p-1.5 border border-slate-300">Q. 650.00</td>
+                                            <td class="p-1.5 border border-slate-300 font-bold">Q. 650.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-1.5 border border-slate-300">03</td>
+                                            <td class="p-1.5 border border-slate-300 font-medium text-sky-700">Mano de Obra (Instalación por puntos)</td>
+                                            <td class="p-1.5 border border-slate-300 text-center">1</td>
+                                            <td class="p-1.5 border border-slate-300">Q. 1,200.00</td>
+                                            <td class="p-1.5 border border-slate-300 font-bold text-sky-700">Q. 1,200.00</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="bg-slate-100 font-bold text-[11px]">
+                                            <td colspan="4" class="p-1.5 border border-slate-300 text-right">TOTAL ESTIMADO:</td>
+                                            <td class="p-1.5 border border-slate-300">Q. 2,750.00</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            
+                            <!-- Section: Condiciones -->
+                            <div class="space-y-1.5">
+                                <h2 class="text-xs font-bold text-slate-800 uppercase bg-slate-100 p-1.5 rounded border-l-4 border-slate-800">
+                                    4. Condiciones de Pago y Garantía
+                                </h2>
+                                <p class="text-[11px] text-slate-700 leading-relaxed p-2 bg-slate-50 rounded border border-slate-200 editable-area">
+                                    Se requiere un 50% de anticipo para compra de material. El trabajo cuenta con garantía técnica de 6 meses sobre fallas de instalación (no aplica sobrecargas ajenas al diseño).
+                                </p>
+                            </div>
+
+                            <!-- Page Footer (Header/Footer Feature) -->
+                            <div class="border-t border-slate-300 pt-2 flex justify-between items-center text-[9px] text-slate-500">
+                                <span>Elaborado por: [Nombre del Alumno] - 4to Bach. Electricidad</span>
+                                <span>Página 1 de 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Written Requirement & Evidence Box (Right) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Evidence Checklist & Upload -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-sky-400"></i> Sube tu Evidencia (Act. 2)
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            Edita el documento a la izquierda, toma una captura de pantalla donde se note la tabla y jerarquía, y adjúntala.
+                        </p>
+                        <div class="mt-2">
+                            <input type="file" accept="image/*" onchange="loadImage(event, 'pdf-img-act2')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-500/20 file:text-sky-400 hover:file:bg-sky-500/30 cursor-pointer transition">
+                        </div>
+                    </div>
+
+                    <!-- Written Justification -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-pen-fancy text-sky-400"></i> Justificación Requerida
+                            </h3>
+                            <span class="text-[10px] bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded">
+                                "Actividad 2:"
+                            </span>
+                        </div>
+                        <textarea id="act2-text" oninput="checkAct2Validation(); updatePDFPreview();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-sky-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu respuesta. Ejemplo:
+Actividad 2:
+La estandarización documental de presupuestos mediante jerarquías visuales y tablas estructuradas permite transmitir transparencia comercial al cliente y reducir errores de cotización en el material eléctrico..."></textarea>
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span id="act2-word-count">Palabras: 0</span>
+                            <span id="act2-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 2:' o texto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: ACTIVIDAD 3 - INTEGRACIÓN Y EXPORTACIÓN PDF -->
+        <section id="tab-act3" class="tab-content hidden space-y-6">
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase">Actividad 3 - Valor: 3 Puntos</span>
+                    <h2 class="text-xl font-bold text-white mt-1">Exportación Final a PDF y Análisis Contractual</h2>
+                    <p class="text-xs text-slate-300 mt-1">Sube la captura de tu documento exportado viéndose en el PDF y redacta la justificación sobre el respaldo de obra.</p>
+                </div>
+                <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-file-export text-emerald-400 text-base"></i>
+                    <div>
+                        <span id="act3-status" class="font-bold text-amber-400">Incompleto</span>
+                        <p class="text-slate-400 text-[10px]">Requisitos cumplidos: <span id="act3-count">0</span>/4</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- PDF Integration Steps (Left) -->
+                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-700 p-5 space-y-5">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
+                        <i class="fa-solid fa-sliders text-emerald-400"></i> Pasos de Integración Documental
+                    </h3>
+                    <div class="space-y-4 text-xs text-slate-300">
+                        <p>1. Imagina que has exportado tu Presupuesto eléctrico original a PDF en tu computadora (o desde Google Docs).</p>
+                        <p>2. Abre tu lector de PDF y toma una captura simulando que estás revisando el formato limpio y finalizado.</p>
+                        <p>3. Sube la captura en el recuadro de la derecha para completar la Evidencia 3.</p>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center space-y-2 mt-4">
+                        <div class="py-6 border-2 border-dashed border-slate-800 rounded-lg bg-slate-900/50">
+                            <i class="fa-solid fa-file-pdf text-4xl text-rose-500 mb-2"></i>
+                            <p class="text-xs font-medium text-slate-300">Presupuesto Listo en PDF</p>
+                            <p class="text-[11px] text-slate-500">Una vez subas la imagen, ve a la Pestaña 5 para compilar todo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Written Analysis Text Area (Right) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Evidencia 3 Upload -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-emerald-400"></i> Sube tu Evidencia (Act. 3)
+                        </h3>
+                        <p class="text-xs text-slate-300">Sube la captura de tu archivo PDF abierto en el lector de sistema demostrando alineaciones correctas.</p>
+                        <div class="mt-2">
+                            <input type="file" accept="image/*" onchange="loadImage(event, 'pdf-img-act3')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30 cursor-pointer transition">
+                        </div>
+                    </div>
+
+                    <!-- Written Analysis 3 -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-pen-fancy text-emerald-400"></i> Análisis Requerido
+                            </h3>
+                            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">"Actividad 3:"</span>
+                        </div>
+                        <textarea id="act3-text" oninput="checkAct3Validation(); updatePDFPreview();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-emerald-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu análisis final. Ejemplo:
+Actividad 3:
+Entregar presupuestos e informes técnicos finales en formato PDF no editable actúa como una garantía contractual sólida y registro de auditoría de obra, evitando modificaciones en los costos acordados..."></textarea>
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span id="act3-word-count">Palabras: 0</span>
+                            <span id="act3-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 3:'</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: COMPILADOR Y GENERADOR PDF FINAL -->
+        <section id="tab-entregable" class="tab-content hidden space-y-6">
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold uppercase">Compilador Oficial de Tarea</span>
+                    <h2 class="text-xl font-bold text-white mt-1">Generador y Verificador del Documento Entregable</h2>
+                    <p class="text-xs text-slate-300 mt-1">Revisa cómo se verán tus textos e imágenes y descarga tu PDF.</p>
+                </div>
+                <button onclick="downloadAsPDF()" class="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-bold text-xs rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf text-base"></i>
+                    <span>Descargar PDF Entregable</span>
+                </button>
+            </div>
+
+            <!-- Student Metadata Form -->
+            <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Nombre Completo del Estudiante:</label>
+                    <input type="text" id="student-name" oninput="updatePDFPreview()" placeholder="Ej: Juan Antonio López Perez" class="w-full bg-slate-900 text-xs text-white p-2.5 rounded border border-slate-700 focus:border-amber-400 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Clave / Sección:</label>
+                    <input type="text" id="student-key" oninput="updatePDFPreview()" placeholder="Ej: Clave 15 - Sección A" class="w-full bg-slate-900 text-xs text-white p-2.5 rounded border border-slate-700 focus:border-amber-400 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Fecha de Entrega:</label>
+                    <input type="text" id="delivery-date" value="14 de Agosto de 2026" class="w-full bg-slate-900 text-xs text-slate-400 p-2.5 rounded border border-slate-700" readonly>
+                </div>
+            </div>
+
+            <!-- REAL DOCUMENT PRINT PREVIEW AREA -->
+            <div id="pdf-document-area" class="bg-white text-slate-900 p-8 sm:p-12 rounded-xl shadow-2xl max-w-4xl mx-auto space-y-6 font-sans text-xs">
+                
+                <!-- Institutional Header -->
+                <div class="border-b-2 border-slate-900 pb-4 flex justify-between items-start avoid-page-break">
+                    <div>
+                        <h1 class="text-base font-extrabold text-slate-900 uppercase">Instituto Industrial Central General Lázaro Chacón González</h1>
+                        <p class="text-xs font-semibold text-slate-700">Bachillerato en Ciencias y Letras con Orientación en Electricidad</p>
+                        <p class="text-[11px] text-slate-600">Curso: TIC I | Docente: Erick Enrique Zamora Paz</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="inline-block bg-slate-900 text-white font-bold text-xs px-2.5 py-1 rounded">GUÍA NO. 5</span>
+                    </div>
+                </div>
+
+                <!-- Student Info Card -->
+                <div class="bg-slate-100 p-3 rounded border border-slate-300 grid grid-cols-2 gap-2 text-xs avoid-page-break">
+                    <div><strong>Estudiante:</strong> <span id="pdf-preview-name" class="text-slate-800">[Nombre del Estudiante]</span></div>
+                    <div><strong>Clave/Sección:</strong> <span id="pdf-preview-key" class="text-slate-800">[Clave / Sección]</span></div>
+                    <div><strong>Fecha de Entrega:</strong> 14 de agosto de 2026</div>
+                </div>
+
+                <!-- SECTION 1 -->
+                <div class="space-y-3 border-b border-slate-200 pb-6 avoid-page-break">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-amber-500 pl-2">Actividad 1: Diseño Técnico de Formulario (Requerimientos Eléctricos)</h2>
+                    <div id="pdf-act1-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
+                        [El texto redactado aparecerá aquí]
+                    </div>
+                    
+                    <!-- Dynamic Image Box 1 -->
+                    <div id="box-pdf-img-act1" class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
+                        <p class="font-bold text-rose-500 text-xs">⚠️ Falta subir imagen de Evidencia Actividad 1 en la Pestaña 2</p>
+                    </div>
+                    <!-- Image will render here once uploaded -->
+                    <img id="pdf-img-act1" class="hidden w-full max-h-[400px] object-contain border border-slate-300 rounded mx-auto mt-3" src="" alt="Evidencia 1">
+                </div>
+
+                <!-- SECTION 2 -->
+                <div class="space-y-3 border-b border-slate-200 pb-6 avoid-page-break">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-sky-500 pl-2">Actividad 2: Estructuración de Presupuesto en Docs</h2>
+                    <div id="pdf-act2-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
+                        [El texto redactado aparecerá aquí]
+                    </div>
+                    
+                    <!-- Dynamic Image Box 2 -->
+                    <div id="box-pdf-img-act2" class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
+                        <p class="font-bold text-rose-500 text-xs">⚠️ Falta subir imagen de Evidencia Actividad 2 en la Pestaña 3</p>
+                    </div>
+                    <!-- Image will render here once uploaded -->
+                    <img id="pdf-img-act2" class="hidden w-full max-h-[400px] object-contain border border-slate-300 rounded mx-auto mt-3" src="" alt="Evidencia 2">
+                </div>
+
+                <!-- SECTION 3 -->
+                <div class="space-y-3 pb-4 avoid-page-break">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-emerald-500 pl-2">Actividad 3: Exportación a PDF e Integración</h2>
+                    <div id="pdf-act3-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
+                        [El texto redactado aparecerá aquí]
+                    </div>
+                    
+                    <!-- Dynamic Image Box 3 -->
+                    <div id="box-pdf-img-act3" class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
+                        <p class="font-bold text-rose-500 text-xs">⚠️ Falta subir imagen de Evidencia Actividad 3 en la Pestaña 4</p>
+                    </div>
+                    <!-- Image will render here once uploaded -->
+                    <img id="pdf-img-act3" class="hidden w-full max-h-[400px] object-contain border border-slate-300 rounded mx-auto mt-3" src="" alt="Evidencia 3">
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Custom Toast Message -->
+    <div id="toast-message" class="fixed bottom-5 right-5 bg-slate-800 text-white px-4 py-3 rounded-xl border border-slate-700 shadow-2xl z-50 hidden flex items-center gap-3 text-xs transition-all">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toast-text">Acción realizada con éxito</span>
+    </div>
+
+    <!-- Rubric Modal Dialog -->
+    <div id="modal-rubrica" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl custom-scrollbar max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-award text-amber-400"></i> Rúbrica Oficial (10 Puntos Netos)
+                </h3>
+                <button onclick="closeModal('modal-rubrica')" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="space-y-4 text-xs">
+                <!-- Criterio 1 -->
+                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                    <div class="flex justify-between font-bold text-amber-400 mb-1">
+                        <span>Criterio 1: Diseño Técnico Forms (Actividad 1)</span>
+                        <span>4 Pts Max</span>
+                    </div>
+                    <p class="text-slate-300">Captura legible del formulario configurado. Explicación fundamentada sobre la precisión en el levantamiento de datos y cálculo de cargas.</p>
+                </div>
+                <!-- Criterio 2 -->
+                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                    <div class="flex justify-between font-bold text-sky-400 mb-1">
+                        <span>Criterio 2: Presupuesto en Docs (Actividad 2)</span>
+                        <span>3 Pts Max</span>
+                    </div>
+                    <p class="text-slate-300">Captura del documento con estilos, jerarquía y tabla técnica. Justificación sobre estandarización documental y transparencia comercial.</p>
+                </div>
+                <!-- Criterio 3 -->
+                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
+                    <div class="flex justify-between font-bold text-emerald-400 mb-1">
+                        <span>Criterio 3: Integración PDF (Actividad 3)</span>
+                        <span>3 Pts Max</span>
+                    </div>
+                    <p class="text-slate-300">Captura del presupuesto PDF con maquetación limpia. Análisis sobre el respaldo contractual e integridad de archivos no editables.</p>
+                </div>
+            </div>
+            <div class="pt-2 text-right">
+                <button onclick="closeModal('modal-rubrica')" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('text-slate-400');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+                activeBtn.classList.remove('text-slate-400');
+            }
+            if (tabId === 'tab-entregable') updatePDFPreview();
+        }
+
+        // Image Load Handler for injection into PDF compiler
+        function loadImage(event, imgId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgElement = document.getElementById(imgId);
+                    imgElement.src = e.target.result;
+                    imgElement.classList.remove('hidden');
+                    // Hide the warning placeholder box in the PDF preview
+                    const warningBox = document.getElementById('box-' + imgId);
+                    if(warningBox) warningBox.classList.add('hidden');
+                    
+                    showToast("Evidencia cargada y añadida al reporte final", "fa-solid fa-image text-amber-400");
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Modal & Toast Helpers
+        function showToast(text, iconClass = "fa-solid fa-circle-check text-emerald-400") {
+            const toast = document.getElementById('toast-message');
+            document.getElementById('toast-text').innerText = text;
+            document.getElementById('toast-icon').className = iconClass + " text-base";
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3500);
+        }
+        function openModal(modalId) { document.getElementById(modalId)?.classList.remove('hidden'); }
+        function closeModal(modalId) { document.getElementById(modalId)?.classList.add('hidden'); }
+        function countWords(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
+
+        // --- VALIDATION ENGINE FOR ACTIVITIES (ELECTRICIDAD) --- //
+
+        function checkAct1Validation() {
+            const text = document.getElementById('act1-text').value;
+            const wordCount = countWords(text);
+            document.getElementById('act1-word-count').innerText = `Palabras: ${wordCount}`;
+            const textLower = text.toLowerCase();
+            const hasHeading = textLower.includes('actividad 1:');
+            
+            let score = 0;
+            if (hasHeading) score += 2;
+            if (wordCount >= 20) score += 1;
+            // Check for relevant keywords in Electricity context
+            if (textLower.includes('carga') || textLower.includes('eléctric') || textLower.includes('material') || textLower.includes('sitio')) score += 2;
+
+            document.getElementById('act1-count').innerText = Math.min(score, 5);
+            const statusEl = document.getElementById('act1-status');
+            
+            if (hasHeading && wordCount >= 25) {
+                statusEl.innerText = "Completado";
+                statusEl.className = "font-bold text-emerald-400";
+            } else {
+                statusEl.innerText = "Incompleto";
+                statusEl.className = "font-bold text-amber-400";
+            }
+            calculateGlobalScore();
+        }
+
+        function checkAct2Validation() {
+            const text = document.getElementById('act2-text').value;
+            const wordCount = countWords(text);
+            document.getElementById('act2-word-count').innerText = `Palabras: ${wordCount}`;
+            const textLower = text.toLowerCase();
+            const hasHeading = textLower.includes('actividad 2:');
+            
+            let score = hasHeading ? 2 : 0;
+            if (wordCount >= 20) score += 2;
+            if (textLower.includes('transparencia') || textLower.includes('presupuesto') || textLower.includes('cliente')) score += 1;
+
+            document.getElementById('act2-count').innerText = Math.min(score, 5);
+            
+            if (hasHeading && wordCount >= 20) {
+                document.getElementById('act2-status').innerText = "Completado";
+                document.getElementById('act2-status').className = "font-bold text-emerald-400";
+            } else {
+                document.getElementById('act2-status').innerText = "Incompleto";
+                document.getElementById('act2-status').className = "font-bold text-amber-400";
+            }
+            calculateGlobalScore();
+        }
+
+        function checkAct3Validation() {
+            const text = document.getElementById('act3-text').value;
+            const wordCount = countWords(text);
+            document.getElementById('act3-word-count').innerText = `Palabras: ${wordCount}`;
+            const textLower = text.toLowerCase();
+            const hasHeading = textLower.includes('actividad 3:');
+            
+            let score = hasHeading ? 2 : 0;
+            if (wordCount >= 20) score += 1;
+            if (textLower.includes('contractual') || textLower.includes('auditoría') || textLower.includes('legal') || textLower.includes('editable')) score += 1;
+
+            document.getElementById('act3-count').innerText = Math.min(score, 4);
+            
+            if (hasHeading && wordCount >= 20) {
+                document.getElementById('act3-status').innerText = "Completado";
+                document.getElementById('act3-status').className = "font-bold text-emerald-400";
+            } else {
+                document.getElementById('act3-status').innerText = "Incompleto";
+                document.getElementById('act3-status').className = "font-bold text-amber-400";
+            }
+            calculateGlobalScore();
+        }
+
+        function calculateGlobalScore() {
+            let points = 0;
+            const t1 = document.getElementById('act1-text').value;
+            const t2 = document.getElementById('act2-text').value;
+            const t3 = document.getElementById('act3-text').value;
+
+            // Simple point distribution 4 - 3 - 3
+            if (t1.toLowerCase().includes('actividad 1:') && countWords(t1) >= 20) points += 4;
+            else if (t1.length > 10) points += 2;
+
+            if (t2.toLowerCase().includes('actividad 2:') && countWords(t2) >= 20) points += 3;
+            else if (t2.length > 10) points += 1;
+
+            if (t3.toLowerCase().includes('actividad 3:') && countWords(t3) >= 20) points += 3;
+            else if (t3.length > 10) points += 1;
+
+            document.getElementById('global-progress-bar').style.width = (points * 10) + "%";
+            document.getElementById('global-progress-text').innerText = `${points}/10 pts`;
+        }
+
+        // Live Document Preview Update (Fills the PDF area)
+        function updatePDFPreview() {
+            const name = document.getElementById('student-name').value || "[Escribe tu Nombre Completo]";
+            const key = document.getElementById('student-key').value || "[Clave y Sección]";
+
+            document.getElementById('pdf-preview-name').innerText = name;
+            document.getElementById('pdf-preview-key').innerText = key;
+
+            const t1 = document.getElementById('act1-text').value || "Pendiente de redacción (Falta llenar texto en Actividad 1)...";
+            const t2 = document.getElementById('act2-text').value || "Pendiente de redacción (Falta llenar texto en Actividad 2)...";
+            const t3 = document.getElementById('act3-text').value || "Pendiente de redacción (Falta llenar texto en Actividad 3)...";
+
+            document.getElementById('pdf-act1-body').innerText = t1;
+            document.getElementById('pdf-act2-body').innerText = t2;
+            document.getElementById('pdf-act3-body').innerText = t3;
+        }
+
+        // Generate PDF
+        function downloadAsPDF() {
+            const studentName = document.getElementById('student-name').value.trim();
+            if (!studentName) {
+                showToast("Por favor escribe tu nombre completo antes de exportar", "fa-solid fa-triangle-exclamation text-amber-400");
+                document.getElementById('student-name').focus();
+                return;
+            }
+
+            showToast("Generando archivo PDF con imágenes incluidas...", "fa-solid fa-gear fa-spin text-amber-400");
+
+            const element = document.getElementById('pdf-document-area');
+            const opt = {
+                margin:       [0.5, 0.5, 0.5, 0.5],
+                filename:     `Guia5_Electricidad_TIC_I_${studentName.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.95 },
+                html2canvas:  { scale: 2, useCORS: true }, 
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css'] }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                showToast("PDF descargado exitosamente.", "fa-solid fa-circle-check text-emerald-400");
+            }).catch(err => {
+                showToast("Error al exportar. Puedes presionar Ctrl+P (Imprimir).", "fa-solid fa-circle-exclamation text-rose-400");
+                console.error(err);
+            });
+        }
+
+        // Initialize validations on load
+        window.onload = function() {
+            checkAct1Validation();
+            checkAct2Validation();
+            checkAct3Validation();
+            updatePDFPreview();
+        };
+    </script>
+</body>
+</html>
