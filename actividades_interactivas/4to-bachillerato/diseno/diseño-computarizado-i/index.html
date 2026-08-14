@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Técnica de Impresión & Papelería Corporativa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        cmyk: {
+                            cyan: '#00f0ff',
+                            magenta: '#ff007f',
+                            yellow: '#ffe600',
+                            black: '#0a0a0f',
+                        },
+                        vibrant: {
+                            purple: '#7000ff',
+                            pink: '#ff0055',
+                            emerald: '#00ffaa',
+                            amber: '#ffaa00',
+                            cardBg: '#12131e',
+                        }
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(0, 240, 255, 0.4)',
+                        'neon-magenta': '0 0 20px rgba(ff, 0, 127, 0.4)',
+                        'neon-yellow': '0 0 20px rgba(255, 230, 0, 0.4)',
+                        'neon-purple': '0 0 25px rgba(112, 0, 255, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #080810;
+            color: #f1f5f9;
+        }
+
+        .glass-panel {
+            background: rgba(18, 19, 30, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(26, 28, 45, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.2);
+        }
+
+        .gradient-text-cmyk {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff007f 50%, #ffe600 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(0,240,255,0.3), rgba(255,0,127,0.3));
+            padding: 1px;
+        }
+
+        .gradient-border-inner {
+            background: #0f101d;
+            border-radius: 0.95rem;
+        }
+
+        /* Foil Shimmer Animation */
+        .foil-gold {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s infinite linear;
+            background-size: 200% 200%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080810;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2d45;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        .layer-box {
+            transition: all 0.4s ease;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-200 selection:bg-cmyk-magenta selection:text-white pb-20">
+
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cmyk-cyan via-cmyk-magenta to-cmyk-yellow p-[2px] flex items-center justify-center shadow-neon-cyan">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid font-bold text-cmyk-cyan text-lg">CMYK</i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wider text-white">MANUAL<span class="text-cmyk-cyan">TÉCNICO</span></h1>
+                    <p class="text-xs text-slate-400 font-mono">STANDARDS v2.4 // PRE-PRESS & PRINT</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 font-medium text-sm">
+                <a href="#color" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cmyk-cyan hover:bg-slate-800/50 transition">Color</a>
+                <a href="#preprensa" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cmyk-magenta hover:bg-slate-800/50 transition">Preprensa</a>
+                <a href="#catalogo" class="px-3 py-2 rounded-lg text-slate-300 hover:text-cmyk-yellow hover:bg-slate-800/50 transition">Catálogo</a>
+                <a href="#capas" class="px-3 py-2 rounded-lg text-slate-300 hover:text-vibrant-emerald hover:bg-slate-800/50 transition">Capas & Acabados</a>
+                <a href="#checklist" class="px-3 py-2 rounded-lg text-slate-300 hover:text-vibrant-purple hover:bg-slate-800/50 transition">Checklist</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <a href="#calculadora" class="hidden sm:inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cmyk-cyan to-blue-600 text-slate-950 font-bold text-xs uppercase tracking-wider hover:shadow-neon-cyan transition transform active:scale-95">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Calculadora Bleed</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative overflow-hidden py-16 lg:py-24 border-b border-slate-800/50">
+        <!-- Background Gradient Spheres -->
+        <div class="absolute top-1/4 left-10 w-72 h-72 bg-cmyk-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-cmyk-magenta/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-vibrant-purple/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-cmyk-cyan/30 text-cmyk-cyan text-xs font-mono mb-6">
+                    <span class="w-2 h-2 rounded-full bg-cmyk-cyan animate-pulse"></span>
+                    <span>ESPECIFICACIONES DE IMPRESIÓN OFICIALES</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
+                    Estándares de <br>
+                    <span class="gradient-text-cmyk">Impresión & Papelería</span>
+                </h1>
+                
+                <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8">
+                    Manual técnico interactivo de pre-prensa, gestión cromática y producción gráfica. Garantiza fidelidad de color, corte exacto y acabado profesional en todos los soportes corporativos.
+                </p>
+
+                <!-- Action Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-2xl font-extrabold text-cmyk-cyan font-mono">300 DPI</div>
+                        <div class="text-xs text-slate-400 font-medium mt-1">Resolución Mínima</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-2xl font-extrabold text-cmyk-magenta font-mono">+3.0 mm</div>
+                        <div class="text-xs text-slate-400 font-medium mt-1">Sangrado (Bleed)</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-2xl font-extrabold text-cmyk-yellow font-mono">PDF/X-1a</div>
+                        <div class="text-xs text-slate-400 font-medium mt-1">Estándar Salida</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-2xl font-extrabold text-vibrant-emerald font-mono">300% TAC</div>
+                        <div class="text-xs text-slate-400 font-medium mt-1">Máx. Cobertura Tinta</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="color" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center space-x-3 mb-8">
+            <div class="w-3 h-8 bg-cmyk-cyan rounded-full"></div>
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">01. Gestión de Color y Perfiles</h2>
+                <p class="text-slate-400 text-sm">Normativa de conversión, perfiles cromáticos ISO y fórmulas de negro.</p>
+            </div>
+        </div>
+
+        <!-- Color Modes Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mb-10">
+            <!-- Pantone -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-amber-500/20 to-transparent rounded-bl-full"></div>
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl font-bold mb-4">
+                    PMS
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Pantone® Matching System</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Tintas directas/planas formuladas en fábrica. Uso prioritario en impresión offset cuando se requiere coincidencia exacta de marca.
+                </p>
+                <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 text-xs font-mono text-slate-300">
+                    <span class="text-amber-400 font-bold">Uso:</span> Logotipos, banderas de color corporativo, alto impacto.
+                </div>
+            </div>
+
+            <!-- CMYK -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-cmyk-cyan/20 to-transparent rounded-bl-full"></div>
+                <div class="w-12 h-12 rounded-xl bg-cmyk-cyan/10 border border-cmyk-cyan/30 flex items-center justify-center text-cmyk-cyan text-xl font-bold mb-4">
+                    CMYK
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Cuatricromía (CMYK)</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Sustracción cromática de 4 tintas (Cian, Magenta, Amarillo, Negro). Impresión digital y publicaciones con fotografía.
+                </p>
+                <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 text-xs font-mono text-slate-300">
+                    <span class="text-cmyk-cyan font-bold">Uso:</span> Papelería masiva, catálogos, folletos, offset 4C.
+                </div>
+            </div>
+
+            <!-- RGB / Screen -->
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-red-500/20">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-red-500/20 to-transparent rounded-bl-full"></div>
+                <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 text-xl font-bold mb-4">
+                    RGB
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">RGB / Pantallas <span class="text-xs text-red-400 font-normal">(Prohibido)</span></h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Síntesis aditiva basada en luz. <strong class="text-red-400">Nunca enviar a imprenta en RGB</strong>; causa virajes drásticos de tono no deseados.
+                </p>
+                <div class="bg-slate-900/80 rounded-xl p-3 border border-red-900/30 text-xs font-mono text-red-300">
+                    <span class="text-red-400 font-bold">Error Común:</span> Colores fosforescentes desvanecidos al imprimir.
+                </div>
+            </div>
+        </div>
+
+        <!-- Black Formulas & Profiles Tool -->
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Formula de Negros -->
+            <div class="glass-card p-6 sm:p-8 rounded-2xl">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-swatchbook text-cmyk-magenta"></i>
+                    <span>Estándar de Configuración de Negros</span>
+                </h3>
+
+                <div class="space-y-6">
+                    <!-- Standard Text Black -->
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-lg bg-black border border-slate-700 flex items-center justify-center font-mono text-xs text-white">100%K</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Negro de Texto e Ilustración Fina</h4>
+                                <p class="text-xs text-slate-400">Evita errores de registro en tipografía pequeña.</p>
+                            </div>
+                        </div>
+                        <div class="font-mono text-xs bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 text-cmyk-yellow">
+                            C:0% M:0% Y:0% K:100%
+                        </div>
+                    </div>
+
+                    <!-- Rich Black -->
+                    <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-lg bg-[#0a0808] border border-cmyk-cyan/40 shadow-neon-cyan flex items-center justify-center font-mono text-xs text-cmyk-cyan">RICH</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Negro Enriquecido (Rich Black)</h4>
+                                <p class="text-xs text-slate-400">Para plastones, fondos grandes y portadas.</p>
+                            </div>
+                        </div>
+                        <div class="font-mono text-xs bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 text-cmyk-cyan">
+                            C:40% M:30% Y:30% K:100%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive TAC Meter -->
+                <div class="mt-6 pt-6 border-t border-slate-800">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs text-slate-400 font-mono">Cobertura Total de Tinta (TAC)</span>
+                        <span class="text-xs font-bold text-vibrant-emerald font-mono">Máximo Recomendado: 300%</span>
+                    </div>
+                    <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800">
+                        <div class="h-full bg-gradient-to-r from-blue-500 via-cmyk-magenta to-vibrant-emerald rounded-full" style="width: 75%;"></div>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-2">
+                        * Superar el 300% produce repintado (repicheo), secado lento y papel ondulado por exceso de humedad.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Perfiles de Color recomendados -->
+            <div class="glass-card p-6 sm:p-8 rounded-2xl flex flex-col justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-sliders text-cmyk-yellow"></i>
+                        <span>Perfiles ICC Destino Recomendados</span>
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-sm text-white">Papel Estucado / Couché (Coated)</span>
+                                <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-cmyk-cyan/20 text-cmyk-cyan border border-cmyk-cyan/30">FOGRA39</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Ajuste ISO 12647-2 para papelería brillante o mate laminada.</p>
+                            <code class="block mt-2 text-[11px] text-slate-300 font-mono bg-slate-950 p-2 rounded">ISO Coated v2 (ECI) / GRACoL2006_Coated1v2</code>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-sm text-white">Papel No Estucado / Bond / Offset (Uncoated)</span>
+                                <span class="px-2 py-0.5 text-[10px] font-mono rounded bg-cmyk-yellow/20 text-cmyk-yellow border border-cmyk-yellow/30">FOGRA29</span>
+                            </div>
+                            <p class="text-xs text-slate-400">Compensa la absorción alta de tinta en hojas membretadas y sobres.</p>
+                            <code class="block mt-2 text-[11px] text-slate-300 font-mono bg-slate-950 p-2 rounded">PSO Uncoated ISO12647 (ECI) / Uncoated FOGRA29</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-vibrant-purple/10 border border-vibrant-purple/30 rounded-xl text-xs text-vibrant-purple flex items-start space-x-2">
+                    <i class="fa-solid fa-circle-info mt-0.5"></i>
+                    <span>Asigna siempre el perfil antes de exportar el PDF final desde Illustrator o InDesign.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="preprensa" class="py-16 bg-slate-950/60 border-y border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-3 h-8 bg-cmyk-magenta rounded-full"></div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">02. Especificaciones de Pre-prensa</h2>
+                    <p class="text-slate-400 text-sm">Líneas de corte, área de sangrado y márgenes de seguridad requeridos.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                <!-- Interactive Blueprint Diagram -->
+                <div class="lg:col-span-7 glass-card p-6 sm:p-8 rounded-2xl relative overflow-hidden">
+                    <h3 class="text-base font-bold text-white mb-4 flex items-center justify-between">
+                        <span>Anatomía del Lienzo de Impresión</span>
+                        <span class="text-xs font-mono text-cmyk-cyan">Interactivo</span>
+                    </h3>
+
+                    <!-- SVG Canvas Mockup -->
+                    <div class="relative w-full aspect-[16/10] bg-slate-950 rounded-xl border border-slate-800 p-4 flex items-center justify-center overflow-hidden">
+                        
+                        <!-- Outer Bleed Box (+3mm) -->
+                        <div class="w-[90%] h-[85%] border-2 border-dashed border-cmyk-cyan relative flex items-center justify-center transition-all group hover:bg-cmyk-cyan/5">
+                            <span class="absolute top-1 left-2 text-[10px] font-mono text-cmyk-cyan bg-slate-950 px-1">Línea de Sangrado / Bleed (+3mm)</span>
+
+                            <!-- Cut / Trim Box (Final Size) -->
+                            <div class="w-[88%] h-[84%] border-2 border-red-500 relative flex items-center justify-center transition-all bg-slate-900/60 group-hover:bg-slate-900/90">
+                                <span class="absolute top-1 left-2 text-[10px] font-mono text-red-400 bg-slate-950 px-1">Línea de Corte / Trim Line</span>
+
+                                <!-- Crop Marks simulation at corners -->
+                                <div class="absolute -top-3 -left-3 w-4 h-4 border-l-2 border-t-2 border-white"></div>
+                                <div class="absolute -top-3 -right-3 w-4 h-4 border-r-2 border-t-2 border-white"></div>
+                                <div class="absolute -bottom-3 -left-3 w-4 h-4 border-l-2 border-b-2 border-white"></div>
+                                <div class="absolute -bottom-3 -right-3 w-4 h-4 border-r-2 border-b-2 border-white"></div>
+
+                                <!-- Safe Inner Margin Box (-4mm) -->
+                                <div class="w-[82%] h-[78%] border-2 border-dashed border-vibrant-emerald relative flex flex-col items-center justify-center p-3 text-center bg-emerald-950/20">
+                                    <span class="absolute top-1 left-2 text-[10px] font-mono text-vibrant-emerald bg-slate-950 px-1">Margen de Seguridad (-4mm)</span>
+                                    
+                                    <i class="fa-solid fa-shield-halved text-vibrant-emerald text-xl mb-1"></i>
+                                    <span class="text-xs font-bold text-white">Área Segura para Textos y Logos</span>
+                                    <span class="text-[10px] text-slate-400">Todo el contenido crítico debe permanecer dentro de esta zona</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="grid grid-cols-3 gap-2 mt-4 text-center text-xs font-mono">
+                        <div class="p-2 rounded bg-cmyk-cyan/10 border border-cmyk-cyan/30 text-cmyk-cyan">
+                            Bleed: +3 mm
+                        </div>
+                        <div class="p-2 rounded bg-red-500/10 border border-red-500/30 text-red-400">
+                            Corte: Tamaño Real
+                        </div>
+                        <div class="p-2 rounded bg-vibrant-emerald/10 border border-vibrant-emerald/30 text-vibrant-emerald">
+                            Seguridad: -4 mm
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prepress Rules -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="glass-card p-5 rounded-xl">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-cmyk-cyan/20 text-cmyk-cyan flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Resolución de Imágenes</h4>
+                                <p class="text-xs text-slate-400 mt-1">
+                                    Mínimo <strong class="text-cmyk-cyan">300 DPI (PPI)</strong> en escala 1:1 para papelería comercial. Para gran formato (vallas/banners) mínimo 100 - 150 DPI a escala real.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-xl">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-cmyk-magenta/20 text-cmyk-magenta flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Fuentes y Tipografías a Curvas</h4>
+                                <p class="text-xs text-slate-400 mt-1">
+                                    Convertir siempre todos los textos a <strong class="text-cmyk-magenta">curvas / contornos</strong> (<code class="bg-slate-900 px-1 py-0.5 rounded text-slate-300">Ctrl+Shift+O</code>). Tamaño mín. de lectura: 6 pt Sans / 7 pt Serif.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-xl">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-cmyk-yellow/20 text-cmyk-yellow flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Textos Calados en Fondo Oscuro</h4>
+                                <p class="text-xs text-slate-400 mt-1">
+                                    Evitar fuentes finas blancas caladas sobre fondos multitinta menores a 8 pt para prevenir empastes por reventón.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="calculadora" class="mt-12 glass-card p-6 sm:p-8 rounded-2xl border border-cmyk-cyan/30 shadow-neon-cyan/10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h3 class="text-xl font-extrabold text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-calculator text-cmyk-cyan"></i>
+                            <span>Calculadora de Dimensiones de Trabajo (Pre-prensa)</span>
+                        </h3>
+                        <p class="text-xs text-slate-400">Ingresa el tamaño final de la pieza para obtener las dimensiones del documento con sangrado.</p>
+                    </div>
+                    <span class="text-xs font-mono bg-cmyk-cyan/10 text-cmyk-cyan border border-cmyk-cyan/30 px-3 py-1 rounded-full self-start sm:self-auto">
+                        Standard +3mm Bleed
+                    </span>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-300 mb-2">Ancho Final (mm)</label>
+                        <input type="number" id="calcWidth" value="90" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono focus:border-cmyk-cyan focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-300 mb-2">Alto Final (mm)</label>
+                        <input type="number" id="calcHeight" value="50" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono focus:border-cmyk-cyan focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-300 mb-2">Sangrado por lado (mm)</label>
+                        <input type="number" id="calcBleed" value="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-mono focus:border-cmyk-cyan focus:outline-none transition">
+                    </div>
+                </div>
+
+                <!-- Results Output -->
+                <div class="grid md:grid-cols-3 gap-4 p-4 bg-slate-950/80 rounded-xl border border-slate-800 text-center font-mono">
+                    <div class="p-3 bg-slate-900/60 rounded-lg">
+                        <div class="text-[10px] text-slate-400 mb-1">TAMAÑO FINAL (CORTE)</div>
+                        <div id="resCut" class="text-lg font-bold text-white">90.0 x 50.0 mm</div>
+                    </div>
+                    <div class="p-3 bg-slate-900/60 rounded-lg border border-cmyk-cyan/30">
+                        <div class="text-[10px] text-cmyk-cyan mb-1">TAMAÑO LIENZO CON SANGRADO</div>
+                        <div id="resBleed" class="text-lg font-bold text-cmyk-cyan">96.0 x 56.0 mm</div>
+                    </div>
+                    <div class="p-3 bg-slate-900/60 rounded-lg border border-vibrant-emerald/30">
+                        <div class="text-[10px] text-vibrant-emerald mb-1">ÁREA SEGURA DE TEXTO (-4mm)</div>
+                        <div id="resSafe" class="text-lg font-bold text-vibrant-emerald">82.0 x 42.0 mm</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalogo" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div class="flex items-center space-x-3">
+                <div class="w-3 h-8 bg-cmyk-yellow rounded-full"></div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">03. Catálogo de Papelería Corporativa</h2>
+                    <p class="text-slate-400 text-sm">Fichas técnicas, sustratos y acabados por pieza.</p>
+                </div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                <button onclick="filterCatalog('all')" class="cat-btn active px-3 py-1.5 rounded-lg bg-slate-800 text-white hover:bg-cmyk-yellow hover:text-slate-950 transition">Todos</button>
+                <button onclick="filterCatalog('tarjetas')" class="cat-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:bg-cmyk-yellow hover:text-slate-950 transition">Tarjetas</button>
+                <button onclick="filterCatalog('hojas')" class="cat-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:bg-cmyk-yellow hover:text-slate-950 transition">Hojas & Sobres</button>
+                <button onclick="filterCatalog('carpetas')" class="cat-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:bg-cmyk-yellow hover:text-slate-950 transition">Carpetas</button>
+            </div>
+        </div>
+
+        <!-- Catalog Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="catalogGrid">
+            
+            <!-- Item 1: Tarjeta de Presentación -->
+            <div class="catalog-card glass-card p-6 rounded-2xl flex flex-col justify-between" data-category="tarjetas">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded bg-cmyk-cyan/10 text-cmyk-cyan border border-cmyk-cyan/30">Tarjetas</span>
+                        <span class="text-xs font-mono text-slate-400">9.0 x 5.0 cm</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Tarjeta de Presentación Ejecutivo</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Elemento clave de red. Impresión tiro y retiro de máxima resolución táctil.
+                    </p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Sustrato:</span>
+                            <span class="text-slate-200">Couché / Propalcote</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Gramaje:</span>
+                            <span class="text-cmyk-yellow font-bold">300g - 350g</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="text-slate-400">Impresión:</span>
+                            <span class="text-slate-200">4/4 Tintas (CMYK)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400">
+                    <strong class="text-white">Acabado sugerido:</strong> Laminado mate + Barniz UV Sectorizado o Foil Dorado.
+                </div>
+            </div>
+
+            <!-- Item 2: Hoja Membretada -->
+            <div class="catalog-card glass-card p-6 rounded-2xl flex flex-col justify-between" data-category="hojas">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded bg-cmyk-magenta/10 text-cmyk-magenta border border-cmyk-magenta/30">Hojas</span>
+                        <span class="text-xs font-mono text-slate-400">Carta (21.6 x 27.9 cm)</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Hoja Membretada Institucional</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Apta para reimpresión en impresoras láser o inyección de tinta de oficina.
+                    </p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Sustrato:</span>
+                            <span class="text-slate-200">Bond / Offset Blanco</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Gramaje:</span>
+                            <span class="text-cmyk-yellow font-bold">90g - 115g</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="text-slate-400">Impresión:</span>
+                            <span class="text-slate-200">4/0 CMYK o 2/0 Pantone</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400">
+                    <strong class="text-white">Regla técnica:</strong> Sin barnices ni laminados (bloquean la absorción láser posterior).
+                </div>
+            </div>
+
+            <!-- Item 3: Carpeta Corporativa -->
+            <div class="catalog-card glass-card p-6 rounded-2xl flex flex-col justify-between" data-category="carpetas">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded bg-vibrant-purple/10 text-vibrant-purple border border-vibrant-purple/30">Carpetas</span>
+                        <span class="text-xs font-mono text-slate-400">22.5 x 31.0 cm (Cerrada)</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Carpeta Corporativa con Solapa</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Contenedor de propuestas con solapa interior troquelada y ranura de tarjeta.
+                    </p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Sustrato:</span>
+                            <span class="text-slate-200">Propalcote / Cartulina</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Gramaje:</span>
+                            <span class="text-cmyk-yellow font-bold">320g - 350g</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="text-slate-400">Solapa:</span>
+                            <span class="text-slate-200">7 cm con ranuras 9x5cm</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400">
+                    <strong class="text-white">Acabado:</strong> Plastificado mate exterior para durabilidad en plegado.
+                </div>
+            </div>
+
+            <!-- Item 4: Sobre DL -->
+            <div class="catalog-card glass-card p-6 rounded-2xl flex flex-col justify-between" data-category="hojas">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded bg-cmyk-magenta/10 text-cmyk-magenta border border-cmyk-magenta/30">Sobres</span>
+                        <span class="text-xs font-mono text-slate-400">22.0 x 11.0 cm (DL)</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Sobre Institucional DL</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Formato ideal para correspondencia y hojas membretadas dobladas en tríptico.
+                    </p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Sustrato:</span>
+                            <span class="text-slate-200">Bond / Offset Blanco</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Gramaje:</span>
+                            <span class="text-cmyk-yellow font-bold">90g - 115g</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="text-slate-400">Cierre:</span>
+                            <span class="text-slate-200">Cinta de Silicona</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400">
+                    <strong class="text-white">Impresión:</strong> 4/0 Tintas, sangrado en solapa.
+                </div>
+            </div>
+
+            <!-- Item 5: Carnet PVC -->
+            <div class="catalog-card glass-card p-6 rounded-2xl flex flex-col justify-between" data-category="tarjetas">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded bg-cmyk-cyan/10 text-cmyk-cyan border border-cmyk-cyan/30">Identificación</span>
+                        <span class="text-xs font-mono text-slate-400">8.5 x 5.4 cm</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Carnet de Identificación PVC</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Credencial rígida de alta durabilidad para control de acceso y personal.
+                    </p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Sustrato:</span>
+                            <span class="text-slate-200">PVC / Policarbonato</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Grosor:</span>
+                            <span class="text-cmyk-yellow font-bold">760 Micras (CR80)</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="text-slate-400">Impresión:</span>
+                            <span class="text-slate-200">Tiro / Retiro UV</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400">
+                    <strong class="text-white">Protección:</strong> Laminado transparente overlay de alta resistencia.
+                </div>
+            </div>
+
+            <!-- Item 6: Block de Notas -->
+            <div class="catalog-card glass-card p-6 rounded-2xl flex flex-col justify-between" data-category="hojas">
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono px-2.5 py-1 rounded bg-cmyk-yellow/10 text-cmyk-yellow border border-cmyk-yellow/30">Libretas</span>
+                        <span class="text-xs font-mono text-slate-400">14.0 x 21.5 cm</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Block de Notas Ejecutivas</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Media carta con encolado superior (cabezal) y cartón paja rígido en la base.
+                    </p>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Hojas:</span>
+                            <span class="text-slate-200">75g Bond Offset (50 h)</span>
+                        </div>
+                        <div class="flex justify-between py-1 border-b border-slate-800">
+                            <span class="text-slate-400">Base:</span>
+                            <span class="text-cmyk-yellow font-bold">Cartón Paja 600g</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span class="text-slate-400">Encuadernación:</span>
+                            <span class="text-slate-200">Encolado Rojo/Blanco</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 text-[11px] text-slate-400">
+                    <strong class="text-white">Impresión:</strong> 1/0 Tintas (Gris/Tono corporativo) o 4/0.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="capas" class="py-16 bg-slate-950/80 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="w-3 h-8 bg-vibrant-emerald rounded-full"></div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">04. Organización de Capas & Acabados</h2>
+                    <p class="text-slate-400 text-sm">Estructura requerida de arte final para acabados especiales (UV, Foil y Troquel).</p>
+                </div>
+            </div>
+
+            <!-- Layer Visualizer Simulator -->
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Controls Side -->
+                <div class="lg:col-span-5 space-y-4">
+                    <h3 class="text-lg font-bold text-white mb-2">Simulador de Capas Illustrator / InDesign</h3>
+                    <p class="text-xs text-slate-400 mb-4">
+                        Haz clic en los selectores para encender o apagar las capas de arte final y observa cómo se envían a imprenta.
+                    </p>
+
+                    <!-- Layer Toggles -->
+                    <div class="space-y-3">
+                        <button onclick="toggleLayer('cmyk')" id="btn-cmyk" class="w-full text-left p-3.5 rounded-xl border border-cmyk-cyan/40 bg-cmyk-cyan/10 text-white flex items-center justify-between font-mono text-xs transition">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-eye text-cmyk-cyan" id="eye-cmyk"></i>
+                                <span>Capa 1: DISEÑO_CMYK</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-slate-900 text-slate-300">Arte Base CMYK</span>
+                        </button>
+
+                        <button onclick="toggleLayer('uv')" id="btn-uv" class="w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 flex items-center justify-between font-mono text-xs transition">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-eye-slash text-slate-500" id="eye-uv"></i>
+                                <span>Capa 2: BARNIZ_UV</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-cmyk-cyan/20 text-cmyk-cyan">Tinta Plana 100% K</span>
+                        </button>
+
+                        <button onclick="toggleLayer('foil')" id="btn-foil" class="w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 flex items-center justify-between font-mono text-xs transition">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-eye-slash text-slate-500" id="eye-foil"></i>
+                                <span>Capa 3: FOIL_STAMPING</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400">Estampado Metálico</span>
+                        </button>
+
+                        <button onclick="toggleLayer('troquel')" id="btn-troquel" class="w-full text-left p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-400 flex items-center justify-between font-mono text-xs transition">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-eye-slash text-slate-500" id="eye-troquel"></i>
+                                <span>Capa 4: TROQUEL_CORTE</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-cmyk-magenta/20 text-cmyk-magenta">Spot Magenta 100%</span>
+                        </button>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 space-y-1">
+                        <div class="font-bold text-white mb-1">Regla de Sobreimpresión (Overprint):</div>
+                        <p>• Las tintas planas para acabados especiales deben configurarse siempre en <strong class="text-cmyk-cyan font-mono">Sobreimprimir Relleno (Overprint Fill)</strong> para no calar el diseño base en CMYK.</p>
+                    </div>
+                </div>
+
+                <!-- Live Preview Canvas Side -->
+                <div class="lg:col-span-7 glass-card p-6 rounded-2xl relative">
+                    <h4 class="text-xs font-mono text-slate-400 mb-4 flex justify-between">
+                        <span>PREVIEW INTERACTIVO // TARJETA CON ACABADOS</span>
+                        <span id="activeLayersCount" class="text-cmyk-cyan">Capa Activa: CMYK</span>
+                    </h4>
+
+                    <!-- Virtual Card Canvas -->
+                    <div class="relative w-full aspect-[1.75/1] bg-slate-900 rounded-2xl border border-slate-800 p-8 flex items-center justify-center overflow-hidden shadow-2xl">
+                        
+                        <!-- Layer 1: CMYK Background & Graphic Base -->
+                        <div id="layer-cmyk-el" class="layer-box absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 p-8 flex flex-col justify-between opacity-100">
+                            <div class="flex justify-between items-start">
+                                <div class="w-10 h-10 rounded-lg bg-cmyk-cyan/20 border border-cmyk-cyan/40"></div>
+                                <span class="text-xs font-mono text-slate-500">CORP_ID_2026</span>
+                            </div>
+                            <div>
+                                <div class="text-xl font-bold text-white">NEXUS GLOBAL</div>
+                                <div class="text-xs text-slate-400">SOLUCIONES INDUSTRIALES</div>
+                            </div>
+                        </div>
+
+                        <!-- Layer 2: UV Spot Gloss Layer -->
+                        <div id="layer-uv-el" class="layer-box absolute inset-0 pointer-events-none opacity-0 flex items-center justify-center">
+                            <div class="w-full h-full bg-gradient-to-tr from-transparent via-white/20 to-transparent flex items-center justify-center">
+                                <div class="w-3/4 h-3/4 border-2 border-cmyk-cyan rounded-xl backdrop-blur-[2px] flex items-center justify-center">
+                                    <span class="text-xs font-mono font-bold text-cmyk-cyan bg-slate-950/90 px-3 py-1 rounded border border-cmyk-cyan">BARNIZ UV SECTORIZADO 100% K</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Layer 3: Foil Stamping Layer -->
+                        <div id="layer-foil-el" class="layer-box absolute inset-0 pointer-events-none opacity-0 flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <div class="text-3xl font-black foil-gold tracking-widest">NEXUS</div>
+                                <div class="text-[10px] font-mono text-amber-300 mt-1">[ CAPA FOIL DORADO ]</div>
+                            </div>
+                        </div>
+
+                        <!-- Layer 4: Die-Cut Line Layer -->
+                        <div id="layer-troquel-el" class="layer-box absolute inset-4 border-2 border-dashed border-cmyk-magenta pointer-events-none opacity-0 flex items-start justify-end p-2">
+                            <span class="text-[10px] font-mono text-cmyk-magenta bg-slate-950 px-2 py-0.5 rounded border border-cmyk-magenta">Trazado Troquel (Spot Magenta)</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center space-x-3 mb-8">
+            <div class="w-3 h-8 bg-vibrant-purple rounded-full"></div>
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">05. Estándares de Exportación PDF/X</h2>
+                <p class="text-slate-400 text-sm">Configuración del motor de salida gráfica y acoplamiento de transparencias.</p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass-card p-6 rounded-2xl border-l-4 border-l-cmyk-cyan">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-lg text-white">PDF/X-1a:2001 (Estándar Máxima Compatibilidad)</h3>
+                    <span class="text-xs font-mono bg-cmyk-cyan/20 text-cmyk-cyan px-2.5 py-1 rounded">Recomendado</span>
+                </div>
+                <ul class="space-y-3 text-xs text-slate-300">
+                    <li class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-cmyk-cyan mt-0.5"></i>
+                        <span><strong>Transparencias:</strong> Acopladas obligatoriamente (*High Resolution Flattener*).</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-cmyk-cyan mt-0.5"></i>
+                        <span><strong>Color:</strong> Todo el documento se convierte automáticamente a CMYK / Tintas directas.</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-cmyk-cyan mt-0.5"></i>
+                        <span><strong>Fuentes:</strong> 100% de las tipografías incrustadas (*Embedded*).</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl border-l-4 border-l-cmyk-magenta">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-lg text-white">PDF/X-4 (Soporte de Transparencias Vivas)</h3>
+                    <span class="text-xs font-mono bg-cmyk-magenta/20 text-cmyk-magenta px-2.5 py-1 rounded">Imprentas Modernas</span>
+                </div>
+                <ul class="space-y-3 text-xs text-slate-300">
+                    <li class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-cmyk-magenta mt-0.5"></i>
+                        <span><strong>Transparencias:</strong> Permite capas de transparencia sin acoplar para RIPs modernizados.</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-cmyk-magenta mt-0.5"></i>
+                        <span><strong>Marcas de Corte:</strong> Desplazamiento (*Offset*) ajustado a 3 mm para no invadir el sangrado.</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-cmyk-magenta mt-0.5"></i>
+                        <span><strong>Compresión de Imagen:</strong> Bicúbica a 300 DPI para imágenes a color.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="checklist" class="py-16 bg-slate-950/90 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-extrabold text-white mb-2">Checklist de Control Pre-vuelo (Pre-flight)</h2>
+                <p class="text-slate-400 text-sm">Verifica cada punto antes de enviar tus archivos a producción gráfica final.</p>
+                
+                <!-- Progress Bar -->
+                <div class="mt-6 max-w-md mx-auto">
+                    <div class="flex justify-between text-xs font-mono text-slate-400 mb-2">
+                        <span>PROGRESO VERIFICACIÓN</span>
+                        <span id="checkProgressText" class="text-cmyk-cyan font-bold">0 / 8 completados</span>
+                    </div>
+                    <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden border border-slate-800 p-0.5">
+                        <div id="checkProgressBar" class="h-full bg-gradient-to-r from-cmyk-cyan via-cmyk-magenta to-vibrant-emerald rounded-full transition-all duration-300" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checklist Items -->
+            <div class="space-y-3" id="checklistContainer">
+                
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Modo de color en **CMYK o Pantone** (ningún elemento en RGB o HEX).</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Color</span>
+                </label>
+
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Resolución de imágenes verificada a **300 DPI** a escala 1:1 real.</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Imágenes</span>
+                </label>
+
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Sangrado externo de **3 mm** aplicado en todo el perímetro.</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Corte</span>
+                </label>
+
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Textos y logos respetan el **margen de seguridad interno de 4 mm**.</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Seguridad</span>
+                </label>
+
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Todas las tipografías **convertidas a curvas / contornos**.</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Fuentes</span>
+                </label>
+
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Texto negro configurado en **100% K** con *Overprint Black* activado.</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Negros</span>
+                </label>
+
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Acabados especiales (UV, Foil, Troquel) vectorizados en **capas independientes**.</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Capas</span>
+                </label>
+
+                <label class="glass-card p-4 rounded-xl flex items-center justify-between cursor-pointer group hover:bg-slate-900/80 transition">
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" onchange="updateChecklist()" class="chk-item w-5 h-5 rounded border-slate-700 text-cmyk-cyan focus:ring-0 focus:ring-offset-0 bg-slate-950">
+                        <span class="text-sm text-slate-200 group-hover:text-white">Archivo exportado en norma **PDF/X-1a** con marcas de corte activas.</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500 bg-slate-950 px-2 py-1 rounded">Exportación</span>
+                </label>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-800 text-center text-xs text-slate-500 font-mono">
+        <p>Guía Técnica Digital de Impresión & Papelería Corporativa © 2026</p>
+        <p class="mt-1">Diseñado para la máxima precisión gráfica en Offset y Digital.</p>
+    </footer>
+
+    <script>
+        function calculateBleed() {
+            const w = parseFloat(document.getElementById('calcWidth').value) || 0;
+            const h = parseFloat(document.getElementById('calcHeight').value) || 0;
+            const b = parseFloat(document.getElementById('calcBleed').value) || 0;
+
+            const resCut = `${w.toFixed(1)} x ${h.toFixed(1)} mm`;
+            const resBleed = `${(w + (b * 2)).toFixed(1)} x ${(h + (b * 2)).toFixed(1)} mm`;
+            const resSafe = `${Math.max(0, w - 8).toFixed(1)} x ${Math.max(0, h - 8).toFixed(1)} mm`;
+
+            document.getElementById('resCut').innerText = resCut;
+            document.getElementById('resBleed').innerText = resBleed;
+            document.getElementById('resSafe').innerText = resSafe;
+        }
+
+        document.getElementById('calcWidth').addEventListener('input', calculateBleed);
+        document.getElementById('calcHeight').addEventListener('input', calculateBleed);
+        document.getElementById('calcBleed').addEventListener('input', calculateBleed);
+
+        function filterCatalog(category) {
+            const cards = document.querySelectorAll('.catalog-card');
+            const btns = document.querySelectorAll('.cat-btn');
+
+            btns.forEach(btn => {
+                btn.classList.remove('bg-cmyk-yellow', 'text-slate-950', 'active');
+                btn.classList.add('bg-slate-900', 'text-slate-400');
+            });
+
+            event.target.classList.remove('bg-slate-900', 'text-slate-400');
+            event.target.classList.add('bg-cmyk-yellow', 'text-slate-950', 'active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        const layersState = {
+            cmyk: true,
+            uv: false,
+            foil: false,
+            troquel: false
+        };
+
+        function toggleLayer(layerKey) {
+            layersState[layerKey] = !layersState[layerKey];
+            const el = document.getElementById(`layer-${layerKey}-el`);
+            const btn = document.getElementById(`btn-${layerKey}`);
+            const eye = document.getElementById(`eye-${layerKey}`);
+
+            if (layersState[layerKey]) {
+                el.classList.remove('opacity-0');
+                el.classList.add('opacity-100');
+                btn.classList.add('border-cmyk-cyan/40', 'bg-cmyk-cyan/10', 'text-white');
+                btn.classList.remove('border-slate-800', 'bg-slate-900/60', 'text-slate-400');
+                eye.classList.remove('fa-eye-slash', 'text-slate-500');
+                eye.classList.add('fa-eye', 'text-cmyk-cyan');
+            } else {
+                el.classList.remove('opacity-100');
+                el.classList.add('opacity-0');
+                btn.classList.remove('border-cmyk-cyan/40', 'bg-cmyk-cyan/10', 'text-white');
+                btn.classList.add('border-slate-800', 'bg-slate-900/60', 'text-slate-400');
+                eye.classList.remove('fa-eye', 'text-cmyk-cyan');
+                eye.classList.add('fa-eye-slash', 'text-slate-500');
+            }
+
+            // Update text summary
+            const activeNames = Object.keys(layersState)
+                .filter(k => layersState[k])
+                .map(k => k.toUpperCase());
+
+            document.getElementById('activeLayersCount').innerText = activeNames.length 
+                ? `Capas Visibles: ${activeNames.join(' + ')}`
+                : 'Ninguna capa visible';
+        }
+
+        function updateChecklist() {
+            const checkboxes = document.querySelectorAll('.chk-item');
+            let checkedCount = 0;
+
+            checkboxes.forEach(chk => {
+                if (chk.checked) checkedCount++;
+            });
+
+            const total = checkboxes.length;
+            const percentage = Math.round((checkedCount / total) * 100);
+
+            document.getElementById('checkProgressText').innerText = `${checkedCount} / ${total} completados (${percentage}%)`;
+            document.getElementById('checkProgressBar').style.width = `${percentage}%`;
+        }
+
+        // Initialize default state
+        window.onload = function() {
+            calculateBleed();
+            updateChecklist();
+        };
+    </script>
+</body>
+</html>

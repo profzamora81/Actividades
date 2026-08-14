@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva y Workspace TIC II - 5to. Bachillerato Mecánica Automotriz</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .active-tab {
+            border-bottom: 3px solid #2563eb;
+            color: #2563eb;
+            font-weight: 700;
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        /* Custom styling for print/PDF export */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-document, #printable-document * {
+                visibility: visible;
+            }
+            #printable-document {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 20px;
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header Principal -->
+    <header class="bg-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 p-2.5 rounded-xl shadow-md text-white">
+                    <i class="fas fa-car-battery text-xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Ciclo Diversificado 2026</span>
+                        <span id="save-status" class="text-xs bg-slate-800 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded flex items-center gap-1">
+                            <i class="fas fa-check-circle text-[10px]"></i> Guardado Automático
+                        </span>
+                    </div>
+                    <h1 class="text-lg font-bold leading-tight">TIC II - Mecánica Automotriz</h1>
+                    <p class="text-xs text-slate-300">Instituto Industrial Central General Lázaro Chacón González | Prof. Erick Enrique Zamora Paz</p>
+                </div>
+            </div>
+
+            <!-- Datos de Entrega -->
+            <div class="flex items-center gap-3 text-xs bg-slate-800/90 p-2.5 rounded-xl border border-slate-700/80">
+                <div class="border-r border-slate-700 pr-3">
+                    <p class="text-slate-400"><i class="far fa-calendar-alt text-blue-400 mr-1"></i><strong>Asignación:</strong> 13/08/2026</p>
+                    <p class="text-slate-400"><i class="far fa-clock text-amber-400 mr-1"></i><strong>Entrega:</strong> 14/08/2026 (23:59 hrs)</p>
+                </div>
+                <div>
+                    <p class="text-slate-300"><strong>Ponderación:</strong> <span class="text-emerald-400 font-bold">10 Puntos Netos</span></p>
+                    <p class="text-slate-400"><strong>Unidad:</strong> III - Guía No. 1</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bar de Navegación por Pestañas -->
+    <nav class="bg-white border-b border-slate-200 sticky top-[61px] z-40 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 flex overflow-x-auto scrollbar-none">
+            <button onclick="switchTab('guia')" id="tab-guia" class="tab-btn px-5 py-3 text-xs sm:text-sm flex items-center gap-2 active-tab whitespace-nowrap transition-all">
+                <i class="fas fa-book-open text-blue-600"></i> 1. Instrucciones de la Guía
+            </button>
+            <button onclick="switchTab('workspace')" id="tab-workspace" class="tab-btn px-5 py-3 text-xs sm:text-sm flex items-center gap-2 text-slate-600 hover:text-blue-600 whitespace-nowrap transition-all font-medium">
+                <i class="fas fa-laptop-code text-indigo-600"></i> 2. Espacio de Trabajo del Estudiante
+            </button>
+            <button onclick="switchTab('preview')" id="tab-preview" class="tab-btn px-5 py-3 text-xs sm:text-sm flex items-center gap-2 text-slate-600 hover:text-blue-600 whitespace-nowrap transition-all font-medium">
+                <i class="fas fa-file-pdf text-rose-600"></i> 3. Vista Previa y PDF
+            </button>
+            <button onclick="switchTab('evaluador')" id="tab-evaluador" class="tab-btn px-5 py-3 text-xs sm:text-sm flex items-center gap-2 text-slate-600 hover:text-blue-600 whitespace-nowrap transition-all font-medium">
+                <i class="fas fa-tasks text-emerald-600"></i> 4. Rúbrica de Calificación
+            </button>
+            <button onclick="switchTab('classroom')" id="tab-classroom" class="tab-btn px-5 py-3 text-xs sm:text-sm flex items-center gap-2 text-slate-600 hover:text-blue-600 whitespace-nowrap transition-all font-medium">
+                <i class="fab fa-google text-amber-600"></i> 5. Classroom & Metadatos
+            </button>
+        </div>
+    </nav>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center gap-3 transition-all transform translate-y-20 opacity-0 z-50">
+        <i id="toast-icon" class="fas fa-info-circle text-blue-400 text-lg"></i>
+        <span id="toast-msg" class="text-xs font-medium">Mensaje del sistema...</span>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 1: GUÍA DEL ESTUDIANTE (INSTRUCCIONES) -->
+        <!-- ========================================== -->
+        <section id="content-guia" class="tab-content block space-y-6">
+            
+            <!-- Banner Encabezado Pedagogico -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-100 pb-4 mb-4 gap-2">
+                    <div>
+                        <span class="text-xs font-extrabold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">GUÍA DE TRABAJO NO. 1 - TERCER BIMESTRE</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Tecnología e Impacto Ambiental</h2>
+                        <p class="text-xs sm:text-sm text-slate-600">Desecho Tecnológico Automotriz y Aporte de las TIC a la Conservación Ecológica.</p>
+                    </div>
+                    <button onclick="switchTab('workspace')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2">
+                        <i class="fas fa-edit"></i> Ir al Espacio de Trabajo
+                    </button>
+                </div>
+
+                <!-- Alineación CNB -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80">
+                        <h3 class="text-xs font-bold uppercase text-blue-800 mb-1 flex items-center gap-1.5">
+                            <i class="fas fa-bullseye text-blue-600"></i> Competencia CNB
+                        </h3>
+                        <p class="text-xs text-slate-700 leading-relaxed">Promueve el uso ético, legal y ecológico de las Tecnologías de la Información y la Comunicación para prevenir riesgos e impacto ecológico derivado de su uso.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80">
+                        <h3 class="text-xs font-bold uppercase text-emerald-800 mb-1 flex items-center gap-1.5">
+                            <i class="fas fa-check-circle text-emerald-600"></i> Indicador de Logro
+                        </h3>
+                        <p class="text-xs text-slate-700 leading-relaxed"><strong>4.2.</strong> Determina el impacto ambiental derivado del desecho tecnológico y propone soluciones apoyadas en las TIC para la conservación ecológica en el entorno automotriz.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resumen de las 3 Actividades Requeridas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card Actividad 1 -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="bg-slate-900 text-white px-5 py-3 flex justify-between items-center">
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-400"><i class="fas fa-table mr-1.5"></i>Actividad 1</span>
+                            <span class="bg-blue-600 text-white text-[11px] font-bold px-2 py-0.5 rounded-full">3 pts</span>
+                        </div>
+                        <div class="p-5 space-y-3">
+                            <h3 class="font-bold text-sm text-slate-900">Cuadro Comparativo Digital de e-Waste Automotriz</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Investigue 3 componentes electrónicos automotrices (ECUs, baterías EV, sensores) y clasifique sus elementos nocivos, impacto ambiental y estrategia de reciclaje técnico.</p>
+                            <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100 text-[11px] text-blue-900">
+                                <strong>Requisito Escrito:</strong> Párrafo de análisis de mínimo 5 líneas sobre la importancia del diagnóstico computarizado oportuno.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="goToWorkspaceStep(1)" class="w-full bg-slate-100 hover:bg-blue-50 text-blue-700 font-semibold text-xs py-2 rounded-lg border border-slate-200 transition-all text-center">
+                            Resolver Actividad 1 <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Actividad 2 -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="bg-slate-900 text-white px-5 py-3 flex justify-between items-center">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400"><i class="fas fa-file-alt mr-1.5"></i>Actividad 2</span>
+                            <span class="bg-emerald-600 text-white text-[11px] font-bold px-2 py-0.5 rounded-full">3 pts</span>
+                        </div>
+                        <div class="p-5 space-y-3">
+                            <h3 class="font-bold text-sm text-slate-900">Informe: Impacto Ecológico de Módulos y Sensores</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Estructure un informe técnico sobre la acumulación de basura electrónica en los talleres, contaminación de mantos freáticos y propuesta de protocolo de acopio.</p>
+                            <div class="bg-emerald-50/60 p-3 rounded-lg border border-emerald-100 text-[11px] text-emerald-900">
+                                <strong>Requisito Escrito:</strong> Redacción técnica con palabras propias de mínimo 200 palabras.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="goToWorkspaceStep(2)" class="w-full bg-slate-100 hover:bg-emerald-50 text-emerald-700 font-semibold text-xs py-2 rounded-lg border border-slate-200 transition-all text-center">
+                            Resolver Actividad 2 <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Actividad 3 -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="bg-slate-900 text-white px-5 py-3 flex justify-between items-center">
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-400"><i class="fas fa-project-diagram mr-1.5"></i>Actividad 3</span>
+                            <span class="bg-indigo-600 text-white text-[11px] font-bold px-2 py-0.5 rounded-full">4 pts</span>
+                        </div>
+                        <div class="p-5 space-y-3">
+                            <h3 class="font-bold text-sm text-slate-900">Propuesta Digital TIC & Diagrama Ecológico</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Formule 3 acciones de digitalización sin papel, construya un diagrama de flujo digital interactivo del diagnóstico y fundamente la telemetría.</p>
+                            <div class="bg-indigo-50/60 p-3 rounded-lg border border-indigo-100 text-[11px] text-indigo-900">
+                                <strong>Requisito Escrito:</strong> 3 acciones sostenibles con TIC + Diagrama de Flujo vectorial digitalizado.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="goToWorkspaceStep(3)" class="w-full bg-slate-100 hover:bg-indigo-50 text-indigo-700 font-semibold text-xs py-2 rounded-lg border border-slate-200 transition-all text-center">
+                            Resolver Actividad 3 <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reglas de Entrega -->
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-sm border border-slate-800">
+                <h3 class="text-sm font-bold mb-3 flex items-center gap-2 text-amber-400">
+                    <i class="fas fa-exclamation-triangle"></i> Reglas Generales Obligatorias de Entrega
+                </h3>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-300">
+                    <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                        <i class="fas fa-align-left text-blue-400 mt-0.5"></i>
+                        <span><strong>1. Texto Editable:</strong> Todo análisis debe escribirse directamente en texto. Las imágenes de texto no sustituyen la redacción.</span>
+                    </li>
+                    <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                        <i class="fas fa-file-pdf text-rose-400 mt-0.5"></i>
+                        <span><strong>2. Formato Único PDF:</strong> La entrega se realizará compilando las 3 actividades en un único archivo PDF entregado en Google Classroom.</span>
+                    </li>
+                    <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                        <i class="fas fa-pen-nib text-emerald-400 mt-0.5"></i>
+                        <span><strong>3. Redacción Propia:</strong> Se evalúa la argumentación técnica original del estudiante. Se penaliza la copia textual.</span>
+                    </li>
+                    <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+                        <i class="fas fa-sitemap text-indigo-400 mt-0.5"></i>
+                        <span><strong>4. Orden de Encabezados:</strong> Respetar la estructura "Actividad 1:", "Actividad 2:" y "Actividad 3:" con sus respectivas evidencias.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 2: ESPACIO DE TRABAJO INTERACTIVO -->
+        <!-- ========================================== -->
+        <section id="content-workspace" class="tab-content hidden space-y-6">
+            
+            <!-- Student Header & Progress Bar -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full md:w-2/3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Nombre Completo del Estudiante:</label>
+                            <input type="text" id="student-name" oninput="autoSave()" placeholder="Ej. Juan Carlos Pérez Gómez" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Clave / Carné:</label>
+                            <input type="text" id="student-id" oninput="autoSave()" placeholder="Ej. Clave 15 - 5to Mecánica A" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none font-semibold">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-slate-50 p-3 rounded-xl border border-slate-200 text-right">
+                        <div class="flex justify-between items-center text-xs mb-1">
+                            <span class="font-bold text-slate-700">Progreso de la Guía:</span>
+                            <span id="progress-percentage" class="font-extrabold text-blue-600">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                            <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation between steps -->
+                <div class="flex border-b border-slate-200 pt-2 gap-2 overflow-x-auto">
+                    <button onclick="showStep(1)" id="step-btn-1" class="step-nav-btn px-4 py-2 text-xs font-bold rounded-t-lg bg-blue-600 text-white flex items-center gap-1.5">
+                        <i class="fas fa-table"></i> Actividad 1: Cuadro
+                    </button>
+                    <button onclick="showStep(2)" id="step-btn-2" class="step-nav-btn px-4 py-2 text-xs font-bold rounded-t-lg bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center gap-1.5">
+                        <i class="fas fa-file-alt"></i> Actividad 2: Informe
+                    </button>
+                    <button onclick="showStep(3)" id="step-btn-3" class="step-nav-btn px-4 py-2 text-xs font-bold rounded-t-lg bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center gap-1.5">
+                        <i class="fas fa-project-diagram"></i> Actividad 3: Diagrama & TIC
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASO 1: ACTIVIDAD 1 WORKSPACE -->
+            <div id="workspace-step-1" class="workspace-step block space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <div>
+                            <span class="bg-blue-100 text-blue-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">Ponderación: 3 Puntos</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1">Actividad 1: Cuadro Comparativo Digital sobre Desecho Tecnológico Automotriz</h3>
+                        </div>
+                        <button onclick="addTableRow()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm font-medium">
+                            <i class="fas fa-plus"></i> Agregar Componente
+                        </button>
+                    </div>
+
+                    <p class="text-xs text-slate-600">Complete los datos de al menos 3 componentes electrónicos automotrices específicos y sus riesgos ambientales:</p>
+
+                    <!-- Tabla Interactiva -->
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-800 text-white">
+                                    <th class="p-3 w-1/4 font-semibold border-r border-slate-700">Componente Automotriz</th>
+                                    <th class="p-3 w-1/4 font-semibold border-r border-slate-700">Elementos Nocivos / Químicos</th>
+                                    <th class="p-3 w-1/4 font-semibold border-r border-slate-700">Impacto Ecológico Directo</th>
+                                    <th class="p-3 w-1/4 font-semibold">Estrategia de Reciclaje / Disposición</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body-act1" class="divide-y divide-slate-200 bg-slate-50/50">
+                                <!-- Default Row 1 -->
+                                <tr>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <input type="text" class="act1-comp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" value="Módulo de Control del Motor (ECU / PCM)" oninput="autoSave()">
+                                    </td>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <textarea class="act1-elem w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Plomo en soldaduras de estaño, berilio, retardantes de llama bromados (BFR) en placa PCB.</textarea>
+                                    </td>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <textarea class="act1-imp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Lixiviación de metales pesados en suelos al degradarse en vertederos, contaminando fuentes de agua subterránea.</textarea>
+                                    </td>
+                                    <td class="p-2">
+                                        <textarea class="act1-rec w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Desensamble técnico, separación de microprocesadores para recuperación de metales preciosos (oro/plata) y reciclaje de carcasas de aluminio.</textarea>
+                                    </td>
+                                </tr>
+                                <!-- Default Row 2 -->
+                                <tr>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <input type="text" class="act1-comp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" value="Baterías Módulo de Litio-Ion (EV / Híbridos)" oninput="autoSave()">
+                                    </td>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <textarea class="act1-elem w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Cobalto, Litio, Níquel, electrolitos de hexafluorofosfato de litio altamente tóxicos y reactivos.</textarea>
+                                    </td>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <textarea class="act1-imp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Riesgo de incendios químicos por fuga térmica, alta toxicidad en ecosistemas acuáticos y huella hídrica severa.</textarea>
+                                    </td>
+                                    <td class="p-2">
+                                        <textarea class="act1-rec w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Proceso hidrometalúrgico de segunda vida para almacenamiento estacionario de energía y pirometalurgia certificada.</textarea>
+                                    </td>
+                                </tr>
+                                <!-- Default Row 3 -->
+                                <tr>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <input type="text" class="act1-comp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" value="Sensores Lambda (Oxígeno) y MAF del Escape" oninput="autoSave()">
+                                    </td>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <textarea class="act1-elem w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Circonio, Platino, Paladio, residuos de hidrocarburos no quemados y cerámicas reactivas.</textarea>
+                                    </td>
+                                    <td class="p-2 border-r border-slate-200">
+                                        <textarea class="act1-imp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Acumulación inorgánica no biodegradable en rellenos sanitarios y pérdida de metales del grupo del platino de escasa disponibilidad.</textarea>
+                                    </td>
+                                    <td class="p-2">
+                                        <textarea class="act1-rec w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" oninput="autoSave()">Refinación química de metales preciosos a través de gestores autorizados de e-waste industrial automotriz.</textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Párrafo de Análisis Escrito -->
+                    <div class="space-y-2 pt-2">
+                        <div class="flex justify-between items-center">
+                            <label class="block text-xs font-bold text-slate-800">
+                                <i class="fas fa-pen-fancy text-blue-600 mr-1"></i> Análisis Escrito: Impacto del Diagnóstico Computarizado Oportuno (Mínimo 5 líneas):
+                            </label>
+                            <span id="act1-line-count" class="text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">0 / 5 líneas requeridas</span>
+                        </div>
+                        <textarea id="act1-analysis" rows="5" oninput="autoSave(); checkAct1Lines();" placeholder="Redacte su análisis explicando cómo un escaneo de diagnóstico preventivo a tiempo evita el reemplazo innecesario de componentes electrónicos sanos..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none leading-relaxed"></textarea>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button onclick="goToWorkspaceStep(2)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2">
+                            Siguiente: Actividad 2 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 2: ACTIVIDAD 2 WORKSPACE -->
+            <div id="workspace-step-2" class="workspace-step hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <div>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">Ponderación: 3 Puntos</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1">Actividad 2: Informe - Diagnóstico del Impacto Ecológico de Módulos y Sensores Obsoletos</h3>
+                        </div>
+                        <div class="text-right">
+                            <span id="act2-word-count" class="text-xs font-bold px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
+                                0 / 200 palabras mínimo
+                            </span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-600">Redacte su informe técnico utilizando lenguaje profesional de mecánica automotriz y argumentación propia:</p>
+
+                    <!-- Secciones Guiadas del Informe -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">1. Introducción: Acumulación de e-Waste Automotriz en el Taller Mecánico</label>
+                            <textarea id="act2-intro" rows="3" oninput="autoSave(); checkAct2Words();" placeholder="Describa cómo la rápida evolución de sistemas OBD-II y computadoras automotrices genera residuos electrónicos de escáneres, conectores y sensores en el taller..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none leading-relaxed"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">2. Puntos Críticos: Contaminación del Suelo y Mantos Freáticos por Metales Pesados</label>
+                            <textarea id="act2-points" rows="4" oninput="autoSave(); checkAct2Words();" placeholder="Detalle 3 efectos ecológicos graves al arrojar sensores gastados, placas de circuitos o módulos defectuosos a la basura común..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none leading-relaxed"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">3. Propuesta de Protocolo: Acopio y Entrega a Empresas Certificadas</label>
+                            <textarea id="act2-protocol" rows="3" oninput="autoSave(); checkAct2Words();" placeholder="Fundamente los pasos para clasificar, etiquetar y entregar los componentes e-waste del taller a gestores ambientales autorizados..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none leading-relaxed"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-2">
+                        <button onclick="goToWorkspaceStep(1)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all">
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                        <button onclick="goToWorkspaceStep(3)" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2">
+                            Siguiente: Actividad 3 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 3: ACTIVIDAD 3 WORKSPACE -->
+            <div id="workspace-step-3" class="workspace-step hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <div>
+                            <span class="bg-indigo-100 text-indigo-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">Ponderación: 4 Puntos</span>
+                            <h3 class="text-base font-bold text-slate-900 mt-1">Actividad 3: Propuesta Digital de Integración TIC para la Conservación Ambiental</h3>
+                        </div>
+                    </div>
+
+                    <!-- Acciones Concretas con TIC -->
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold uppercase text-slate-700">A) Tres Acciones Concretas de Sustitución Digital Sin Papel:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+                                <span class="text-[10px] font-extrabold text-indigo-600 uppercase">Acción 1: Gestión de Órdenes</span>
+                                <input type="text" id="act3-acc1-title" class="w-full bg-white border border-slate-300 rounded p-1.5 text-xs font-semibold" value="Órdenes de Trabajo y Checklists en Tablets/Nube" oninput="autoSave()">
+                                <textarea id="act3-acc1-desc" rows="3" class="w-full bg-white border border-slate-300 rounded p-1.5 text-xs" oninput="autoSave()">Eliminación completa de formularios impresos mediante hojas de inspección digital sincronizadas con el cliente vía correo/WhatsApp.</textarea>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+                                <span class="text-[10px] font-extrabold text-indigo-600 uppercase">Acción 2: Manuales de Servicio</span>
+                                <input type="text" id="act3-acc2-title" class="w-full bg-white border border-slate-300 rounded p-1.5 text-xs font-semibold" value="Diagramas Eléctricos y Catálogos en la Nube" oninput="autoSave()">
+                                <textarea id="act3-acc2-desc" rows="3" class="w-full bg-white border border-slate-300 rounded p-1.5 text-xs" oninput="autoSave()">Consulta directa de diagramas de cableado OEM y boletines técnicos desde la computadora del taller evitando la impresión de tomos físicos.</textarea>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+                                <span class="text-[10px] font-extrabold text-indigo-600 uppercase">Acción 3: Facturación y Reportes</span>
+                                <input type="text" id="act3-acc3-title" class="w-full bg-white border border-slate-300 rounded p-1.5 text-xs font-semibold" value="Facturación Electrónica (FEL) y Reportes OBD-II" oninput="autoSave()">
+                                <textarea id="act3-acc3-desc" rows="3" class="w-full bg-white border border-slate-300 rounded p-1.5 text-xs" oninput="autoSave()">Envío automático de recibos digitales y gráficos de desempeño del motor en PDF directamente al smartphone del propietario.</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diagrama de Flujo Digital Interactivo -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xs font-bold uppercase text-slate-700">B) Diseñador de Diagrama de Flujo Digital - Ciclo de Diagnóstico Ecológico:</h4>
+                            <button onclick="renderFlowchart()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-semibold px-3 py-1 rounded-lg flex items-center gap-1">
+                                <i class="fas fa-sync-alt"></i> Actualizar Diagrama
+                            </button>
+                        </div>
+                        <p class="text-[11px] text-slate-500">Modifique los pasos del proceso para generar automáticamente su diagrama vectorial editable:</p>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                            <!-- Input de Pasos del Diagrama -->
+                            <div class="space-y-2 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+                                <div>
+                                    <label class="block font-bold text-slate-700 text-[10px] uppercase">Paso 1: Recepción</label>
+                                    <input type="text" id="flow-step-1" value="Ingreso del Vehículo y Escaneo Inicial OBD-II" class="w-full bg-white border rounded p-1" oninput="renderFlowchart(); autoSave();">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 text-[10px] uppercase">Paso 2: Análisis Digital</label>
+                                    <input type="text" id="flow-step-2" value="Lectura de Códigos DTC e Interpretación de Datos en Vivo" class="w-full bg-white border rounded p-1" oninput="renderFlowchart(); autoSave();">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 text-[10px] uppercase">Paso 3: Reparación / Re-programación</label>
+                                    <input type="text" id="flow-step-3" value="Ajuste Digital / Reprogramación de ECU sin Reemplazo Físico" class="w-full bg-white border rounded p-1" oninput="renderFlowchart(); autoSave();">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 text-[10px] uppercase">Paso 4: Verificación de Emisiones</label>
+                                    <input type="text" id="flow-step-4" value="Prueba Digital de Gases y Eficiencia de Combustible" class="w-full bg-white border rounded p-1" oninput="renderFlowchart(); autoSave();">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-slate-700 text-[10px] uppercase">Paso 5: Cierre & Acopio e-Waste</label>
+                                    <input type="text" id="flow-step-5" value="Entrega de Expediente Digital y Acopio de Residuos Nocivos" class="w-full bg-white border rounded p-1" oninput="renderFlowchart(); autoSave();">
+                                </div>
+                            </div>
+
+                            <!-- Canvas / SVG Render Preview -->
+                            <div class="lg:col-span-2 bg-slate-900 rounded-xl p-4 flex flex-col items-center justify-center overflow-x-auto border border-slate-800">
+                                <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-2">Previsualización del Diagrama Digital Vectorial</span>
+                                <div id="flowchart-svg-container" class="w-full flex justify-center py-2">
+                                    <!-- Dynamic SVG inserted by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Argumentación Telemetría -->
+                    <div class="space-y-2 pt-2">
+                        <label class="block text-xs font-bold text-slate-800">
+                            C) Argumentación Técnica: Telemetría y Mantenimiento Predictivo para Prevenir Emisiones
+                        </label>
+                        <textarea id="act3-telemetry" rows="4" oninput="autoSave()" placeholder="Explique cómo los sensores de telemetría en tiempo real y el monitoreo por computadora permiten detectar fallas en inyectores o sensores de oxígeno antes de que el vehículo emita gases tóxicos en exceso..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none leading-relaxed"></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-3 border-t">
+                        <button onclick="goToWorkspaceStep(2)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all">
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                        <button onclick="switchTab('preview')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2">
+                            <i class="fas fa-file-pdf"></i> Generar Documento PDF Final
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 3: VISTA PREVIA Y EXPORTACIÓN PDF -->
+        <!-- ========================================== -->
+        <section id="content-preview" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm no-print">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900"><i class="fas fa-print text-rose-600 mr-2"></i>Vista Previa del Documento Oficial de Entrega</h2>
+                        <p class="text-xs text-slate-600">Compruebe que sus 3 actividades estén completas antes de imprimir o guardar en PDF.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="updatePreviewDocument()" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-medium px-4 py-2 rounded-xl flex items-center gap-1.5">
+                            <i class="fas fa-sync-alt"></i> Actualizar Documento
+                        </button>
+                        <button onclick="window.print()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-5 py-2 rounded-xl shadow-md flex items-center gap-1.5">
+                            <i class="fas fa-file-pdf"></i> Imprimir / Guardar PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOCUMENTO FORMATEADO PARA IMPRESIÓN Y EVALUACIÓN -->
+            <div id="printable-document" class="bg-white p-8 md:p-12 rounded-2xl border border-slate-300 shadow-lg text-slate-900 text-xs leading-relaxed space-y-6 max-w-4xl mx-auto">
+                
+                <!-- Encabezado Oficial -->
+                <div class="border-b-2 border-slate-900 pb-4 text-center space-y-1">
+                    <h2 class="text-base font-bold uppercase tracking-wider">INSTITUTO INDUSTRIAL CENTRAL GENERAL LÁZARO CHACÓN GONZÁLEZ</h2>
+                    <p class="text-xs font-semibold text-slate-700">BACHILLERATO EN CIENCIAS Y LETRAS CON ORIENTACIÓN EN MECÁNICA AUTOMOTRIZ</p>
+                    <p class="text-xs text-slate-600">CURSO: TIC II | DOCENTE: PROF. ERICK ENRIQUE ZAMORA PAZ</p>
+                    <div class="pt-2 flex justify-between text-[11px] font-bold border-t border-slate-300 mt-2">
+                        <span>ESTUDIANTE: <span id="doc-student-name" class="underline uppercase">____________________</span></span>
+                        <span>CLAVE / SECCIÓN: <span id="doc-student-id" class="underline">__________</span></span>
+                        <span>FECHA: <span id="doc-date">14/08/2026</span></span>
+                    </div>
+                </div>
+
+                <div class="text-center py-1 bg-slate-100 rounded border border-slate-200">
+                    <h1 class="text-sm font-extrabold uppercase tracking-wide">GUÍA DE TRABAJO NO. 1 - TERCER BIMESTRE</h1>
+                    <p class="text-[11px] font-medium text-slate-700">Tema: Tecnología e Impacto Ambiental - Desecho Tecnológico Automotriz y TIC Sostenibles</p>
+                </div>
+
+                <!-- ACTIVIDAD 1 PREVIEW -->
+                <div class="space-y-3">
+                    <h3 class="font-extrabold text-xs uppercase bg-slate-800 text-white p-1.5 rounded">Actividad 1: Cuadro Comparativo Digital sobre Desecho Tecnológico Automotriz</h3>
+                    
+                    <table class="w-full border-collapse border border-slate-400 text-[10px]">
+                        <thead>
+                            <tr class="bg-slate-200 text-slate-900 font-bold border-b border-slate-400">
+                                <th class="border border-slate-400 p-1.5 w-1/4">Componente Automotriz</th>
+                                <th class="border border-slate-400 p-1.5 w-1/4">Elementos Nocivos / Químicos</th>
+                                <th class="border border-slate-400 p-1.5 w-1/4">Impacto Ecológico Directo</th>
+                                <th class="border border-slate-400 p-1.5 w-1/4">Estrategia de Reciclaje / Disposición</th>
+                            </tr>
+                        </thead>
+                        <tbody id="doc-table-act1">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+
+                    <div class="p-2.5 bg-slate-50 border border-slate-300 rounded space-y-1">
+                        <strong class="text-[11px] font-bold block text-slate-800">Análisis Escrito sobre el Diagnóstico Computarizado Oportuno:</strong>
+                        <p id="doc-act1-analysis" class="whitespace-pre-wrap text-justify">Sin respuesta aún.</p>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 2 PREVIEW -->
+                <div class="space-y-3">
+                    <h3 class="font-extrabold text-xs uppercase bg-slate-800 text-white p-1.5 rounded">Actividad 2: Informe - Diagnóstico del Impacto Ecológico de Módulos y Sensores Obsoletos</h3>
+                    
+                    <div class="p-3 border border-slate-300 rounded space-y-2 text-justify">
+                        <div>
+                            <strong class="font-bold block text-slate-800">1. Introducción al e-Waste Automotriz:</strong>
+                            <p id="doc-act2-intro" class="whitespace-pre-wrap">Sin respuesta aún.</p>
+                        </div>
+                        <div>
+                            <strong class="font-bold block text-slate-800">2. Puntos Críticos de Contaminación por Metales Pesados:</strong>
+                            <p id="doc-act2-points" class="whitespace-pre-wrap">Sin respuesta aún.</p>
+                        </div>
+                        <div>
+                            <strong class="font-bold block text-slate-800">3. Protocolo de Acopio y Entrega Certificada:</strong>
+                            <p id="doc-act2-protocol" class="whitespace-pre-wrap">Sin respuesta aún.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 3 PREVIEW -->
+                <div class="space-y-3">
+                    <h3 class="font-extrabold text-xs uppercase bg-slate-800 text-white p-1.5 rounded">Actividad 3: Propuesta Digital de Integración TIC para la Conservación Ambiental</h3>
+                    
+                    <div class="space-y-2">
+                        <strong class="font-bold block text-slate-800">A) Tres Acciones Concretas con TIC (Sin Papel):</strong>
+                        <div id="doc-act3-actions" class="grid grid-cols-3 gap-2 text-[10px]">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <strong class="font-bold block text-slate-800">B) Diagrama de Flujo Digital - Ciclo de Diagnóstico Ecológico:</strong>
+                        <div id="doc-act3-diagram" class="p-3 bg-slate-900 rounded border border-slate-800 flex justify-center">
+                            <!-- SVG render -->
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-50 border border-slate-300 rounded space-y-1">
+                        <strong class="text-[11px] font-bold block text-slate-800">C) Argumentación sobre Telemetría y Mantenimiento Predictivo:</strong>
+                        <p id="doc-act3-telemetry" class="whitespace-pre-wrap text-justify">Sin respuesta aún.</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-300 pt-3 text-center text-[10px] text-slate-500">
+                    Documento generado mediante la Guía Interactiva Oficial de TIC II - Bachillerato en Mecánica Automotriz
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 4: RÚBRICA INTERACTIVA DE EVALUACIÓN -->
+        <!-- ========================================== -->
+        <section id="content-evaluador" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Simulador de Calificación y Rúbrica Oficial</h2>
+                        <p class="text-xs text-slate-600">Ponderación total: 10 Puntos Netos (Estructura de Identidad Absoluta con la Guía).</p>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 px-5 py-2.5 rounded-xl text-right">
+                        <span class="text-[10px] text-blue-700 font-bold uppercase block">Puntuación Estimada</span>
+                        <span id="score-display" class="text-2xl font-black text-blue-900">10.0 / 10 pts</span>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Criterio 1 -->
+                    <div class="border rounded-xl p-4 bg-slate-50 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-xs sm:text-sm text-slate-800">CRITERIO DE CALIFICACIÓN 1: Cuadro Comparativo Digital sobre Desecho Tecnológico Automotriz</h3>
+                            <span class="text-xs font-bold text-blue-600">Valor Máx: 3 pts</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit1" value="3" checked onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-emerald-700">EXCELENTE (3 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">Tabla completa con 3 componentes automotrices, elementos nocivos, impacto y reciclaje, e incluye el análisis escrito de 5+ líneas.</p>
+                            </label>
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit1" value="1.5" onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-amber-600">ACEPTABLE (1.5 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">Omite estrategia de reciclaje en un componente o el análisis escrito es menor a 5 líneas.</p>
+                            </label>
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit1" value="0" onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-rose-600">DEFICIENTE (0 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">No presenta la tabla comparativa, omite más de dos componentes o no incluye análisis escrito.</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Criterio 2 -->
+                    <div class="border rounded-xl p-4 bg-slate-50 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-xs sm:text-sm text-slate-800">CRITERIO DE CALIFICACIÓN 2: Informe - Diagnóstico del Impacto Ecológico de Módulos y Sensores Obsoletos</h3>
+                            <span class="text-xs font-bold text-emerald-600">Valor Máx: 3 pts</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit2" value="3" checked onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-emerald-700">EXCELENTE (3 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">Informe fluido de 200+ palabras, aborda metales pesados en talleres y propuesta de acopio con redacción propia.</p>
+                            </label>
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit2" value="1.5" onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-amber-600">ACEPTABLE (1.5 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">Menos de 200 palabras, falta profundidad en impacto ambiental o protocolo incompleto.</p>
+                            </label>
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit2" value="0" onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-rose-600">DEFICIENTE (0 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">No incluye el informe escrito, presenta copia literal externa o evidencia insuficiente.</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Criterio 3 -->
+                    <div class="border rounded-xl p-4 bg-slate-50 space-y-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-xs sm:text-sm text-slate-800">CRITERIO DE CALIFICACIÓN 3: Propuesta Digital de Integración TIC para la Conservación Ambiental en el Taller</h3>
+                            <span class="text-xs font-bold text-indigo-600">Valor Máx: 4 pts</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit3" value="4" checked onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-emerald-700">EXCELENTE (4 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">3 acciones concretas con TIC, diagrama de flujo digital vectorial y argumentación sólida de telemetría.</p>
+                            </label>
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit3" value="2" onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-amber-600">ACEPTABLE (2 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">Propone solo 2 acciones, o diagrama no vectorial (imagen de origen externo), o argumentación incompleta.</p>
+                            </label>
+                            <label class="cursor-pointer border p-3 rounded-xl bg-white hover:border-blue-500 block transition-all">
+                                <input type="radio" name="crit3" value="0" onclick="calculateScore()" class="mr-1.5">
+                                <span class="font-bold text-rose-600">DEFICIENTE (0 pts)</span>
+                                <p class="text-slate-600 text-[11px] mt-1">No presenta propuesta digital, omite el diagrama o no argumenta el uso de las TIC.</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Box Estado de Mejoramiento Académico -->
+                <div id="status-box" class="p-4 rounded-xl bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs flex items-center gap-3">
+                    <i class="fas fa-graduation-cap text-lg"></i>
+                    <div>
+                        <strong class="block font-bold">Estado del Estudiante:</strong>
+                        <span id="status-text">Aprobado satisfactoriamente. No requiere Proceso de Mejoramiento.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 5: CLASSROOM & METADATOS DOCENTE -->
+        <!-- ========================================== -->
+        <section id="content-classroom" class="tab-content hidden space-y-6">
+            
+            <!-- Classroom Post Text -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fab fa-google text-amber-500"></i> Publicación para Google Classroom
+                    </h2>
+                    <button onclick="copyClassroomText()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm">
+                        <i class="fas fa-copy"></i> Copiar Publicación
+                    </button>
+                </div>
+                <div id="classroom-text-box" class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono-code text-xs whitespace-pre-wrap leading-relaxed border border-slate-800">
+Estimados estudiantes de 5to. Bachillerato en Mecánica Automotriz:
+
+Les saludo cordialmente. Queda publicada la Guía de Trabajo No. 1 correspondiente al Tema "Tecnología e Impacto Ambiental".
+
+En esta asignación analizarán el impacto del desecho tecnológico (e-waste) generado por la electrónica automotriz y cómo el uso profesional de las TIC en el taller mecánico contribuye a la conservación ambiental.
+
+Instrucciones de entrega:
+- Desarrollen las 3 actividades indicadas utilizando procesador de texto o el espacio interactivo.
+- Generen un único archivo en formato PDF.
+- Adjunten su documento en esta tarea a más tardar el Viernes 14 de Agosto de 2026 a las 23:59 horas.
+- Ponderación total: 10 puntos Netos.
+
+Política de Mejoramiento:
+- Si la calificación obtenida es menor a 4 puntos, el estudiante entra en Proceso de Mejoramiento obligatorio.
+- Si obtiene exactamente 5 puntos, el proceso es opcional.
+- [PENDIENTE DE DEFINIR POR EL DOCENTE: tratamiento de una calificación de 4 puntos]
+
+A continuación se presentan los criterios exactos bajo los cuales será evaluado su trabajo:
+
+CRITERIO DE CALIFICACIÓN 1: Cuadro Comparativo Digital sobre Desecho Tecnológico Automotriz
+EXCELENTE: Construye una tabla comparativa digital completa con 3 componentes automotrices, detallando elementos nocivos, impacto ecológico y reciclaje técnico, e incluye el párrafo de análisis escrito sobre diagnóstico oportuno. (Valor: 3 pts)
+ACEPTABLE: Presenta la tabla comparativa con 3 componentes, pero omite la estrategia de reciclaje en alguno de ellos o el análisis escrito es menor a 5 líneas. (Valor: 1.5 pts)
+DEFICIENTE: No presenta la tabla comparativa, omite más de dos componentes o no incluye contenido escrito descriptivo. (Valor: 0 pts)
+
+CRITERIO DE CALIFICACIÓN 2: Informe - Diagnóstico del Impacto Ecológico de Módulos y Sensores Obsoletos
+EXCELENTE: Presenta un informe escrito fluido de al menos 200 palabras abordando la contaminación por metales pesados en talleres y la propuesta de protocolo de acopio de residuos con redacción propia. (Valor: 3 pts)
+ACEPTABLE: El informe presenta menos de 200 palabras, carece de profundidad en los efectos sobre suelo/agua o muestra deficiencias en la argumentación del protocolo de acopio. (Valor: 1.5 pts)
+DEFICIENTE: No incluye el informe escrito, presenta copia literal de textos externos o la evidencia es insuficiente. (Valor: 0 pts)
+
+CRITERIO DE CALIFICACIÓN 3: Propuesta Digital de Integración TIC para la Conservación Ambiental en el Taller
+EXCELENTE: Plantea 3 acciones concretas sustentadas en TIC para la conservación ambiental, adjunta un diagrama de flujo digital editable/vectorial sobre el proceso de diagnóstico y argumenta la relación entre software y prevención ambiental. (Valor: 4 pts)
+ACEPTABLE: Propone solo 2 acciones concretas, o el diagrama de flujo no utiliza formas digitales del programa (imagen pegada de origen externo), o la argumentación sobre mantenimiento predictivo es incompleta. (Valor: 2 pts)
+DEFICIENTE: No presenta la propuesta digital, omite el diagrama o no argumenta el uso de las TIC en la conservación. (Valor: 0 pts)
+                </div>
+            </div>
+
+            <!-- Python Metadata Box -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fas fa-terminal text-purple-600"></i> Bloque de Metadatos para Procesamiento en Python
+                    </h2>
+                    <button onclick="copyMetadataText()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm">
+                        <i class="fas fa-copy"></i> Copiar Metadatos
+                    </button>
+                </div>
+                <div id="metadata-box" class="bg-slate-900 text-purple-300 p-4 rounded-xl font-mono-code text-xs whitespace-pre-wrap leading-relaxed border border-slate-800">
+# ==================================================
+METADATOS PARA PYTHON:
+# ==================================================
+Fecha de entrega: 14/08/2026
+Docente: Erick Enrique Zamora Paz
+Grado: Quinto Bachillerato
+Curso: TIC II
+Bimestre: Tercer Bimestre
+Competencia: Promueve el uso ético, legal y ecológico de las TIC para prevenir riesgos e impacto ecológico derivado de su uso.
+Tema: Tecnología e Impacto Ambiental: Propuesta Digital sobre Desecho Tecnológico Automotriz y Aporte de TIC a la Conservación Ecológica
+Inicio: Inducción teórica sobre la acumulación de módulos y baterías e-waste derivada del diagnóstico y reparación automotriz.
+Desarrollo: Construcción de cuadro comparativo de e-waste automotriz, elaboración de informe técnico de impacto ambiental y diseño de diagrama de flujo con propuesta de sostenibilidad digital.
+Cierre: Integración de la evidencia en formato PDF y entrega oficial en Google Classroom para evaluación sumativa.
+Indicador: 4.2. Determina el impacto ambiental derivado del desecho tecnológico y propone soluciones apoyadas en las TIC para la conservación ecológica.
+Formativa: Revisión preliminar en laboratorio de la estructura del cuadro comparativo y del formato de diagrama digital.
+Sumativa: 10 pts
+Observaciones: Corresponde a la Guía No. 1 del Tercer Bimestre. Apertura de proceso de mejoramiento según desempeño en la entrega.
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Global State & LocalStorage Initializer
+        window.onload = function() {
+            loadSavedData();
+            renderFlowchart();
+            calculateScore();
+            updateProgress();
+        };
+
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('active-tab');
+                el.classList.add('text-slate-600');
+            });
+
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('active-tab');
+            activeBtn.classList.remove('text-slate-600');
+
+            if (tabId === 'preview') {
+                updatePreviewDocument();
+            }
+        }
+
+        function goToWorkspaceStep(stepNumber) {
+            switchTab('workspace');
+            showStep(stepNumber);
+        }
+
+        function showStep(stepNumber) {
+            document.querySelectorAll('.workspace-step').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.step-nav-btn').forEach(btn => {
+                btn.className = "step-nav-btn px-4 py-2 text-xs font-bold rounded-t-lg bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center gap-1.5";
+            });
+
+            document.getElementById('workspace-step-' + stepNumber).classList.remove('hidden');
+            const activeStepBtn = document.getElementById('step-btn-' + stepNumber);
+            activeStepBtn.className = "step-nav-btn px-4 py-2 text-xs font-bold rounded-t-lg bg-blue-600 text-white flex items-center gap-1.5";
+        }
+
+        // Add Row to Activity 1 Table
+        function addTableRow() {
+            const tbody = document.getElementById('table-body-act1');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td class="p-2 border-r border-slate-200">
+                    <input type="text" class="act1-comp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" placeholder="Nombre del componente" oninput="autoSave()">
+                </td>
+                <td class="p-2 border-r border-slate-200">
+                    <textarea class="act1-elem w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" placeholder="Sustancias o metales nocivos" oninput="autoSave()"></textarea>
+                </td>
+                <td class="p-2 border-r border-slate-200">
+                    <textarea class="act1-imp w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" placeholder="Impacto en ecosistema" oninput="autoSave()"></textarea>
+                </td>
+                <td class="p-2">
+                    <textarea class="act1-rec w-full bg-white border border-slate-300 rounded p-1.5 text-xs focus:ring-1 focus:ring-blue-500" rows="2" placeholder="Disposición o reciclaje" oninput="autoSave()"></textarea>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+            showToast("Se agregó una nueva fila al cuadro comparativo.", "success");
+            autoSave();
+        }
+
+        // Live Line Count for Actividad 1 Analysis
+        function checkAct1Lines() {
+            const text = document.getElementById('act1-analysis').value;
+            const lines = text.split('\n').filter(line => line.trim().length > 0).length;
+            const badge = document.getElementById('act1-line-count');
+            
+            if (lines >= 5) {
+                badge.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300";
+                badge.innerText = `${lines} / 5 líneas (Cumple requerimiento)`;
+            } else {
+                badge.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300";
+                badge.innerText = `${lines} / 5 líneas requeridas`;
+            }
+        }
+
+        // Live Word Count for Actividad 2 Report
+        function checkAct2Words() {
+            const intro = document.getElementById('act2-intro').value;
+            const points = document.getElementById('act2-points').value;
+            const protocol = document.getElementById('act2-protocol').value;
+            
+            const totalText = `${intro} ${points} ${protocol}`.trim();
+            const wordCount = totalText.length > 0 ? totalText.split(/\s+/).length : 0;
+            const badge = document.getElementById('act2-word-count');
+
+            if (wordCount >= 200) {
+                badge.className = "text-xs font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300";
+                badge.innerText = `${wordCount} / 200 palabras (Excelente)`;
+            } else {
+                badge.className = "text-xs font-bold px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-300";
+                badge.innerText = `${wordCount} / 200 palabras mínimo`;
+            }
+        }
+
+        // SVG Flowchart Dynamic Renderer for Actividad 3
+        function renderFlowchart() {
+            const steps = [
+                document.getElementById('flow-step-1').value || "1. Inicio",
+                document.getElementById('flow-step-2').value || "2. Diagnóstico",
+                document.getElementById('flow-step-3').value || "3. Reparación",
+                document.getElementById('flow-step-4').value || "4. Verificación",
+                document.getElementById('flow-step-5').value || "5. Cierre"
+            ];
+
+            let svgContent = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 ${steps.length * 75}" class="w-full max-w-xl text-xs font-sans">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#818cf8" />
+                        </marker>
+                    </defs>
+            `;
+
+            steps.forEach((step, idx) => {
+                const y = idx * 75 + 10;
+                const isFirst = idx === 0;
+                const isLast = idx === steps.length - 1;
+                const bgFill = isFirst ? "#2563eb" : (isLast ? "#059669" : "#1e293b");
+                const borderStroke = isFirst ? "#60a5fa" : (isLast ? "#34d399" : "#6366f1");
+
+                svgContent += `
+                    <g transform="translate(100, ${y})">
+                        <rect width="500" height="45" rx="10" fill="${bgFill}" stroke="${borderStroke}" stroke-width="2" />
+                        <text x="250" y="27" fill="#ffffff" font-weight="bold" font-size="12" text-anchor="middle">${escapeHtml(step)}</text>
+                    </g>
+                `;
+
+                if (idx < steps.length - 1) {
+                    svgContent += `
+                        <line x1="350" y1="${y + 45}" x2="350" y2="${y + 70}" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)" />
+                    `;
+                }
+            });
+
+            svgContent += `</svg>`;
+
+            document.getElementById('flowchart-svg-container').innerHTML = svgContent;
+            document.getElementById('doc-act3-diagram').innerHTML = svgContent;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Calculate Progress Percentage
+        function updateProgress() {
+            let fieldsFilled = 0;
+            let totalFields = 9;
+
+            if (document.getElementById('student-name').value.trim() !== '') fieldsFilled++;
+            if (document.getElementById('student-id').value.trim() !== '') fieldsFilled++;
+            if (document.getElementById('act1-analysis').value.trim().length > 30) fieldsFilled++;
+            if (document.getElementById('act2-intro').value.trim().length > 30) fieldsFilled++;
+            if (document.getElementById('act2-points').value.trim().length > 30) fieldsFilled++;
+            if (document.getElementById('act2-protocol').value.trim().length > 30) fieldsFilled++;
+            if (document.getElementById('act3-acc1-desc').value.trim() !== '') fieldsFilled++;
+            if (document.getElementById('act3-telemetry').value.trim().length > 30) fieldsFilled++;
+
+            const pct = Math.round((fieldsFilled / totalFields) * 100);
+            document.getElementById('progress-percentage').innerText = pct + '%';
+            document.getElementById('progress-bar').style.width = pct + '%';
+        }
+
+        // Update Printable Document View
+        function updatePreviewDocument() {
+            const name = document.getElementById('student-name').value || "____________________";
+            const id = document.getElementById('student-id').value || "__________";
+            
+            document.getElementById('doc-student-name').innerText = name;
+            document.getElementById('doc-student-id').innerText = id;
+
+            // Populate Actividad 1 Table in PDF
+            const tbodyDoc = document.getElementById('doc-table-act1');
+            tbodyDoc.innerHTML = '';
+            
+            const comps = document.querySelectorAll('.act1-comp');
+            const elems = document.querySelectorAll('.act1-elem');
+            const imps = document.querySelectorAll('.act1-imp');
+            const recs = document.querySelectorAll('.act1-rec');
+
+            comps.forEach((c, i) => {
+                if (c.value.trim() !== '') {
+                    const tr = document.createElement('tr');
+                    tr.className = "border-b border-slate-300";
+                    tr.innerHTML = `
+                        <td class="border border-slate-300 p-1.5 font-bold">${escapeHtml(c.value)}</td>
+                        <td class="border border-slate-300 p-1.5">${escapeHtml(elems[i]?.value || '')}</td>
+                        <td class="border border-slate-300 p-1.5">${escapeHtml(imps[i]?.value || '')}</td>
+                        <td class="border border-slate-300 p-1.5">${escapeHtml(recs[i]?.value || '')}</td>
+                    `;
+                    tbodyDoc.appendChild(tr);
+                }
+            });
+
+            document.getElementById('doc-act1-analysis').innerText = document.getElementById('act1-analysis').value || "Sin respuesta agregada.";
+            document.getElementById('doc-act2-intro').innerText = document.getElementById('act2-intro').value || "Sin respuesta agregada.";
+            document.getElementById('doc-act2-points').innerText = document.getElementById('act2-points').value || "Sin respuesta agregada.";
+            document.getElementById('doc-act2-protocol').innerText = document.getElementById('act2-protocol').value || "Sin respuesta agregada.";
+
+            // Populate Actividad 3 Actions
+            const actContainer = document.getElementById('doc-act3-actions');
+            actContainer.innerHTML = `
+                <div class="p-2 bg-slate-50 border rounded">
+                    <strong>1. ${escapeHtml(document.getElementById('act3-acc1-title').value)}:</strong>
+                    <p>${escapeHtml(document.getElementById('act3-acc1-desc').value)}</p>
+                </div>
+                <div class="p-2 bg-slate-50 border rounded">
+                    <strong>2. ${escapeHtml(document.getElementById('act3-acc2-title').value)}:</strong>
+                    <p>${escapeHtml(document.getElementById('act3-acc2-desc').value)}</p>
+                </div>
+                <div class="p-2 bg-slate-50 border rounded">
+                    <strong>3. ${escapeHtml(document.getElementById('act3-acc3-title').value)}:</strong>
+                    <p>${escapeHtml(document.getElementById('act3-acc3-desc').value)}</p>
+                </div>
+            `;
+
+            document.getElementById('doc-act3-telemetry').innerText = document.getElementById('act3-telemetry').value || "Sin respuesta agregada.";
+            
+            renderFlowchart();
+            showToast("Documento de vista previa actualizado.", "info");
+        }
+
+        // Auto Save to LocalStorage
+        function autoSave() {
+            const data = {
+                studentName: document.getElementById('student-name').value,
+                studentId: document.getElementById('student-id').value,
+                act1Analysis: document.getElementById('act1-analysis').value,
+                act2Intro: document.getElementById('act2-intro').value,
+                act2Points: document.getElementById('act2-points').value,
+                act2Protocol: document.getElementById('act2-protocol').value,
+                act3Acc1Title: document.getElementById('act3-acc1-title').value,
+                act3Acc1Desc: document.getElementById('act3-acc1-desc').value,
+                act3Acc2Title: document.getElementById('act3-acc2-title').value,
+                act3Acc2Desc: document.getElementById('act3-acc2-desc').value,
+                act3Acc3Title: document.getElementById('act3-acc3-title').value,
+                act3Acc3Desc: document.getElementById('act3-acc3-desc').value,
+                act3Telemetry: document.getElementById('act3-telemetry').value,
+                flowStep1: document.getElementById('flow-step-1').value,
+                flowStep2: document.getElementById('flow-step-2').value,
+                flowStep3: document.getElementById('flow-step-3').value,
+                flowStep4: document.getElementById('flow-step-4').value,
+                flowStep5: document.getElementById('flow-step-5').value
+            };
+
+            try {
+                localStorage.setItem('tic2_guia1_data', JSON.stringify(data));
+                const statusEl = document.getElementById('save-status');
+                statusEl.innerHTML = `<i class="fas fa-check-circle text-[10px]"></i> Guardado localmente`;
+                updateProgress();
+            } catch (e) {
+                // Ignore iframe storage exceptions
+            }
+        }
+
+        function loadSavedData() {
+            try {
+                const saved = localStorage.getItem('tic2_guia1_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.studentName) document.getElementById('student-name').value = data.studentName;
+                    if (data.studentId) document.getElementById('student-id').value = data.studentId;
+                    if (data.act1Analysis) document.getElementById('act1-analysis').value = data.act1Analysis;
+                    if (data.act2Intro) document.getElementById('act2-intro').value = data.act2Intro;
+                    if (data.act2Points) document.getElementById('act2-points').value = data.act2Points;
+                    if (data.act2Protocol) document.getElementById('act2-protocol').value = data.act2Protocol;
+                    if (data.act3Acc1Title) document.getElementById('act3-acc1-title').value = data.act3Acc1Title;
+                    if (data.act3Acc1Desc) document.getElementById('act3-acc1-desc').value = data.act3Acc1Desc;
+                    if (data.act3Acc2Title) document.getElementById('act3-acc2-title').value = data.act3Acc2Title;
+                    if (data.act3Acc2Desc) document.getElementById('act3-acc2-desc').value = data.act3Acc2Desc;
+                    if (data.act3Acc3Title) document.getElementById('act3-acc3-title').value = data.act3Acc3Title;
+                    if (data.act3Acc3Desc) document.getElementById('act3-acc3-desc').value = data.act3Acc3Desc;
+                    if (data.act3Telemetry) document.getElementById('act3-telemetry').value = data.act3Telemetry;
+                    if (data.flowStep1) document.getElementById('flow-step-1').value = data.flowStep1;
+                    if (data.flowStep2) document.getElementById('flow-step-2').value = data.flowStep2;
+                    if (data.flowStep3) document.getElementById('flow-step-3').value = data.flowStep3;
+                    if (data.flowStep4) document.getElementById('flow-step-4').value = data.flowStep4;
+                    if (data.flowStep5) document.getElementById('flow-step-5').value = data.flowStep5;
+
+                    checkAct1Lines();
+                    checkAct2Words();
+                }
+            } catch (e) {
+                // Ignore storage error
+            }
+        }
+
+        // Rubric Calculator
+        function calculateScore() {
+            const c1 = parseFloat(document.querySelector('input[name="crit1"]:checked').value);
+            const c2 = parseFloat(document.querySelector('input[name="crit2"]:checked').value);
+            const c3 = parseFloat(document.querySelector('input[name="crit3"]:checked').value);
+            
+            const total = c1 + c2 + c3;
+            document.getElementById('score-display').innerText = total.toFixed(1) + ' / 10 pts';
+
+            const statusBox = document.getElementById('status-box');
+            const statusText = document.getElementById('status-text');
+
+            if (total < 4) {
+                statusBox.className = "p-4 rounded-xl bg-rose-100 text-rose-900 border border-rose-300 text-xs flex items-center gap-3";
+                statusText.innerText = "Proceso de Mejoramiento Obligatorio (Punteo obtenido menor a 4 puntos).";
+            } else if (total === 4) {
+                statusBox.className = "p-4 rounded-xl bg-amber-100 text-amber-900 border border-amber-300 text-xs flex items-center gap-3";
+                statusText.innerText = "[PENDIENTE DE DEFINIR POR EL DOCENTE: tratamiento de una calificación de 4 puntos].";
+            } else if (total === 5) {
+                statusBox.className = "p-4 rounded-xl bg-amber-100 text-amber-900 border border-amber-300 text-xs flex items-center gap-3";
+                statusText.innerText = "Proceso de Mejoramiento Opcional (Calificación exacta de 5 puntos).";
+            } else {
+                statusBox.className = "p-4 rounded-xl bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs flex items-center gap-3";
+                statusText.innerText = "Aprobado satisfactoriamente. No requiere Proceso de Mejoramiento.";
+            }
+        }
+
+        // Copy Text Helper
+        function copyClassroomText() {
+            const text = document.getElementById('classroom-text-box').innerText;
+            executeCopy(text, 'Publicación de Classroom copiada al portapapeles.');
+        }
+
+        function copyMetadataText() {
+            const text = document.getElementById('metadata-box').innerText;
+            executeCopy(text, 'Metadatos para Python copiados al portapapeles.');
+        }
+
+        function executeCopy(text, successMessage) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(successMessage, "success");
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast(successMessage, "success");
+            }
+        }
+
+        // Toast Notification System
+        function showToast(msg, type = "info") {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = msg;
+            
+            if (type === "success") {
+                toastIcon.className = "fas fa-check-circle text-emerald-400 text-lg";
+            } else if (type === "error") {
+                toastIcon.className = "fas fa-exclamation-circle text-rose-400 text-lg";
+            } else {
+                toastIcon.className = "fas fa-info-circle text-blue-400 text-lg";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

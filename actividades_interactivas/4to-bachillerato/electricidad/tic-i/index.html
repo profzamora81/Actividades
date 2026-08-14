@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva No. 5 - TIC I | Sector Eléctrico</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        industrial: {
+                            50: '#f4f6f8',
+                            100: '#e5e9f0',
+                            200: '#cdd5e1',
+                            500: '#475569',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        amberAccent: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- html2pdf for direct assignment generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        .tab-active {
+            border-bottom: 3px solid #f59e0b;
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.08);
+        }
+        
+        /* Print & PDF Export Optimizations */
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; color: black !important; padding: 0; margin: 0; }
+            #pdf-content { width: 100% !important; max-width: none !important; padding: 0 !important; }
+            .page-break { page-break-before: always; }
+        }
+
+        .pdf-page {
+            background-color: #ffffff;
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col custom-scrollbar">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Branding -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-600 flex items-center justify-center text-slate-900 font-bold text-xl shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-base sm:text-lg font-bold text-slate-100 leading-tight">Guía Interactiva No. 5 - TIC I</h1>
+                        <p class="text-xs text-amber-400 font-medium">Bachillerato en Electricidad | 4to Bachillerato</p>
+                    </div>
+                </div>
+
+                <!-- Global Progress Bar -->
+                <div class="hidden md:flex items-center space-x-4 bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700/50">
+                    <div class="text-xs text-slate-300 font-medium">Progreso Global:</div>
+                    <div class="w-32 bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                        <div id="global-progress-bar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full w-0 transition-all duration-500"></div>
+                    </div>
+                    <span id="global-progress-text" class="text-xs font-bold text-amber-400">0/10 pts</span>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="flex items-center space-x-2">
+                    <button onclick="openModal('modal-rubrica')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-medium rounded-lg transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-award text-amber-400"></i>
+                        <span class="hidden sm:inline">Rúbrica</span> (10 pts)
+                    </button>
+                    <button onclick="switchTab('tab-entregable')" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg transition shadow-md shadow-amber-500/20 flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Generar PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="bg-slate-900/90 border-t border-slate-800/80 overflow-x-auto custom-scrollbar">
+            <div class="max-w-7xl mx-auto px-4 flex whitespace-nowrap">
+                <button onclick="switchTab('tab-inicio')" id="nav-tab-inicio" class="tab-btn tab-active px-4 py-3 text-xs sm:text-sm font-semibold flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-house"></i> 1. Inicio y Reglas
+                </button>
+                <button onclick="switchTab('tab-act1')" id="nav-tab-act1" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-list-check"></i> 2. Actividad 1: Google Forms (4pts)
+                </button>
+                <button onclick="switchTab('tab-act2')" id="nav-tab-act2" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-file-lines"></i> 3. Actividad 2: Presupuesto Docs (3pts)
+                </button>
+                <button onclick="switchTab('tab-act3')" id="nav-tab-act3" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-file-export"></i> 4. Actividad 3: Exportación PDF (3pts)
+                </button>
+                <button onclick="switchTab('tab-entregable')" id="nav-tab-entregable" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
+                    <i class="fa-solid fa-print"></i> 5. Compilador de PDF Final
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 no-print">
+
+        <!-- TAB 1: INICIO Y REGLAS -->
+        <section id="tab-inicio" class="tab-content space-y-6">
+            <!-- Header Banner -->
+            <div class="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-700/70 overflow-hidden shadow-2xl">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-amber-500 pointer-events-none">
+                    <i class="fa-solid fa-plug-circle-bolt text-9xl"></i>
+                </div>
+                <div class="relative z-10 max-w-3xl space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+                        <i class="fa-solid fa-graduation-cap"></i> Instituto Industrial Central General Lázaro Chacón González
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                        Taller Práctico Digital: Documentos y Formularios del Sector Eléctrico
+                    </h2>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Esta herramienta guiada te asistirá paso a paso en el diseño de tu <span class="text-amber-400 font-medium">Levantamiento de Requerimientos Eléctricos en Sitio</span> y tu <span class="text-amber-400 font-medium">Presupuesto Técnico e Informe de Instalación</span>. Aprenderás a estructurar datos técnicos, maquetar con jerarquía visual y redactar los análisis exigidos en la Guía No. 5.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4 text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-tie text-amber-400"></i> Docente: Erick Enrique Zamora Paz</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar-check text-amber-400"></i> Asignación: 12/08/2026</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock text-rose-400 font-bold"></i> Entrega: Viernes 14/08/2026 18:00 hrs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Personal Data Form -->
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 space-y-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
+                    <i class="fa-solid fa-id-card text-amber-400"></i> Identificación del Estudiante (Requerido para la portada del PDF)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">Nombre Completo:</label>
+                        <input type="text" id="student-name" oninput="syncStudentInfo()" placeholder="Ej. Juan Carlos Pérez López" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">Clave / Carné:</label>
+                        <input type="text" id="student-key" oninput="syncStudentInfo()" placeholder="Ej. Clave 15 / 2026-0421" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">Grado y Sección:</label>
+                        <input type="text" id="student-section" oninput="syncStudentInfo()" value="4to Bachillerato en Electricidad - Sec. A" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white outline-none focus:border-amber-400">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mandatory Rules & Competencies Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Rules Card -->
+                <div class="bg-slate-800/80 rounded-xl p-5 border border-slate-700/60 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                        Reglas Generales de Entregable (Obligatorias)
+                    </h3>
+                    <ul class="space-y-2.5 text-xs text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-pen-nib text-amber-400 mt-0.5"></i>
+                            <span><strong class="text-white">TEXTO DE ANÁLISIS:</strong> Todo análisis, explicación, procedimiento o justificación debe escribirse directamente como texto dentro del documento. El texto dentro de imágenes NO lo sustituye.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-image text-amber-400 mt-0.5"></i>
+                            <span><strong class="text-white">EVIDENCIAS:</strong> Las evidencias deben incorporarse de la manera establecida. Un enlace externo no sustituye una captura directa.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-comment-dots text-amber-400 mt-0.5"></i>
+                            <span><strong class="text-white">REDACCIÓN PROPIA:</strong> Explica con tus propias palabras técnicos. No copies literalmente las instrucciones.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-file-pdf text-rose-400 mt-0.5"></i>
+                            <span><strong class="text-white">FORMATO PDF ÚNICO:</strong> Se debe entregar un solo archivo PDF final generado por esta plataforma directamente en Google Classroom.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Competencies & Tools Card -->
+                <div class="bg-slate-800/80 rounded-xl p-5 border border-slate-700/60 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
+                        <i class="fa-solid fa-bullseye text-emerald-400"></i>
+                        Competencia e Indicador de Logro
+                    </h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-700/40">
+                            <p class="font-semibold text-amber-400 mb-1">Competencia:</p>
+                            <p class="text-slate-300">Utiliza las Tecnologías de la Información y la Comunicación para estructurar, procesar y presentar información técnica y presupuestaria de forma limpia y colaborativa en la resolución de tareas profesionales.</p>
+                        </div>
+                        <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-700/40">
+                            <p class="font-semibold text-emerald-400 mb-1">Indicador de Logro:</p>
+                            <p class="text-slate-300">Diseña e integra herramientas de ofimática en la nube (formularios digitales e informes técnicos) para la recolección de datos en sitio y presentación de presupuestos eléctricos ajustados a estándares técnicos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Roadmap / Quick Start -->
+            <div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
+                <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-amber-400"></i> Ruta Recomendada de Trabajo
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div onclick="switchTab('tab-act1')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-sm">1</span>
+                            <span class="text-xs font-bold text-amber-400">4 Puntos</span>
+                        </div>
+                        <h4 class="font-semibold text-white text-sm group-hover:text-amber-400 transition">Google Forms</h4>
+                        <p class="text-xs text-slate-400 mt-1">Configura el formulario de levantamiento de datos + Redacta el Análisis 1.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-act2')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 font-bold flex items-center justify-center text-sm">2</span>
+                            <span class="text-xs font-bold text-sky-400">3 Puntos</span>
+                        </div>
+                        <h4 class="font-semibold text-white text-sm group-hover:text-sky-400 transition">Google Docs</h4>
+                        <p class="text-xs text-slate-400 mt-1">Diseña el Presupuesto e Informe Eléctrico con tablas + Justificación Técnica 2.</p>
+                    </div>
+
+                    <div onclick="switchTab('tab-act3')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-sm">3</span>
+                            <span class="text-xs font-bold text-emerald-400">3 Puntos</span>
+                        </div>
+                        <h4 class="font-semibold text-white text-sm group-hover:text-emerald-400 transition">PDF e Integración</h4>
+                        <p class="text-xs text-slate-400 mt-1">Integra datos, verifica la maquetación limpia en PDF y redacta el Análisis Legal 3.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: ACTIVIDAD 1 - GOOGLE FORMS -->
+        <section id="tab-act1" class="tab-content hidden space-y-6">
+            <!-- Header info -->
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold uppercase">Actividad 1 - Valor: 4 Puntos</span>
+                    <h2 class="text-xl font-bold text-white mt-1">Diseño Técnico de Formulario Digital de Levantamiento de Requerimientos Eléctricos en Sitio (Google Forms)</h2>
+                    <p class="text-xs text-slate-300 mt-1">Configura los 4 tipos de preguntas esenciales y redacta el análisis sobre digitalización y cálculo de cargas.</p>
+                </div>
+                <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-amber-400 text-base"></i>
+                    <div>
+                        <span id="act1-status" class="font-bold text-amber-400">Incompleto</span>
+                        <p class="text-slate-400 text-[10px]">Punteo asignado: <span id="act1-pts">0</span>/4 pts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Interactive Forms Simulator (Left) -->
+                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-700 overflow-hidden shadow-xl flex flex-col">
+                    <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-slate-200">
+                            <i class="fa-solid fa-laptop-code text-amber-400"></i>
+                            <span>Simulador Interactivo de Google Forms</span>
+                        </div>
+                        <span class="text-[11px] text-slate-400">Estructura Sugerida</span>
+                    </div>
+
+                    <div class="p-5 space-y-5 custom-scrollbar overflow-y-auto max-h-[600px]">
+                        <!-- Form Header Banner Preview -->
+                        <div id="forms-banner" class="bg-gradient-to-r from-slate-700 to-slate-800 rounded-lg p-5 border-t-8 border-amber-500 shadow-md">
+                            <input type="text" id="form-title-input" value="Levantamiento de Requerimientos Eléctricos en Sitio" oninput="updateProgress()" class="w-full bg-transparent text-lg font-bold text-white border-b border-slate-600 focus:border-amber-400 outline-none pb-1" placeholder="Título del Formulario...">
+                            <p class="text-xs text-slate-300 mt-2">Recolección exacta de información de campo y especificaciones técnicas para instalaciones de baja tensión.</p>
+                        </div>
+
+                        <!-- Question 1: Datos Cliente y Ubicación (Texto Corto) -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-font"></i> Pregunta 1: Datos del cliente y ubicación (Texto corto)
+                                </span>
+                                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Obligatoria</span>
+                            </div>
+                            <input type="text" readonly value="Nombre del cliente, teléfono y dirección exacta del proyecto" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded border border-slate-700 outline-none">
+                        </div>
+
+                        <!-- Question 2: Tipo de Instalación (Casilla / Varias Opciones) -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-square-check"></i> Pregunta 2: Tipo de instalación o servicio (Casillas)
+                                </span>
+                                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Obligatoria</span>
+                            </div>
+                            <input type="text" readonly value="Seleccione el tipo de instalación eléctrica solicitada" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded border border-slate-700 outline-none">
+                            <div class="grid grid-cols-2 gap-2 text-xs text-slate-300">
+                                <div class="flex items-center gap-2"><input type="checkbox" checked class="accent-amber-500"> Residencial Monofásica</div>
+                                <div class="flex items-center gap-2"><input type="checkbox" class="accent-amber-500"> Comercial Trifásica</div>
+                                <div class="flex items-center gap-2"><input type="checkbox" class="accent-amber-500"> Mantenimiento/Revisión</div>
+                                <div class="flex items-center gap-2"><input type="checkbox" class="accent-amber-500"> Nueva Acometida</div>
+                                <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-align-left"></i> Pregunta 3: Inventario preliminar de cargas (Párrafo)
+                                </span>
+                                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Obligatoria</span>
+                            </div>
+                            <input type="text" readonly value="Detalle los puntos de iluminación, tomacorrientes y cargas especiales requeridas" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded border border-slate-700 outline-none">
+                        </div>
+
+                        <!-- Question 4: Prioridad / Condición (Desplegable / Escala) -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-list text-amber-400"></i> Pregunta 4: Prioridad y estado previo del sitio (Desplegable)
+                                </span>
+                                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">Obligatoria</span>
+                            </div>
+                            <select class="w-full bg-slate-900 text-xs text-slate-300 p-2.5 rounded border border-slate-700" >
+                                <option>Alta - Riesgo eléctrico o urgencia de servicio</option>
+                                <option>Media - Remodelación planificada</option>
+                                <option>Baja - Cotización preventiva para proyecto futuro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Written Requirement & Evidence Box (Right) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Upload Screenshot Evidence -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-amber-400"></i> Captura de Pantalla - Google Forms
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            Carga una captura clara de tu formulario real en Google Forms (Edición).
+                        </p>
+                        <input type="file" id="img-act1-file" accept="image/*" onchange="handleImageUpload(event, 'preview-act1', 'pdf-act1-img')" class="hidden">
+                        <label for="img-act1-file" class="cursor-pointer bg-slate-900 hover:bg-slate-700 border-2 border-dashed border-slate-600 hover:border-amber-400 rounded-xl p-4 flex flex-col items-center justify-center transition text-center">
+                            <i class="fa-solid fa-cloud-arrow-up text-2xl text-amber-400 mb-2"></i>
+                            <span class="text-xs font-semibold text-slate-200">Haga clic para subir captura de pantalla</span>
+                            <span class="text-[10px] text-slate-400">Formatos recomendados: PNG, JPG</span>
+                        </label>
+                        <div id="preview-act1-container" class="hidden rounded-lg overflow-hidden border border-slate-700 max-h-48 bg-slate-950">
+                            <img id="preview-act1" src="" alt="Vista previa Google Forms" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+
+                    <!-- Written Text Editor Section -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-pen-fancy text-amber-400"></i> Análisis Técnico Escrito
+                            </h3>
+                            <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">
+                                Obligatorio
+                            </span>
+                        </div>
+
+                        <div class="p-2.5 bg-slate-900/80 rounded border border-slate-700/50 text-xs text-slate-300 space-y-1">
+                            <p class="font-medium text-amber-400">Directriz de Redacción:</p>
+                            <p class="text-[11px] text-slate-400">Explica la importancia de estandarizar la recolección de datos en sitio, el impacto de omitir información de cargas y cómo la digitalización con Google Forms optimiza el cálculo del cuadro de cargas.</p>
+                        </div>
+
+                        <textarea id="act1-text" oninput="syncTextAndCheck('act1-text', 'pdf-act1-text'); updateProgress();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-amber-400 outline-none font-sans leading-relaxed" placeholder="Actividad 1: 
+El uso de formularios digitales para el levantamiento de requerimientos eléctricos en sitio es vital porque..."></textarea>
+
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span id="act1-word-count">Palabras: 0</span>
+                            <span id="act1-kw-check" class="text-amber-400"><i class="fa-solid fa-info-circle"></i> Escriba su análisis iniciando con "Actividad 1:"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: ACTIVIDAD 2 - PRESUPUESTO DOCS -->
+        <section id="tab-act2" class="tab-content hidden space-y-6">
+            <!-- Header info -->
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-sky-500/20 text-sky-400 text-xs font-bold uppercase">Actividad 2 - Valor: 3 Puntos</span>
+                    <h2 class="text-xl font-bold text-white mt-1">Presupuesto Técnico e Informe de Instalación (Google Docs)</h2>
+                    <p class="text-xs text-slate-300 mt-1">Estructura el presupuesto de materiales y mano de obra para la instalación eléctrica con cálculos precisos.</p>
+                </div>
+                <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-sky-400 text-base"></i>
+                    <div>
+                        <span id="act2-status" class="font-bold text-amber-400">Incompleto</span>
+                        <p class="text-slate-400 text-[10px]">Punteo asignado: <span id="act2-pts">0</span>/3 pts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Interactive Table & Budget Builder -->
+                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-700 overflow-hidden shadow-xl flex flex-col">
+                    <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-slate-200">
+                            <i class="fa-solid fa-table text-sky-400"></i>
+                            <span>Tabla de Costos e Insumos Eléctricos</span>
+                        </div>
+                        <button onclick="addBudgetRow()" class="px-2 py-1 bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 rounded text-[11px] font-medium border border-sky-500/30 transition">
+                            <i class="fa-solid fa-plus"></i> Agregar Fila
+                        </button>
+                    </div>
+
+                    <div class="p-4 overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-200 border-collapse">
+                            <thead>
+                                <tr class="bg-slate-800 border-b border-slate-700 text-slate-400 font-medium">
+                                    <th class="p-2">Descripción del Material / Servicio</th>
+                                    <th class="p-2 w-16 text-center">Cant.</th>
+                                    <th class="p-2 w-24 text-right">P. Unit (Q)</th>
+                                    <th class="p-2 w-24 text-right">Subtotal</th>
+                                    <th class="p-2 w-10 text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="budget-table-body">
+                                <tr class="border-b border-slate-800">
+                                    <td class="p-2"><input type="text" value="Cable de Cobre THHN/THWN No. 12 AWG (Rollo 100m)" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs" oninput="calculateBudget()"></td>
+                                    <td class="p-2"><input type="number" value="2" min="1" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-center budget-qty" oninput="calculateBudget()"></td>
+                                    <td class="p-2"><input type="number" value="450.00" step="0.01" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-right budget-price" oninput="calculateBudget()"></td>
+                                    <td class="p-2 text-right font-mono budget-subtotal">Q 900.00</td>
+                                    <td class="p-2 text-center"><button onclick="removeBudgetRow(this)" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash-can"></i></button></td>
+                                </tr>
+                                <tr class="border-b border-slate-800">
+                                    <td class="p-2"><input type="text" value="Interruptores Termomagnéticos 20A 1P GE/Square D" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs" oninput="calculateBudget()"></td>
+                                    <td class="p-2"><input type="number" value="4" min="1" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-center budget-qty" oninput="calculateBudget()"></td>
+                                    <td class="p-2"><input type="number" value="65.00" step="0.01" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-right budget-price" oninput="calculateBudget()"></td>
+                                    <td class="p-2 text-right font-mono budget-subtotal">Q 260.00</td>
+                                    <td class="p-2 text-center"><button onclick="removeBudgetRow(this)" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash-can"></i></button></td>
+                                </tr>
+                                <tr class="border-b border-slate-800">
+                                    <td class="p-2"><input type="text" value="Mano de Obra Calificada - Instalación de Tablero y Circuitos" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs" oninput="calculateBudget()"></td>
+                                    <td class="p-2"><input type="number" value="1" min="1" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-center budget-qty" oninput="calculateBudget()"></td>
+                                    <td class="p-2"><input type="number" value="800.00" step="0.01" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-right budget-price" oninput="calculateBudget()"></td>
+                                    <td class="p-2 text-right font-mono budget-subtotal">Q 800.00</td>
+                                    <td class="p-2 text-center"><button onclick="removeBudgetRow(this)" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash-can"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="p-4 bg-slate-800/80 border-t border-slate-700 flex flex-col items-end space-y-1 text-xs">
+                        <div class="flex justify-between w-48 text-slate-300">
+                            <span>Subtotal:</span>
+                            <span id="budget-calc-subtotal" class="font-mono">Q 1,960.00</span>
+                        </div>
+                        <div class="flex justify-between w-48 text-slate-300">
+                            <span>IVA (12%):</span>
+                            <span id="budget-calc-iva" class="font-mono">Q 235.20</span>
+                        </div>
+                        <div class="flex justify-between w-48 text-amber-400 font-bold text-sm pt-1 border-t border-slate-700">
+                            <span>Total Estimado:</span>
+                            <span id="budget-calc-total" class="font-mono">Q 2,195.20</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evidence Upload & Justification Text -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Upload Screenshot Evidence -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-sky-400"></i> Captura de Pantalla - Google Docs
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            Sube la captura de tu documento maquetado en Google Docs con tabla de presupuestos e informe.
+                        </p>
+                        <input type="file" id="img-act2-file" accept="image/*" onchange="handleImageUpload(event, 'preview-act2', 'pdf-act2-img')" class="hidden">
+                        <label for="img-act2-file" class="cursor-pointer bg-slate-900 hover:bg-slate-700 border-2 border-dashed border-slate-600 hover:border-sky-400 rounded-xl p-4 flex flex-col items-center justify-center transition text-center">
+                            <i class="fa-solid fa-cloud-arrow-up text-2xl text-sky-400 mb-2"></i>
+                            <span class="text-xs font-semibold text-slate-200">Haga clic para subir captura de Google Docs</span>
+                            <span class="text-[10px] text-slate-400">Formatos recomendados: PNG, JPG</span>
+                        </label>
+                        <div id="preview-act2-container" class="hidden rounded-lg overflow-hidden border border-slate-700 max-h-48 bg-slate-950">
+                            <img id="preview-act2" src="" alt="Vista previa Google Docs" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+
+                    <!-- Justification Text Editor -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-pen-fancy text-sky-400"></i> Justificación Técnica
+                            </h3>
+                            <span class="text-[10px] bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded">
+                                Obligatorio
+                            </span>
+                        </div>
+
+                        <div class="p-2.5 bg-slate-900/80 rounded border border-slate-700/50 text-xs text-slate-300 space-y-1">
+                            <p class="font-medium text-sky-400">Directriz de Redacción:</p>
+                            <p class="text-[11px] text-slate-400">Justifica la elección de los calibres de conductor (ej. THHN 12 AWG) y protecciones de acuerdo con las normativas de capacidad de corriente y caída de tensión.</p>
+                        </div>
+
+                        <textarea id="act2-text" oninput="syncTextAndCheck('act2-text', 'pdf-act2-text'); updateProgress();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-sky-400 outline-none font-sans leading-relaxed" placeholder="Actividad 2:
+Para garantizar la seguridad del sistema eléctrico se dimensionaron los conductores THHN de acuerdo con la norma de amplicidad..."></textarea>
+
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span id="act2-word-count">Palabras: 0</span>
+                            <span id="act2-kw-check" class="text-sky-400"><i class="fa-solid fa-info-circle"></i> Inicie su redacción con "Actividad 2:"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: ACTIVIDAD 3 - EXPORTACIÓN PDF Y ANÁLISIS LEGAL -->
+        <section id="tab-act3" class="tab-content hidden space-y-6">
+            <!-- Header info -->
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase">Actividad 3 - Valor: 3 Puntos</span>
+                    <h2 class="text-xl font-bold text-white mt-1">Exportación Formato PDF y Análisis de Normativa Legal</h2>
+                    <p class="text-xs text-slate-300 mt-1">Verifica la maquetación en PDF, ajuste de encabezados y el cumplimiento de las normativas de seguridad eléctrica.</p>
+                </div>
+                <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf text-emerald-400 text-base"></i>
+                    <div>
+                        <span id="act3-status" class="font-bold text-amber-400">Incompleto</span>
+                        <p class="text-slate-400 text-[10px]">Punteo asignado: <span id="act3-pts">0</span>/3 pts</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- PDF Layout Directives -->
+                <div class="lg:col-span-6 bg-slate-800 rounded-xl p-5 border border-slate-700 space-y-4">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
+                        <i class="fa-solid fa-sliders text-emerald-400"></i>
+                        Criterios de Verificación para la Exportación PDF
+                    </h3>
+
+                    <div class="space-y-3 text-xs text-slate-300">
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-700/60 flex items-start gap-3">
+                            <i class="fa-solid fa-check-double text-emerald-400 text-base mt-0.5"></i>
+                            <div>
+                                <strong class="text-white block mb-0.5">Integridad de Maquetación:</strong>
+                                <span>Asegúrate de que las tablas no sufran cortes horizontales e imágenes conserven su proporción sin distorsión.</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-700/60 flex items-start gap-3">
+                            <i class="fa-solid fa-heading text-emerald-400 text-base mt-0.5"></i>
+                            <div>
+                                <strong class="text-white block mb-0.5">Encabezados y Pies de Página:</strong>
+                                <span>Verifica la numeración clara de páginas y datos institucionales en el documento final.</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-700/60 flex items-start gap-3">
+                            <i class="fa-solid fa-stamp text-emerald-400 text-base mt-0.5"></i>
+                            <div>
+                                <strong class="text-white block mb-0.5">Texto Directo Búsqueda Oportuna:</strong>
+                                <span>Todo análisis debe ser texto seleccionable para que el docente pueda validar la autoría del estudiante.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Evidence Act 3 -->
+                    <div class="pt-2 space-y-2">
+                        <label class="block text-xs font-bold text-white">Captura de Verificación Exportación PDF:</label>
+                        <input type="file" id="img-act3-file" accept="image/*" onchange="handleImageUpload(event, 'preview-act3', 'pdf-act3-img')" class="hidden">
+                        <label for="img-act3-file" class="cursor-pointer bg-slate-900 hover:bg-slate-700 border-2 border-dashed border-slate-600 hover:border-emerald-400 rounded-xl p-3 flex flex-col items-center justify-center transition text-center">
+                            <i class="fa-solid fa-file-export text-xl text-emerald-400 mb-1"></i>
+                            <span class="text-xs font-semibold text-slate-200">Subir Evidencia de PDF Exportado</span>
+                        </label>
+                        <div id="preview-act3-container" class="hidden rounded-lg overflow-hidden border border-slate-700 max-h-36 bg-slate-950">
+                            <img id="preview-act3" src="" alt="Vista previa Exportación PDF" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Written Analysis Legal & Regulatory Section -->
+                <div class="lg:col-span-6 bg-slate-800 rounded-xl p-5 border border-slate-700 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-gavel text-emerald-400"></i> Análisis 3: Normativa Legal y Seguridad
+                        </h3>
+                        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">
+                            Obligatorio
+                        </span>
+                    </div>
+
+                    <div class="p-3 bg-slate-900/80 rounded border border-slate-700/50 text-xs text-slate-300 space-y-1">
+                        <p class="font-medium text-emerald-400">Pregunta Guía de Redacción:</p>
+                        <p class="text-[11px] text-slate-400">Redacta una reflexión técnica sobre la responsabilidad legal del perito electricista en la entrega de informes precisos y los riesgos de no acatar las normas de seguridad eléctrica (CNEE / NEC).</p>
+                    </div>
+
+                    <textarea id="act3-text" oninput="syncTextAndCheck('act3-text', 'pdf-act3-text'); updateProgress();" rows="8" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-emerald-400 outline-none font-sans leading-relaxed" placeholder="Actividad 3:
+En el ejercicio profesional de la electricidad, la responsabilidad legal de entregar presupuestos e informes técnicos veraces radica en..."></textarea>
+
+                    <div class="flex items-center justify-between text-[11px] text-slate-400">
+                        <span id="act3-word-count">Palabras: 0</span>
+                        <span id="act3-kw-check" class="text-emerald-400"><i class="fa-solid fa-info-circle"></i> Inicie su redacción con "Actividad 3:"</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: COMPILADOR Y GENERADOR DE PDF FINAL -->
+        <section id="tab-entregable" class="tab-content hidden space-y-6">
+            <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-print text-amber-400"></i> Vista Previa del Documento Final para Entrega
+                    </h2>
+                    <p class="text-xs text-slate-300 mt-1">Este es el documento final en limpio que se compilará y convertirá a PDF para tu entrega.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="window.print()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs rounded-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Imprimir Directo
+                    </button>
+                    <button onclick="downloadPDF()" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg transition shadow-lg shadow-amber-500/20 flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i> Descargar PDF Entregable
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview Canvas Box -->
+            <div class="bg-slate-950 p-4 sm:p-8 rounded-xl border border-slate-800 flex justify-center overflow-x-auto">
+                
+                <!-- Printable PDF Target Node -->
+                <div id="pdf-content" class="pdf-page w-full max-w-4xl p-8 sm:p-12 bg-white text-slate-900 shadow-2xl rounded space-y-8 text-xs leading-relaxed">
+                    
+                    <!-- Cover Header -->
+                    <div class="border-b-4 border-amber-500 pb-6 flex justify-between items-start">
+                        <div class="space-y-1">
+                            <span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase">Instituto Industrial Central General Lázaro Chacón González</span>
+                            <h1 class="text-xl font-extrabold text-slate-900">INFORME TÉCNICO Y ENTREGABLE DE GUÍA NO. 5</h1>
+                            <p class="text-xs text-amber-600 font-semibold">Subárea: Tecnologías de la Información y la Comunicación I (TIC I)</p>
+                        </div>
+                        <div class="text-right space-y-1 text-[11px] text-slate-600">
+                            <p><strong class="text-slate-800">Fecha:</strong> 12/08/2026</p>
+                            <p><strong class="text-slate-800">CNO:</strong> Sector Eléctrico</p>
+                        </div>
+                    </div>
+
+                    <!-- Student Profile Section -->
+                    <div class="bg-slate-100 p-4 rounded-lg border border-slate-200 grid grid-cols-3 gap-4">
+                        <div>
+                            <span class="text-[10px] text-slate-500 font-bold uppercase block">Estudiante:</span>
+                            <span id="pdf-student-name" class="font-bold text-slate-900 text-sm">Sin Nombre Registrado</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-500 font-bold uppercase block">Clave / Carné:</span>
+                            <span id="pdf-student-key" class="font-semibold text-slate-800">No especificado</span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-500 font-bold uppercase block">Grado y Sección:</span>
+                            <span id="pdf-student-section" class="font-semibold text-slate-800">4to Bachillerato Electricidad</span>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 1 -->
+                    <div class="space-y-3 pt-2">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">1. Levantamiento de Datos (Google Forms - 4 Pts)</h2>
+                            <span class="text-[10px] font-bold text-amber-600">Actividad 1</span>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-slate-800">Análisis Técnico Escrito:</h3>
+                            <div id="pdf-act1-text" class="bg-slate-50 p-3 rounded border border-slate-200 text-slate-700 whitespace-pre-wrap font-sans">
+                                [El texto ingresado en la Actividad 1 aparecerá automáticamente aquí]
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <h3 class="font-bold text-slate-800">Evidencia Digital de Formularios:</h3>
+                            <div class="p-2 border border-slate-200 rounded text-center bg-slate-50 min-h-[120px] flex items-center justify-center">
+                                <img id="pdf-act1-img" src="" alt="Evidencia Actividad 1" class="hidden max-h-72 w-auto mx-auto rounded border shadow-sm">
+                                <span id="pdf-act1-placeholder" class="text-slate-400 italic text-xs">Sin captura adjunta para Actividad 1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page-break"></div>
+
+                    <!-- SECTION 2 -->
+                    <div class="space-y-3 pt-4">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">2. Presupuesto e Informe de Instalación (Google Docs - 3 Pts)</h2>
+                            <span class="text-[10px] font-bold text-sky-600">Actividad 2</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-slate-800">Cuadro Consolidado de Presupuesto:</h3>
+                            <table class="w-full border-collapse text-left border border-slate-300 text-[11px]">
+                                <thead>
+                                    <tr class="bg-slate-200 text-slate-800 font-bold">
+                                        <th class="p-2 border border-slate-300">Descripción de Insumos y Servicios</th>
+                                        <th class="p-2 border border-slate-300 w-16 text-center">Cant.</th>
+                                        <th class="p-2 border border-slate-300 w-24 text-right">P. Unit (Q)</th>
+                                        <th class="p-2 border border-slate-300 w-24 text-right">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pdf-budget-tbody">
+                                    <!-- Dynamic rows copied from JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <h3 class="font-bold text-slate-800">Justificación Técnica del Dimensionamiento:</h3>
+                            <div id="pdf-act2-text" class="bg-slate-50 p-3 rounded border border-slate-200 text-slate-700 whitespace-pre-wrap font-sans">
+                                [El texto ingresado en la Actividad 2 aparecerá automáticamente aquí]
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <h3 class="font-bold text-slate-800">Evidencia de Maquetación en Google Docs:</h3>
+                            <div class="p-2 border border-slate-200 rounded text-center bg-slate-50 min-h-[120px] flex items-center justify-center">
+                                <img id="pdf-act2-img" src="" alt="Evidencia Actividad 2" class="hidden max-h-72 w-auto mx-auto rounded border shadow-sm">
+                                <span id="pdf-act2-placeholder" class="text-slate-400 italic text-xs">Sin captura adjunta para Actividad 2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="page-break"></div>
+
+                    <!-- SECTION 3 -->
+                    <div class="space-y-3 pt-4">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">3. Exportación PDF y Normativa Legal (3 Pts)</h2>
+                            <span class="text-[10px] font-bold text-emerald-600">Actividad 3</span>
+                        </div>
+
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-slate-800">Análisis sobre Responsabilidad Legal y Normativas:</h3>
+                            <div id="pdf-act3-text" class="bg-slate-50 p-3 rounded border border-slate-200 text-slate-700 whitespace-pre-wrap font-sans">
+                                [El texto ingresado en la Actividad 3 aparecerá automáticamente aquí]
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 pt-2">
+                            <h3 class="font-bold text-slate-800">Evidencia de Verificación de Archivo PDF Exportado:</h3>
+                            <div class="p-2 border border-slate-200 rounded text-center bg-slate-50 min-h-[120px] flex items-center justify-center">
+                                <img id="pdf-act3-img" src="" alt="Evidencia Actividad 3" class="hidden max-h-72 w-auto mx-auto rounded border shadow-sm">
+                                <span id="pdf-act3-placeholder" class="text-slate-400 italic text-xs">Sin captura adjunta para Actividad 3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Rubric Summary -->
+                    <div class="pt-8 border-t border-slate-300 mt-8 grid grid-cols-2 gap-4 text-[10px] text-slate-500">
+                        <div>
+                            <p><strong>Criterio de Evaluación:</strong> Cumplimiento total de Guía No. 5 TIC I</p>
+                            <p><strong>Firma de Estudiante:</strong> ___________________________</p>
+                        </div>
+                        <div class="text-right">
+                            <p><strong>Docente Evaluador:</strong> Erick Enrique Zamora Paz</p>
+                            <p><strong>Punteo Obtenido:</strong> <span id="pdf-score-total" class="font-bold text-slate-900">0 / 10 Puntos</span></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL RÚBRICA DE EVALUACIÓN (10 PTS) -->
+    <div id="modal-rubrica" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl text-xs">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-award text-amber-400"></i> Rúbrica de Evaluación Oficial (10 Puntos)
+                </h3>
+                <button onclick="closeModal('modal-rubrica')" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3 custom-scrollbar overflow-y-auto max-h-96 pr-2">
+                <div class="p-3 bg-slate-800 rounded-lg border border-slate-700/80 space-y-1">
+                    <div class="flex justify-between font-bold text-amber-400">
+                        <span>Actividad 1: Formulario Google Forms</span>
+                        <span>4 Puntos</span>
+                    </div>
+                    <p class="text-slate-300 text-[11px]">Estructuración de 4 tipos de preguntas obligatorias, captura legible e inclusión del Análisis 1 sobre digitalización e inventario de cargas.</p>
+                </div>
+
+                <div class="p-3 bg-slate-800 rounded-lg border border-slate-700/80 space-y-1">
+                    <div class="flex justify-between font-bold text-sky-400">
+                        <span>Actividad 2: Presupuesto e Informe Docs</span>
+                        <span>3 Puntos</span>
+                    </div>
+                    <p class="text-slate-300 text-[11px]">Diseño maquetado con tabla de costos clara, precios de mercado actualizados, captura de pantalla y Justificación Técnica 2.</p>
+                </div>
+
+                <div class="p-3 bg-slate-800 rounded-lg border border-slate-700/80 space-y-1">
+                    <div class="flex justify-between font-bold text-emerald-400">
+                        <span>Actividad 3: Exportación PDF y Análisis Legal</span>
+                        <span>3 Puntos</span>
+                    </div>
+                    <p class="text-slate-300 text-[11px]">Exportación sin errores de maquetación, inclusión del Análisis Legal 3 y compilación final en archivo PDF listo para enviar.</p>
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800 flex justify-end">
+                <button onclick="closeModal('modal-rubrica')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic & PDF Generator -->
+    <script>
+        // Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('text-slate-400');
+            });
+
+            const selectedTab = document.getElementById(tabId);
+            if(selectedTab) selectedTab.classList.remove('hidden');
+
+            const navTab = document.getElementById('nav-' + tabId);
+            if(navTab) {
+                navTab.classList.add('tab-active');
+                navTab.classList.remove('text-slate-400');
+            }
+
+            if(tabId === 'tab-entregable') {
+                syncAllToPDF();
+            }
+        }
+
+        // Modal Controls
+        function openModal(id) { document.getElementById(id)?.classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); }
+
+        // Sync Student Personal Info
+        function syncStudentInfo() {
+            const name = document.getElementById('student-name').value || 'Sin Nombre Registrado';
+            const key = document.getElementById('student-key').value || 'No especificado';
+            const sec = document.getElementById('student-section').value || '4to Bachillerato Electricidad';
+
+            document.getElementById('pdf-student-name').innerText = name;
+            document.getElementById('pdf-student-key').innerText = key;
+            document.getElementById('pdf-student-section').innerText = sec;
+
+            updateProgress();
+        }
+
+        // Image Handler with Base64 Conversion for html2pdf
+        function handleImageUpload(event, previewId, pdfImgId) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const result = e.target.result;
+                
+                // Show in interactive UI
+                const previewImg = document.getElementById(previewId);
+                const previewContainer = document.getElementById(previewId + '-container');
+                if (previewImg && previewContainer) {
+                    previewImg.src = result;
+                    previewContainer.classList.remove('hidden');
+                }
+
+                // Show in printable PDF Area
+                const pdfImg = document.getElementById(pdfImgId);
+                const placeholder = document.getElementById(pdfImgId.replace('-img', '-placeholder'));
+                if (pdfImg) {
+                    pdfImg.src = result;
+                    pdfImg.classList.remove('hidden');
+                }
+                if (placeholder) placeholder.classList.add('hidden');
+
+                updateProgress();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Textarea Sync and Keywords Checker
+        function syncTextAndCheck(textareaId, pdfTargetId) {
+            const val = document.getElementById(textareaId).value;
+            document.getElementById(pdfTargetId).innerText = val.trim() || '[Sin contenido ingresado]';
+
+            // Word Count
+            const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+            const countElem = document.getElementById(textareaId.replace('-text', '-word-count'));
+            if (countElem) countElem.innerText = `Palabras: ${words}`;
+        }
+
+        // Budget Table Dynamic Calculations
+        function addBudgetRow() {
+            const tbody = document.getElementById('budget-table-body');
+            const tr = document.createElement('tr');
+            tr.className = 'border-b border-slate-800';
+            tr.innerHTML = `
+                <td class="p-2"><input type="text" value="Nuevo Material / Insumo" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs" oninput="calculateBudget()"></td>
+                <td class="p-2"><input type="number" value="1" min="1" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-center budget-qty" oninput="calculateBudget()"></td>
+                <td class="p-2"><input type="number" value="0.00" step="0.01" class="w-full bg-slate-950 p-1.5 rounded border border-slate-700 outline-none text-xs text-right budget-price" oninput="calculateBudget()"></td>
+                <td class="p-2 text-right font-mono budget-subtotal">Q 0.00</td>
+                <td class="p-2 text-center"><button onclick="removeBudgetRow(this)" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash-can"></i></button></td>
+            `;
+            tbody.appendChild(tr);
+            calculateBudget();
+        }
+
+        function removeBudgetRow(btn) {
+            const row = btn.closest('tr');
+            row.remove();
+            calculateBudget();
+        }
+
+        function calculateBudget() {
+            const rows = document.querySelectorAll('#budget-table-body tr');
+            let grandSubtotal = 0;
+
+            const pdfTbody = document.getElementById('pdf-budget-tbody');
+            pdfTbody.innerHTML = '';
+
+            rows.forEach(row => {
+                const desc = row.querySelector('td input[type="text"]').value;
+                const qty = parseFloat(row.querySelector('.budget-qty').value) || 0;
+                const price = parseFloat(row.querySelector('.budget-price').value) || 0;
+                const sub = qty * price;
+
+                row.querySelector('.budget-subtotal').innerText = `Q ${sub.toFixed(2)}`;
+                grandSubtotal += sub;
+
+                // Sync to PDF Table
+                const pdfTr = document.createElement('tr');
+                pdfTr.className = 'border-b border-slate-300';
+                pdfTr.innerHTML = `
+                    <td class="p-2 border border-slate-300">${desc}</td>
+                    <td class="p-2 border border-slate-300 text-center">${qty}</td>
+                    <td class="p-2 border border-slate-300 text-right">Q ${price.toFixed(2)}</td>
+                    <td class="p-2 border border-slate-300 text-right font-mono">Q ${sub.toFixed(2)}</td>
+                `;
+                pdfTbody.appendChild(pdfTr);
+            });
+
+            const iva = grandSubtotal * 0.12;
+            const total = grandSubtotal + iva;
+
+            document.getElementById('budget-calc-subtotal').innerText = `Q ${grandSubtotal.toFixed(2)}`;
+            document.getElementById('budget-calc-iva').innerText = `Q ${iva.toFixed(2)}`;
+            document.getElementById('budget-calc-total').innerText = `Q ${total.toFixed(2)}`;
+
+            // PDF Totals Row
+            const totalTr = document.createElement('tr');
+            totalTr.className = 'bg-slate-100 font-bold border-t-2 border-slate-400';
+            totalTr.innerHTML = `
+                <td colspan="3" class="p-2 border border-slate-300 text-right">Total General con IVA (12%):</td>
+                <td class="p-2 border border-slate-300 text-right font-mono text-amber-700">Q ${total.toFixed(2)}</td>
+            `;
+            pdfTbody.appendChild(totalTr);
+
+            updateProgress();
+        }
+
+        // Global Progress & Rubric Logic
+        function updateProgress() {
+            let score = 0;
+            const studentName = document.getElementById('student-name').value.trim();
+
+            // Act 1 Check (4 pts)
+            const act1Text = document.getElementById('act1-text').value.trim();
+            const act1Img = document.getElementById('pdf-act1-img').src;
+            let act1Valid = false;
+            if(act1Text.length > 30 && act1Img.startsWith('data:image')) {
+                score += 4;
+                act1Valid = true;
+                document.getElementById('act1-status').innerText = 'Completo';
+                document.getElementById('act1-status').className = 'font-bold text-emerald-400';
+                document.getElementById('act1-pts').innerText = '4';
+            } else {
+                document.getElementById('act1-status').innerText = 'Incompleto';
+                document.getElementById('act1-status').className = 'font-bold text-amber-400';
+                document.getElementById('act1-pts').innerText = '0';
+            }
+
+            // Act 2 Check (3 pts)
+            const act2Text = document.getElementById('act2-text').value.trim();
+            const act2Img = document.getElementById('pdf-act2-img').src;
+            if(act2Text.length > 20 && act2Img.startsWith('data:image')) {
+                score += 3;
+                document.getElementById('act2-status').innerText = 'Completo';
+                document.getElementById('act2-status').className = 'font-bold text-emerald-400';
+                document.getElementById('act2-pts').innerText = '3';
+            } else {
+                document.getElementById('act2-status').innerText = 'Incompleto';
+                document.getElementById('act2-status').className = 'font-bold text-amber-400';
+                document.getElementById('act2-pts').innerText = '0';
+            }
+
+            // Act 3 Check (3 pts)
+            const act3Text = document.getElementById('act3-text').value.trim();
+            const act3Img = document.getElementById('pdf-act3-img').src;
+            if(act3Text.length > 20 && act3Img.startsWith('data:image')) {
+                score += 3;
+                document.getElementById('act3-status').innerText = 'Completo';
+                document.getElementById('act3-status').className = 'font-bold text-emerald-400';
+                document.getElementById('act3-pts').innerText = '3';
+            } else {
+                document.getElementById('act3-status').innerText = 'Incompleto';
+                document.getElementById('act3-status').className = 'font-bold text-amber-400';
+                document.getElementById('act3-pts').innerText = '0';
+            }
+
+            // UI Progress Bar Update
+            const pct = (score / 10) * 100;
+            document.getElementById('global-progress-bar').style.width = pct + '%';
+            document.getElementById('global-progress-text').innerText = `${score}/10 pts`;
+            document.getElementById('pdf-score-total').innerText = `${score} / 10 Puntos`;
+        }
+
+        // Sync all values to PDF printable layout
+        function syncAllToPDF() {
+            syncStudentInfo();
+            syncTextAndCheck('act1-text', 'pdf-act1-text');
+            syncTextAndCheck('act2-text', 'pdf-act2-text');
+            syncTextAndCheck('act3-text', 'pdf-act3-text');
+            calculateBudget();
+        }
+
+        // html2pdf Exporter
+        function downloadPDF() {
+            syncAllToPDF();
+
+            const studentName = document.getElementById('student-name').value.trim() || 'Estudiante';
+            const element = document.getElementById('pdf-content');
+
+            const opt = {
+                margin:       [10, 10, 10, 10],
+                filename:     `Guia_5_TIC1_Sector_Electrico_${studentName.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['css', 'legacy'] }
+            };
+
+            // Generate PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                alert('¡Tu archivo PDF ha sido generado y descargado exitosamente!');
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            calculateBudget();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
