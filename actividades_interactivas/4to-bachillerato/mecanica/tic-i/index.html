@@ -67,10 +67,24 @@
             color: #f59e0b;
             background-color: rgba(245, 158, 11, 0.08);
         }
+        
+        /* Evita que los bloques se corten a la mitad en el PDF */
+        .avoid-page-break {
+            page-break-inside: avoid;
+        }
+        
         @media print {
             .no-print { display: none !important; }
             .print-only { display: block !important; }
             body { background: white; color: black; }
+        }
+        
+        /* Estilos para áreas editables y simuladores */
+        .editable-area:empty:before {
+            content: attr(placeholder);
+            color: #94a3b8;
+            pointer-events: none;
+            display: block; /* For Firefox */
         }
     </style>
 </head>
@@ -121,16 +135,16 @@
                     <i class="fa-solid fa-house"></i> 1. Inicio y Reglas
                 </button>
                 <button onclick="switchTab('tab-act1')" id="nav-tab-act1" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-list-check"></i> 2. Actividad 1: Google Forms (4pts)
+                    <i class="fa-solid fa-list-check"></i> 2. Actividad 1 (4pts)
                 </button>
                 <button onclick="switchTab('tab-act2')" id="nav-tab-act2" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-file-lines"></i> 3. Actividad 2: Orden de Trabajo (3pts)
+                    <i class="fa-solid fa-file-lines"></i> 3. Actividad 2 (3pts)
                 </button>
                 <button onclick="switchTab('tab-act3')" id="nav-tab-act3" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-file-export"></i> 4. Actividad 3: Exportación PDF (3pts)
+                    <i class="fa-solid fa-file-export"></i> 4. Actividad 3 (3pts)
                 </button>
                 <button onclick="switchTab('tab-entregable')" id="nav-tab-entregable" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-print"></i> 5. Compilador de PDF Final
+                    <i class="fa-solid fa-print"></i> 5. Compilador Final
                 </button>
             </div>
         </nav>
@@ -154,7 +168,7 @@
                         Taller Práctico Digital: Creación de Documentos y Formularios Técnicos
                     </h2>
                     <p class="text-sm text-slate-300 leading-relaxed">
-                        Esta herramienta guiada te asistirá paso a paso en el diseño de tu <span class="text-amber-400 font-medium">Solicitud Digital de Repuestos</span> y tu <span class="text-amber-400 font-medium">Orden de Trabajo de Mantenimiento</span>. Aprenderás a estructurar datos técnicos, maquetar con jerarquía visual y redactar los análisis exigidos en la Guía No. 5.
+                        Esta herramienta guiada te asistirá paso a paso en el diseño de tu <span class="text-amber-400 font-medium">Solicitud Digital de Repuestos</span> y tu <span class="text-amber-400 font-medium">Orden de Trabajo de Mantenimiento</span>. Aprenderás a estructurar datos técnicos, maquetar con jerarquía visual y generar tu PDF entregable.
                     </p>
                     <div class="pt-2 flex flex-wrap gap-4 text-xs text-slate-400">
                         <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-tie text-amber-400"></i> Docente: Erick Enrique Zamora Paz</span>
@@ -170,24 +184,24 @@
                 <div class="bg-slate-800/80 rounded-xl p-5 border border-slate-700/60 space-y-4">
                     <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
                         <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
-                        Reglas Generales de Entregable (Obligatorias)
+                        Reglas Generales de Entregable
                     </h3>
                     <ul class="space-y-2.5 text-xs text-slate-300">
                         <li class="flex items-start gap-2.5">
                             <i class="fa-solid fa-pen-nib text-amber-400 mt-0.5"></i>
-                            <span><strong class="text-white">TEXTO DE ANÁLISIS:</strong> Toda explicación o justificación solicitada debe escribirse directamente en texto editable dentro del documento. Las fotos con texto NO sustituyen el escrito.</span>
+                            <span><strong class="text-white">TEXTO DE ANÁLISIS:</strong> Toda explicación debe escribirse en los cuadros de texto de esta guía.</span>
                         </li>
                         <li class="flex items-start gap-2.5">
                             <i class="fa-solid fa-image text-amber-400 mt-0.5"></i>
-                            <span><strong class="text-white">EVIDENCIAS:</strong> Debes incluir capturas de pantalla claras e íntegras directamente dentro del documento en las secciones correspondientes.</span>
+                            <span><strong class="text-white">EVIDENCIAS (NUEVO):</strong> Utiliza los botones de "Subir captura" en cada actividad para adjuntar tus imágenes personalizadas.</span>
                         </li>
                         <li class="flex items-start gap-2.5">
                             <i class="fa-solid fa-comment-dots text-amber-400 mt-0.5"></i>
-                            <span><strong class="text-white">REDACCIÓN PROPIA:</strong> Escribe con tus propias palabras del entorno de mecánica automotriz. No copies literalmente la guía.</span>
+                            <span><strong class="text-white">REDACCIÓN PROPIA:</strong> Escribe con tus propias palabras orientadas al entorno automotriz.</span>
                         </li>
                         <li class="flex items-start gap-2.5">
                             <i class="fa-solid fa-file-pdf text-rose-400 mt-0.5"></i>
-                            <span><strong class="text-white">FORMATO PDF ÚNICO:</strong> Se debe entregar un solo archivo PDF final adjunto en Google Classroom.</span>
+                            <span><strong class="text-white">FORMATO PDF:</strong> Al finalizar, ve a la pestaña 5 para descargar el documento PDF y súbelo a Classroom.</span>
                         </li>
                     </ul>
                 </div>
@@ -205,7 +219,7 @@
                         </div>
                         <div class="p-3 bg-slate-900/60 rounded-lg border border-slate-700/40">
                             <p class="font-semibold text-emerald-400 mb-1">Indicador de Logro:</p>
-                            <p class="text-slate-300">Diseña e integra herramientas de ofimática en la nube (formularios digitales e informes técnicos) para la recolección de datos y presentación de documentos de taller.</p>
+                            <p class="text-slate-300">Diseña e integra herramientas de ofimática en la nube (formularios e informes técnicos) para recolectar datos y presentar documentos.</p>
                         </div>
                     </div>
                 </div>
@@ -223,7 +237,7 @@
                             <span class="text-xs font-bold text-amber-400">4 Puntos</span>
                         </div>
                         <h4 class="font-semibold text-white text-sm group-hover:text-amber-400 transition">Google Forms</h4>
-                        <p class="text-xs text-slate-400 mt-1">Simula y configura el formulario de repuestos + Redacta el Análisis 1.</p>
+                        <p class="text-xs text-slate-400 mt-1">Crea tus propias preguntas en el simulador, sube tu captura y redacta el Análisis 1.</p>
                     </div>
 
                     <div onclick="switchTab('tab-act2')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
@@ -232,7 +246,7 @@
                             <span class="text-xs font-bold text-sky-400">3 Puntos</span>
                         </div>
                         <h4 class="font-semibold text-white text-sm group-hover:text-sky-400 transition">Google Docs OT</h4>
-                        <p class="text-xs text-slate-400 mt-1">Diseña la Orden de Trabajo con tablas y estilos + Justificación Técnica 2.</p>
+                        <p class="text-xs text-slate-400 mt-1">Llena los datos en el documento simulado, toma captura y añade la Justificación 2.</p>
                     </div>
 
                     <div onclick="switchTab('tab-act3')" class="cursor-pointer bg-slate-800 hover:bg-slate-700/80 p-4 rounded-xl border border-slate-700 transition group">
@@ -241,7 +255,7 @@
                             <span class="text-xs font-bold text-emerald-400">3 Puntos</span>
                         </div>
                         <h4 class="font-semibold text-white text-sm group-hover:text-emerald-400 transition">PDF e Integración</h4>
-                        <p class="text-xs text-slate-400 mt-1">Integra datos, verifica maquetación limpia y redacta el Análisis Legal 3.</p>
+                        <p class="text-xs text-slate-400 mt-1">Sube captura del visor PDF, redacta el análisis 3 y exporta la tarea.</p>
                     </div>
                 </div>
             </div>
@@ -253,8 +267,8 @@
             <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
                     <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold uppercase">Actividad 1 - Valor: 4 Puntos</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Diseño Técnico de Formulario Digital de Solicitud de Repuestos (Google Forms)</h2>
-                    <p class="text-xs text-slate-300 mt-1">Configura los 4 tipos de preguntas obligatorias y redacta la importancia de la digitalización.</p>
+                    <h2 class="text-xl font-bold text-white mt-1">Diseño de Formulario Digital de Solicitud de Repuestos</h2>
+                    <p class="text-xs text-slate-300 mt-1">Edita las preguntas a tu gusto, toma captura de pantalla, súbela y redacta el análisis requerido.</p>
                 </div>
                 <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
                     <i class="fa-solid fa-list-check text-amber-400 text-base"></i>
@@ -271,133 +285,143 @@
                     <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
                         <div class="flex items-center gap-2 text-xs font-semibold text-slate-200">
                             <i class="fa-solid fa-laptop-code text-amber-400"></i>
-                            <span>Simulador Interactivo de Google Forms</span>
+                            <span>Simulador Editable de Google Forms</span>
                         </div>
-                        <span class="text-[11px] text-slate-400">Modo Edición Técnica</span>
+                        <span class="text-[11px] text-slate-400">¡Puedes editar el texto!</span>
                     </div>
 
                     <div class="p-5 space-y-5 custom-scrollbar overflow-y-auto max-h-[600px]">
                         <!-- Form Header Banner Preview -->
                         <div id="forms-banner" class="bg-gradient-to-r from-slate-700 to-slate-800 rounded-lg p-5 border-t-8 border-purple-600 shadow-md">
-                            <input type="text" id="form-title-input" value="Solicitud Interna de Repuestos Automotrices" oninput="checkAct1Validation()" class="w-full bg-transparent text-lg font-bold text-white border-b border-slate-600 focus:border-amber-400 outline-none pb-1" placeholder="Título del Formulario...">
-                            <p class="text-xs text-slate-300 mt-2">Control interno de taller para solicitud y abastecimiento de insumos mecánicos.</p>
+                            <input type="text" id="form-title-input" value="Solicitud Interna de Repuestos Automotrices" oninput="checkAct1Validation()" class="w-full bg-transparent text-lg font-bold text-white border-b border-slate-600 focus:border-amber-400 outline-none pb-1" placeholder="Escribe el título de tu formulario...">
+                            <input type="text" value="Control interno de taller para solicitud y abastecimiento de insumos mecánicos." class="w-full bg-transparent text-xs text-slate-300 mt-2 border-b border-transparent hover:border-slate-600 focus:border-amber-400 outline-none pb-1" placeholder="Descripción del formulario...">
                         </div>
 
-                        <!-- Question 1: Mecánico y Vehículo (Texto Corto) -->
-                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 relative">
+                        <!-- Question 1: Texto Corto -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 relative group transition-all focus-within:border-purple-500">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-font"></i> Pregunta 1: Identificación (Texto Corto)
+                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-font"></i>
+                                    <input type="text" value="Identificación del mecánico y vehículo" class="bg-transparent border-b border-slate-600 focus:border-purple-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 1 (Texto corto)...">
                                 </span>
-                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer">
-                                    <input type="checkbox" id="q1-req" checked disabled class="rounded text-amber-500"> Obligatorio
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-purple-500 w-3.5 h-3.5"> Obligatorio
                                 </label>
                             </div>
-                            <input type="text" value="Nombre del mecánico responsable y placa/código del vehículo" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded border border-slate-700 outline-none focus:border-amber-400">
-                            <div class="p-2 bg-slate-900/50 rounded text-slate-500 text-xs italic">
-                                Texto de respuesta corta [Validación: No vacío]
-                            </div>
-                        </div>
-
-                        <!-- Question 2: Sistema o Categoría (Casilla / Varias opciones) -->
-                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-square-check"></i> Pregunta 2: Sistema Automotriz (Opción Múltiple / Casillas)
-                                </span>
-                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer">
-                                    <input type="checkbox" id="q2-req" checked disabled class="rounded text-amber-500"> Obligatorio
-                                </label>
-                            </div>
-                            <input type="text" value="Sistema o Categoría del repuesto requerido" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded border border-slate-700 outline-none">
-                            <div class="grid grid-cols-2 gap-2 text-xs text-slate-300">
-                                <div class="flex items-center gap-2"><input type="checkbox" checked disabled class="accent-purple-500"> Sistema de Motor</div>
-                                <div class="flex items-center gap-2"><input type="checkbox" checked disabled class="accent-purple-500"> Sistema de Frenos</div>
-                                <div class="flex items-center gap-2"><input type="checkbox" checked disabled class="accent-purple-500"> Suspensión y Dirección</div>
-                                <div class="flex items-center gap-2"><input type="checkbox" checked disabled class="accent-purple-500"> Sistema Eléctrico / Transmisión</div>
+                            <div class="p-2 bg-slate-900 border-b border-slate-600 border-dashed text-slate-500 text-xs mt-2 w-3/4">
+                                <input type="text" value="Texto de respuesta corta" disabled class="bg-transparent w-full outline-none text-slate-500">
                             </div>
                         </div>
 
-                        <!-- Question 3: Descripción detallada (Párrafo) -->
-                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3">
+                        <!-- Question 2: Varias opciones / Casillas -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 group transition-all focus-within:border-purple-500">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-align-left"></i> Pregunta 3: Descripción Técnica (Párrafo)
+                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-square-check"></i>
+                                    <input type="text" value="Seleccione el sistema automotriz a reparar" class="bg-transparent border-b border-slate-600 focus:border-purple-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 2 (Casillas)...">
                                 </span>
-                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer">
-                                    <input type="checkbox" id="q3-req" checked disabled class="rounded text-amber-500"> Obligatorio
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-purple-500 w-3.5 h-3.5"> Obligatorio
                                 </label>
                             </div>
-                            <input type="text" value="Descripción detallada de la pieza y especificaciones técnicas (Medidas, código, OEM)" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded border border-slate-700 outline-none">
-                            <div class="p-2.5 bg-slate-900/50 rounded text-slate-500 text-xs italic">
-                                Texto de respuesta larga (Párrafo amplio)
+                            <!-- Opciones editables -->
+                            <div class="space-y-2 text-xs text-slate-300 mt-2 pl-1">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Sistema de Motor" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 1">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Sistema de Frenos" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 2">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Suspensión y Dirección" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 3">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="accent-purple-500 w-3.5 h-3.5 cursor-pointer">
+                                    <input type="text" value="Sistema Eléctrico / Transmisión" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-purple-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Opción 4">
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Question 4: Nivel de urgencia (Desplegable / Escala) -->
-                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3">
+                        <!-- Question 3: Párrafo -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 group transition-all focus-within:border-purple-500">
                             <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-list text-amber-400"></i> Pregunta 4: Prioridad (Desplegable / Escala)
+                                <span class="text-xs font-bold text-purple-400 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-align-left"></i>
+                                    <input type="text" value="Descripción detallada de la pieza (Medidas, código, OEM)" class="bg-transparent border-b border-slate-600 focus:border-purple-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 3 (Párrafo)...">
                                 </span>
-                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer">
-                                    <input type="checkbox" id="q4-req" checked disabled class="rounded text-amber-500"> Obligatorio
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-purple-500 w-3.5 h-3.5"> Obligatorio
                                 </label>
                             </div>
-                            <input type="text" value="Nivel de urgencia o prioridad de instalación" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded border border-slate-700 outline-none">
-                            <select class="w-full bg-slate-900 text-xs text-slate-300 p-2 rounded border border-slate-700" disabled>
-                                <option>Seleccionar prioridad: Alta (Inmediata - Taller Detenido)</option>
-                                <option>Media (Mantenimiento Programado)</option>
-                                <option>Baja (Stock preventivo)</option>
-                            </select>
+                            <div class="p-2.5 bg-slate-900 border-b border-slate-600 border-dashed text-slate-500 text-xs mt-2 w-full">
+                                Texto de respuesta larga
+                            </div>
+                        </div>
+
+                        <!-- Question 4: Desplegable -->
+                        <div class="bg-slate-800 rounded-lg p-4 border border-slate-700 space-y-3 group transition-all focus-within:border-amber-500">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-500 flex items-center gap-1.5 w-full">
+                                    <i class="fa-solid fa-list"></i>
+                                    <input type="text" value="Nivel de urgencia o prioridad de instalación" class="bg-transparent border-b border-slate-600 focus:border-amber-400 outline-none w-full text-slate-100 ml-1 pb-0.5 placeholder-slate-500" placeholder="Escribe tu Pregunta 4 (Desplegable)...">
+                                </span>
+                                <label class="flex items-center gap-1.5 text-[11px] text-slate-300 cursor-pointer ml-4 whitespace-nowrap">
+                                    <input type="checkbox" checked class="rounded accent-amber-500 w-3.5 h-3.5"> Obligatorio
+                                </label>
+                            </div>
+                            <!-- Opciones Desplegables Editables -->
+                            <div class="space-y-2 text-xs text-slate-300 mt-2 pl-1 bg-slate-900/50 p-2 rounded border border-slate-700/50">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-500 font-mono text-xs w-4">1.</span> 
+                                    <input type="text" value="Alta (Inmediata - Taller Detenido)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-amber-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Primera opción...">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-500 font-mono text-xs w-4">2.</span> 
+                                    <input type="text" value="Media (Mantenimiento Programado)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-amber-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Segunda opción...">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-slate-500 font-mono text-xs w-4">3.</span> 
+                                    <input type="text" value="Baja (Stock preventivo)" class="bg-transparent border-b border-slate-700 hover:border-slate-500 focus:border-amber-400 outline-none w-full placeholder-slate-500 text-slate-200 pb-0.5" placeholder="Tercera opción...">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Written Requirement & Evidence Box (Right) -->
                 <div class="lg:col-span-5 space-y-4">
-                    <!-- Evidence Instructions -->
+                    <!-- Evidence Checklist & Upload -->
                     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
                         <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-camera text-amber-400"></i> Evidencia Requerida Actividad 1
+                            <i class="fa-solid fa-camera text-amber-400"></i> Sube tu Evidencia (Act. 1)
                         </h3>
                         <p class="text-xs text-slate-300">
-                            En tu documento real debes adjuntar una captura de pantalla clara del formulario en modo edición en Google Forms.
+                            Edita el formulario de la izquierda a tu gusto, tómale una captura de pantalla y súbela aquí.
                         </p>
-                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-700/80 text-xs text-slate-400">
-                            <p class="font-medium text-slate-200 mb-1"><i class="fa-solid fa-check text-emerald-400"></i> Lista de verificación para tu captura:</p>
-                            <ul class="list-disc list-inside space-y-1 text-[11px]">
-                                <li>Título "Solicitud Interna de Repuestos Automotrices"</li>
-                                <li>4 preguntas con sus tipos especificados</li>
-                                <li>Validación de campo obligatorio activa</li>
-                                <li>Encabezado y color de tema industrial configurado</li>
-                            </ul>
+                        <div class="mt-2">
+                            <input type="file" accept="image/*" onchange="loadImage(event, 'pdf-img-act1')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-400 hover:file:bg-amber-500/30 cursor-pointer transition">
                         </div>
                     </div>
 
-                    <!-- Written Text Editor Section -->
+                    <!-- Written Justification -->
                     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-pen-fancy text-amber-400"></i> Contenido Escrito Obligatorio
+                                <i class="fa-solid fa-pen-fancy text-amber-400"></i> Análisis Requerido
                             </h3>
                             <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">
-                                Debe iniciar con "Actividad 1:"
+                                "Actividad 1:"
                             </span>
                         </div>
-
-                        <div class="p-2 bg-slate-900/80 rounded border border-slate-700/50 text-xs text-slate-300 space-y-1">
-                            <p class="font-medium text-amber-400">Guía de Redacción:</p>
-                            <p class="text-[11px] text-slate-400">Explica con tus propias palabras la importancia de digitalizar y estructurar técnicamente las solicitudes de repuestos para evitar errores de pedido y reducir tiempos de parada en el taller.</p>
-                        </div>
-
-                        <textarea id="act1-text" oninput="checkAct1Validation()" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-amber-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu análisis. Ejemplo:
+                        <textarea id="act1-text" oninput="checkAct1Validation(); updatePDFPreview();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-amber-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu análisis. Ejemplo:
 Actividad 1:
 La digitalización de las solicitudes de repuestos dentro del taller automotriz mediante herramientas como Google Forms es de vital importancia porque..."></textarea>
-
                         <div class="flex items-center justify-between text-[11px] text-slate-400">
                             <span id="act1-word-count">Palabras: 0</span>
-                            <span id="act1-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 1:' o análisis suficiente</span>
+                            <span id="act1-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 1:' o texto</span>
                         </div>
                     </div>
                 </div>
@@ -410,8 +434,8 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
             <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
                     <span class="px-2.5 py-1 rounded bg-sky-500/20 text-sky-400 text-xs font-bold uppercase">Actividad 2 - Valor: 3 Puntos</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Estructuración y Redacción de Orden de Trabajo de Mantenimiento (Google Docs)</h2>
-                    <p class="text-xs text-slate-300 mt-1">Maqueta un documento técnico formal con jerarquía de títulos, tablas y pie de página en Google Docs.</p>
+                    <h2 class="text-xl font-bold text-white mt-1">Estructuración de Orden de Trabajo de Mantenimiento</h2>
+                    <p class="text-xs text-slate-300 mt-1">Puedes hacer clic y editar los datos del documento directamente. Luego toma tu captura y súbela.</p>
                 </div>
                 <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
                     <i class="fa-solid fa-file-invoice text-sky-400 text-base"></i>
@@ -428,16 +452,18 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
                     <div class="bg-slate-800 px-4 py-2.5 border-b border-slate-700 flex items-center justify-between">
                         <div class="flex items-center gap-3 text-xs font-semibold text-slate-200">
                             <i class="fa-solid fa-file-word text-sky-400 text-sm"></i>
-                            <span>Simulador de Orden de Trabajo (Google Docs)</span>
+                            <span>Simulador de Documento Editable</span>
                         </div>
-                        <div class="flex items-center gap-1.5 text-[11px]">
-                            <span class="px-2 py-0.5 rounded bg-slate-700 text-slate-300">Ariel / Inter</span>
+                        <div class="flex items-center gap-1.5 text-[11px] text-slate-400">
+                            <span><i class="fa-solid fa-pen"></i> Haz clic en el texto para editar</span>
                         </div>
                     </div>
 
                     <!-- Page Canvas View (Simulated Google Docs Page) -->
                     <div class="p-6 bg-slate-950 custom-scrollbar overflow-y-auto max-h-[620px]">
-                        <div class="bg-white text-slate-900 rounded p-6 shadow-2xl space-y-4 max-w-xl mx-auto text-xs font-sans">
+                        <!-- SE HACE CONTENTEDITABLE PARA QUE EL ESTUDIANTE MODIFIQUE LO QUE QUIERA -->
+                        <div contenteditable="true" class="bg-white text-slate-900 rounded p-6 shadow-2xl space-y-4 max-w-xl mx-auto text-xs font-sans outline-none focus:ring-4 focus:ring-sky-500/30 transition-all">
+                            
                             <!-- Page Header (Header/Footer Feature) -->
                             <div class="border-b border-slate-300 pb-2 flex justify-between items-center text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
                                 <span>TALLER DE MECÁNICA AUTOMOTRIZ - IICGLCG</span>
@@ -456,10 +482,10 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
                                     1. Datos Generales del Cliente y Vehículo
                                 </h2>
                                 <div class="grid grid-cols-2 gap-2 text-[11px] p-2 bg-slate-50 rounded border border-slate-200">
-                                    <div><span class="font-bold">Cliente:</span> Juan Pérez</div>
-                                    <div><span class="font-bold">Teléfono:</span> 5555-1234</div>
-                                    <div><span class="font-bold">Marca/Modelo:</span> Toyota Corolla 2018</div>
-                                    <div><span class="font-bold">Placa/KM:</span> P-452GHT / 85,400 KM</div>
+                                    <div><span class="font-bold">Cliente:</span> [Escribe aquí el cliente]</div>
+                                    <div><span class="font-bold">Teléfono:</span> [Número]</div>
+                                    <div><span class="font-bold">Marca/Modelo:</span> [Vehículo]</div>
+                                    <div><span class="font-bold">Placa/KM:</span> [Datos]</div>
                                 </div>
                             </div>
 
@@ -468,7 +494,7 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
                                 <h2 class="text-xs font-bold text-slate-800 uppercase bg-slate-100 p-1.5 rounded border-l-4 border-slate-800">
                                     2. Diagnóstico Preliminar
                                 </h2>
-                                <p class="text-[11px] text-slate-700 leading-relaxed p-2 bg-slate-50 rounded border border-slate-200">
+                                <p class="text-[11px] text-slate-700 leading-relaxed p-2 bg-slate-50 rounded border border-slate-200 editable-area">
                                     El vehículo ingresa por ruido metálico al frenar en la rueda delantera izquierda y pedal esponjoso. Se requiere revisión completa del sistema de frenos y cambio de fluido.
                                 </p>
                             </div>
@@ -476,7 +502,7 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
                             <!-- Section: Tabla de Tareas (Tabla técnica) -->
                             <div class="space-y-2">
                                 <h2 class="text-xs font-bold text-slate-800 uppercase bg-slate-100 p-1.5 rounded border-l-4 border-slate-800">
-                                    3. Tareas de Mantenimiento e Insumos Estimados
+                                    3. Tareas de Mantenimiento e Insumos
                                 </h2>
                                 <table class="w-full text-left border-collapse border border-slate-300 text-[10px]">
                                     <thead>
@@ -490,19 +516,19 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
                                     <tbody class="divide-y divide-slate-200">
                                         <tr>
                                             <td class="p-1.5 border border-slate-300">01</td>
-                                            <td class="p-1.5 border border-slate-300 font-medium">Reemplazo de pastillas delanteras</td>
+                                            <td class="p-1.5 border border-slate-300 font-medium">Reemplazo de pastillas</td>
                                             <td class="p-1.5 border border-slate-300">Kit Pastillas Cerámicas</td>
                                             <td class="p-1.5 border border-slate-300 text-amber-600 font-bold">Pendiente</td>
                                         </tr>
                                         <tr class="bg-slate-50">
                                             <td class="p-1.5 border border-slate-300">02</td>
-                                            <td class="p-1.5 border border-slate-300 font-medium">Rectificación de discos de freno</td>
+                                            <td class="p-1.5 border border-slate-300 font-medium">Rectificación de discos</td>
                                             <td class="p-1.5 border border-slate-300">Servicio de Torno</td>
                                             <td class="p-1.5 border border-slate-300 text-amber-600 font-bold">Pendiente</td>
                                         </tr>
                                         <tr>
                                             <td class="p-1.5 border border-slate-300">03</td>
-                                            <td class="p-1.5 border border-slate-300 font-medium">Purga de líquido de frenos</td>
+                                            <td class="p-1.5 border border-slate-300 font-medium">Purga de líquido</td>
                                             <td class="p-1.5 border border-slate-300">1L Líquido DOT4</td>
                                             <td class="p-1.5 border border-slate-300 text-amber-600 font-bold">Pendiente</td>
                                         </tr>
@@ -514,7 +540,7 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
                             <div class="pt-6 grid grid-cols-2 gap-8 text-[10px] text-center">
                                 <div class="border-t border-slate-400 pt-1">
                                     <p class="font-bold">Firma del Mecánico Responsable</p>
-                                    <p class="text-slate-500">Erick Zamora / 4to Bachillerato</p>
+                                    <p class="text-slate-500">[Nombre del Alumno]</p>
                                 </div>
                                 <div class="border-t border-slate-400 pt-1">
                                     <p class="font-bold">Aceptación Cliente / Términos</p>
@@ -533,47 +559,35 @@ La digitalización de las solicitudes de repuestos dentro del taller automotriz 
 
                 <!-- Written Requirement & Evidence Box (Right) -->
                 <div class="lg:col-span-5 space-y-4">
-                    <!-- Evidence Checklist -->
+                    <!-- Evidence Checklist & Upload -->
                     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
                         <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-camera text-sky-400"></i> Captura Requerida en Google Docs
+                            <i class="fa-solid fa-camera text-sky-400"></i> Sube tu Evidencia (Act. 2)
                         </h3>
                         <p class="text-xs text-slate-300">
-                            Para cumplir la Actividad 2 debes tomar una captura de pantalla a la interfaz de Google Docs donde se note:
+                            Edita el documento a la izquierda, toma una captura de pantalla y adjúntala.
                         </p>
-                        <div class="p-3 bg-slate-900 rounded-lg border border-slate-700/80 text-xs text-slate-400">
-                            <ul class="list-disc list-inside space-y-1 text-[11px]">
-                                <li>Título "Orden de Trabajo - Mantenimiento Automotriz"</li>
-                                <li>Jerarquía visual (Título 1, Título 2, Texto normal)</li>
-                                <li>Tabla estilizada (bordes, alineación y sombreado de encabezado)</li>
-                                <li>Encabezado y pie de página con número de página</li>
-                            </ul>
+                        <div class="mt-2">
+                            <input type="file" accept="image/*" onchange="loadImage(event, 'pdf-img-act2')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-500/20 file:text-sky-400 hover:file:bg-sky-500/30 cursor-pointer transition">
                         </div>
                     </div>
 
-                    <!-- Written Justification Text Area -->
+                    <!-- Written Justification -->
                     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-pen-fancy text-sky-400"></i> Contenido Escrito Obligatorio
+                                <i class="fa-solid fa-pen-fancy text-sky-400"></i> Justificación Requerida
                             </h3>
                             <span class="text-[10px] bg-sky-500/10 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded">
-                                Debe iniciar con "Actividad 2:"
+                                "Actividad 2:"
                             </span>
                         </div>
-
-                        <div class="p-2 bg-slate-900/80 rounded border border-slate-700/50 text-xs text-slate-300 space-y-1">
-                            <p class="font-medium text-sky-400">Guía de Redacción:</p>
-                            <p class="text-[11px] text-slate-400">Redacta la justificación técnica de cómo la estandarización de órdenes de trabajo mediante jerarquía tipográfica y tablas en procesadores de texto mejora el seguimiento de tareas mecánicas y garantiza la transparencia con el cliente.</p>
-                        </div>
-
-                        <textarea id="act2-text" oninput="checkAct2Validation()" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-sky-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu respuesta. Ejemplo:
+                        <textarea id="act2-text" oninput="checkAct2Validation(); updatePDFPreview();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-sky-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu respuesta. Ejemplo:
 Actividad 2:
-La estandarización documental de las órdenes de trabajo mediante el uso adecuado de tablas y jerarquías estéticas en procesadores de texto permite al taller automotriz..."></textarea>
-
+La estandarización documental de las órdenes de trabajo mediante jerarquías visuales y tablas estructuradas permite..."></textarea>
                         <div class="flex items-center justify-between text-[11px] text-slate-400">
                             <span id="act2-word-count">Palabras: 0</span>
-                            <span id="act2-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 2:' o texto suficiente</span>
+                            <span id="act2-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 2:' o texto</span>
                         </div>
                     </div>
                 </div>
@@ -582,12 +596,11 @@ La estandarización documental de las órdenes de trabajo mediante el uso adecua
 
         <!-- TAB 4: ACTIVIDAD 3 - INTEGRACIÓN Y EXPORTACIÓN PDF -->
         <section id="tab-act3" class="tab-content hidden space-y-6">
-            <!-- Header info -->
             <div class="bg-slate-800/90 rounded-xl p-5 border border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
                     <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase">Actividad 3 - Valor: 3 Puntos</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Integración de Datos del Formulario y Exportación Final a PDF</h2>
-                    <p class="text-xs text-slate-300 mt-1">Consolida la información del formulario e informe, exporta a PDF no editable y redacta la justificación legal.</p>
+                    <h2 class="text-xl font-bold text-white mt-1">Exportación Final a PDF y Análisis Legal</h2>
+                    <p class="text-xs text-slate-300 mt-1">Sube la captura de tu documento exportado viéndose en el PDF y redacta la justificación legal.</p>
                 </div>
                 <div class="bg-slate-900/80 px-4 py-2 rounded-lg border border-slate-700 text-xs flex items-center gap-2">
                     <i class="fa-solid fa-file-export text-emerald-400 text-base"></i>
@@ -599,95 +612,52 @@ La estandarización documental de las órdenes de trabajo mediante el uso adecua
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- PDF Viewer & Integration Steps (Left) -->
+                <!-- PDF Integration Steps (Left) -->
                 <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-700 p-5 space-y-5">
                     <h3 class="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-700 pb-3">
-                        <i class="fa-solid fa-sliders text-emerald-400"></i> Pasos de Integración y Descarga de PDF
+                        <i class="fa-solid fa-sliders text-emerald-400"></i> Pasos de Integración Documental
                     </h3>
-
                     <div class="space-y-4 text-xs text-slate-300">
-                        <div class="p-3 bg-slate-800 rounded-lg border border-slate-700 flex items-start gap-3">
-                            <span class="w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">1</span>
-                            <div>
-                                <h4 class="font-bold text-white">Vínculo o Resumen del Formulario</h4>
-                                <p class="text-slate-400 text-[11px] mt-0.5">Inserta en tu documento de Google Docs el enlace al formulario creado en la Actividad 1 o el cuadro resumido de repuestos solicitados.</p>
-                            </div>
-                        </div>
-
-                        <div class="p-3 bg-slate-800 rounded-lg border border-slate-700 flex items-start gap-3">
-                            <span class="w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">2</span>
-                            <div>
-                                <h4 class="font-bold text-white">Revisión de Maquetación Limpia</h4>
-                                <p class="text-slate-400 text-[11px] mt-0.5">Verifica que no existan saltos de página inadecuados, líneas huérfanas o tablas desalineadas antes de exportar.</p>
-                            </div>
-                        </div>
-
-                        <div class="p-3 bg-slate-800 rounded-lg border border-slate-700 flex items-start gap-3">
-                            <span class="w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">3</span>
-                            <div>
-                                <h4 class="font-bold text-white">Exportación en Google Docs</h4>
-                                <p class="text-slate-400 text-[11px] mt-0.5">Haz clic en <strong>Archivo > Descargar > Documento PDF (.pdf)</strong> en Google Docs.</p>
-                            </div>
-                        </div>
-
-                        <div class="p-3 bg-slate-800 rounded-lg border border-slate-700 flex items-start gap-3">
-                            <span class="w-6 h-6 rounded bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0">4</span>
-                            <div>
-                                <h4 class="font-bold text-white">Comprobación en Visor del Sistema (Q4OS o similar)</h4>
-                                <p class="text-slate-400 text-[11px] mt-0.5">Abre el PDF exportado en tu lector de PDF y toma la captura de pantalla de evidencia requerida.</p>
-                            </div>
-                        </div>
+                        <p>1. Imagina que has exportado tu Orden de Trabajo original a PDF en tu computadora.</p>
+                        <p>2. Abre tu lector de PDF y toma una captura simulando que estás revisando el trabajo finalizado.</p>
+                        <p>3. Sube la captura en el recuadro de la derecha para completar la Evidencia 3.</p>
                     </div>
-
-                    <!-- PDF Viewer Simulation Frame -->
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center space-y-2">
-                        <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-2">
-                            <span><i class="fa-solid fa-file-pdf text-rose-500"></i> Visor_PDF_Q4OS_Documento_Final.pdf</span>
-                            <span class="text-emerald-400 text-[10px]"><i class="fa-solid fa-circle-check"></i> Formato Universal Valido</span>
-                        </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center space-y-2 mt-4">
                         <div class="py-6 border-2 border-dashed border-slate-800 rounded-lg bg-slate-900/50">
-                            <i class="fa-solid fa-file-contract text-4xl text-slate-600 mb-2"></i>
-                            <p class="text-xs font-medium text-slate-300">Documento Final Maquetado e Integrado</p>
-                            <p class="text-[11px] text-slate-500">Listo para subir a Google Classroom en formato PDF único.</p>
+                            <i class="fa-solid fa-file-pdf text-4xl text-rose-500 mb-2"></i>
+                            <p class="text-xs font-medium text-slate-300">Documento Listo en PDF</p>
+                            <p class="text-[11px] text-slate-500">Una vez subas la imagen, ve a la Pestaña 5 para compilar todo.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Written Analysis Text Area (Right) -->
                 <div class="lg:col-span-5 space-y-4">
-                    <!-- Evidencia 3 -->
+                    <!-- Evidencia 3 Upload -->
                     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
                         <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-camera text-emerald-400"></i> Evidencia Requerida Actividad 3
+                            <i class="fa-solid fa-camera text-emerald-400"></i> Sube tu Evidencia (Act. 3)
                         </h3>
-                        <p class="text-xs text-slate-300">
-                            Captura de pantalla legible del archivo PDF exportado abierto en el visor predeterminado del sistema operativo, mostrando la maquetación completa y limpia.
-                        </p>
+                        <p class="text-xs text-slate-300">Sube la captura de tu archivo PDF abierto en el lector de sistema.</p>
+                        <div class="mt-2">
+                            <input type="file" accept="image/*" onchange="loadImage(event, 'pdf-img-act3')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30 cursor-pointer transition">
+                        </div>
                     </div>
 
                     <!-- Written Analysis 3 -->
                     <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-pen-fancy text-emerald-400"></i> Contenido Escrito Obligatorio
+                                <i class="fa-solid fa-pen-fancy text-emerald-400"></i> Análisis Requerido
                             </h3>
-                            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">
-                                Debe iniciar con "Actividad 3:"
-                            </span>
+                            <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">"Actividad 3:"</span>
                         </div>
-
-                        <div class="p-2 bg-slate-900/80 rounded border border-slate-700/50 text-xs text-slate-300 space-y-1">
-                            <p class="font-medium text-emerald-400">Guía de Redacción:</p>
-                            <p class="text-[11px] text-slate-400">Redacta un análisis escrito sobre el impacto de respaldar órdenes de trabajo finalizadas en archivos PDF no editables como garantía legal y registro técnico histórico del taller.</p>
-                        </div>
-
-                        <textarea id="act3-text" oninput="checkAct3Validation()" rows="7" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-emerald-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu análisis final. Ejemplo:
+                        <textarea id="act3-text" oninput="checkAct3Validation(); updatePDFPreview();" rows="6" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-700 focus:border-emerald-400 outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu análisis final. Ejemplo:
 Actividad 3:
-El respaldo de las órdenes de trabajo finalizadas mediante formatos no editables como PDF es fundamental en la gestión técnica del taller debido a que garantiza la seguridad e integridad legal..."></textarea>
-
+El respaldo de las órdenes en formatos no editables como PDF garantiza la seguridad e integridad legal..."></textarea>
                         <div class="flex items-center justify-between text-[11px] text-slate-400">
                             <span id="act3-word-count">Palabras: 0</span>
-                            <span id="act3-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 3:' o texto suficiente</span>
+                            <span id="act3-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 3:'</span>
                         </div>
                     </div>
                 </div>
@@ -700,7 +670,7 @@ El respaldo de las órdenes de trabajo finalizadas mediante formatos no editable
                 <div>
                     <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold uppercase">Compilador Oficial de Tarea</span>
                     <h2 class="text-xl font-bold text-white mt-1">Generador y Verificador del Documento Entregable</h2>
-                    <p class="text-xs text-slate-300 mt-1">Revisa la autocatación según la Rúbrica Oficial e imprime/descarga tu PDF listo para Google Classroom.</p>
+                    <p class="text-xs text-slate-300 mt-1">Revisa cómo se verán tus textos e imágenes y descarga tu PDF.</p>
                 </div>
                 <button onclick="downloadAsPDF()" class="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-bold text-xs rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
                     <i class="fa-solid fa-file-pdf text-base"></i>
@@ -724,161 +694,125 @@ El respaldo de las órdenes de trabajo finalizadas mediante formatos no editable
                 </div>
             </div>
 
-            <!-- Rubric Live Score Assessment Banner -->
-            <div class="bg-slate-900/90 rounded-xl p-4 border border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div id="score-badge" class="w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-500 text-amber-400 font-extrabold text-lg flex items-center justify-center">
-                        0/10
-                    </div>
-                    <div>
-                        <h4 class="text-sm font-bold text-white">Evaluación Automática de Rúbrica</h4>
-                        <p id="score-description" class="text-xs text-slate-400">Completa las 3 actividades en las pestañas anteriores para alcanzar la nota máxima.</p>
-                    </div>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="openModal('modal-rubrica')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 rounded border border-slate-700">
-                        Ver Detalles Rúbrica (10 pts)
-                    </button>
-                </div>
-            </div>
-
             <!-- REAL DOCUMENT PRINT PREVIEW AREA -->
-            <div id="pdf-document-area" class="bg-white text-slate-900 p-8 sm:p-12 rounded-xl shadow-2xl max-w-4xl mx-auto space-y-8 font-sans text-xs">
+            <div id="pdf-document-area" class="bg-white text-slate-900 p-8 sm:p-12 rounded-xl shadow-2xl max-w-4xl mx-auto space-y-6 font-sans text-xs">
                 
                 <!-- Institutional Header -->
-                <div class="border-b-2 border-slate-900 pb-4 flex justify-between items-start">
+                <div class="border-b-2 border-slate-900 pb-4 flex justify-between items-start avoid-page-break">
                     <div>
                         <h1 class="text-base font-extrabold text-slate-900 uppercase">Instituto Industrial Central General Lázaro Chacón González</h1>
-                        <p class="text-xs font-semibold text-slate-700">Bachillerato en Ciencias y Letras con Orientación en Mecánica Automotriz</p>
+                        <p class="text-xs font-semibold text-slate-700">Bachillerato en Orientación Automotriz</p>
                         <p class="text-[11px] text-slate-600">Curso: TIC I | Docente: Erick Enrique Zamora Paz</p>
                     </div>
                     <div class="text-right">
                         <span class="inline-block bg-slate-900 text-white font-bold text-xs px-2.5 py-1 rounded">GUÍA NO. 5</span>
-                        <p class="text-[10px] text-slate-500 mt-1 font-mono">Unidad III - 2026</p>
                     </div>
                 </div>
 
                 <!-- Student Info Card -->
-                <div class="bg-slate-100 p-3 rounded border border-slate-300 grid grid-cols-2 gap-2 text-xs">
+                <div class="bg-slate-100 p-3 rounded border border-slate-300 grid grid-cols-2 gap-2 text-xs avoid-page-break">
                     <div><strong>Estudiante:</strong> <span id="pdf-preview-name" class="text-slate-800">[Nombre del Estudiante]</span></div>
                     <div><strong>Clave/Sección:</strong> <span id="pdf-preview-key" class="text-slate-800">[Clave / Sección]</span></div>
-                    <div><strong>Fecha de Asignación:</strong> 12 de agosto de 2026</div>
                     <div><strong>Fecha de Entrega:</strong> 14 de agosto de 2026</div>
                 </div>
 
                 <!-- SECTION 1 -->
-                <div class="space-y-3 border-b border-slate-200 pb-6">
-                    <h2 id="pdf-act1-heading" class="text-sm font-bold text-slate-900 uppercase border-l-4 border-amber-500 pl-2">
-                        Actividad 1:
-                    </h2>
+                <div class="space-y-3 border-b border-slate-200 pb-6 avoid-page-break">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-amber-500 pl-2">Actividad 1: Formulario Digital</h2>
                     <div id="pdf-act1-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
-                        [El texto redactado en la Actividad 1 aparecerá automáticamente aquí]
+                        [El texto redactado aparecerá aquí]
                     </div>
-                    <!-- Simulated Evidence Box 1 -->
-                    <div class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
-                        <i class="fa-solid fa-image text-slate-400 text-2xl mb-1"></i>
-                        <p class="font-bold text-slate-700 text-xs">[EVIDENCIA ACTIVIDAD 1: Captura de Formulario Google Forms en Edición]</p>
-                        <p class="text-[10px] text-slate-500">Muestra título 'Solicitud Interna de Repuestos Automotrices', 4 tipos de preguntas y validaciones.</p>
+                    
+                    <!-- Dynamic Image Box 1 -->
+                    <div id="box-pdf-img-act1" class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
+                        <p class="font-bold text-rose-500 text-xs">⚠️ Falta subir imagen de Evidencia Actividad 1 en la Pestaña 2</p>
                     </div>
+                    <!-- Image will render here once uploaded -->
+                    <img id="pdf-img-act1" class="hidden w-full max-h-[400px] object-contain border border-slate-300 rounded mx-auto mt-3" src="" alt="Evidencia 1">
                 </div>
 
                 <!-- SECTION 2 -->
-                <div class="space-y-3 border-b border-slate-200 pb-6">
-                    <h2 id="pdf-act2-heading" class="text-sm font-bold text-slate-900 uppercase border-l-4 border-sky-500 pl-2">
-                        Actividad 2:
-                    </h2>
+                <div class="space-y-3 border-b border-slate-200 pb-6 avoid-page-break">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-sky-500 pl-2">Actividad 2: Orden de Trabajo</h2>
                     <div id="pdf-act2-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
-                        [El texto redactado en la Actividad 2 aparecerá automáticamente aquí]
+                        [El texto redactado aparecerá aquí]
                     </div>
-                    <!-- Simulated Evidence Box 2 -->
-                    <div class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
-                        <i class="fa-solid fa-image text-slate-400 text-2xl mb-1"></i>
-                        <p class="font-bold text-slate-700 text-xs">[EVIDENCIA ACTIVIDAD 2: Captura de Orden de Trabajo en Google Docs]</p>
-                        <p class="text-[10px] text-slate-500">Muestra la jerarquía visual de estilos (Título 1, Título 2), tabla técnica estilizada y pie de página.</p>
+                    
+                    <!-- Dynamic Image Box 2 -->
+                    <div id="box-pdf-img-act2" class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
+                        <p class="font-bold text-rose-500 text-xs">⚠️ Falta subir imagen de Evidencia Actividad 2 en la Pestaña 3</p>
                     </div>
+                    <!-- Image will render here once uploaded -->
+                    <img id="pdf-img-act2" class="hidden w-full max-h-[400px] object-contain border border-slate-300 rounded mx-auto mt-3" src="" alt="Evidencia 2">
                 </div>
 
                 <!-- SECTION 3 -->
-                <div class="space-y-3">
-                    <h2 id="pdf-act3-heading" class="text-sm font-bold text-slate-900 uppercase border-l-4 border-emerald-500 pl-2">
-                        Actividad 3:
-                    </h2>
+                <div class="space-y-3 pb-4 avoid-page-break">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-emerald-500 pl-2">Actividad 3: Exportación Final</h2>
                     <div id="pdf-act3-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
-                        [El texto redactado en la Actividad 3 aparecerá automáticamente aquí]
+                        [El texto redactado aparecerá aquí]
                     </div>
-                    <!-- Simulated Evidence Box 3 -->
-                    <div class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
-                        <i class="fa-solid fa-file-pdf text-slate-400 text-2xl mb-1"></i>
-                        <p class="font-bold text-slate-700 text-xs">[EVIDENCIA ACTIVIDAD 3: Captura de Orden de Trabajo Exportada en Visor PDF]</p>
-                        <p class="text-[10px] text-slate-500">Muestra la maquetación limpia e integración final del documento en el sistema operativo Q4OS.</p>
+                    
+                    <!-- Dynamic Image Box 3 -->
+                    <div id="box-pdf-img-act3" class="p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 text-center">
+                        <p class="font-bold text-rose-500 text-xs">⚠️ Falta subir imagen de Evidencia Actividad 3 en la Pestaña 4</p>
                     </div>
+                    <!-- Image will render here once uploaded -->
+                    <img id="pdf-img-act3" class="hidden w-full max-h-[400px] object-contain border border-slate-300 rounded mx-auto mt-3" src="" alt="Evidencia 3">
                 </div>
 
-                <!-- Document Footer -->
-                <div class="border-t border-slate-300 pt-3 text-center text-[10px] text-slate-500">
-                    <p>Documento de entrega elaborado para el curso TIC I - Instituto Industrial Central General Lázaro Chacón González</p>
-                </div>
             </div>
         </section>
 
     </main>
+
+    <!-- Custom Toast Message -->
+    <div id="toast-message" class="fixed bottom-5 right-5 bg-slate-800 text-white px-4 py-3 rounded-xl border border-slate-700 shadow-2xl z-50 hidden flex items-center gap-3 text-xs transition-all">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toast-text">Acción realizada con éxito</span>
+    </div>
 
     <!-- Rubric Modal Dialog -->
     <div id="modal-rubrica" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl custom-scrollbar max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-award text-amber-400"></i> Rúbrica Oficial de Calificación (10 Puntos Netos)
+                    <i class="fa-solid fa-award text-amber-400"></i> Rúbrica Oficial (10 Puntos Netos)
                 </h3>
                 <button onclick="closeModal('modal-rubrica')" class="text-slate-400 hover:text-white p-1">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-
             <div class="space-y-4 text-xs">
                 <!-- Criterio 1 -->
                 <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
                     <div class="flex justify-between font-bold text-amber-400 mb-1">
-                        <span>Criterio 1: Formulario Google Forms (Actividad 1)</span>
+                        <span>Criterio 1: Actividad 1 (Formularios)</span>
                         <span>4 Pts Max</span>
                     </div>
-                    <p class="text-slate-300 text-[11px]"><strong class="text-emerald-400">Excelente (4 pts):</strong> Muestra captura legible del formulario digital configurado con tipos de preguntas e identidad visual, e incluye encabezado 'Actividad 1:' con explicación fundamentada sobre la optimización en el pedido de insumos y reducción de errores.</p>
-                    <p class="text-slate-400 text-[11px] mt-1"><strong class="text-amber-400">Aceptable (2 pts):</strong> Muestra captura o explicación, pero estructura imprecisa o análisis superficial.</p>
+                    <p class="text-slate-300">Captura clara y análisis adecuado sobre optimización y reducción de errores.</p>
                 </div>
-
                 <!-- Criterio 2 -->
                 <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
                     <div class="flex justify-between font-bold text-sky-400 mb-1">
-                        <span>Criterio 2: Orden de Trabajo Google Docs (Actividad 2)</span>
+                        <span>Criterio 2: Actividad 2 (Orden Trabajo Docs)</span>
                         <span>3 Pts Max</span>
                     </div>
-                    <p class="text-slate-300 text-[11px]"><strong class="text-emerald-400">Excelente (3 pts):</strong> Muestra captura del documento con estilos de texto, jerarquía de títulos y tabla técnica, e incluye encabezado 'Actividad 2:' con justificación técnica de la estandarización documental.</p>
-                    <p class="text-slate-400 text-[11px] mt-1"><strong class="text-amber-400">Aceptable (1 pt):</strong> Inconsistente maquetación o análisis superficial.</p>
+                    <p class="text-slate-300">Captura de estilos y tabla técnica. Justificación sobre jerarquía documental.</p>
                 </div>
-
                 <!-- Criterio 3 -->
                 <div class="bg-slate-800 p-3 rounded-xl border border-slate-700">
                     <div class="flex justify-between font-bold text-emerald-400 mb-1">
-                        <span>Criterio 3: Integración y Exportación a PDF (Actividad 3)</span>
+                        <span>Criterio 3: Actividad 3 (PDF Exportación)</span>
                         <span>3 Pts Max</span>
                     </div>
-                    <p class="text-slate-300 text-[11px]"><strong class="text-emerald-400">Excelente (3 pts):</strong> Captura de orden exportada a PDF con maquetación limpia e integración de datos de repuestos, e incluye encabezado 'Actividad 3:' con análisis escrito sobre PDF como respaldo legal y técnico.</p>
-                    <p class="text-slate-400 text-[11px] mt-1"><strong class="text-amber-400">Aceptable (1 pt):</strong> Desajustes de formato o falta función del PDF como respaldo.</p>
+                    <p class="text-slate-300">Captura del visor PDF y análisis sobre respaldo legal y técnico.</p>
                 </div>
             </div>
-
             <div class="pt-2 text-right">
-                <button onclick="closeModal('modal-rubrica')" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg">
-                    Entendido
-                </button>
+                <button onclick="closeModal('modal-rubrica')" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg">Entendido</button>
             </div>
         </div>
-    </div>
-
-    <!-- Custom Toast Message -->
-    <div id="toast-message" class="fixed bottom-5 right-5 bg-slate-800 text-white px-4 py-3 rounded-xl border border-slate-700 shadow-2xl z-50 hidden flex items-center gap-3 text-xs">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-        <span id="toast-text">Acción realizada con éxito</span>
     </div>
 
     <script>
@@ -889,28 +823,35 @@ El respaldo de las órdenes de trabajo finalizadas mediante formatos no editable
                 btn.classList.remove('tab-active');
                 btn.classList.add('text-slate-400');
             });
-
             document.getElementById(tabId).classList.remove('hidden');
             const activeBtn = document.getElementById('nav-' + tabId);
             if (activeBtn) {
                 activeBtn.classList.add('tab-active');
                 activeBtn.classList.remove('text-slate-400');
             }
+            if (tabId === 'tab-entregable') updatePDFPreview();
+        }
 
-            if (tabId === 'tab-entregable') {
-                updatePDFPreview();
+        // Image Load Handler for injection into PDF compiler
+        function loadImage(event, imgId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgElement = document.getElementById(imgId);
+                    imgElement.src = e.target.result;
+                    imgElement.classList.remove('hidden');
+                    // Hide the warning placeholder box in the PDF preview
+                    const warningBox = document.getElementById('box-' + imgId);
+                    if(warningBox) warningBox.classList.add('hidden');
+                    
+                    showToast("Evidencia cargada y añadida al reporte final", "fa-solid fa-image text-amber-400");
+                }
+                reader.readAsDataURL(file);
             }
         }
 
-        // Modal Helpers
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
-
-        // Toast Helper
+        // Modal & Toast Helpers
         function showToast(text, iconClass = "fa-solid fa-circle-check text-emerald-400") {
             const toast = document.getElementById('toast-message');
             document.getElementById('toast-text').innerText = text;
@@ -918,173 +859,95 @@ El respaldo de las órdenes de trabajo finalizadas mediante formatos no editable
             toast.classList.remove('hidden');
             setTimeout(() => toast.classList.add('hidden'), 3500);
         }
-
-        // Word count helper
-        function countWords(str) {
-            return str.trim() ? str.trim().split(/\s+/).length : 0;
-        }
+        function openModal(modalId) { document.getElementById(modalId)?.classList.remove('hidden'); }
+        function closeModal(modalId) { document.getElementById(modalId)?.classList.add('hidden'); }
+        function countWords(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
 
         // --- VALIDATION ENGINE FOR ACTIVITIES --- //
 
-        // Actividad 1 Validation
         function checkAct1Validation() {
-            const title = document.getElementById('form-title-input').value;
             const text = document.getElementById('act1-text').value;
             const wordCount = countWords(text);
-            
             document.getElementById('act1-word-count').innerText = `Palabras: ${wordCount}`;
-
             const hasHeading = text.toLowerCase().includes('actividad 1:');
-            const isLongEnough = wordCount >= 30;
-
+            
             let score = 0;
-            if (title.length > 5) score++;
-            if (hasHeading) score++;
-            if (wordCount >= 20) score++;
-            if (wordCount >= 40) score++;
-            if (text.toLowerCase().includes('repuesto') || text.toLowerCase().includes('taller') || text.toLowerCase().includes('error')) score++;
+            if (hasHeading) score += 2;
+            if (wordCount >= 20) score += 3;
 
             document.getElementById('act1-count').innerText = Math.min(score, 5);
-
             const statusEl = document.getElementById('act1-status');
-            const kwCheck = document.getElementById('act1-kw-check');
-
-            if (hasHeading && isLongEnough) {
-                statusEl.innerText = "Completado (4/4 pts)";
+            
+            if (hasHeading && wordCount >= 30) {
+                statusEl.innerText = "Completado";
                 statusEl.className = "font-bold text-emerald-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Encabezado y análisis adecuados';
-                kwCheck.className = "text-emerald-400";
             } else {
                 statusEl.innerText = "Incompleto";
                 statusEl.className = "font-bold text-amber-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i> Falta título "Actividad 1:" o análisis (mínimo 30 palabras)';
-                kwCheck.className = "text-rose-400";
             }
-
             calculateGlobalScore();
         }
 
-        // Actividad 2 Validation
         function checkAct2Validation() {
             const text = document.getElementById('act2-text').value;
             const wordCount = countWords(text);
-            
             document.getElementById('act2-word-count').innerText = `Palabras: ${wordCount}`;
-
             const hasHeading = text.toLowerCase().includes('actividad 2:');
-            const isLongEnough = wordCount >= 25;
-
-            let score = 0;
-            if (hasHeading) score += 2;
-            if (wordCount >= 25) score += 2;
-            if (text.toLowerCase().includes('jerarquía') || text.toLowerCase().includes('tabla') || text.toLowerCase().includes('orden')) score += 1;
-
+            
+            let score = hasHeading ? 2 : 0;
+            if (wordCount >= 20) score += 3;
             document.getElementById('act2-count').innerText = Math.min(score, 5);
-
-            const statusEl = document.getElementById('act2-status');
-            const kwCheck = document.getElementById('act2-kw-check');
-
-            if (hasHeading && isLongEnough) {
-                statusEl.innerText = "Completado (3/3 pts)";
-                statusEl.className = "font-bold text-emerald-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Encabezado y justificación adecuados';
-                kwCheck.className = "text-emerald-400";
+            
+            if (hasHeading && wordCount >= 20) {
+                document.getElementById('act2-status').innerText = "Completado";
+                document.getElementById('act2-status').className = "font-bold text-emerald-400";
             } else {
-                statusEl.innerText = "Incompleto";
-                statusEl.className = "font-bold text-amber-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i> Falta título "Actividad 2:" o justificación técnica suficiente';
-                kwCheck.className = "text-rose-400";
+                document.getElementById('act2-status').innerText = "Incompleto";
+                document.getElementById('act2-status').className = "font-bold text-amber-400";
             }
-
             calculateGlobalScore();
         }
 
-        // Actividad 3 Validation
         function checkAct3Validation() {
             const text = document.getElementById('act3-text').value;
             const wordCount = countWords(text);
-            
             document.getElementById('act3-word-count').innerText = `Palabras: ${wordCount}`;
-
             const hasHeading = text.toLowerCase().includes('actividad 3:');
-            const isLongEnough = wordCount >= 25;
-
-            let score = 0;
-            if (hasHeading) score += 2;
-            if (wordCount >= 25) score += 1;
-            if (text.toLowerCase().includes('pdf') || text.toLowerCase().includes('legal') || text.toLowerCase().includes('respaldo')) score += 1;
-
+            
+            let score = hasHeading ? 2 : 0;
+            if (wordCount >= 20) score += 2;
             document.getElementById('act3-count').innerText = Math.min(score, 4);
-
-            const statusEl = document.getElementById('act3-status');
-            const kwCheck = document.getElementById('act3-kw-check');
-
-            if (hasHeading && isLongEnough) {
-                statusEl.innerText = "Completado (3/3 pts)";
-                statusEl.className = "font-bold text-emerald-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Encabezado y análisis legal adecuados';
-                kwCheck.className = "text-emerald-400";
+            
+            if (hasHeading && wordCount >= 20) {
+                document.getElementById('act3-status').innerText = "Completado";
+                document.getElementById('act3-status').className = "font-bold text-emerald-400";
             } else {
-                statusEl.innerText = "Incompleto";
-                statusEl.className = "font-bold text-amber-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i> Falta título "Actividad 3:" o análisis escrito sobre el PDF';
-                kwCheck.className = "text-rose-400";
+                document.getElementById('act3-status').innerText = "Incompleto";
+                document.getElementById('act3-status').className = "font-bold text-amber-400";
             }
-
             calculateGlobalScore();
         }
 
-        // Calculate total rubric points (10 pts total)
         function calculateGlobalScore() {
+            let points = 0;
             const t1 = document.getElementById('act1-text').value;
             const t2 = document.getElementById('act2-text').value;
             const t3 = document.getElementById('act3-text').value;
 
-            let points = 0;
+            if (t1.toLowerCase().includes('actividad 1:') && countWords(t1) >= 20) points += 4;
+            else if (t1.length > 10) points += 2;
 
-            // Act 1 (4 pts max)
-            if (t1.toLowerCase().includes('actividad 1:') && countWords(t1) >= 30) {
-                points += 4;
-            } else if (t1.trim().length > 10) {
-                points += 2;
-            }
+            if (t2.toLowerCase().includes('actividad 2:') && countWords(t2) >= 20) points += 3;
+            else if (t2.length > 10) points += 1;
 
-            // Act 2 (3 pts max)
-            if (t2.toLowerCase().includes('actividad 2:') && countWords(t2) >= 25) {
-                points += 3;
-            } else if (t2.trim().length > 10) {
-                points += 1;
-            }
+            if (t3.toLowerCase().includes('actividad 3:') && countWords(t3) >= 20) points += 3;
+            else if (t3.length > 10) points += 1;
 
-            // Act 3 (3 pts max)
-            if (t3.toLowerCase().includes('actividad 3:') && countWords(t3) >= 25) {
-                points += 3;
-            } else if (t3.trim().length > 10) {
-                points += 1;
-            }
-
-            // Update Header progress
             document.getElementById('global-progress-bar').style.width = (points * 10) + "%";
             document.getElementById('global-progress-text').innerText = `${points}/10 pts`;
-
-            // Update Badge
-            const badge = document.getElementById('score-badge');
-            const scoreDesc = document.getElementById('score-description');
-            badge.innerText = `${points}/10`;
-
-            if (points === 10) {
-                badge.className = "w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-500 text-emerald-400 font-extrabold text-lg flex items-center justify-center";
-                scoreDesc.innerText = "¡Excelente! Has cumplido al 100% todos los criterios de la Rúbrica Oficial.";
-            } else if (points >= 6) {
-                badge.className = "w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-500 text-amber-400 font-extrabold text-lg flex items-center justify-center";
-                scoreDesc.innerText = "Nivel Aceptable. Revisa las sugerencias de redacción para alcanzar los 10 puntos.";
-            } else {
-                badge.className = "w-14 h-14 rounded-full bg-rose-500/20 border-2 border-rose-500 text-rose-400 font-extrabold text-lg flex items-center justify-center";
-                scoreDesc.innerText = "Puntaje insuficiente. Asegúrate de completar el texto escrito exigido en cada actividad.";
-            }
         }
 
-        // Live Document Preview Update
+        // Live Document Preview Update (Fills the PDF area)
         function updatePDFPreview() {
             const name = document.getElementById('student-name').value || "[Escribe tu Nombre Completo]";
             const key = document.getElementById('student-key').value || "[Clave y Sección]";
@@ -1092,44 +955,45 @@ El respaldo de las órdenes de trabajo finalizadas mediante formatos no editable
             document.getElementById('pdf-preview-name').innerText = name;
             document.getElementById('pdf-preview-key').innerText = key;
 
-            const t1 = document.getElementById('act1-text').value || "Pendiente de redacción en Pestaña 2 (Actividad 1)...";
-            const t2 = document.getElementById('act2-text').value || "Pendiente de redacción en Pestaña 3 (Actividad 2)...";
-            const t3 = document.getElementById('act3-text').value || "Pendiente de redacción en Pestaña 4 (Actividad 3)...";
+            const t1 = document.getElementById('act1-text').value || "Pendiente de redacción (Falta llenar texto en Actividad 1)...";
+            const t2 = document.getElementById('act2-text').value || "Pendiente de redacción (Falta llenar texto en Actividad 2)...";
+            const t3 = document.getElementById('act3-text').value || "Pendiente de redacción (Falta llenar texto en Actividad 3)...";
 
             document.getElementById('pdf-act1-body').innerText = t1;
             document.getElementById('pdf-act2-body').innerText = t2;
             document.getElementById('pdf-act3-body').innerText = t3;
         }
 
-        // Download Final PDF function using html2pdf
+        // Generate PDF
         function downloadAsPDF() {
             const studentName = document.getElementById('student-name').value.trim();
             if (!studentName) {
-                showToast("Por favor escribe tu nombre completo antes de generar el PDF", "fa-solid fa-triangle-exclamation text-amber-400");
-                switchTab('tab-entregable');
+                showToast("Por favor escribe tu nombre completo antes de exportar", "fa-solid fa-triangle-exclamation text-amber-400");
                 document.getElementById('student-name').focus();
                 return;
             }
 
-            showToast("Generando archivo PDF técnico...", "fa-solid fa-gear fa-spin text-amber-400");
+            showToast("Generando archivo PDF con imágenes incluidas...", "fa-solid fa-gear fa-spin text-amber-400");
 
             const element = document.getElementById('pdf-document-area');
             const opt = {
-                margin:       0.5,
+                margin:       [0.5, 0.5, 0.5, 0.5],
                 filename:     `Guia5_TIC_I_${studentName.replace(/\s+/g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                image:        { type: 'jpeg', quality: 0.95 },
+                html2canvas:  { scale: 2, useCORS: true }, 
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css'] }
             };
 
             html2pdf().set(opt).from(element).save().then(() => {
-                showToast("PDF descargado exitosamente. ¡Listo para Google Classroom!", "fa-solid fa-circle-check text-emerald-400");
+                showToast("PDF descargado exitosamente.", "fa-solid fa-circle-check text-emerald-400");
             }).catch(err => {
-                showToast("Error al exportar. Puedes presionar Ctrl+P para guardar como PDF.", "fa-solid fa-circle-exclamation text-rose-400");
+                showToast("Error al exportar. Puedes presionar Ctrl+P (Imprimir).", "fa-solid fa-circle-exclamation text-rose-400");
+                console.error(err);
             });
         }
 
-        // Window Load Initialization
+        // Initialize validations on load
         window.onload = function() {
             checkAct1Validation();
             checkAct2Validation();
