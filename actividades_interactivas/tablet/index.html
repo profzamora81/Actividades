@@ -32,15 +32,15 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
-            height: 320px;
-            max-height: 380px;
+            height: 340px;
+            max-height: 420px;
         }
         @media (min-width: 768px) {
             .chart-container {
-                height: 350px;
+                height: 380px;
             }
         }
         .glass-card-red {
@@ -68,79 +68,79 @@
 </head>
 <body class="bg-[#08090d] text-slate-100 font-sans antialiased custom-scrollbar min-h-screen">
 
-    <header class="relative bg-gradient-to-r from-inst-black via-inst-dark to-[#180a10] border-b border-inst-red/30 py-10 px-4 sm:px-8 shadow-2xl">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <header class="relative bg-gradient-to-r from-inst-black via-inst-dark to-[#180a10] border-b border-inst-red/30 py-8 px-4 sm:px-8 lg:px-12 shadow-2xl">
+        <div class="max-w-[1650px] w-full mx-auto">
+            <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-                    <div class="p-2 bg-inst-dark/80 border border-inst-red/40 rounded-2xl shadow-xl shrink-0">
-                        <img src="Logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain" onerror="this.onerror=null; this.src='Logo.jpg';">
+                    <div class="p-2.5 bg-inst-dark/80 border border-inst-red/40 rounded-2xl shadow-xl shrink-0">
+                        <img src="logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain" onerror="this.onerror=null; this.src='logo.jpg';">
                     </div>
                     <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-inst-red/10 border border-inst-red/40 text-inst-red text-xs font-semibold uppercase tracking-wider mb-3">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-inst-red/10 border border-inst-red/40 text-inst-red text-xs font-semibold uppercase tracking-wider mb-2">
                             <span class="w-2 h-2 rounded-full bg-inst-red animate-pulse"></span>
                             INSTITUTO INDUSTRIAL CENTRAL GENERAL LÁZARO CHACÓN GONZÁLEZ
                         </div>
                         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
                             Programa <span class="bg-clip-text text-transparent bg-gradient-to-r from-inst-red via-inst-sky to-inst-blue">Ciudadanía Digital</span>
                         </h1>
-                        <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-3xl leading-relaxed">
+                        <p class="text-slate-300 text-sm sm:text-base mt-1.5 max-w-4xl leading-relaxed">
                             Informe interactivo de evaluación tecnológica y legal para la Junta Directiva de la OPF y Dirección Institucional (Ciclo Escolar 2026).
                         </p>
                     </div>
                 </div>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <div class="glass-card-blue p-4 rounded-xl text-center border-l-4 border-inst-blue shadow-lg">
+                <div class="flex flex-row sm:flex-row gap-4 shrink-0">
+                    <div class="glass-card-blue px-6 py-4 rounded-xl text-center border-l-4 border-inst-blue shadow-lg flex-1 sm:flex-none">
                         <span class="text-xs text-slate-300 font-medium uppercase tracking-wider block">Fondo Total / Alumno</span>
-                        <span class="text-2xl font-bold text-inst-sky">Q 2,600.00</span>
+                        <span class="text-2xl sm:text-3xl font-bold text-inst-sky">Q 2,600.00</span>
                     </div>
-                    <div class="glass-card-red p-4 rounded-xl text-center border-l-4 border-inst-red shadow-lg">
+                    <div class="glass-card-red px-6 py-4 rounded-xl text-center border-l-4 border-inst-red shadow-lg flex-1 sm:flex-none">
                         <span class="text-xs text-slate-300 font-medium uppercase tracking-wider block">Modalidad de Compra</span>
-                        <span class="text-2xl font-bold text-inst-red">Factura Doble</span>
+                        <span class="text-2xl sm:text-3xl font-bold text-inst-red">Factura Doble</span>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                <div class="bg-inst-dark/90 border border-inst-blue/30 p-4 rounded-xl flex items-center gap-4 shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-inst-blue/20 text-inst-sky flex items-center justify-center font-bold text-xl border border-inst-blue/40">📱</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-8">
+                <div class="bg-inst-dark/90 border border-inst-blue/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                    <div class="w-12 h-12 rounded-lg bg-inst-blue/20 text-inst-sky flex items-center justify-center font-bold text-xl border border-inst-blue/40 shrink-0">📱</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Subsidio Tablet</div>
-                        <div class="text-xl font-bold text-white">Q 2,000.00</div>
+                        <div class="text-xl sm:text-2xl font-bold text-white">Q 2,000.00</div>
                     </div>
                 </div>
-                <div class="bg-inst-dark/90 border border-inst-red/30 p-4 rounded-xl flex items-center gap-4 shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-inst-red/20 text-inst-red flex items-center justify-center font-bold text-xl border border-inst-red/40">📶</div>
+                <div class="bg-inst-dark/90 border border-inst-red/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                    <div class="w-12 h-12 rounded-lg bg-inst-red/20 text-inst-red flex items-center justify-center font-bold text-xl border border-inst-red/40 shrink-0">📶</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Subsidio Internet</div>
-                        <div class="text-xl font-bold text-white">Q 600.00</div>
+                        <div class="text-xl sm:text-2xl font-bold text-white">Q 600.00</div>
                     </div>
                 </div>
-                <div class="bg-inst-dark/90 border border-inst-blue/30 p-4 rounded-xl flex items-center gap-4 shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-inst-royal/20 text-inst-sky flex items-center justify-center font-bold text-xl border border-inst-blue/40">🎓</div>
+                <div class="bg-inst-dark/90 border border-inst-blue/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                    <div class="w-12 h-12 rounded-lg bg-inst-royal/20 text-inst-sky flex items-center justify-center font-bold text-xl border border-inst-blue/40 shrink-0">🎓</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Beneficiarios</div>
-                        <div class="text-xl font-bold text-white">4to y 5to Bach.</div>
+                        <div class="text-xl sm:text-2xl font-bold text-white">4to y 5to Bach.</div>
                     </div>
                 </div>
-                <div class="bg-inst-dark/90 border border-inst-red/30 p-4 rounded-xl flex items-center gap-4 shadow-md">
-                    <div class="w-12 h-12 rounded-lg bg-inst-crimson/20 text-inst-red flex items-center justify-center font-bold text-xl border border-inst-red/40">🛠️</div>
+                <div class="bg-inst-dark/90 border border-inst-red/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                    <div class="w-12 h-12 rounded-lg bg-inst-crimson/20 text-inst-red flex items-center justify-center font-bold text-xl border border-inst-red/40 shrink-0">🛠️</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Especialidades</div>
-                        <div class="text-xl font-bold text-white">4 Orientaciones</div>
+                        <div class="text-xl sm:text-2xl font-bold text-white">4 Orientaciones</div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="sticky top-0 z-50 bg-[#08090d]/95 backdrop-blur border-b border-inst-red/30 px-4 sm:px-8 py-3">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 overflow-x-auto custom-scrollbar">
-            <div class="flex items-center gap-2 text-xs sm:text-sm font-semibold whitespace-nowrap">
-                <a href="#normativa" class="px-3 py-1.5 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-red/30 transition">📋 Cumplimiento MINEDUC</a>
-                <a href="#comparativa" class="px-3 py-1.5 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-blue/30 transition">📊 Análisis de Hardware</a>
-                <a href="#pedagogico" class="px-3 py-1.5 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-red/30 transition">⚙️ Enfoque Técnico</a>
-                <a href="#conectividad" class="px-3 py-1.5 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-blue/30 transition">🌐 Conectividad</a>
-                <a href="#recomendaciones" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-inst-red to-inst-crimson hover:from-red-600 hover:to-red-700 text-white transition shadow-lg">🎯 Dictamen Final</a>
+    <nav class="sticky top-0 z-50 bg-[#08090d]/95 backdrop-blur border-b border-inst-red/30 px-4 sm:px-8 lg:px-12 py-3">
+        <div class="max-w-[1650px] w-full mx-auto flex items-center justify-between gap-4 overflow-x-auto custom-scrollbar">
+            <div class="flex items-center gap-3 text-xs sm:text-sm font-semibold whitespace-nowrap">
+                <a href="#normativa" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-red/30 transition">📋 Cumplimiento MINEDUC</a>
+                <a href="#comparativa" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-blue/30 transition">📊 Análisis de Hardware</a>
+                <a href="#pedagogico" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-red/30 transition">⚙️ Enfoque Técnico</a>
+                <a href="#conectividad" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-blue/30 transition">🌐 Conectividad</a>
+                <a href="#recomendaciones" class="px-4 py-2 rounded-lg bg-gradient-to-r from-inst-red to-inst-crimson hover:from-red-600 hover:to-red-700 text-white transition shadow-lg">🎯 Dictamen Final</a>
             </div>
             <div class="text-xs text-slate-400 hidden lg:block whitespace-nowrap border-l border-slate-700 pl-4">
                 Resp. Prof. Erick Enrique Zamora Paz
@@ -148,18 +148,18 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8 space-y-12">
+    <main class="max-w-[1650px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 space-y-12">
 
         <section id="normativa" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
-                <h2 class="text-2xl font-bold text-white">1. Matriz de Auditoría y Cumplimiento Normativo MINEDUC</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">1. Matriz de Auditoría y Cumplimiento Normativo MINEDUC</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Cada propuesta ofertada ha sido evaluada estrictamente frente a la <em>Guía de Criterios para la Selección de Recursos Educativos Tecnológicos dirigida a OPF</em>. El cumplimiento del 100% es condición indispensable para evitar hallazgos administrativos.
+                    Cada propuesta ofertada ha sido evaluada strictly frente a la <em>Guía de Criterios para la Selección de Recursos Educativos Tecnológicos dirigida a OPF</em>. El cumplimiento del 100% es condición indispensable para evitar hallazgos administrativos.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="glass-card-red p-6 rounded-2xl flex flex-col justify-between">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-4 glass-card-red p-6 rounded-2xl flex flex-col justify-between">
                     <div>
                         <h3 class="text-lg font-bold text-white mb-2">Estructura del Aporte (Q 2,600)</h3>
                         <p class="text-xs text-slate-400 mb-4 leading-relaxed">
@@ -169,74 +169,76 @@
                             <canvas id="budgetChart"></canvas>
                         </div>
                     </div>
-                    <div class="mt-4 p-3 bg-inst-black/80 rounded-xl border border-inst-red/30 text-xs text-slate-300">
+                    <div class="mt-4 p-3.5 bg-inst-black/80 rounded-xl border border-inst-red/30 text-xs text-slate-300">
                         <strong class="text-inst-red">Nota Legal:</strong> La adquisición del equipo (Q2,000) y del servicio de conectividad (Q600) se realiza mediante facturas separadas, permitiendo combinar libremente el mejor proveedor de hardware con la mejor operadora de datos.
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 glass-card-blue p-6 rounded-2xl overflow-hidden">
-                    <h3 class="text-lg font-bold text-white mb-4">Evaluación de Criterios Obligatorios</h3>
-                    <div class="overflow-x-auto custom-scrollbar">
-                        <table class="w-full text-left text-xs sm:text-sm">
-                            <thead>
-                                <tr class="bg-inst-dark text-slate-200 border-b border-inst-blue/30">
-                                    <th class="p-3">Requisito Obligatorio MINEDUC</th>
-                                    <th class="p-3 text-center">Blackview Zeno 10 (Click GT)</th>
-                                    <th class="p-3 text-center">TCL TAB 11 FE LTE (Claro v2)</th>
-                                    <th class="p-3 text-center">Dataflex / WOW</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-inst-blue/20 text-slate-300">
-                                <tr class="hover:bg-inst-blue/10">
-                                    <td class="p-3 font-medium">A. Pantalla (10"-11", min 1920x1200)</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ 11.0" Full HD+</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ 11.0" Full HD+</td>
-                                    <td class="p-3 text-center text-amber-400 font-semibold">⚠️ 10.1" (Límite)</td>
-                                </tr>
-                                <tr class="hover:bg-inst-blue/10">
-                                    <td class="p-3 font-medium">B. Procesador (Octa-Core o superior)</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ Octa-Core 5G</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ Helio G80 Octa</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ MT6769 Octa</td>
-                                </tr>
-                                <tr class="hover:bg-inst-blue/10">
-                                    <td class="p-3 font-medium">C. Memoria RAM (Mínimo 4 GB física)</td>
-                                    <td class="p-3 text-center text-inst-sky font-bold bg-inst-blue/20">⭐ 6 GB Física</td>
-                                    <td class="p-3 text-center text-emerald-400">✅ 4 GB (+4GB Virt)</td>
-                                    <td class="p-3 text-center text-emerald-400">✅ 4 GB Física</td>
-                                </tr>
-                                <tr class="hover:bg-inst-blue/10">
-                                    <td class="p-3 font-medium">D. Almacenamiento (Mínimo 64 GB)</td>
-                                    <td class="p-3 text-center text-inst-sky font-bold bg-inst-blue/20">⭐ 256 GB Interna</td>
-                                    <td class="p-3 text-center text-emerald-400">✅ 128 GB Interna</td>
-                                    <td class="p-3 text-center text-slate-400">✅ 64 GB Interna</td>
-                                </tr>
-                                <tr class="hover:bg-inst-blue/10">
-                                    <td class="p-3 font-medium">E. Ranura SIM Física 4G/5G (Obligatoria)</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ Dual SIM 5G/4G</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ SIM Nano 4G LTE</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ Ranura SIM 4G</td>
-                                </tr>
-                                <tr class="hover:bg-inst-blue/10">
-                                    <td class="p-3 font-medium">G. Accesorios (Funda + Teclado)</td>
-                                    <td class="p-3 text-center text-inst-red font-semibold">⭐ Kit + Mouse Óptico</td>
-                                    <td class="p-3 text-center text-emerald-400">✅ Funda + Stylus</td>
-                                    <td class="p-3 text-center text-emerald-400">✅ Estuche + Teclado</td>
-                                </tr>
-                                <tr class="hover:bg-inst-blue/10">
-                                    <td class="p-3 font-medium">H. Batería (Mínimo 5,100 mAh)</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ 6,000 mAh</td>
-                                    <td class="p-3 text-center text-emerald-400 font-semibold">✅ 6,000 mAh</td>
-                                    <td class="p-3 text-center text-slate-400">✅ 5,100 mAh</td>
-                                </tr>
-                                <tr class="bg-inst-dark font-bold">
-                                    <td class="p-3 text-white">Dictamen de Auditoría MINEDUC</td>
-                                    <td class="p-3 text-center text-inst-red bg-inst-red/20 font-black">SOBRESALIENTE</td>
-                                    <td class="p-3 text-center text-emerald-400">APROBADO</td>
-                                    <td class="p-3 text-center text-amber-400">RANGO MÍNIMO</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="lg:col-span-8 glass-card-blue p-6 rounded-2xl flex flex-col justify-between overflow-hidden">
+                    <div>
+                        <h3 class="text-lg font-bold text-white mb-4">Evaluación de Criterios Obligatorios</h3>
+                        <div class="overflow-x-auto custom-scrollbar">
+                            <table class="w-full text-left text-xs sm:text-sm">
+                                <thead>
+                                    <tr class="bg-inst-dark text-slate-200 border-b border-inst-blue/30">
+                                        <th class="p-3.5">Requisito Obligatorio MINEDUC</th>
+                                        <th class="p-3.5 text-center">Blackview Zeno 10 (Click GT)</th>
+                                        <th class="p-3.5 text-center">TCL TAB 11 FE LTE (Claro v2)</th>
+                                        <th class="p-3.5 text-center">Dataflex / WOW</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-inst-blue/20 text-slate-300">
+                                    <tr class="hover:bg-inst-blue/10">
+                                        <td class="p-3.5 font-medium">A. Pantalla (10"-11", min 1920x1200)</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ 11.0" Full HD+</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ 11.0" Full HD+</td>
+                                        <td class="p-3.5 text-center text-amber-400 font-semibold">⚠️ 10.1" (Límite)</td>
+                                    </tr>
+                                    <tr class="hover:bg-inst-blue/10">
+                                        <td class="p-3.5 font-medium">B. Procesador (Octa-Core o superior)</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ Octa-Core 5G</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ Helio G80 Octa</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ MT6769 Octa</td>
+                                    </tr>
+                                    <tr class="hover:bg-inst-blue/10">
+                                        <td class="p-3.5 font-medium">C. Memoria RAM (Mínimo 4 GB física)</td>
+                                        <td class="p-3.5 text-center text-inst-sky font-bold bg-inst-blue/20">⭐ 6 GB Física</td>
+                                        <td class="p-3.5 text-center text-emerald-400">✅ 4 GB (+4GB Virt)</td>
+                                        <td class="p-3.5 text-center text-emerald-400">✅ 4 GB Física</td>
+                                    </tr>
+                                    <tr class="hover:bg-inst-blue/10">
+                                        <td class="p-3.5 font-medium">D. Almacenamiento (Mínimo 64 GB)</td>
+                                        <td class="p-3.5 text-center text-inst-sky font-bold bg-inst-blue/20">⭐ 256 GB Interna</td>
+                                        <td class="p-3.5 text-center text-emerald-400">✅ 128 GB Interna</td>
+                                        <td class="p-3.5 text-center text-slate-400">✅ 64 GB Interna</td>
+                                    </tr>
+                                    <tr class="hover:bg-inst-blue/10">
+                                        <td class="p-3.5 font-medium">E. Ranura SIM Física 4G/5G (Obligatoria)</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ Dual SIM 5G/4G</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ SIM Nano 4G LTE</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ Ranura SIM 4G</td>
+                                    </tr>
+                                    <tr class="hover:bg-inst-blue/10">
+                                        <td class="p-3.5 font-medium">G. Accesorios (Funda + Teclado)</td>
+                                        <td class="p-3.5 text-center text-inst-red font-semibold">⭐ Kit + Mouse Óptico</td>
+                                        <td class="p-3.5 text-center text-emerald-400">✅ Funda + Stylus</td>
+                                        <td class="p-3.5 text-center text-emerald-400">✅ Estuche + Teclado</td>
+                                    </tr>
+                                    <tr class="hover:bg-inst-blue/10">
+                                        <td class="p-3.5 font-medium">H. Batería (Mínimo 5,100 mAh)</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ 6,000 mAh</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ 6,000 mAh</td>
+                                        <td class="p-3.5 text-center text-slate-400">✅ 5,100 mAh</td>
+                                    </tr>
+                                    <tr class="bg-inst-dark font-bold">
+                                        <td class="p-3.5 text-white">Dictamen de Auditoría MINEDUC</td>
+                                        <td class="p-3.5 text-center text-inst-red bg-inst-red/20 font-black">SOBRESALIENTE</td>
+                                        <td class="p-3.5 text-center text-emerald-400">APROBADO</td>
+                                        <td class="p-3.5 text-center text-amber-400">RANGO MÍNIMO</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -244,7 +246,7 @@
 
         <section id="comparativa" class="space-y-6">
             <div class="border-l-4 border-inst-blue pl-4">
-                <h2 class="text-2xl font-bold text-white">2. Comparativa Técnica y Métricas de Hardware (Presupuesto Q 2,000.00)</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">2. Comparativa Técnica y Métricas de Hardware (Presupuesto Q 2,000.00)</h2>
                 <p class="text-slate-400 text-sm mt-1">
                     Análisis cuantitativo de las tres alternativas de tablets disponibles en el mercado nacional por el techo presupuestario de Q 2,000.00 por dispositivo.
                 </p>
@@ -254,7 +256,7 @@
                 <div class="glass-card-blue p-6 rounded-2xl">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="text-lg font-bold text-white">Capacidad de Memoria y Almacenamiento</h3>
-                        <span class="text-xs bg-inst-blue/20 text-inst-sky px-2.5 py-1 rounded-full font-semibold border border-inst-blue/40">Métricas Métricas</span>
+                        <span class="text-xs bg-inst-blue/20 text-inst-sky px-2.5 py-1 rounded-full font-semibold border border-inst-blue/40">Métricas Principales</span>
                     </div>
                     <p class="text-xs text-slate-400 mb-4">
                         Comparación directa de Memoria RAM Física (GB) y Almacenamiento Interno (GB). Los 256 GB de la Blackview ofrecen el doble de capacidad que la TCL y cuatro veces más que Dataflex.
@@ -281,54 +283,54 @@
 
         <section id="pedagogico" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
-                <h2 class="text-2xl font-bold text-white">3. Justificación Técnico-Pedagógica para Bachilleratos Industriales</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">3. Justificación Técnico-Pedagógica para Bachilleratos Industriales</h2>
                 <p class="text-slate-400 text-sm mt-1">
                     Las exigencias académicas del Instituto Industrial Central General Lázaro Chacón González sobrepasan el uso educativo básico.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="glass-card-red p-5 rounded-xl border-t-4 border-inst-red hover:-translate-y-1 transition duration-200">
-                    <div class="text-3xl mb-3">💻</div>
-                    <h3 class="text-base font-bold text-white mb-1">Computación</h3>
+                <div class="glass-card-red p-6 rounded-xl border-t-4 border-inst-red hover:-translate-y-1 transition duration-200">
+                    <div class="text-4xl mb-3">💻</div>
+                    <h3 class="text-base font-bold text-white mb-2">Computación</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
                         Requiere compilación de código, emulación de entornos web, editores de código (VS Code web) y ejecución simultánea de IDEs. Exige mínimo 6 GB de RAM física.
                     </p>
                 </div>
 
-                <div class="glass-card-blue p-5 rounded-xl border-t-4 border-inst-blue hover:-translate-y-1 transition duration-200">
-                    <div class="text-3xl mb-3">🎨</div>
-                    <h3 class="text-base font-bold text-white mb-1">Diseño Gráfico</h3>
+                <div class="glass-card-blue p-6 rounded-xl border-t-4 border-inst-blue hover:-translate-y-1 transition duration-200">
+                    <div class="text-4xl mb-3">🎨</div>
+                    <h3 class="text-base font-bold text-white mb-2">Diseño Gráfico</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
                         Exige manejo de renderizado vectorial en Canva/Figma, manipulación de proyectos pesados y precisión. La inclusión de <strong class="text-inst-sky">Mouse Óptico</strong> en Click GT es crítica.
                     </p>
                 </div>
 
-                <div class="glass-card-red p-5 rounded-xl border-t-4 border-inst-crimson hover:-translate-y-1 transition duration-200">
-                    <div class="text-3xl mb-3">⚡</div>
-                    <h3 class="text-base font-bold text-white mb-1">Electricidad</h3>
+                <div class="glass-card-red p-6 rounded-xl border-t-4 border-inst-crimson hover:-translate-y-1 transition duration-200">
+                    <div class="text-4xl mb-3">⚡</div>
+                    <h3 class="text-base font-bold text-white mb-2">Electricidad</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
                         Simulación de circuitos esquemáticos (Tinkercad, Crocodile Clips), diagramas unifilares y catálogos de componentes industriales que requieren pantalla de 11" y 256GB.
                     </p>
                 </div>
 
-                <div class="glass-card-blue p-5 rounded-xl border-t-4 border-inst-royal hover:-translate-y-1 transition duration-200">
-                    <div class="text-3xl mb-3">🔧</div>
-                    <h3 class="text-base font-bold text-white mb-1">Mecánica</h3>
+                <div class="glass-card-blue p-6 rounded-xl border-t-4 border-inst-royal hover:-translate-y-1 transition duration-200">
+                    <div class="text-4xl mb-3">🔧</div>
+                    <h3 class="text-base font-bold text-white mb-2">Mecánica</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
                         Visualización de piezas 3D en CAD, manuales de despiece vehicular pesados y simuladores mecánicos donde la memoria interna extendida evita la saturación del equipo.
                     </p>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-inst-black via-inst-dark to-inst-black border border-inst-red/40 p-6 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-xl">
-                <div class="w-16 h-16 rounded-2xl bg-inst-red/20 text-inst-red flex items-center justify-center text-3xl font-black shrink-0 border border-inst-red/50 shadow-inner">
+            <div class="bg-gradient-to-r from-inst-black via-inst-dark to-inst-black border border-inst-red/40 p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-xl">
+                <div class="w-20 h-20 rounded-2xl bg-inst-red/20 text-inst-red flex flex-col items-center justify-center text-3xl font-black shrink-0 border border-inst-red/50 shadow-inner">
                     256
-                    <span class="text-xs block">GB</span>
+                    <span class="text-xs font-semibold block">GB</span>
                 </div>
-                <div class="space-y-1">
+                <div class="space-y-1 text-center md:text-left">
                     <h4 class="text-lg font-bold text-white">¿Por qué 256 GB de Almacenamiento hacen la diferencia?</h4>
-                    <p class="text-xs text-slate-300 leading-relaxed">
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
                         El sistema operativo Android 14 y las aplicaciones del MINEDUC consumen aproximadamente 18 GB iniciales. En una tablet de 64 GB (Dataflex), solo quedan 46 GB libres. En la tablet TCL (128 GB) quedan 110 GB. En la <strong class="text-inst-red">Blackview Zeno 10 (256 GB)</strong> el estudiante dispone de más de <strong class="text-inst-sky">230 GB libres</strong> para almacenar planos, código, videos didácticos y proyectos de graduación a lo largo de 2 años.
                     </p>
                 </div>
@@ -337,68 +339,72 @@
 
         <section id="conectividad" class="space-y-6">
             <div class="border-l-4 border-inst-blue pl-4">
-                <h2 class="text-2xl font-bold text-white">4. Análisis del Plan de Conectividad Móvil (Presupuesto Q 600.00)</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">4. Análisis del Plan de Conectividad Móvil (Presupuesto Q 600.00)</h2>
                 <p class="text-slate-400 text-sm mt-1">
                     Evaluación de los planes de datos anuales prepagados con tarjeta SIM física registrada a nombre del tutor legal del estudiante.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card-red p-6 rounded-2xl border border-inst-red/40 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-inst-red text-white font-bold text-[10px] px-3 py-1 rounded-bl-lg uppercase tracking-wider">
-                        Opción Operadora 1
+                <div class="glass-card-red p-6 sm:p-8 rounded-2xl border border-inst-red/40 relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 bg-inst-red text-white font-bold text-[10px] px-3 py-1.5 rounded-bl-lg uppercase tracking-wider">
+                            Opción Operadora 1
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1">Claro Empresas</h3>
+                        <div class="text-inst-sky font-semibold text-xs sm:text-sm mb-4">SuperPack Estudiantil Anual (Q 600.00)</div>
+                        <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-red font-bold">✓</span>
+                                <span><strong>Navegación Educación e IA:</strong> Acceso ilimitado a plataformas MINEDUC, Microsoft Teams, Office 365, Canva, ChatGPT, Copilot.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-red font-bold">✓</span>
+                                <span><strong>Formato:</strong> Tarjeta SIM Física asignada individualmente por estudiante.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-red font-bold">✓</span>
+                                <span><strong>Vigencia:</strong> 12 meses garantizados de cobertura continua.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-red font-bold">✓</span>
+                                <span><strong>Facturación:</strong> Emitida por TELGUA, S.A. a nombre de la OPF.</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-1">Claro Empresas</h3>
-                    <div class="text-inst-sky font-semibold text-xs mb-4">SuperPack Estudiantil Anual (Q 600.00)</div>
-                    <ul class="space-y-3 text-xs text-slate-300">
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-red font-bold">✓</span>
-                            <span><strong>Navegación Educación e IA:</strong> Acceso ilimitado a plataformas MINEDUC, Microsoft Teams, Office 365, Canva, ChatGPT, Copilot.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-red font-bold">✓</span>
-                            <span><strong>Formato:</strong> Tarjeta SIM Física asignada individualmente por estudiante.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-red font-bold">✓</span>
-                            <span><strong>Vigencia:</strong> 12 meses garantizados de cobertura continua.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-red font-bold">✓</span>
-                            <span><strong>Facturación:</strong> Emitida por TELGUA, S.A. a nombre de la OPF.</span>
-                        </li>
-                    </ul>
                 </div>
 
-                <div class="glass-card-blue p-6 rounded-2xl border border-inst-blue/40 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-inst-blue text-white font-bold text-[10px] px-3 py-1 rounded-bl-lg uppercase tracking-wider">
-                        Opción Operadora 2
+                <div class="glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/40 relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 bg-inst-blue text-white font-bold text-[10px] px-3 py-1.5 rounded-bl-lg uppercase tracking-wider">
+                            Opción Operadora 2
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1">Tigo B2B</h3>
+                        <div class="text-inst-sky font-semibold text-xs sm:text-sm mb-4">Conectividad Educativa Anual (Q 600.00)</div>
+                        <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-blue font-bold">✓</span>
+                                <span><strong>Navegación Educación e IA:</strong> Portales MINEDUC, Google Workspace, Canvas LMS, Khan Academy, ChatGPT, Claude, Gemini.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-blue font-bold">✓</span>
+                                <span><strong>Bono Adicional:</strong> Incluye bono inicial único de <strong>10 GB para navegación libre</strong> al activar la SIM.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-blue font-bold">✓</span>
+                                <span><strong>Formato:</strong> Tarjeta SIM Física entregada por alumno.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-inst-blue font-bold">✓</span>
+                                <span><strong>Facturación:</strong> Emitida por Tigo B2B a nombre de la OPF.</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-1">Tigo B2B</h3>
-                    <div class="text-inst-sky font-semibold text-xs mb-4">Conectividad Educativa Anual (Q 600.00)</div>
-                    <ul class="space-y-3 text-xs text-slate-300">
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-blue font-bold">✓</span>
-                            <span><strong>Navegación Educación e IA:</strong> Portales MINEDUC, Google Workspace, Canvas LMS, Khan Academy, ChatGPT, Claude, Gemini.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-blue font-bold">✓</span>
-                            <span><strong>Bono Adicional:</strong> Incluye bono inicial único de <strong>10 GB para navegación libre</strong> al activar la SIM.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-blue font-bold">✓</span>
-                            <span><strong>Formato:</strong> Tarjeta SIM Física entregada por alumno.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-inst-blue font-bold">✓</span>
-                            <span><strong>Facturación:</strong> Emitida por Tigo B2B a nombre de la OPF.</span>
-                        </li>
-                    </ul>
                 </div>
             </div>
 
-            <div class="p-4 bg-inst-dark border border-inst-red/40 rounded-xl text-xs text-slate-300 flex items-start gap-3">
-                <span class="text-2xl">💡</span>
+            <div class="p-4 sm:p-5 bg-inst-dark border border-inst-red/40 rounded-xl text-xs sm:text-sm text-slate-300 flex items-center gap-4">
+                <span class="text-3xl">💡</span>
                 <div>
                     <strong class="text-inst-red">Recomendación para Conectividad:</strong> Ambas empresas cumplen al 100% las exigencias gubernamentales. Se recomienda que la OPF seleccione la compañía que presente la <strong>mejor intensidad de señal móvil 4G/5G en el sector de residencia de los estudiantes</strong>.
                 </div>
@@ -407,80 +413,80 @@
 
         <section id="recomendaciones" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
-                <h2 class="text-2xl font-bold text-white">5. Dictamen Final y Opciones de Adquisición para la OPF</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">5. Dictamen Final y Opciones de Adquisición para la OPF</h2>
                 <p class="text-slate-400 text-sm mt-1">
                     Con base en el análisis técnico, legal y pedagógico, se presentan las dos rutas de compra viables para la Junta Directiva de la OPF.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card-red p-6 rounded-2xl border-2 border-inst-red bg-gradient-to-b from-inst-dark via-inst-card to-inst-black relative">
+                <div class="glass-card-red p-6 sm:p-8 rounded-2xl border-2 border-inst-red bg-gradient-to-b from-inst-dark via-inst-card to-inst-black relative">
                     <div class="inline-block bg-inst-red text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider mb-3 shadow">
                         ⭐ Opción A (Recomendada por Área de TI)
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Compra Combinada de Alto Rendimiento</h3>
-                    <div class="space-y-3 text-xs text-slate-300 mb-6">
-                        <div class="p-3 bg-inst-black/90 rounded-xl border border-inst-red/30">
+                    <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
+                        <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-red/30">
                             <strong class="text-inst-red block mb-1">1. Proveedor de Tablets (Q 2,000.00): Click GT</strong>
                             Tablet Blackview Zeno 10 5GAI (6GB RAM / 256GB ROM / Dual SIM / Kit Completo con Mouse Óptico).
                         </div>
-                        <div class="p-3 bg-inst-black/90 rounded-xl border border-inst-blue/30">
+                        <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-blue/30">
                             <strong class="text-inst-sky block mb-1">2. Proveedor de Conectividad (Q 600.00): Claro o Tigo</strong>
                             Tarjeta SIM Física con Plan Estudiantil Anual por 12 meses.
                         </div>
                     </div>
-                    <div class="text-xs text-inst-sky font-semibold flex items-center gap-2">
+                    <div class="text-xs sm:text-sm text-inst-sky font-semibold flex items-center gap-2">
                         <span>✅ Máximo rendimiento de hardware para las carreras técnicas sin exceder el presupuesto.</span>
                     </div>
                 </div>
 
-                <div class="glass-card-blue p-6 rounded-2xl border border-inst-blue/50 bg-inst-dark/80">
+                <div class="glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/50 bg-inst-dark/80">
                     <div class="inline-block bg-inst-blue text-white font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider mb-3">
                         Opción B (Alternativa Unificada)
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Proveedor Único Empresarial</h3>
-                    <div class="space-y-3 text-xs text-slate-300 mb-6">
-                        <div class="p-3 bg-inst-black/90 rounded-xl border border-inst-blue/30">
+                    <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
+                        <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-blue/30">
                             <strong class="text-slate-200 block mb-1">Proveedor Único (Q 2,600.00): Claro Empresas</strong>
                             Tablet TCL TAB 11 FE LTE (4GB RAM / 128GB ROM / 4G) por Q2,000.00 + SuperPack Estudiantil por Q600.00.
                         </div>
                     </div>
-                    <div class="text-xs text-slate-400 flex items-center gap-2">
+                    <div class="text-xs sm:text-sm text-slate-400 flex items-center gap-2">
                         <span>ℹ️ Simplifica la gestión administrativa al concentrar la entrega y garantía con una sola firma nacional.</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card-red p-6 rounded-2xl">
-                <h3 class="text-lg font-bold text-white mb-4">Hoja de Ruta del Procedimiento Financiero y Administrativo</h3>
+            <div class="glass-card-red p-6 sm:p-8 rounded-2xl">
+                <h3 class="text-lg font-bold text-white mb-6">Hoja de Ruta del Procedimiento Financiero y Administrativo</h3>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
-                    <div class="bg-inst-black/90 p-4 rounded-xl border border-inst-red/40 relative">
-                        <div class="w-8 h-8 rounded-full bg-inst-red text-white font-black flex items-center justify-center text-sm mb-3">1</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative">
+                        <div class="w-9 h-9 rounded-full bg-inst-red text-white font-black flex items-center justify-center text-sm mb-3">1</div>
                         <h4 class="text-sm font-bold text-white mb-1">Aprobación OPF</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Acta de Junta Directiva ratificando la opción seleccionada (Opción A u Opción B).
                         </p>
                     </div>
 
-                    <div class="bg-inst-black/90 p-4 rounded-xl border border-inst-blue/40 relative">
-                        <div class="w-8 h-8 rounded-full bg-inst-blue text-white font-black flex items-center justify-center text-sm mb-3">2</div>
+                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative">
+                        <div class="w-9 h-9 rounded-full bg-inst-blue text-white font-black flex items-center justify-center text-sm mb-3">2</div>
                         <h4 class="text-sm font-bold text-white mb-1">Cotizaciones Oficiales</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Emisión de cotizaciones desglosadas (Factura A por Q2,000.00 y Factura B por Q600.00).
                         </p>
                     </div>
 
-                    <div class="bg-inst-black/90 p-4 rounded-xl border border-inst-red/40 relative">
-                        <div class="w-8 h-8 rounded-full bg-inst-crimson text-white font-black flex items-center justify-center text-sm mb-3">3</div>
+                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative">
+                        <div class="w-9 h-9 rounded-full bg-inst-crimson text-white font-black flex items-center justify-center text-sm mb-3">3</div>
                         <h4 class="text-sm font-bold text-white mb-1">Documentación Tutor</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Recopilación de DPI de tutores legales, RTU de la OPF y listados de alumnos de 4to/5to.
                         </p>
                     </div>
 
-                    <div class="bg-inst-black/90 p-4 rounded-xl border border-inst-blue/40 relative">
-                        <div class="w-8 h-8 rounded-full bg-inst-royal text-white font-black flex items-center justify-center text-sm mb-3">4</div>
+                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative">
+                        <div class="w-9 h-9 rounded-full bg-inst-royal text-white font-black flex items-center justify-center text-sm mb-3">4</div>
                         <h4 class="text-sm font-bold text-white mb-1">Pago y Recepción</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Emisión de cheques independientes por la OPF y recepción auditada de tablets y SIMs.
@@ -493,8 +499,8 @@
     </main>
 
     <footer class="bg-inst-black border-t border-inst-red/30 py-8 px-4 sm:px-8 text-center text-xs text-slate-400">
-        <div class="max-w-7xl mx-auto space-y-3 flex flex-col items-center">
-            <img src="Logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80" onerror="this.onerror=null; this.src='Logo.jpg';">
+        <div class="max-w-[1650px] w-full mx-auto space-y-3 flex flex-col items-center">
+            <img src="logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80" onerror="this.onerror=null; this.src='logo.jpg';">
             <p class="font-bold text-slate-200">
                 Instituto Industrial Central General Lázaro Chacón González • Departamento de Computación e Informática
             </p>
@@ -525,7 +531,7 @@
                     legend: {
                         labels: {
                             color: '#e2e8f0',
-                            font: { size: 11 }
+                            font: { size: 12 }
                         }
                     }
                 },
@@ -554,8 +560,8 @@
                             position: 'bottom',
                             labels: {
                                 color: '#e2e8f0',
-                                font: { size: 11 },
-                                padding: 14
+                                font: { size: 12 },
+                                padding: 16
                             }
                         }
                     }
@@ -590,7 +596,7 @@
                     ...tooltipConfig,
                     scales: {
                         x: {
-                            ticks: { color: '#cbd5e1', font: { size: 10 } },
+                            ticks: { color: '#cbd5e1', font: { size: 11 } },
                             grid: { color: 'rgba(255, 255, 255, 0.05)' }
                         },
                         y: {
@@ -642,7 +648,7 @@
                         r: {
                             angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
                             grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            pointLabels: { color: '#cbd5e1', font: { size: 10 } },
+                            pointLabels: { color: '#cbd5e1', font: { size: 11 } },
                             ticks: { display: false }
                         }
                     }
