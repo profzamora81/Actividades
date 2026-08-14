@@ -44,14 +44,14 @@
             }
         }
         .glass-card-red {
-            background: rgba(22, 25, 38, 0.9);
+            background: rgba(22, 25, 38, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            border: 1px solid rgba(239, 68, 68, 0.35);
         }
         .glass-card-blue {
-            background: rgba(22, 25, 38, 0.9);
+            background: rgba(22, 25, 38, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(59, 130, 246, 0.25);
+            border: 1px solid rgba(59, 130, 246, 0.35);
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 8px;
@@ -73,7 +73,7 @@
             <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
                     <div class="p-2.5 bg-inst-dark/80 border border-inst-red/40 rounded-2xl shadow-xl shrink-0">
-                        <img src="tablet/logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain" onerror="this.onerror=null; this.src='logo.png';">
+                        <img src="logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
                     </div>
                     <div>
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-inst-red/10 border border-inst-red/40 text-inst-red text-xs font-semibold uppercase tracking-wider mb-2">
@@ -133,7 +133,7 @@
         </div>
     </header>
 
-    <nav class="sticky top-0 z-50 bg-[#08090d]/95 backdrop-blur border-b border-inst-red/30 px-4 sm:px-8 lg:px-12 py-3">
+    <nav class="sticky top-0 z-40 bg-[#08090d]/95 backdrop-blur border-b border-inst-red/30 px-4 sm:px-8 lg:px-12 py-3">
         <div class="max-w-[1650px] w-full mx-auto flex items-center justify-between gap-4 overflow-x-auto custom-scrollbar">
             <div class="flex items-center gap-3 text-xs sm:text-sm font-semibold whitespace-nowrap">
                 <a href="#normativa" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-red/30 transition">📋 Cumplimiento MINEDUC</a>
@@ -151,6 +151,7 @@
 
     <main class="max-w-[1650px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 space-y-12">
 
+        <!-- 1. NORMATIVA -->
         <section id="normativa" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">1. Matriz de Auditoría y Cumplimiento Normativo MINEDUC</h2>
@@ -251,23 +252,27 @@
             </div>
         </section>
 
+        <!-- 2. COTIZACIONES (AMPLIACIÓN COMPLETA AL CLIC) -->
         <section id="cotizaciones" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">2. Catálogo Visual y Cotizaciones Oficiales Recibidas</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Exhibición de los tres modelos cotizados en la carpeta <code>tablet/</code>. Se detalla la disponibilidad contractual del servicio de conectividad SIM en cada caso.
+                    Exhibición de los tres modelos cotizados. Pasa el cursor para ver resalte o <strong>haz clic sobre cualquier cuadro para abrir la ficha en primer plano</strong>[cite: 1].
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
                 
-                <div class="glass-card-red rounded-2xl overflow-hidden border-2 border-inst-red/60 flex flex-col justify-between shadow-2xl relative">
-                    <div class="absolute top-3 right-3 bg-inst-red text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+                <!-- Tarjeta 1: Blackview -->
+                <div id="card-blackview" class="group glass-card-red rounded-2xl overflow-hidden border-2 border-inst-red/60 flex flex-col justify-between shadow-2xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-red/40 hover:border-inst-red z-10 hover:z-30"
+                     onclick="abrirCuadroCompleto('card-blackview')">
+                    <div class="absolute top-3 right-3 bg-inst-red text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md z-10">
                         Recomendado TI
                     </div>
                     <div>
-                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-inst-red/30 relative">
-                            <img src="tablet/cotizacion-blackview.jpg" alt="Cotización Blackview Zeno 10 - Click GT" class="max-h-full max-w-full object-contain rounded-lg shadow-md" onerror="this.onerror=null; this.src='tablet/cotizacion-blackview.png';">
+                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-inst-red/30 relative overflow-hidden">
+                            <img src="cotizacion-blackview.jpg" alt="Cotización Blackview Zeno 10 - Click GT" class="max-h-full max-w-full object-contain rounded-lg shadow-md transition-transform duration-500 group-hover:scale-110">
+                            <span class="absolute bottom-2 right-2 bg-black/85 border border-slate-700 text-[10px] px-2.5 py-1 rounded-md text-slate-200 font-semibold shadow">🔍 Clic para ampliar cuadro</span>
                         </div>
                         <div class="p-6 space-y-4">
                             <div>
@@ -310,20 +315,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 bg-inst-black/90 border-t border-inst-red/30">
-                        <div class="text-[11px] text-slate-400 text-center">
-                            Cotización Click GT • Factura A (Q2,000.00)
+                    <div class="p-4 bg-inst-black/90 border-t border-inst-red/30 flex justify-between items-center">
+                        <div class="text-[11px] text-slate-400">
+                            Cotización Click GT • Factura A
                         </div>
+                        <span class="text-xs bg-inst-red/20 hover:bg-inst-red text-slate-200 px-3 py-1 rounded-lg border border-inst-red/40 font-semibold transition">
+                            Ampliar Ficha
+                        </span>
                     </div>
                 </div>
 
-                <div class="glass-card-blue rounded-2xl overflow-hidden border border-inst-blue/40 flex flex-col justify-between shadow-xl relative">
-                    <div class="absolute top-3 right-3 bg-inst-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+                <!-- Tarjeta 2: TCL -->
+                <div id="card-tcl" class="group glass-card-blue rounded-2xl overflow-hidden border border-inst-blue/40 flex flex-col justify-between shadow-xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-blue/40 hover:border-inst-sky z-10 hover:z-30"
+                     onclick="abrirCuadroCompleto('card-tcl')">
+                    <div class="absolute top-3 right-3 bg-inst-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md z-10">
                         Opción Unificada
                     </div>
                     <div>
-                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-inst-blue/30 relative">
-                            <img src="tablet/cotizacion-tcl.jpg" alt="Cotización TCL TAB 11 FE LTE - Claro Empresas" class="max-h-full max-w-full object-contain rounded-lg shadow-md" onerror="this.onerror=null; this.src='tablet/cotizacion-tcl.png';">
+                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-inst-blue/30 relative overflow-hidden">
+                            <img src="cotizacion-tcl.jpg" alt="Cotización TCL TAB 11 FE LTE - Claro Empresas" class="max-h-full max-w-full object-contain rounded-lg shadow-md transition-transform duration-500 group-hover:scale-110">
+                            <span class="absolute bottom-2 right-2 bg-black/85 border border-slate-700 text-[10px] px-2.5 py-1 rounded-md text-slate-200 font-semibold shadow">🔍 Clic para ampliar cuadro</span>
                         </div>
                         <div class="p-6 space-y-4">
                             <div>
@@ -366,20 +377,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 bg-inst-black/90 border-t border-inst-blue/30">
-                        <div class="text-[11px] text-slate-400 text-center">
-                            Cotización TELGUA, S.A. • Facturas A (Q2,000) y B (Q600)
+                    <div class="p-4 bg-inst-black/90 border-t border-inst-blue/30 flex justify-between items-center">
+                        <div class="text-[11px] text-slate-400">
+                            Cotización TELGUA • Facturas A y B
                         </div>
+                        <span class="text-xs bg-inst-blue/20 hover:bg-inst-blue text-slate-200 px-3 py-1 rounded-lg border border-inst-blue/40 font-semibold transition">
+                            Ampliar Ficha
+                        </span>
                     </div>
                 </div>
 
-                <div class="glass-card-blue rounded-2xl overflow-hidden border border-slate-700 flex flex-col justify-between shadow-xl relative">
-                    <div class="absolute top-3 right-3 bg-slate-700 text-slate-200 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+                <!-- Tarjeta 3: Dataflex -->
+                <div id="card-dataflex" class="group glass-card-blue rounded-2xl overflow-hidden border border-slate-700 flex flex-col justify-between shadow-xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-slate-500/40 hover:border-slate-400 z-10 hover:z-30"
+                     onclick="abrirCuadroCompleto('card-dataflex')">
+                    <div class="absolute top-3 right-3 bg-slate-700 text-slate-200 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md z-10">
                         Rango Mínimo
                     </div>
                     <div>
-                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-slate-800 relative">
-                            <img src="tablet/cotizacion-dataflex.jpg" alt="Cotización Dataflex WOW 10.1" class="max-h-full max-w-full object-contain rounded-lg shadow-md" onerror="this.onerror=null; this.src='tablet/cotizacion-dataflex.png';">
+                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-slate-800 relative overflow-hidden">
+                            <img src="cotizacion-dataflex.jpg" alt="Cotización Dataflex WOW 10.1" class="max-h-full max-w-full object-contain rounded-lg shadow-md transition-transform duration-500 group-hover:scale-110">
+                            <span class="absolute bottom-2 right-2 bg-black/85 border border-slate-700 text-[10px] px-2.5 py-1 rounded-md text-slate-200 font-semibold shadow">🔍 Clic para ampliar cuadro</span>
                         </div>
                         <div class="p-6 space-y-4">
                             <div>
@@ -398,7 +415,6 @@
                                     <span class="text-slate-400">4 GB RAM / 64 GB ROM</span>
                                 </div>
                                 <div class="flex justify-between items-center text-xs">
-                                    <span class="text-slate-400">Contrato de SIM:</span>
                                     <span class="text-inst-red font-bold">❌ NO POSEE CONTRATO SIM</span>
                                 </div>
                             </div>
@@ -422,16 +438,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="p-4 bg-inst-black/90 border-t border-slate-800">
-                        <div class="text-[11px] text-slate-400 text-center">
-                            Cotización Oficial Dataflex • Factura A (Q2,000.00)
+                    <div class="p-4 bg-inst-black/90 border-t border-slate-800 flex justify-between items-center">
+                        <div class="text-[11px] text-slate-400">
+                            Cotización Dataflex • Factura A
                         </div>
+                        <span class="text-xs bg-slate-700/40 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg border border-slate-600 font-semibold transition">
+                            Ampliar Ficha
+                        </span>
                     </div>
                 </div>
 
             </div>
         </section>
 
+        <!-- 3. COMPARATIVA HARDWARE -->
         <section id="comparativa" class="space-y-6">
             <div class="border-l-4 border-inst-blue pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">3. Comparativa Técnica y Métricas de Hardware (Presupuesto Q 2,000.00)</h2>
@@ -469,6 +489,7 @@
             </div>
         </section>
 
+        <!-- 4. JUSTIFICACIÓN PEDAGÓGICA -->
         <section id="pedagogico" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">4. Justificación Técnico-Pedagógica para Bachilleratos Industriales</h2>
@@ -525,6 +546,7 @@
             </div>
         </section>
 
+        <!-- 5. CONECTIVIDAD -->
         <section id="conectividad" class="space-y-6">
             <div class="border-l-4 border-inst-blue pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">5. Análisis del Plan de Conectividad Móvil (Presupuesto Q 600.00)</h2>
@@ -599,18 +621,25 @@
             </div>
         </section>
 
+        <!-- 6. DICTAMEN FINAL (AMPLIACIÓN INTERACTIVA DE CADA CUADRO) -->
         <section id="recomendaciones" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">6. Dictamen Final y Opciones de Adquisición para la OPF</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Con base en el análisis técnico, la falta de contrato de SIM en Click GT/Dataflex y la flexibilidad del marco legal del MINEDUC, se presentan las dos rutas de compra para la Junta Directiva de la OPF.
+                    Con base en el análisis técnico, la falta de contrato de SIM en Click GT/Dataflex y la flexibilidad del marco legal del MINEDUC, se presentan las dos rutas de compra para la Junta Directiva de la OPF[cite: 1]. <strong>Haz clic en cualquier opción o paso de la ruta para proyectarlo en pantalla completa</strong>[cite: 1].
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card-red p-6 sm:p-8 rounded-2xl border-2 border-inst-red bg-gradient-to-b from-inst-dark via-inst-card to-inst-black relative">
-                    <div class="inline-block bg-inst-red text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider mb-3 shadow">
-                        ⭐ Opción A (Recomendada por Área de TI)
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                
+                <!-- Dictamen: Opción A -->
+                <div id="dictamen-opcion-a" class="group glass-card-red p-6 sm:p-8 rounded-2xl border-2 border-inst-red bg-gradient-to-b from-inst-dark via-inst-card to-inst-black relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-red/40 z-10 hover:z-30"
+                     onclick="abrirCuadroCompleto('dictamen-opcion-a')">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="inline-block bg-inst-red text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                            ⭐ Opción A (Recomendada por Área de TI)
+                        </div>
+                        <span class="text-[11px] text-slate-400 font-semibold opacity-80 group-hover:opacity-100 transition-opacity">🔍 Clic para ampliar</span>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Compra Combinada (Hardware + Operadora SIM)</h3>
                     <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
@@ -628,9 +657,14 @@
                     </div>
                 </div>
 
-                <div class="glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/50 bg-inst-dark/80">
-                    <div class="inline-block bg-inst-blue text-white font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider mb-3">
-                        Opción B (Alternativa Unificada)
+                <!-- Dictamen: Opción B -->
+                <div id="dictamen-opcion-b" class="group glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/50 bg-inst-dark/80 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-blue/40 z-10 hover:z-30"
+                     onclick="abrirCuadroCompleto('dictamen-opcion-b')">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="inline-block bg-inst-blue text-white font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                            Opción B (Alternativa Unificada)
+                        </div>
+                        <span class="text-[11px] text-slate-400 font-semibold opacity-80 group-hover:opacity-100 transition-opacity">🔍 Clic para ampliar</span>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Proveedor Único Empresarial</h3>
                     <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
@@ -645,36 +679,49 @@
                 </div>
             </div>
 
+            <!-- Hoja de Ruta con Cuadros Interactivos -->
             <div class="glass-card-red p-6 sm:p-8 rounded-2xl">
-                <h3 class="text-lg font-bold text-white mb-6">Hoja de Ruta del Procedimiento Financiero y Administrativo</h3>
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-white">Hoja de Ruta del Procedimiento Financiero y Administrativo</h3>
+                    <span class="text-xs text-slate-400 hidden sm:inline">Pasa el cursor o haz clic en cualquier fase</span>
+                </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative">
-                        <div class="w-9 h-9 rounded-full bg-inst-red text-white font-black flex items-center justify-center text-sm mb-3">1</div>
+                    
+                    <!-- Fase 1 -->
+                    <div id="fase-1" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-red z-10 hover:z-30"
+                         onclick="abrirCuadroCompleto('fase-1')">
+                        <div class="w-9 h-9 rounded-full bg-inst-red text-white font-black flex items-center justify-center text-sm mb-3 shadow">1</div>
                         <h4 class="text-sm font-bold text-white mb-1">Aprobación OPF</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Acta de Junta Directiva ratificando la opción seleccionada (Opción A Combinada u Opción B Unificada).
                         </p>
                     </div>
 
-                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative">
-                        <div class="w-9 h-9 rounded-full bg-inst-blue text-white font-black flex items-center justify-center text-sm mb-3">2</div>
+                    <!-- Fase 2 -->
+                    <div id="fase-2" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-blue z-10 hover:z-30"
+                         onclick="abrirCuadroCompleto('fase-2')">
+                        <div class="w-9 h-9 rounded-full bg-inst-blue text-white font-black flex items-center justify-center text-sm mb-3 shadow">2</div>
                         <h4 class="text-sm font-bold text-white mb-1">Cotizaciones Oficiales</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Emisión de cotizaciones desglosadas (Factura A por Q2,000.00 y Factura B por Q600.00).
                         </p>
                     </div>
 
-                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative">
-                        <div class="w-9 h-9 rounded-full bg-inst-crimson text-white font-black flex items-center justify-center text-sm mb-3">3</div>
+                    <!-- Fase 3 -->
+                    <div id="fase-3" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-crimson z-10 hover:z-30"
+                         onclick="abrirCuadroCompleto('fase-3')">
+                        <div class="w-9 h-9 rounded-full bg-inst-crimson text-white font-black flex items-center justify-center text-sm mb-3 shadow">3</div>
                         <h4 class="text-sm font-bold text-white mb-1">Documentación Tutor</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Recopilación de DPI de tutores legales, RTU de la OPF y listados de alumnos de 4to/5to.
                         </p>
                     </div>
 
-                    <div class="bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative">
-                        <div class="w-9 h-9 rounded-full bg-inst-royal text-white font-black flex items-center justify-center text-sm mb-3">4</div>
+                    <!-- Fase 4 -->
+                    <div id="fase-4" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-royal z-10 hover:z-30"
+                         onclick="abrirCuadroCompleto('fase-4')">
+                        <div class="w-9 h-9 rounded-full bg-inst-royal text-white font-black flex items-center justify-center text-sm mb-3 shadow">4</div>
                         <h4 class="text-sm font-bold text-white mb-1">Pago y Recepción</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Emisión de cheques independientes por la OPF y recepción auditada de tablets y SIMs.
@@ -688,7 +735,7 @@
 
     <footer class="bg-inst-black border-t border-inst-red/30 py-8 px-4 sm:px-8 text-center text-xs text-slate-400">
         <div class="max-w-[1650px] w-full mx-auto space-y-3 flex flex-col items-center">
-            <img src="tablet/logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80" onerror="this.onerror=null; this.src='logo.png';">
+            <img src="logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80">
             <p class="font-bold text-slate-200">
                 Instituto Industrial Central General Lázaro Chacón González • Departamento de Computación e Informática
             </p>
@@ -698,7 +745,79 @@
         </div>
     </footer>
 
+    <!-- CONTENEDOR MODAL: PROYECTA CUALQUIER CUADRO EN PRIMER PLANO (z-[9999]) -->
+    <div id="fullCardModal" class="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 overflow-y-auto" onclick="cerrarCuadroCompleto()">
+        <div class="relative w-full max-w-2xl my-auto" onclick="event.stopPropagation()">
+            <!-- Botón Cerrar -->
+            <button class="absolute -top-4 -right-4 bg-red-600 hover:bg-red-700 text-white text-xl font-bold w-10 h-10 rounded-full flex items-center justify-center shadow-2xl border-2 border-white z-50 transition cursor-pointer" onclick="cerrarCuadroCompleto()">
+                &times;
+            </button>
+            <!-- Contenedor donde se inserta el cuadro clonado -->
+            <div id="modalTargetCard" class="shadow-2xl rounded-2xl overflow-hidden"></div>
+        </div>
+    </div>
+
     <script>
+        // Función unificada para proyectar CUALQUIER cuadro en primer plano
+        function abrirCuadroCompleto(cardId) {
+            const originalCard = document.getElementById(cardId);
+            const modal = document.getElementById('fullCardModal');
+            const target = document.getElementById('modalTargetCard');
+            
+            if(!originalCard) return;
+
+            // Clonamos el elemento completo
+            const clone = originalCard.cloneNode(true);
+            
+            // Limpiamos atributos que interfieran en el modal
+            clone.removeAttribute('id');
+            clone.removeAttribute('onclick');
+            clone.classList.remove('hover:scale-105', 'hover:z-30', 'cursor-pointer');
+            
+            // Si tiene imagen de cotización, la ampliamos para apreciarla mejor
+            const imgContainer = clone.querySelector('div[class*="h-56"]');
+            if(imgContainer) {
+                imgContainer.classList.remove('h-56');
+                imgContainer.classList.add('h-72');
+            }
+
+            // Ocultamos textos/botones de "ampliar" dentro de la vista modal
+            const labelsToHide = clone.querySelectorAll('span');
+            labelsToHide.forEach(span => {
+                if(span.textContent.includes('Clic para ampliar') || span.textContent.includes('Ampliar Ficha')) {
+                    span.style.display = 'none';
+                }
+            });
+
+            target.innerHTML = '';
+            target.appendChild(clone);
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
+        }
+
+        function cerrarCuadroCompleto() {
+            const modal = document.getElementById('fullCardModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('modalTargetCard').innerHTML = '';
+                document.body.style.overflow = ''; // Restablece el scroll
+            }, 300);
+        }
+
+        // Permitir cerrar con la tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarCuadroCompleto();
+            }
+        });
+
+        // Configuración de Gráficas Chart.js
         document.addEventListener('DOMContentLoaded', function() {
             
             const tooltipConfig = {
