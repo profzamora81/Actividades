@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva No. 5 - Sistemas e Instalación de Software (4to. Computación)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .tab-active {
+            border-bottom: 3px solid #0284c7;
+            color: #0284c7;
+            font-weight: 700;
+            background-color: rgba(2, 132, 199, 0.05);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; color: black !important; padding: 0 !important; font-family: 'Plus Jakarta Sans', sans-serif !important; }
+            .print-card { border: none !important; box-shadow: none !important; padding: 0 !important; margin-bottom: 0 !important; }
+            .print-break-avoid {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            img {
+                max-height: 160px !important;
+                object-fit: contain;
+            }
+        }
+        .print-only { display: none; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+
+    <!-- Header Principal -->
+    <header class="bg-slate-950 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800/80 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3.5">
+                    <div class="bg-gradient-to-tr from-sky-600 to-indigo-600 p-2.5 rounded-xl text-white shadow-lg shadow-sky-500/20">
+                        <i class="fa-solid fa-terminal text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-extrabold tracking-tight text-white leading-tight">Asitencia Remota 2026</h1>
+                        <p class="text-[11px] font-medium text-slate-400 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Guía No. 5 | Sistemas e Instalación de Software — 4to. Computación
+                        </p>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-2 text-sm">
+                    <span class="bg-slate-900/90 text-sky-400 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-slate-800/90 shadow-inner flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-check text-xs text-sky-400"></i> Entrega: 18/08/2026
+                    </span>
+                    <span class="bg-slate-900/90 text-amber-400 px-3.5 py-1.5 rounded-full text-xs font-semibold border border-slate-800/90 shadow-inner flex items-center gap-1.5">
+                        <i class="fa-solid fa-award text-xs text-amber-400"></i> 10 pts. Netos
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación por Pestañas -->
+    <div class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm sticky top-16 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex space-x-1 sm:space-x-3 overflow-x-auto py-2 text-xs sm:text-sm font-medium" id="tabNav">
+                <button onclick="switchTab('docTab')" id="btn-docTab" class="tab-button tab-active py-2.5 px-3 rounded-lg inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-book-open text-sky-600"></i>
+                    <span>Guía Académica & Recursos</span>
+                </button>
+                <button onclick="switchTab('workbookTab')" id="btn-workbookTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>Cuaderno de Trabajo Estudiantil</span>
+                </button>
+                <button onclick="switchTab('labSimTab')" id="btn-labSimTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-laptop-code text-indigo-600"></i>
+                    <span>Simulador Consola & Puertos</span>
+                </button>
+                <button onclick="switchTab('rubricTab')" id="btn-rubricTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-list-check text-amber-600"></i>
+                    <span>Autoevaluador Rúbrica</span>
+                </button>
+                <button onclick="switchTab('previewTab')" id="btn-previewTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-600 hover:text-sky-600 hover:bg-slate-50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-file-pdf text-rose-600"></i>
+                    <span>Vista previa & Exportar PDF</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 1: GUÍA ACADÉMICA OFICIAL Y RECURSOS INTERACTIVOS (Q4OS Y WINDOWS) -->
+        <!-- ==================================================================== -->
+        <div id="docTab" class="tab-content block">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Documento Oficial -->
+                <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8">
+                    <div class="border-b-2 border-brand-600 pb-4 mb-4">
+                        <span class="bg-brand-100 text-brand-800 text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wider">
+                            GUÍA DE TRABAJO NO. 5 - III UNIDAD
+                        </span>
+                        <h2 class="text-xl md:text-2xl font-extrabold text-slate-900 mt-2">
+                            TEMA: Asistencia Remota en Linux: Instalación y Configuración de Acceso por Consola mediante SSH, Control de Escritorio Remoto por VNC y Soporte Técnico Remoto Multiplataforma con RustDesk/AnyDesk
+                        </h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-4 bg-slate-50 p-4 rounded-lg text-xs md:text-sm border border-slate-200">
+                            <div><strong class="text-slate-600">Institución:</strong><br>Instituto Industrial Central General Lázaro Chacón González</div>
+                            <div><strong class="text-slate-600">Carrera:</strong><br>Bachillerato en Ciencias y Letras con Orientación en Computación</div>
+                            <div><strong class="text-slate-600">Grado:</strong><br>Cuarto Bachillerato</div>
+                            <div><strong class="text-slate-600">Curso:</strong><br>Sistemas e Instalación de Software</div>
+                            <div><strong class="text-slate-600">Docente:</strong><br>Erick Enrique Zamora Paz</div>
+                            <div><strong class="text-slate-600">Ponderación:</strong><br><span class="text-sky-700 font-bold">10 puntos Netos</span></div>
+                            <div><strong class="text-slate-600">Fecha de Asignación:</strong><br>Viernes 14 de agosto de 2026</div>
+                            <div><strong class="text-slate-600">Fecha Límite:</strong><br><span class="text-amber-800 font-semibold">Martes 18 de agosto de 2026, 23:59 hrs</span></div>
+                            <div><strong class="text-slate-600">Formato:</strong><br>Archivo único en PDF adjunto en Classroom</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-sky-50 border-l-4 border-sky-600 p-3.5 rounded-r-lg text-xs">
+                            <h3 class="font-bold text-sky-900 uppercase mb-1">COMPETENCIA CNB</h3>
+                            <p class="text-slate-700 leading-relaxed">
+                                Aplica procedimientos técnicos de instalación, configuración y mantenimiento de software informático, garantizando la conectividad, administración remota y seguridad del sistema operativo.
+                            </p>
+                        </div>
+                        <div class="bg-indigo-50 border-l-4 border-indigo-600 p-3.5 rounded-r-lg text-xs">
+                            <h3 class="font-bold text-indigo-900 uppercase mb-1">INDICADOR DE LOGRO</h3>
+                            <p class="text-slate-700 leading-relaxed">
+                                Configura servicios de asistencia y acceso remoto en sistemas operativos Linux y entornos multiplataforma, aplicando protocolos de consola y escritorio gráfico para la resolución eficiente de incidencias técnicas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECURSOS DE APOYO INTERACTIVOS: CENTRO DE GUÍAS RÁPIDAS -->
+                <div class="bg-slate-900 text-white rounded-xl shadow-lg p-6 border border-slate-800 space-y-4">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="p-2.5 bg-sky-600 text-white rounded-lg">
+                            <i class="fa-solid fa-book-bookmark text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-white">Centro de Recursos de Apoyo e Instalación Interactiva</h3>
+                            <p class="text-xs text-slate-400">Guías paso a paso para el laboratorio en Q4OS Linux y alternativas para completar en casa desde Windows.</p>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Navegación de Recursos -->
+                    <div class="flex flex-wrap gap-2 text-xs" id="resNavBtns">
+                        <button onclick="showResource('resQ4OS')" id="btn-resQ4OS" class="res-btn bg-sky-600 text-white px-3.5 py-2 rounded-lg font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-brands fa-linux text-sm"></i> Instalación en Q4OS Linux (Laboratorio)
+                        </button>
+                        <button onclick="showResource('resCmds')" id="btn-resCmds" class="res-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-2 rounded-lg font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-code text-sm"></i> Comandos Clave Linux (SSH/VNC)
+                        </button>
+                        <button onclick="showResource('resWin')" id="btn-resWin" class="res-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-2 rounded-lg font-semibold flex items-center gap-1.5 transition">
+                            <i class="fa-brands fa-windows text-sm"></i> Alternativa Trabajo en Casa (Windows)
+                        </button>
+                    </div>
+
+                    <!-- Contenido de Recursos 1: Q4OS Linux -->
+                    <div id="resQ4OS" class="res-content bg-slate-800/80 p-4 rounded-xl border border-slate-700 text-xs space-y-3">
+                        <h4 class="font-bold text-sky-400 text-sm flex items-center gap-2">
+                            <i class="fa-brands fa-linux"></i> Instalación de Servidores Remotos en Q4OS Linux (Laboratorio Escolar)
+                        </h4>
+                        <p class="text-slate-300 leading-relaxed">
+                            Q4OS es una distribución Linux ligera basada en Debian. Abra la terminal (Konsole o LXTerminal) y ejecute los comandos siguientes:
+                        </p>
+                        <div class="bg-slate-950 p-3 rounded-lg font-mono-code text-emerald-400 space-y-1.5 overflow-x-auto">
+                            <div><span class="text-slate-500"># 1. Actualizar repositorios e instalar SSH Server:</span></div>
+                            <div>sudo apt update && sudo apt install openssh-server -y</div>
+                            <div><span class="text-slate-500"># 2. Iniciar y verificar el estado del servicio SSH:</span></div>
+                            <div>sudo systemctl enable --now ssh</div>
+                            <div>sudo systemctl status ssh</div>
+                            <div><span class="text-slate-500"># 3. Instalar Servidor VNC (TigerVNC / TightVNC):</span></div>
+                            <div>sudo apt install tigervnc-standalone-server tigervnc-common -y</div>
+                            <div><span class="text-slate-500"># 4. Establecer contraseña VNC y arrancar pantalla :1 (Puerto 5901):</span></div>
+                            <div>vncserver :1 -geometry 1280x720 -depth 24</div>
+                        </div>
+                    </div>
+
+                    <!-- Contenido de Recursos 2: Comandos Clave -->
+                    <div id="resCmds" class="res-content hidden bg-slate-800/80 p-4 rounded-xl border border-slate-700 text-xs space-y-3">
+                        <h4 class="font-bold text-sky-400 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-terminal"></i> Comandos de Diagnóstico y Conectividad
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-300">
+                            <div class="bg-slate-950 p-2.5 rounded border border-slate-800">
+                                <span class="font-bold text-amber-400 font-mono-code">ip a / ifconfig</span>
+                                <p class="text-[11px] text-slate-400 mt-1">Identifica la dirección IP de la interfaz de red (ej. 192.168.1.15).</p>
+                            </div>
+                            <div class="bg-slate-950 p-2.5 rounded border border-slate-800">
+                                <span class="font-bold text-amber-400 font-mono-code">ssh usuario@IP_SERVIDOR</span>
+                                <p class="text-[11px] text-slate-400 mt-1">Abre la consola remota cifrada por el puerto 22.</p>
+                            </div>
+                            <div class="bg-slate-950 p-2.5 rounded border border-slate-800">
+                                <span class="font-bold text-amber-400 font-mono-code">uptime / free -m / df -h</span>
+                                <p class="text-[11px] text-slate-400 mt-1">Diagnóstico remoto: tiempo encendido, RAM libre y espacio en disco.</p>
+                            </div>
+                            <div class="bg-slate-950 p-2.5 rounded border border-slate-800">
+                                <span class="font-bold text-amber-400 font-mono-code">vncserver -kill :1</span>
+                                <p class="text-[11px] text-slate-400 mt-1">Detiene la sesión VNC activa en la pantalla especificada.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contenido de Recursos 3: Trabajo en Casa (Windows) -->
+                    <div id="resWin" class="res-content hidden bg-slate-800/80 p-4 rounded-xl border border-slate-700 text-xs space-y-3">
+                        <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-lg text-amber-300 flex items-start space-x-2">
+                            <i class="fa-solid fa-house-laptop text-base mt-0.5"></i>
+                            <div>
+                                <strong>¿No terminaste en el laboratorio y usas Windows en casa?</strong>
+                                <p class="text-[11px] text-slate-300 mt-0.5">Puedes realizar y documentar tus actividades sin inconvenientes utilizando las herramientas cliente para Windows descritas a continuación:</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-1">
+                                <h5 class="font-bold text-sky-400 flex items-center gap-1"><i class="fa-solid fa-terminal"></i> Actividad 1 (SSH en Windows)</h5>
+                                <p class="text-slate-400 text-[11px]">Usa <strong>PuTTY</strong> o PowerShell en Windows (<code class="text-emerald-400 font-mono-code">ssh usuario@ip</code>). También puedes usar WSL (Windows Subsystem for Linux) o VirtualBox con Q4OS.</p>
+                            </div>
+                            <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-1">
+                                <h5 class="font-bold text-sky-400 flex items-center gap-1"><i class="fa-solid fa-desktop"></i> Actividad 2 (VNC en Windows)</h5>
+                                <p class="text-slate-400 text-[11px]">Descarga <strong>RealVNC Viewer</strong> o <strong>TightVNC Viewer</strong> para Windows y conéctate a una IP remota o máquina virtual Linux local.</p>
+                            </div>
+                            <div class="bg-slate-950 p-3 rounded border border-slate-800 space-y-1">
+                                <h5 class="font-bold text-sky-400 flex items-center gap-1"><i class="fa-solid fa-headset"></i> Actividad 3 (RustDesk/AnyDesk)</h5>
+                                <p class="text-slate-400 text-[11px]">RustDesk y AnyDesk son totalmente multiplataforma. Instala la versión de Windows y conéctate a un teléfono celular o segundo equipo Windows/Linux.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 2: CUADERNO DE TRABAJO DIGITAL DEL ESTUDIANTE -->
+        <!-- ==================================================================== -->
+        <div id="workbookTab" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Encabezado Ficha Estudiantil -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="flex items-center space-x-3 mb-4 border-b pb-3 border-slate-100">
+                        <div class="p-3 bg-sky-100 text-sky-800 rounded-lg">
+                            <i class="fa-solid fa-id-card text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900">Ficha de Identificación del Estudiante</h2>
+                            <p class="text-xs text-slate-500">Ingrese sus datos antes de completar la redacción e insertar sus evidencias visuales.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Nombre Completo: *</label>
+                            <input type="text" id="studentName" placeholder="Ej. Carlos Eduardo Pérez" oninput="updateLivePreview()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Clave o Carné: *</label>
+                            <input type="text" id="studentKey" placeholder="Ej. 08" oninput="updateLivePreview()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Sección / Grupo: *</label>
+                            <input type="text" id="studentSection" value="Sección A" oninput="updateLivePreview()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Fecha de Elaboración:</label>
+                            <input type="date" id="studentDate" value="2026-08-18" oninput="updateLivePreview()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 1 ESTUDIANTIL -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-brand-600 text-white font-bold text-xs px-2.5 py-1 rounded-md">Actividad 1</span>
+                            <h3 class="font-bold text-slate-800 text-base">Configuración e Implementación de Servidor SSH en Linux</h3>
+                        </div>
+                        <span class="text-xs font-extrabold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">Ponderación: 4 pts</span>
+                    </div>
+
+                    <!-- Carga de Imagen Actividad 1 -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-image text-sky-600"></i> Evidencia Requerida: Captura de pantalla de la terminal con SSH activo (`systemctl status ssh`) y conexión establecida: *
+                        </label>
+                        <input type="file" id="act1_imgInput" accept="image/*" onchange="handleImageUpload('act1_imgInput', 'act1_imgPreview')" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
+                        <div id="act1_imgPreview" class="mt-2 hidden">
+                            <img src="" alt="Vista previa SSH" class="max-h-52 rounded border border-slate-300 shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- Escrito de Análisis Actividad 1 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold text-slate-700">Contenido Escrito Requerido (Explicación técnica del protocolo SSH, cifrado y puerto 22): *</label>
+                            <span id="act1_wordCount" class="text-[11px] font-bold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">0 / 150 palabras</span>
+                        </div>
+                        <textarea id="act1_text" rows="5" oninput="validateWordCount('act1_text', 'act1_wordCount', 150)" placeholder="Redacte directamente en texto (mínimo 150 palabras) la explicación técnica sobre la arquitectura cliente-servidor de SSH, el uso del puerto 22, los mecanismos de cifrado de llaves públicas/privadas y las ventajas de la administración CLI frente a entornos gráficos..." class="w-full p-3 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 2 ESTUDIANTIL -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-brand-600 text-white font-bold text-xs px-2.5 py-1 rounded-md">Actividad 2</span>
+                            <h3 class="font-bold text-slate-800 text-base">Despliegue y Control de Escritorio Remoto mediante VNC</h3>
+                        </div>
+                        <span class="text-xs font-extrabold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">Ponderación: 3 pts</span>
+                    </div>
+
+                    <!-- Carga de Imagen Actividad 2 -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-desktop text-sky-600"></i> Evidencia Requerida: Captura legible del visor VNC mostrando el escritorio remoto desplegado: *
+                        </label>
+                        <input type="file" id="act2_imgInput" accept="image/*" onchange="handleImageUpload('act2_imgInput', 'act2_imgPreview')" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
+                        <div id="act2_imgPreview" class="mt-2 hidden">
+                            <img src="" alt="Vista previa VNC" class="max-h-56 rounded border border-slate-300 shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- Escrito Justificación Actividad 2 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold text-slate-700">Contenido Escrito Requerido (Justificación procedimental del protocolo RFB y consumo de ancho de banda): *</label>
+                            <span id="act2_wordCount" class="text-[11px] font-bold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">0 / 150 palabras</span>
+                        </div>
+                        <textarea id="act2_text" rows="5" oninput="validateWordCount('act2_text', 'act2_wordCount', 150)" placeholder="Redacte en texto directo (mínimo 150 palabras) el funcionamiento del protocolo RFB (Remote Frame Buffer), puertos base 5900/5901, diferencias de consumo de ancho de banda frente a SSH y escenarios donde se requiere soporte gráfico remoto..." class="w-full p-3 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 3 ESTUDIANTIL -->
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-brand-600 text-white font-bold text-xs px-2.5 py-1 rounded-md">Actividad 3</span>
+                            <h3 class="font-bold text-slate-800 text-base">Soporte Técnico Remoto Multiplataforma con RustDesk / AnyDesk</h3>
+                        </div>
+                        <span class="text-xs font-extrabold text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">Ponderación: 3 pts</span>
+                    </div>
+
+                    <!-- Carga de Imagen Actividad 3 -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-headset text-sky-600"></i> Evidencia Requerida: Captura de pantalla de la sesión activa en RustDesk o AnyDesk con ID visible: *
+                        </label>
+                        <input type="file" id="act3_imgInput" accept="image/*" onchange="handleImageUpload('act3_imgInput', 'act3_imgPreview')" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
+                        <div id="act3_imgPreview" class="mt-2 hidden">
+                            <img src="" alt="Vista previa RustDesk/AnyDesk" class="max-h-56 rounded border border-slate-300 shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- Escrito Memoria Técnica Actividad 3 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold text-slate-700">Contenido Escrito Requerido (Memoria técnica comparativa sobre NAT Traversal y seguridad): *</label>
+                            <span id="act3_wordCount" class="text-[11px] font-bold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200">0 / 150 palabras</span>
+                        </div>
+                        <textarea id="act3_text" rows="5" oninput="validateWordCount('act3_text', 'act3_wordCount', 150)" placeholder="Explique técnicamente (mínimo 150 palabras) las ventajas de las herramientas modernas con tecnología NAT Traversal frente a SSH/VNC (sin necesidad de abrir puertos en router), políticas de seguridad (permisos de teclado/mouse, elevación de privilegios) y buenas prácticas de privacidad..." class="w-full p-3 text-xs border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 3: SIMULADOR DE CONSOLA LINUX Y CALCULADORA DE PUERTOS VNC -->
+        <!-- ==================================================================== -->
+        <div id="labSimTab" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <div class="bg-slate-950 text-white p-6 md:p-8 rounded-2xl shadow-2xl border border-slate-800/90 space-y-6">
+                    <div class="flex items-center space-x-3.5 border-b border-slate-800/80 pb-5">
+                        <div class="p-3 bg-gradient-to-br from-sky-500 to-indigo-600 text-white rounded-xl shadow-lg shadow-sky-500/20">
+                            <i class="fa-solid fa-terminal text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white tracking-tight">Simulador Interactivo de Consola Linux & Calculadora VNC</h3>
+                            <p class="text-xs text-slate-400">Entorno de prueba de comandos de administración y cálculo dinámico de puertos TCP/RFB.</p>
+                        </div>
+                    </div>
+
+                    <!-- Calculadora de Puertos VNC -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-slate-800 shadow-inner space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-2">
+                            <i class="fa-solid fa-calculator text-sky-400"></i> Calculadora de Puertos TCP/RFB para Servidor VNC
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                            <div>
+                                <label class="block text-slate-300 font-medium mb-1.5">Número de Pantalla VNC (Display):</label>
+                                <select id="vncDisplay" onchange="calcVncPort()" class="w-full p-2.5 bg-slate-950 text-white border border-slate-700/80 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none font-mono">
+                                    <option value="1">:1 (Primera sesión gráfica)</option>
+                                    <option value="2">:2 (Segunda sesión gráfica)</option>
+                                    <option value="3">:3 (Tercera sesión gráfica)</option>
+                                    <option value="5">:5 (Sesión gráfica 5)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 font-medium mb-1.5">Puerto TCP Calculado:</label>
+                                <div id="vncPortRes" class="p-2.5 bg-slate-950 font-mono-code font-bold text-amber-400 text-sm rounded-lg border border-slate-700/80 shadow-inner flex items-center justify-between">
+                                    <span>5901 TCP</span>
+                                    <i class="fa-solid fa-network-wired text-slate-600 text-xs"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 font-medium mb-1.5">Comando de Conexión Cliente:</label>
+                                <div id="vncConnCmd" class="p-2.5 bg-slate-950 font-mono-code text-emerald-400 text-xs rounded-lg border border-slate-700/80 shadow-inner truncate">
+                                    192.168.1.15:5901
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Consola Web Simulada Estilo Window Header -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-xs text-slate-400 px-1">
+                            <span class="font-bold text-sky-400 flex items-center gap-1.5"><i class="fa-solid fa-terminal"></i> Terminal Linux Q4OS / Debian Bookworm</span>
+                            <span>Escriba <code class="text-amber-300 font-mono-code bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">help</code> para ver comandos</span>
+                        </div>
+
+                        <!-- macOS / Linux Style Window Header -->
+                        <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+                            <div class="bg-slate-900/90 px-4 py-2 border-b border-slate-800/80 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500/90 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-500/90 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500/90 inline-block"></span>
+                                </div>
+                                <span class="text-[11px] font-mono text-slate-400 font-semibold">estudiante@q4os-pc: ~ (bash)</span>
+                                <div class="w-12 text-right">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-ping"></span>
+                                </div>
+                            </div>
+
+                            <div id="termOutput" class="bg-slate-950/95 p-4 font-mono-code text-xs text-emerald-400 h-60 overflow-y-auto space-y-2 shadow-inner">
+                                <div class="text-slate-400">Q4OS Linux 5.2 (Debian Bookworm) tty1</div>
+                                <div class="text-slate-400">Ingrese un comando técnico para probar su funcionamiento en la simulación...</div>
+                            </div>
+
+                            <div class="bg-slate-900 p-2.5 border-t border-slate-800/80 flex space-x-2">
+                                <span class="bg-slate-950 text-sky-400 font-mono-code px-3 py-2 rounded-lg text-xs font-bold border border-slate-800 flex items-center">estudiante@q4os-pc:~$</span>
+                                <input type="text" id="termInput" onkeydown="handleTermCommand(event)" placeholder="Escriba aquí (ej. systemctl status ssh, ip a, uptime)..." class="w-full bg-slate-950 text-emerald-400 font-mono-code text-xs p-2 rounded-lg border border-slate-800 focus:outline-none focus:ring-1 focus:ring-sky-500 transition">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 4: AUTOEVALUADOR INTERACTIVO DE RÚBRICA -->
+        <!-- ==================================================================== -->
+        <div id="rubricTab" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <div class="flex justify-between items-center border-b pb-4 mb-4">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900">Autoevaluador de Rúbrica Estudiantil</h3>
+                            <p class="text-xs text-slate-500">Seleccione el nivel alcanzado en cada criterio para estimar su punteo antes de entregar.</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 block">Punteo Final Estimado</span>
+                            <span id="totalScore" class="text-3xl font-black text-sky-700">10 / 10 pts</span>
+                        </div>
+                    </div>
+
+                    <!-- Criterios Selección -->
+                    <div class="space-y-6 text-xs">
+                        
+                        <!-- Criterio 1 Calc -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-2">CRITERIO DE CALIFICACIÓN 1: Configuración e Implementación de Servidor SSH en Linux</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button onclick="setScore(1, 4)" id="c1-opt1" class="rubric-btn bg-sky-600 text-white p-3 rounded-lg text-left transition font-semibold">
+                                    EXCELENTE (4 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura legible terminal SSH + Escrito analítico >150 p.</span>
+                                </button>
+                                <button onclick="setScore(1, 2)" id="c1-opt2" class="rubric-btn bg-slate-200 text-slate-700 p-3 rounded-lg text-left transition font-semibold">
+                                    ACEPTABLE (2 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura difusa o escrito menor a 150 palabras.</span>
+                                </button>
+                                <button onclick="setScore(1, 0)" id="c1-opt3" class="rubric-btn bg-slate-200 text-slate-700 p-3 rounded-lg text-left transition font-semibold">
+                                    DEFICIENTE (0 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">No entregó captura ni análisis escrito.</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Criterio 2 Calc -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-2">CRITERIO DE CALIFICACIÓN 2: Despliegue y Control de Escritorio Remoto mediante VNC</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button onclick="setScore(2, 3)" id="c2-opt1" class="rubric-btn bg-sky-600 text-white p-3 rounded-lg text-left transition font-semibold">
+                                    EXCELENTE (3 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura cliente VNC activa + Justificación >150 p.</span>
+                                </button>
+                                <button onclick="setScore(2, 1)" id="c2-opt2" class="rubric-btn bg-slate-200 text-slate-700 p-3 rounded-lg text-left transition font-semibold">
+                                    ACEPTABLE (1 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Conexión VNC no clara o escrito incompleto.</span>
+                                </button>
+                                <button onclick="setScore(2, 0)" id="c2-opt3" class="rubric-btn bg-slate-200 text-slate-700 p-3 rounded-lg text-left transition font-semibold">
+                                    DEFICIENTE (0 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Sin evidencia visual ni escrito sobre VNC.</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Criterio 3 Calc -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-2">CRITERIO DE CALIFICACIÓN 3: Soporte Técnico Remoto Multiplataforma con RustDesk / AnyDesk</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button onclick="setScore(3, 3)" id="c3-opt1" class="rubric-btn bg-sky-600 text-white p-3 rounded-lg text-left transition font-semibold">
+                                    EXCELENTE (3 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura con ID visible + Memoria técnica >150 p.</span>
+                                </button>
+                                <button onclick="setScore(3, 1)" id="c3-opt2" class="rubric-btn bg-slate-200 text-slate-700 p-3 rounded-lg text-left transition font-semibold">
+                                    ACEPTABLE (1 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura difusa o memoria técnica incompleta.</span>
+                                </button>
+                                <button onclick="setScore(3, 0)" id="c3-opt3" class="rubric-btn bg-slate-200 text-slate-700 p-3 rounded-lg text-left transition font-semibold">
+                                    DEFICIENTE (0 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Sin captura del software remoto ni memoria.</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Estado y Política de Mejoramiento -->
+                    <div id="statusBox" class="mt-6 p-4 rounded-xl bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-semibold flex items-center justify-between">
+                        <div>
+                            <i class="fa-solid fa-circle-check text-emerald-700 mr-2 text-base"></i>
+                            <span>Resultado: Desempeño Satisfactorio. Cumple con los estándares requeridos.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 5: VISTA PREVIA DEL INFORME Y EXPORTACIÓN A PDF / IMPRESIÓN -->
+        <!-- ==================================================================== -->
+        <div id="previewTab" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Acciones de Impresión no-print -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center no-print">
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-800">Informe Digital Unificado para Entrega</h3>
+                        <p class="text-xs text-slate-500">Revise su informe final antes de guardarlo en formato PDF o imprimirlo.</p>
+                    </div>
+                    <button onclick="window.print()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-5 py-2.5 rounded-lg flex items-center space-x-2 shadow transition">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Imprimir / Guardar en PDF</span>
+                    </button>
+                </div>
+
+                <!-- HOJA IMPRESA COMPLETA -->
+                <div class="bg-white p-8 md:p-12 rounded-xl shadow-md border border-slate-200 print-card text-slate-900 space-y-8">
+                    
+                    <!-- Encabezado Institucional -->
+                    <div class="border-b-2 border-brand-600 pb-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h1 class="text-xl font-black text-slate-900 uppercase tracking-tight">Instituto Industrial Central General Lázaro Chacón González</h1>
+                                <p class="text-xs font-bold text-brand-800">Bachillerato en Ciencias y Letras con Orientación en Computación</p>
+                                <p class="text-xs text-slate-600">Curso: Sistemas e Instalación de Software | Ciclo Lectivo 2026 | Prof. Erick Enrique Zamora Paz</p>
+                            </div>
+                            <div class="text-right text-xs">
+                                <span class="font-black text-slate-800 block text-sm">GUÍA NO. 5</span>
+                                <span class="text-slate-500">Ponderación: 10 pts.</span>
+                            </div>
+                        </div>
+
+                        <!-- Ficha de Datos del Estudiante Llena -->
+                        <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-50 p-3 rounded-lg text-xs border border-slate-200">
+                            <div><strong>Estudiante:</strong> <span id="prev_name" class="text-brand-800 font-semibold">[No ingresado]</span></div>
+                            <div><strong>Clave:</strong> <span id="prev_key" class="text-brand-800 font-semibold">[Sin Clave]</span></div>
+                            <div><strong>Sección:</strong> <span id="prev_sec" class="text-brand-800 font-semibold">Sección A</span></div>
+                            <div><strong>Fecha:</strong> <span id="prev_date" class="text-brand-800 font-semibold">18/08/2026</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Título del Informe -->
+                    <div>
+                        <h2 class="text-base font-extrabold text-slate-900 uppercase text-center border-y py-2 bg-slate-50 border-slate-200">
+                            INFORME TÉCNICO: ASISTENCIA REMOTA EN LINUX Y SOPORTE MULTIPLATAFORMA
+                        </h2>
+                    </div>
+
+                    <!-- SECCIÓN ACTIVIDAD 1 IMPRESA -->
+                    <div class="space-y-3 print-break-avoid">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h3 class="font-bold text-sm text-slate-800">Actividad 1: Configuración e Implementación de Servidor SSH en Linux</h3>
+                            <span class="text-xs font-bold text-slate-600">(4 Puntos)</span>
+                        </div>
+
+                        <!-- Captura Actividad 1 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Evidencia: Captura de pantalla de la terminal con el servicio OpenSSH activo</p>
+                            <div id="prev_act1_imgBox" class="p-2 border border-slate-200 bg-slate-50 rounded min-h-24 flex items-center justify-center">
+                                <span id="prev_act1_noimg" class="text-xs text-slate-400 italic">[Captura de terminal SSH no cargada]</span>
+                                <img id="prev_act1_img" src="" class="max-h-44 rounded border border-slate-300 hidden">
+                            </div>
+                        </div>
+
+                        <!-- Texto Actividad 1 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Explicación Técnica sobre Servidor SSH, Cifrado y Administración CLI:</p>
+                            <p id="prev_act1_text" class="text-xs leading-relaxed text-slate-800 bg-slate-50 p-3 rounded border border-slate-200 italic whitespace-pre-wrap">
+                                [Sin respuesta redactada]
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN ACTIVIDAD 2 IMPRESA -->
+                    <div class="space-y-3 pt-4 border-t border-slate-200 print-break-avoid">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h3 class="font-bold text-sm text-slate-800">Actividad 2: Despliegue y Control de Escritorio Remoto mediante VNC</h3>
+                            <span class="text-xs font-bold text-slate-600">(3 Puntos)</span>
+                        </div>
+
+                        <!-- Captura Actividad 2 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Evidencia: Captura del visor VNC con la sesión remota gráfica de Linux</p>
+                            <div id="prev_act2_imgBox" class="p-2 border border-slate-200 bg-slate-50 rounded min-h-24 flex items-center justify-center">
+                                <span id="prev_act2_noimg" class="text-xs text-slate-400 italic">[Captura de sesión VNC no cargada]</span>
+                                <img id="prev_act2_img" src="" class="max-h-44 rounded border border-slate-300 hidden">
+                            </div>
+                        </div>
+
+                        <!-- Texto Actividad 2 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Justificación Procedimental sobre el Protocolo RFB y Puertos TCP:</p>
+                            <p id="prev_act2_text" class="text-xs leading-relaxed text-slate-800 bg-slate-50 p-3 rounded border border-slate-200 italic whitespace-pre-wrap">
+                                [Sin respuesta redactada]
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN ACTIVIDAD 3 IMPRESA -->
+                    <div class="space-y-3 pt-4 border-t border-slate-200 print-break-avoid">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h3 class="font-bold text-sm text-slate-800">Actividad 3: Soporte Técnico Remoto Multiplataforma con RustDesk / AnyDesk</h3>
+                            <span class="text-xs font-bold text-slate-600">(3 Puntos)</span>
+                        </div>
+
+                        <!-- Captura Actividad 3 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Evidencia: Captura de la sesión activa de soporte remoto con ID visible</p>
+                            <div id="prev_act3_imgBox" class="p-2 border border-slate-200 bg-slate-50 rounded min-h-24 flex items-center justify-center">
+                                <span id="prev_act3_noimg" class="text-xs text-slate-400 italic">[Captura de RustDesk/AnyDesk no cargada]</span>
+                                <img id="prev_act3_img" src="" class="max-h-44 rounded border border-slate-300 hidden">
+                            </div>
+                        </div>
+
+                        <!-- Texto Actividad 3 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Memoria Técnica Comparativa sobre NAT Traversal y Políticas de Seguridad:</p>
+                            <p id="prev_act3_text" class="text-xs leading-relaxed text-slate-800 bg-slate-50 p-3 rounded border border-slate-200 italic whitespace-pre-wrap">
+                                [Sin respuesta redactada]
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- AUTOEVALUACIÓN IMPRESA -->
+                    <div class="pt-4 border-t-2 border-slate-800 space-y-2 print-break-avoid">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-800">Resumen de Autoevaluación del Estudiante</h4>
+                        <div class="grid grid-cols-3 gap-2 text-[11px] text-center font-semibold">
+                            <div class="p-2 bg-slate-100 rounded border">Crit. 1: <span id="prev_score1">4</span>/4 pts</div>
+                            <div class="p-2 bg-slate-100 rounded border">Crit. 2: <span id="prev_score2">3</span>/3 pts</div>
+                            <div class="p-2 bg-slate-100 rounded border">Crit. 3: <span id="prev_score3">3</span>/3 pts</div>
+                        </div>
+                        <div class="text-right text-xs font-bold text-slate-900 pt-1">
+                            Punteado Estimado Total: <span id="prev_scoreTotal" class="text-sky-700 font-extrabold text-sm">10 / 10 Puntos</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-7 border-t border-slate-800/80 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p><strong class="text-slate-300">Instituto Industrial Central General Lázaro Chacón González</strong> | Nivel Medio - Ciclo Diversificado</p>
+            <p class="text-slate-500 font-medium">Recurso Educativo Digital e Innovación Pedagógica 2026 — Desarrollado para la Cátedra del Prof. Erick Enrique Zamora Paz</p>
+        </div>
+    </footer>
+
+    <!-- Lógica JavaScript de la Aplicación -->
+    <script>
+        // Datos globales del estudiante
+        let studentData = {
+            images: { act1: '', act2: '', act3: '' },
+            scores: { 1: 4, 2: 3, 3: 3 }
+        };
+
+        // Cambio de pestañas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+                tab.classList.remove('block');
+            });
+
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('text-slate-600');
+            });
+
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+                targetTab.classList.add('block');
+            }
+
+            const targetBtn = document.getElementById('btn-' + tabId);
+            if (targetBtn) {
+                targetBtn.classList.add('tab-active');
+                targetBtn.classList.remove('text-slate-600');
+            }
+
+            if (tabId === 'previewTab') {
+                updateLivePreview();
+            }
+        }
+
+        // Navegación en Recursos de Apoyo
+        function showResource(resId) {
+            document.querySelectorAll('.res-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.res-btn').forEach(b => {
+                b.className = 'res-btn bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-2 rounded-lg font-semibold flex items-center gap-1.5 transition';
+            });
+
+            document.getElementById(resId).classList.remove('hidden');
+            const btn = document.getElementById('btn-' + resId);
+            if (btn) {
+                btn.className = 'res-btn bg-sky-600 text-white px-3.5 py-2 rounded-lg font-semibold flex items-center gap-1.5 transition';
+            }
+        }
+
+        // Carga de imágenes
+        function handleImageUpload(inputId, previewBoxId) {
+            const input = document.getElementById(inputId);
+            const previewBox = document.getElementById(previewBoxId);
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = previewBox.querySelector('img');
+                    img.src = e.target.result;
+                    previewBox.classList.remove('hidden');
+
+                    if (inputId === 'act1_imgInput') studentData.images.act1 = e.target.result;
+                    if (inputId === 'act2_imgInput') studentData.images.act2 = e.target.result;
+                    if (inputId === 'act3_imgInput') studentData.images.act3 = e.target.result;
+
+                    updateLivePreview();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Validación de palabras
+        function validateWordCount(textareaId, counterId, minWords) {
+            const text = document.getElementById(textareaId).value.trim();
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0).length : 0;
+            const counterEl = document.getElementById(counterId);
+
+            counterEl.innerText = `${words} / ${minWords} palabras`;
+
+            if (words >= minWords) {
+                counterEl.className = 'text-[11px] font-bold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded border border-sky-300';
+            } else if (words > 0) {
+                counterEl.className = 'text-[11px] font-bold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200';
+            } else {
+                counterEl.className = 'text-[11px] font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded border border-slate-200';
+            }
+
+            updateLivePreview();
+        }
+
+        // Actualizar vista previa
+        function updateLivePreview() {
+            document.getElementById('prev_name').innerText = document.getElementById('studentName').value || '[Nombre del Estudiante]';
+            document.getElementById('prev_key').innerText = document.getElementById('studentKey').value || '[Sin Clave]';
+            document.getElementById('prev_sec').innerText = document.getElementById('studentSection').value || 'Sección A';
+            document.getElementById('prev_date').innerText = document.getElementById('studentDate').value || '18/08/2026';
+
+            document.getElementById('prev_act1_text').innerText = document.getElementById('act1_text').value || '[Sin respuesta redactada]';
+            document.getElementById('prev_act2_text').innerText = document.getElementById('act2_text').value || '[Sin respuesta redactada]';
+            document.getElementById('prev_act3_text').innerText = document.getElementById('act3_text').value || '[Sin respuesta redactada]';
+
+            if (studentData.images.act1) {
+                document.getElementById('prev_act1_img').src = studentData.images.act1;
+                document.getElementById('prev_act1_img').classList.remove('hidden');
+                document.getElementById('prev_act1_noimg').classList.add('hidden');
+            }
+
+            if (studentData.images.act2) {
+                document.getElementById('prev_act2_img').src = studentData.images.act2;
+                document.getElementById('prev_act2_img').classList.remove('hidden');
+                document.getElementById('prev_act2_noimg').classList.add('hidden');
+            }
+
+            if (studentData.images.act3) {
+                document.getElementById('prev_act3_img').src = studentData.images.act3;
+                document.getElementById('prev_act3_img').classList.remove('hidden');
+                document.getElementById('prev_act3_noimg').classList.add('hidden');
+            }
+
+            document.getElementById('prev_score1').innerText = studentData.scores[1];
+            document.getElementById('prev_score2').innerText = studentData.scores[2];
+            document.getElementById('prev_score3').innerText = studentData.scores[3];
+            const tot = studentData.scores[1] + studentData.scores[2] + studentData.scores[3];
+            document.getElementById('prev_scoreTotal').innerText = `${tot} / 10 Puntos`;
+        }
+
+        // Autoevaluador
+        function setScore(critNum, scoreVal) {
+            studentData.scores[critNum] = scoreVal;
+
+            const optMap = {
+                1: { 4: 'c1-opt1', 2: 'c1-opt2', 0: 'c1-opt3' },
+                2: { 3: 'c2-opt1', 1: 'c2-opt2', 0: 'c2-opt3' },
+                3: { 3: 'c3-opt1', 1: 'c3-opt2', 0: 'c3-opt3' }
+            };
+
+            Object.keys(optMap[critNum]).forEach(val => {
+                const btn = document.getElementById(optMap[critNum][val]);
+                if (parseInt(val) === scoreVal) {
+                    btn.className = 'rubric-btn bg-sky-600 text-white p-3 rounded-lg text-left transition font-semibold shadow';
+                } else {
+                    btn.className = 'rubric-btn bg-slate-200 text-slate-700 p-3 rounded-lg text-left transition font-semibold';
+                }
+            });
+
+            const total = studentData.scores[1] + studentData.scores[2] + studentData.scores[3];
+            document.getElementById('totalScore').innerText = total + ' / 10 pts';
+
+            const statusBox = document.getElementById('statusBox');
+            if (total < 4) {
+                statusBox.className = 'mt-6 p-4 rounded-xl bg-rose-100 text-rose-900 border border-rose-300 text-xs font-semibold flex items-center justify-between';
+                statusBox.innerHTML = '<div><i class="fa-solid fa-triangle-exclamation text-rose-700 mr-2 text-base"></i><span>Resultado: Punteo menor a 4 pts. Proceso de Mejoramiento Obligatorio.</span></div>';
+            } else if (total === 5) {
+                statusBox.className = 'mt-6 p-4 rounded-xl bg-amber-100 text-amber-900 border border-amber-300 text-xs font-semibold flex items-center justify-between';
+                statusBox.innerHTML = '<div><i class="fa-solid fa-circle-info text-amber-700 mr-2 text-base"></i><span>Resultado: Punteo de 5 pts. Proceso de Mejoramiento Opcional.</span></div>';
+            } else {
+                statusBox.className = 'mt-6 p-4 rounded-xl bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-semibold flex items-center justify-between';
+                statusBox.innerHTML = '<div><i class="fa-solid fa-circle-check text-emerald-700 mr-2 text-base"></i><span>Resultado: Desempeño Satisfactorio. La actividad cumple con los estándares requeridos.</span></div>';
+            }
+
+            updateLivePreview();
+        }
+
+        // Calculadora VNC
+        function calcVncPort() {
+            const display = parseInt(document.getElementById('vncDisplay').value);
+            const port = 5900 + display;
+            document.getElementById('vncPortRes').innerText = `${port} TCP`;
+            document.getElementById('vncConnCmd').innerText = `192.168.1.15:${port}`;
+        }
+
+        // Consola Simulada
+        function handleTermCommand(e) {
+            if (e.key === 'Enter') {
+                const inputEl = document.getElementById('termInput');
+                const cmd = inputEl.value.trim().toLowerCase();
+                const termOutput = document.getElementById('termOutput');
+
+                if (!cmd) return;
+
+                let response = '';
+
+                if (cmd === 'help') {
+                    response = 'Comandos sugeridos: systemctl status ssh, ip a, uptime, free -m, df -h, vncserver :1, clear';
+                } else if (cmd.includes('systemctl status ssh')) {
+                    response = '<span class="text-emerald-400">● ssh.service - OpenBSD Secure Shell server</span><br>   Loaded: loaded (/lib/systemd/system/ssh.service; enabled)<br>   Active: <span class="font-bold text-emerald-300">active (running)</span> since Fri 2026-08-14 08:00:00 CST<br>   Main PID: 1245 (sshd)';
+                } else if (cmd.includes('ip a') || cmd.includes('ifconfig')) {
+                    response = '1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536<br>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500<br>    inet <span class="font-bold text-amber-300">192.168.1.15/24</span> brd 192.168.1.255 scope global eth0';
+                } else if (cmd === 'uptime') {
+                    response = ' 10:14:02 up  2:15,  1 user,  load average: 0.12, 0.08, 0.05';
+                } else if (cmd === 'free -m') {
+                    response = '              total        used        free      shared  buff/cache   available<br>Mem:           3950         680        2120          12        1150        3100';
+                } else if (cmd === 'df -h') {
+                    response = 'Filesystem      Size  Used Avail Use% Mounted on<br>/dev/sda1        50G   12G   36G  25% /';
+                } else if (cmd.includes('vncserver')) {
+                    response = 'New Xdesktop z-q4os-pc:1 (estudiante)<br>Starting applications specified in /home/estudiante/.vnc/xstartup<br>Log file is /home/estudiante/.vnc/z-q4os-pc:1.log<br><span class="text-sky-300">VNC Server listening on port 5901</span>';
+                } else if (cmd === 'clear') {
+                    termOutput.innerHTML = '';
+                    inputEl.value = '';
+                    return;
+                } else {
+                    response = `<span class="text-rose-400">bash: ${cmd}: comando no encontrado. Intente 'help'.</span>`;
+                }
+
+                termOutput.innerHTML += `<div class="pt-2"><span class="text-sky-400">estudiante@q4os-pc:~$</span> <span class="text-white">${inputEl.value}</span></div><div>${response}</div>`;
+                termOutput.scrollTop = termOutput.scrollHeight;
+                inputEl.value = '';
+            }
+        }
+
+        window.onload = function() {
+            updateLivePreview();
+        };
+    </script>
+</body>
+</html>
