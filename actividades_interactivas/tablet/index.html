@@ -73,7 +73,7 @@
             <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
                     <div class="p-2.5 bg-inst-dark/80 border border-inst-red/40 rounded-2xl shadow-xl shrink-0">
-                        <img src="logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain" onerror="this.onerror=null; this.src='logo.jpg';">
+                        <img src="tablet/logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain" onerror="this.onerror=null; this.src='logo.png';">
                     </div>
                     <div>
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-inst-red/10 border border-inst-red/40 text-inst-red text-xs font-semibold uppercase tracking-wider mb-2">
@@ -119,7 +119,7 @@
                     <div class="w-12 h-12 rounded-lg bg-inst-royal/20 text-inst-sky flex items-center justify-center font-bold text-xl border border-inst-blue/40 shrink-0">🎓</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Beneficiarios</div>
-                        <div class="text-xl sm:text-2xl font-bold text-white">4to y 5to Bach.</div>
+                        <div class="text-xl sm:text-2xl font-bold text-white">4to Bach.</div>
                     </div>
                 </div>
                 <div class="bg-inst-dark/90 border border-inst-red/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
@@ -137,6 +137,7 @@
         <div class="max-w-[1650px] w-full mx-auto flex items-center justify-between gap-4 overflow-x-auto custom-scrollbar">
             <div class="flex items-center gap-3 text-xs sm:text-sm font-semibold whitespace-nowrap">
                 <a href="#normativa" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-red/30 transition">📋 Cumplimiento MINEDUC</a>
+                <a href="#cotizaciones" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-blue/30 transition">📄 Cotizaciones Oficiales</a>
                 <a href="#comparativa" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-blue/30 transition">📊 Análisis de Hardware</a>
                 <a href="#pedagogico" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-red/30 transition">⚙️ Enfoque Técnico</a>
                 <a href="#conectividad" class="px-4 py-2 rounded-lg bg-inst-dark hover:bg-inst-card text-slate-200 border border-inst-blue/30 transition">🌐 Conectividad</a>
@@ -154,7 +155,7 @@
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">1. Matriz de Auditoría y Cumplimiento Normativo MINEDUC</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Cada propuesta ofertada ha sido evaluada strictly frente a la <em>Guía de Criterios para la Selección de Recursos Educativos Tecnológicos dirigida a OPF</em>. El cumplimiento del 100% es condición indispensable para evitar hallazgos administrativos.
+                    Cada propuesta ofertada ha sido evaluada estrictamente frente a la <em>Guía de Criterios para la Selección de Recursos Educativos Tecnológicos dirigida a OPF</em>. El cumplimiento del 100% es condición indispensable para evitar hallazgos administrativos.
                 </p>
             </div>
 
@@ -176,7 +177,7 @@
 
                 <div class="lg:col-span-8 glass-card-blue p-6 rounded-2xl flex flex-col justify-between overflow-hidden">
                     <div>
-                        <h3 class="text-lg font-bold text-white mb-4">Evaluación de Criterios Obligatorios</h3>
+                        <h3 class="text-lg font-bold text-white mb-4">Evaluación de Criterios Obligatorios y Disponibilidad de SIM</h3>
                         <div class="overflow-x-auto custom-scrollbar">
                             <table class="w-full text-left text-xs sm:text-sm">
                                 <thead>
@@ -213,10 +214,16 @@
                                         <td class="p-3.5 text-center text-slate-400">✅ 64 GB Interna</td>
                                     </tr>
                                     <tr class="hover:bg-inst-blue/10">
-                                        <td class="p-3.5 font-medium">E. Ranura SIM Física 4G/5G (Obligatoria)</td>
+                                        <td class="p-3.5 font-medium">E. Ranura SIM Física 4G/5G en Tablet</td>
                                         <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ Dual SIM 5G/4G</td>
                                         <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ SIM Nano 4G LTE</td>
                                         <td class="p-3.5 text-center text-emerald-400 font-semibold">✅ Ranura SIM 4G</td>
+                                    </tr>
+                                    <tr class="hover:bg-inst-blue/10 font-semibold bg-inst-dark/50">
+                                        <td class="p-3.5 font-bold text-white">F. ¿Incluye Contrato de SIM (Internet Q600)?</td>
+                                        <td class="p-3.5 text-center text-inst-red font-bold">❌ NO (Solo Hardware)</td>
+                                        <td class="p-3.5 text-center text-emerald-400 font-bold bg-emerald-500/10">✅ SÍ (Contrato Claro)</td>
+                                        <td class="p-3.5 text-center text-inst-red font-bold">❌ NO (Solo Hardware)</td>
                                     </tr>
                                     <tr class="hover:bg-inst-blue/10">
                                         <td class="p-3.5 font-medium">G. Accesorios (Funda + Teclado)</td>
@@ -232,9 +239,9 @@
                                     </tr>
                                     <tr class="bg-inst-dark font-bold">
                                         <td class="p-3.5 text-white">Dictamen de Auditoría MINEDUC</td>
-                                        <td class="p-3.5 text-center text-inst-red bg-inst-red/20 font-black">SOBRESALIENTE</td>
-                                        <td class="p-3.5 text-center text-emerald-400">APROBADO</td>
-                                        <td class="p-3.5 text-center text-amber-400">RANGO MÍNIMO</td>
+                                        <td class="p-3.5 text-center text-inst-red bg-inst-red/20 font-black">SOBRESALIENTE (REQ. SIM EXTERN)</td>
+                                        <td class="p-3.5 text-center text-emerald-400">APROBADO (PAQUETE COMPLETO)</td>
+                                        <td class="p-3.5 text-center text-amber-400">RANGO MÍNIMO (REQ. SIM EXTERN)</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -244,9 +251,190 @@
             </div>
         </section>
 
+        <section id="cotizaciones" class="space-y-6">
+            <div class="border-l-4 border-inst-red pl-4">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">2. Catálogo Visual y Cotizaciones Oficiales Recibidas</h2>
+                <p class="text-slate-400 text-sm mt-1">
+                    Exhibición de los tres modelos cotizados en la carpeta <code>tablet/</code>. Se detalla la disponibilidad contractual del servicio de conectividad SIM en cada caso.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="glass-card-red rounded-2xl overflow-hidden border-2 border-inst-red/60 flex flex-col justify-between shadow-2xl relative">
+                    <div class="absolute top-3 right-3 bg-inst-red text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+                        Recomendado TI
+                    </div>
+                    <div>
+                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-inst-red/30 relative">
+                            <img src="tablet/cotizacion-blackview.jpg" alt="Cotización Blackview Zeno 10 - Click GT" class="max-h-full max-w-full object-contain rounded-lg shadow-md" onerror="this.onerror=null; this.src='tablet/cotizacion-blackview.png';">
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div>
+                                <span class="text-xs text-inst-red font-bold uppercase tracking-wider block">Click GT • Solo Dispositivo Móvil</span>
+                                <h3 class="text-xl font-black text-white mt-0.5">Blackview Zeno 10 5GAI</h3>
+                                <p class="text-xs text-slate-300 mt-1">Tablet Industrial de Rendimiento Extendido</p>
+                            </div>
+
+                            <div class="bg-inst-black/80 rounded-xl p-3.5 border border-inst-red/30 space-y-2">
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">Precio Hardware:</span>
+                                    <span class="text-white font-bold text-sm">Q 2,000.00</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">RAM / ROM:</span>
+                                    <span class="text-inst-sky font-bold">6 GB RAM / 256 GB ROM</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">Contrato de SIM:</span>
+                                    <span class="text-inst-red font-bold">❌ NO POSEE CONTRATO SIM</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-200 mb-2">Accesorios e Indicaciones:</h4>
+                                <ul class="text-xs text-slate-300 space-y-1.5">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-inst-red">✓</span> Estuche protector + Teclado físico
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-inst-red font-bold">⭐ Mouse Óptico para Diseño/Código</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-inst-red">✓</span> Stylus táctil y audífonos estéreo
+                                    </li>
+                                    <li class="flex items-center gap-2 text-amber-300">
+                                        <span>⚠️ Requiere contratar SIM de Q600 con Claro o Tigo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-inst-black/90 border-t border-inst-red/30">
+                        <div class="text-[11px] text-slate-400 text-center">
+                            Cotización Click GT • Factura A (Q2,000.00)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card-blue rounded-2xl overflow-hidden border border-inst-blue/40 flex flex-col justify-between shadow-xl relative">
+                    <div class="absolute top-3 right-3 bg-inst-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+                        Opción Unificada
+                    </div>
+                    <div>
+                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-inst-blue/30 relative">
+                            <img src="tablet/cotizacion-tcl.jpg" alt="Cotización TCL TAB 11 FE LTE - Claro Empresas" class="max-h-full max-w-full object-contain rounded-lg shadow-md" onerror="this.onerror=null; this.src='tablet/cotizacion-tcl.png';">
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div>
+                                <span class="text-xs text-inst-sky font-bold uppercase tracking-wider block">Claro Empresas • Paquete Combo</span>
+                                <h3 class="text-xl font-black text-white mt-0.5">TCL TAB 11 FE LTE</h3>
+                                <p class="text-xs text-slate-300 mt-1">Tablet Comercial con Pantalla NXTVISION</p>
+                            </div>
+
+                            <div class="bg-inst-black/80 rounded-xl p-3.5 border border-inst-blue/30 space-y-2">
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">Precio Hardware:</span>
+                                    <span class="text-white font-bold text-sm">Q 2,000.00</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">RAM / ROM:</span>
+                                    <span class="text-slate-200 font-semibold">4 GB (+4GB Virt) / 128 GB</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">Contrato de SIM:</span>
+                                    <span class="text-emerald-400 font-bold">✅ SÍ (Incluye SuperPack Q600)</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-200 mb-2">Accesorios e Indicaciones:</h4>
+                                <ul class="text-xs text-slate-300 space-y-1.5">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-inst-sky">✓</span> Estuche Flipcase rígido
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-inst-sky">✓</span> Teclado físico desacoplable
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-inst-sky">✓</span> Lápiz T-Pen de precisión
+                                    </li>
+                                    <li class="flex items-center gap-2 text-emerald-400">
+                                        <span>✅ Único proveedor con SIM de Internet unificada</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-inst-black/90 border-t border-inst-blue/30">
+                        <div class="text-[11px] text-slate-400 text-center">
+                            Cotización TELGUA, S.A. • Facturas A (Q2,000) y B (Q600)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card-blue rounded-2xl overflow-hidden border border-slate-700 flex flex-col justify-between shadow-xl relative">
+                    <div class="absolute top-3 right-3 bg-slate-700 text-slate-200 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+                        Rango Mínimo
+                    </div>
+                    <div>
+                        <div class="w-full h-56 bg-gradient-to-b from-inst-dark to-inst-black flex items-center justify-center p-4 border-b border-slate-800 relative">
+                            <img src="tablet/cotizacion-dataflex.jpg" alt="Cotización Dataflex WOW 10.1" class="max-h-full max-w-full object-contain rounded-lg shadow-md" onerror="this.onerror=null; this.src='tablet/cotizacion-dataflex.png';">
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div>
+                                <span class="text-xs text-slate-400 font-bold uppercase tracking-wider block">Dataflex • Solo Dispositivo Móvil</span>
+                                <h3 class="text-xl font-black text-white mt-0.5">Dataflex WOW 10.1</h3>
+                                <p class="text-xs text-slate-300 mt-1">Tablet Estándar de Entrada</p>
+                            </div>
+
+                            <div class="bg-inst-black/80 rounded-xl p-3.5 border border-slate-800 space-y-2">
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">Precio Hardware:</span>
+                                    <span class="text-white font-bold text-sm">Q 2,000.00</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">RAM / ROM:</span>
+                                    <span class="text-slate-400">4 GB RAM / 64 GB ROM</span>
+                                </div>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-slate-400">Contrato de SIM:</span>
+                                    <span class="text-inst-red font-bold">❌ NO POSEE CONTRATO SIM</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-200 mb-2">Accesorios e Indicaciones:</h4>
+                                <ul class="text-xs text-slate-300 space-y-1.5">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-slate-400">✓</span> Estuche con soporte
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-slate-400">✓</span> Teclado en español
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-slate-500">❌ Sin Mouse Óptico</span>
+                                    </li>
+                                    <li class="flex items-center gap-2 text-amber-300">
+                                        <span>⚠️ Requiere contratar SIM de Q600 con Claro o Tigo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-inst-black/90 border-t border-slate-800">
+                        <div class="text-[11px] text-slate-400 text-center">
+                            Cotización Oficial Dataflex • Factura A (Q2,000.00)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <section id="comparativa" class="space-y-6">
             <div class="border-l-4 border-inst-blue pl-4">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">2. Comparativa Técnica y Métricas de Hardware (Presupuesto Q 2,000.00)</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">3. Comparativa Técnica y Métricas de Hardware (Presupuesto Q 2,000.00)</h2>
                 <p class="text-slate-400 text-sm mt-1">
                     Análisis cuantitativo de las tres alternativas de tablets disponibles en el mercado nacional por el techo presupuestario de Q 2,000.00 por dispositivo.
                 </p>
@@ -283,7 +471,7 @@
 
         <section id="pedagogico" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">3. Justificación Técnico-Pedagógica para Bachilleratos Industriales</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">4. Justificación Técnico-Pedagógica para Bachilleratos Industriales</h2>
                 <p class="text-slate-400 text-sm mt-1">
                     Las exigencias académicas del Instituto Industrial Central General Lázaro Chacón González sobrepasan el uso educativo básico.
                 </p>
@@ -339,9 +527,9 @@
 
         <section id="conectividad" class="space-y-6">
             <div class="border-l-4 border-inst-blue pl-4">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">4. Análisis del Plan de Conectividad Móvil (Presupuesto Q 600.00)</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">5. Análisis del Plan de Conectividad Móvil (Presupuesto Q 600.00)</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Evaluación de los planes de datos anuales prepagados con tarjeta SIM física registrada a nombre del tutor legal del estudiante.
+                    Dado que **Click GT** y **Dataflex** únicamente venden el hardware y carecen de contrato de SIM, la OPF contratará el plan de datos anual directamente con **Claro Empresas** o **Tigo B2B**.
                 </p>
             </div>
 
@@ -349,7 +537,7 @@
                 <div class="glass-card-red p-6 sm:p-8 rounded-2xl border border-inst-red/40 relative overflow-hidden flex flex-col justify-between">
                     <div>
                         <div class="absolute top-0 right-0 bg-inst-red text-white font-bold text-[10px] px-3 py-1.5 rounded-bl-lg uppercase tracking-wider">
-                            Opción Operadora 1
+                            Operadora SIM 1
                         </div>
                         <h3 class="text-xl font-bold text-white mb-1">Claro Empresas</h3>
                         <div class="text-inst-sky font-semibold text-xs sm:text-sm mb-4">SuperPack Estudiantil Anual (Q 600.00)</div>
@@ -368,7 +556,7 @@
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-red font-bold">✓</span>
-                                <span><strong>Facturación:</strong> Emitida por TELGUA, S.A. a nombre de la OPF.</span>
+                                <span><strong>Facturación:</strong> Emitida por TELGUA, S.A. a nombre de la OPF (Factura B - Q600.00).</span>
                             </li>
                         </ul>
                     </div>
@@ -377,7 +565,7 @@
                 <div class="glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/40 relative overflow-hidden flex flex-col justify-between">
                     <div>
                         <div class="absolute top-0 right-0 bg-inst-blue text-white font-bold text-[10px] px-3 py-1.5 rounded-bl-lg uppercase tracking-wider">
-                            Opción Operadora 2
+                            Operadora SIM 2
                         </div>
                         <h3 class="text-xl font-bold text-white mb-1">Tigo B2B</h3>
                         <div class="text-inst-sky font-semibold text-xs sm:text-sm mb-4">Conectividad Educativa Anual (Q 600.00)</div>
@@ -396,7 +584,7 @@
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-blue font-bold">✓</span>
-                                <span><strong>Facturación:</strong> Emitida por Tigo B2B a nombre de la OPF.</span>
+                                <span><strong>Facturación:</strong> Emitida por Tigo B2B a nombre de la OPF (Factura B - Q600.00).</span>
                             </li>
                         </ul>
                     </div>
@@ -413,9 +601,9 @@
 
         <section id="recomendaciones" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">5. Dictamen Final y Opciones de Adquisición para la OPF</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">6. Dictamen Final y Opciones de Adquisición para la OPF</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Con base en el análisis técnico, legal y pedagógico, se presentan las dos rutas de compra viables para la Junta Directiva de la OPF.
+                    Con base en el análisis técnico, la falta de contrato de SIM en Click GT/Dataflex y la flexibilidad del marco legal del MINEDUC, se presentan las dos rutas de compra para la Junta Directiva de la OPF.
                 </p>
             </div>
 
@@ -424,19 +612,19 @@
                     <div class="inline-block bg-inst-red text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider mb-3 shadow">
                         ⭐ Opción A (Recomendada por Área de TI)
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Compra Combinada de Alto Rendimiento</h3>
+                    <h3 class="text-xl font-bold text-white mb-2">Compra Combinada (Hardware + Operadora SIM)</h3>
                     <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
                         <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-red/30">
                             <strong class="text-inst-red block mb-1">1. Proveedor de Tablets (Q 2,000.00): Click GT</strong>
-                            Tablet Blackview Zeno 10 5GAI (6GB RAM / 256GB ROM / Dual SIM / Kit Completo con Mouse Óptico).
+                            Tablet Blackview Zeno 10 5GAI (6GB RAM / 256GB ROM / Dual SIM / Kit Completo con Mouse Óptico). *Click GT emite solo Factura A por hardware.*
                         </div>
                         <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-blue/30">
                             <strong class="text-inst-sky block mb-1">2. Proveedor de Conectividad (Q 600.00): Claro o Tigo</strong>
-                            Tarjeta SIM Física con Plan Estudiantil Anual por 12 meses.
+                            Tarjeta SIM Física con Plan Estudiantil Anual por 12 meses. *Claro/Tigo emite Factura B por conectividad.*
                         </div>
                     </div>
                     <div class="text-xs sm:text-sm text-inst-sky font-semibold flex items-center gap-2">
-                        <span>✅ Máximo rendimiento de hardware para las carreras técnicas sin exceder el presupuesto.</span>
+                        <span>✅ Permite obtener la tablet de mayor capacidad (256 GB) supliendo la falta de contrato SIM de Click GT con la operadora elegida.</span>
                     </div>
                 </div>
 
@@ -448,11 +636,11 @@
                     <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
                         <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-blue/30">
                             <strong class="text-slate-200 block mb-1">Proveedor Único (Q 2,600.00): Claro Empresas</strong>
-                            Tablet TCL TAB 11 FE LTE (4GB RAM / 128GB ROM / 4G) por Q2,000.00 + SuperPack Estudiantil por Q600.00.
+                            Tablet TCL TAB 11 FE LTE (4GB RAM / 128GB ROM) por Q2,000.00 + SuperPack Estudiantil por Q600.00 en la misma empresa (TELGUA, S.A.).
                         </div>
                     </div>
                     <div class="text-xs sm:text-sm text-slate-400 flex items-center gap-2">
-                        <span>ℹ️ Simplifica la gestión administrativa al concentrar la entrega y garantía con una sola firma nacional.</span>
+                        <span>ℹ️ Simplifica la gestión administrativa al concentrar la entrega de hardware y contrato SIM con una sola firma nacional.</span>
                     </div>
                 </div>
             </div>
@@ -465,7 +653,7 @@
                         <div class="w-9 h-9 rounded-full bg-inst-red text-white font-black flex items-center justify-center text-sm mb-3">1</div>
                         <h4 class="text-sm font-bold text-white mb-1">Aprobación OPF</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            Acta de Junta Directiva ratificando la opción seleccionada (Opción A u Opción B).
+                            Acta de Junta Directiva ratificando la opción seleccionada (Opción A Combinada u Opción B Unificada).
                         </p>
                     </div>
 
@@ -500,7 +688,7 @@
 
     <footer class="bg-inst-black border-t border-inst-red/30 py-8 px-4 sm:px-8 text-center text-xs text-slate-400">
         <div class="max-w-[1650px] w-full mx-auto space-y-3 flex flex-col items-center">
-            <img src="logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80" onerror="this.onerror=null; this.src='logo.jpg';">
+            <img src="tablet/logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80" onerror="this.onerror=null; this.src='logo.png';">
             <p class="font-bold text-slate-200">
                 Instituto Industrial Central General Lázaro Chacón González • Departamento de Computación e Informática
             </p>
