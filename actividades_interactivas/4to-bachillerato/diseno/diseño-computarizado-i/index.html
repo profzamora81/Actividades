@@ -93,7 +93,20 @@
             100% { background-position: 0% 50%; }
         }
         .layer-box {
-            transition: all 0.4s ease;
+            transition: opacity 0.3s ease, z-index 0.2s ease;
+        }
+        .layer-control-item {
+            cursor: grab;
+            user-select: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .layer-control-item:active {
+            cursor: grabbing;
+        }
+        .layer-control-item.dragging {
+            opacity: 0.5;
+            border-color: #00B4E6 !important;
+            box-shadow: 0 0 15px rgba(0, 180, 230, 0.4);
         }
         @media print {
             .no-print { display: none !important; }
@@ -528,45 +541,162 @@
                     </div>
                 </div>
 
-                <!-- Sección 04: Visualizador de Capas & Checklist Pre-vuelo -->
+                <!-- Sección 04: Visualizador de Capas REORDENABLE & Checklist Pre-vuelo -->
                 <div class="grid lg:grid-cols-2 gap-6">
-                    <!-- Layer Simulator -->
-                    <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-layer-group text-cmyk-cyan"></i>
-                            <span>Simulador de Capas & Sobreimpresión</span>
-                        </h3>
-                        <p class="text-xs text-slate-400">Encienda o apague las capas para verificar la separación de acabados especiales en arte final:</p>
-
-                        <div class="space-y-2 text-xs font-mono">
-                            <button onclick="toggleResourceLayer('cmyk')" id="res-btn-cmyk" class="w-full text-left p-3 rounded-xl border border-cmyk-cyan/40 bg-cmyk-cyan/10 text-white flex items-center justify-between">
-                                <span class="flex items-center gap-2"><i class="fa-solid fa-eye text-cmyk-cyan" id="res-eye-cmyk"></i> Capa 1: ARTE_BASE_CMYK</span>
-                                <span class="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-300">CMYK 4C</span>
-                            </button>
-
-                            <button onclick="toggleResourceLayer('uv')" id="res-btn-uv" class="w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-950 text-slate-400 flex items-center justify-between">
-                                <span class="flex items-center gap-2"><i class="fa-solid fa-eye-slash text-slate-500" id="res-eye-uv"></i> Capa 2: BARNIZ_UV_SECTORIZADO</span>
-                                <span class="text-[10px] bg-cmyk-cyan/20 text-cmyk-cyan px-2 py-0.5 rounded">Tinta Plana 100%K</span>
-                            </button>
-
-                            <button onclick="toggleResourceLayer('foil')" id="res-btn-foil" class="w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-950 text-slate-400 flex items-center justify-between">
-                                <span class="flex items-center gap-2"><i class="fa-solid fa-eye-slash text-slate-500" id="res-eye-foil"></i> Capa 3: FOIL_DORADO</span>
-                                <span class="text-[10px] bg-palette-yellow/20 text-palette-yellow px-2 py-0.5 rounded">Estampado M.</span>
-                            </button>
+                    <!-- Layer Simulator with Drag & Drop Reordering -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                            <div>
+                                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-layer-group text-cmyk-cyan"></i>
+                                    <span>Simulador de Capas Reordenable (Arrastrar Jerarquía & Objetos)</span>
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-0.5">
+                                    <i class="fa-solid fa-hand-pointer text-palette-cyan"></i> <strong>Arrastre las barras de capa arriba/abajo</strong> para cambiar su orden de apilamiento Z-Index.
+                                </p>
+                            </div>
+                            <span id="res-layers-active-status" class="text-[10px] font-mono text-cmyk-cyan bg-cmyk-cyan/10 px-2.5 py-1 rounded-full border border-cmyk-cyan/30 self-start sm:self-auto font-bold">
+                                Jerarquía: Capa 3 > Capa 2 > Capa 1
+                            </span>
                         </div>
 
-                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-[11px] text-slate-300 relative min-h-24 flex items-center justify-center text-center">
-                            <div id="res-layer-preview-cmyk" class="layer-box opacity-100 font-mono">
-                                <span class="text-cmyk-cyan font-bold">[VISTA ARTE BASE CMYK]</span><br>
-                                Impresión offset cuatricromía a 300 DPI
+                        <!-- Selector de Capas Reordenable mediante Drag and Drop -->
+                        <div class="space-y-2.5 text-xs font-mono" id="layer-controls-list">
+                            
+                            <!-- Item Foil Dorado -->
+                            <div id="layer-item-foil" draggable="true" data-layer="foil" class="layer-control-item p-3 rounded-xl border border-slate-800 bg-slate-950/80 opacity-60 text-white flex items-center justify-between transition hover:border-palette-yellow">
+                                <div class="flex items-center space-x-2.5">
+                                    <i class="fa-solid fa-grip-vertical text-slate-500 cursor-grab hover:text-palette-yellow"></i>
+                                    <button onclick="toggleResourceLayer('foil')" class="flex items-center gap-2 text-left focus:outline-none">
+                                        <i class="fa-solid fa-eye-slash text-slate-500" id="res-eye-foil"></i>
+                                        <span class="font-bold text-palette-yellow">Capa 3: FOIL_DORADO</span>
+                                    </button>
+                                </div>
+                                <span class="text-[10px] bg-palette-yellow/20 text-palette-yellow px-2 py-0.5 rounded border border-palette-yellow/30">Estampado Metálico</span>
                             </div>
-                            <div id="res-layer-preview-uv" class="layer-box opacity-0 absolute text-cmyk-cyan font-mono">
-                                <span class="font-bold">[CAPA BARNIZ UV ACTIVA]</span><br>
-                                Configurada en Sobreimprimir Relleno (Overprint)
+
+                            <!-- Item Barniz UV -->
+                            <div id="layer-item-uv" draggable="true" data-layer="uv" class="layer-control-item p-3 rounded-xl border border-slate-800 bg-slate-950/80 opacity-60 text-white flex items-center justify-between transition hover:border-cmyk-cyan">
+                                <div class="flex items-center space-x-2.5">
+                                    <i class="fa-solid fa-grip-vertical text-slate-500 cursor-grab hover:text-cmyk-cyan"></i>
+                                    <button onclick="toggleResourceLayer('uv')" class="flex items-center gap-2 text-left focus:outline-none">
+                                        <i class="fa-solid fa-eye-slash text-slate-500" id="res-eye-uv"></i>
+                                        <span class="font-bold text-cmyk-cyan">Capa 2: BARNIZ_UV_SECTORIZADO</span>
+                                    </button>
+                                </div>
+                                <span class="text-[10px] bg-cmyk-cyan/20 text-cmyk-cyan px-2 py-0.5 rounded border border-cmyk-cyan/30">Tinta Plana 100%K</span>
                             </div>
-                            <div id="res-layer-preview-foil" class="layer-box opacity-0 absolute foil-gold font-mono font-bold">
-                                [CAPA FOIL DORADO METÁLICO ACTIVA]
+
+                            <!-- Item CMYK Arte Base -->
+                            <div id="layer-item-cmyk" draggable="true" data-layer="cmyk" class="layer-control-item p-3 rounded-xl border border-palette-blue/50 bg-palette-blue/10 text-white flex items-center justify-between transition hover:border-cmyk-cyan">
+                                <div class="flex items-center space-x-2.5">
+                                    <i class="fa-solid fa-grip-vertical text-slate-500 cursor-grab hover:text-cmyk-cyan"></i>
+                                    <button onclick="toggleResourceLayer('cmyk')" class="flex items-center gap-2 text-left focus:outline-none">
+                                        <i class="fa-solid fa-eye text-palette-cyan" id="res-eye-cmyk"></i>
+                                        <span class="font-bold text-white">Capa 1: ARTE_BASE_CMYK</span>
+                                    </button>
+                                </div>
+                                <span class="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-300">Offset Cuatricromía</span>
                             </div>
+
+                        </div>
+
+                        <!-- Lienzo de Previsualización Amplio con Elementos Arrastrables y Z-Index dinámico -->
+                        <div class="relative w-full aspect-[1.85/1] min-h-[260px] bg-slate-950 rounded-2xl border border-slate-800 p-4 overflow-hidden shadow-2xl flex flex-col justify-between select-none" id="res-canvas-container">
+                            
+                            <!-- Barra de Herramientas del Lienzo (Sin Solapamientos) -->
+                            <div class="flex items-center justify-between gap-2 z-50 mb-2 w-full">
+                                <div class="text-[10px] font-mono bg-slate-900/90 text-palette-cyan px-2.5 py-1 rounded-lg border border-palette-cyan/30 flex items-center gap-1.5 truncate">
+                                    <i class="fa-solid fa-up-down-left-right text-palette-cyan"></i>
+                                    <span class="truncate">Arrastre las capas en la lista superior para reordenar la jerarquía</span>
+                                </div>
+
+                                <button onclick="resetLayerPositions()" class="text-[10px] font-mono bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white px-2.5 py-1 rounded-lg border border-slate-700 flex items-center gap-1.5 transition flex-shrink-0">
+                                    <i class="fa-solid fa-rotate-left"></i> Restablecer Posiciones
+                                </button>
+                            </div>
+
+                            <!-- Capa CMYK (Arte Base impreso a ancho completo) -->
+                            <div id="res-layer-preview-cmyk" class="layer-box absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-5 opacity-100 transition-opacity duration-300 flex flex-col justify-between" style="z-index: 10;">
+                                <div id="drag-cmyk-element" class="absolute top-10 left-5 right-5 cursor-move p-3 rounded-xl bg-slate-900/90 border border-palette-blue/40 shadow-lg active:scale-98 transition-transform hover:border-cmyk-cyan/60" style="touch-action: none;">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-9 h-9 rounded-lg bg-palette-blue flex items-center justify-center text-slate-950 font-bold text-sm shadow-md">
+                                                <i class="fa-solid fa-bezier-curve"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-xs font-bold text-white block leading-tight">ESTUDIO CREATIVO & DISEÑO</span>
+                                                <span class="text-[10px] text-palette-cyan font-mono">Arte Base Offset Cuatricromía CMYK</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">4/4 CMYK</span>
+                                            <i class="fa-solid fa-grip text-slate-500 text-xs"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="absolute inset-x-5 bottom-12 h-0.5 bg-gradient-to-r from-palette-blue via-palette-cyan to-transparent opacity-40"></div>
+
+                                <div class="absolute bottom-3 left-5 right-5 pt-2 border-t border-slate-800/80 flex justify-between text-[10px] text-slate-400 font-mono">
+                                    <span>info@estudiocreativo.gt</span>
+                                    <span>Guatemala, C.A.</span>
+                                </div>
+                            </div>
+
+                            <!-- Capa Barniz UV Sectorizado (Brillo sobrepuesto a ancho completo) -->
+                            <div id="res-layer-preview-uv" class="layer-box absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 p-5 flex flex-col justify-between" style="z-index: 20;">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-cmyk-cyan/10 to-transparent pointer-events-none"></div>
+
+                                <div id="drag-uv-element" class="absolute top-10 left-5 right-5 cursor-move pointer-events-auto p-3 bg-slate-950/90 rounded-xl border-2 border-cmyk-cyan shadow-lg shadow-cmyk-cyan/20 active:scale-98 transition-transform" style="touch-action: none;">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fa-solid fa-sparkles text-cmyk-cyan text-sm animate-pulse"></i>
+                                            <div>
+                                                <span class="text-xs font-bold text-cmyk-cyan font-mono block leading-none">MÁSCARA BARNIZ UV SECTORIZADO</span>
+                                                <span class="text-[9px] text-slate-400 font-mono">Coincidencia exacta 100% K sobre logotipo y franja</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 px-2 py-0.5 bg-cmyk-cyan/20 rounded border border-cmyk-cyan/40">
+                                            <span class="text-[9px] font-bold text-cmyk-cyan font-mono">ALTO BRILLO</span>
+                                            <i class="fa-solid fa-grip text-cmyk-cyan/80 text-xs"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Capa Foil Dorado Metálico (Placa de Estampado a Ancho Completo) -->
+                            <div id="res-layer-preview-foil" class="layer-box absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 p-4" style="z-index: 30;">
+                                <div class="w-full h-full border-2 border-palette-yellow/80 rounded-xl p-3 flex flex-col justify-between bg-slate-950/40 backdrop-blur-[1px] shadow-[0_0_20px_rgba(244,208,88,0.25)]">
+                                    <div class="flex justify-between items-center text-[9px] font-mono text-palette-yellow/80 border-b border-palette-yellow/30 pb-1">
+                                        <span>[ PLACA STAMPING FOIL ]</span>
+                                        <span>ACABADO METÁLICO</span>
+                                    </div>
+
+                                    <div id="drag-foil-element" class="cursor-move pointer-events-auto p-3 bg-slate-950/90 rounded-xl border border-palette-yellow/80 shadow-2xl shadow-palette-yellow/20 active:scale-98 transition-transform" style="touch-action: none;">
+                                        <div class="text-center">
+                                            <div class="text-lg sm:text-xl font-black foil-gold tracking-widest uppercase mb-1">INSTITUTO LÁZARO CHACÓN</div>
+                                            <div class="flex items-center justify-center gap-2 text-[10px] font-mono text-palette-yellow">
+                                                <span class="h-0.5 w-8 bg-palette-yellow/60"></span>
+                                                <i class="fa-solid fa-crown text-xs"></i>
+                                                <span>ESTAMPADO EN PAN DE ORO 100% K</span>
+                                                <span class="h-0.5 w-8 bg-palette-yellow/60"></span>
+                                                <i class="fa-solid fa-grip text-palette-yellow/80 text-xs ml-1"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-t border-palette-yellow/30 pt-1 text-center text-[9px] font-mono text-palette-yellow/70">
+                                        SOBREIMPRESIÓN ACTIVADA (OVERPRINT FILL)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
+                            <i class="fa-solid fa-circle-info text-palette-yellow mt-0.5"></i>
+                            <span>Experimente arrastrando las barras de capa arriba/abajo en la lista para comprobar cómo cambia la sobreposición Z-Index en el arte final de imprenta.</span>
                         </div>
                     </div>
 
@@ -1076,6 +1206,183 @@
             scores: { 1: 3, 2: 4, 3: 3 }
         };
 
+        // Lógica de arrastre de elementos individuales dentro del lienzo
+        function makeElementDraggable(el, container) {
+            let isDragging = false;
+            let startX, startY, initialLeft, initialTop;
+
+            function onPointerDown(e) {
+                isDragging = true;
+                startX = e.clientX || (e.touches && e.touches[0].clientX);
+                startY = e.clientY || (e.touches && e.touches[0].clientY);
+
+                const rect = el.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+
+                initialLeft = rect.left - containerRect.left;
+                initialTop = rect.top - containerRect.top;
+
+                el.style.left = initialLeft + 'px';
+                el.style.top = initialTop + 'px';
+                el.style.right = 'auto';
+                el.style.bottom = 'auto';
+
+                document.addEventListener('pointermove', onPointerMove);
+                document.addEventListener('pointerup', onPointerUp);
+                document.addEventListener('touchmove', onPointerMove);
+                document.addEventListener('touchend', onPointerUp);
+            }
+
+            function onPointerMove(e) {
+                if (!isDragging) return;
+                const currentX = e.clientX || (e.touches && e.touches[0].clientX);
+                const currentY = e.clientY || (e.touches && e.touches[0].clientY);
+
+                if (currentX === undefined || currentY === undefined) return;
+
+                const dx = currentX - startX;
+                const dy = currentY - startY;
+
+                const containerRect = container.getBoundingClientRect();
+                const elRect = el.getBoundingClientRect();
+
+                let newLeft = initialLeft + dx;
+                let newTop = initialTop + dy;
+
+                newLeft = Math.max(0, Math.min(newLeft, containerRect.width - elRect.width));
+                newTop = Math.max(0, Math.min(newTop, containerRect.height - elRect.height));
+
+                el.style.left = newLeft + 'px';
+                el.style.top = newTop + 'px';
+            }
+
+            function onPointerUp() {
+                isDragging = false;
+                document.removeEventListener('pointermove', onPointerMove);
+                document.removeEventListener('pointerup', onPointerUp);
+                document.removeEventListener('touchmove', onPointerMove);
+                document.removeEventListener('touchend', onPointerUp);
+            }
+
+            el.addEventListener('pointerdown', onPointerDown);
+            el.addEventListener('touchstart', onPointerDown, { passive: true });
+        }
+
+        function initDraggableLayers() {
+            const container = document.getElementById('res-canvas-container');
+            if (!container) return;
+
+            const el1 = document.getElementById('drag-cmyk-element');
+            const el2 = document.getElementById('drag-uv-element');
+            const el3 = document.getElementById('drag-foil-element');
+
+            if (el1) makeElementDraggable(el1, container);
+            if (el2) makeElementDraggable(el2, container);
+            if (el3) makeElementDraggable(el3, container);
+        }
+
+        // Lógica de Reordenamiento de Capas en la Lista Drag & Drop (Z-Index Reordering)
+        function initLayerListReordering() {
+            const list = document.getElementById('layer-controls-list');
+            if (!list) return;
+
+            let draggedItem = null;
+
+            const items = list.querySelectorAll('.layer-control-item');
+
+            items.forEach(item => {
+                item.addEventListener('dragstart', function(e) {
+                    draggedItem = this;
+                    setTimeout(() => this.classList.add('dragging'), 0);
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+
+                item.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                    draggedItem = null;
+                    updateLayerZIndexes();
+                });
+
+                item.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    const afterElement = getDragAfterElement(list, e.clientY);
+                    if (afterElement == null) {
+                        list.appendChild(draggedItem);
+                    } else {
+                        list.insertBefore(draggedItem, afterElement);
+                    }
+                });
+            });
+        }
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('.layer-control-item:not(.dragging)')];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        function updateLayerZIndexes() {
+            const list = document.getElementById('layer-controls-list');
+            if (!list) return;
+
+            const items = [...list.querySelectorAll('.layer-control-item')];
+            const total = items.length;
+
+            // El primer elemento de la lista estará arriba en la jerarquía (mayor Z-Index)
+            const activeOrderNames = [];
+
+            items.forEach((item, index) => {
+                const layerKey = item.getAttribute('data-layer');
+                const previewEl = document.getElementById(`res-layer-preview-${layerKey}`);
+                const zIndexValue = (total - index) * 10;
+                
+                if (previewEl) {
+                    previewEl.style.zIndex = zIndexValue;
+                }
+
+                if (layerKey === 'foil') activeOrderNames.push('FOIL_DORADO');
+                if (layerKey === 'uv') activeOrderNames.push('BARNIZ_UV');
+                if (layerKey === 'cmyk') activeOrderNames.push('ARTE_BASE_CMYK');
+            });
+
+            const statusEl = document.getElementById('res-layers-active-status');
+            if (statusEl) {
+                statusEl.innerText = `Jerarquía: ${activeOrderNames.join(' > ')}`;
+            }
+        }
+
+        function resetLayerPositions() {
+            const el1 = document.getElementById('drag-cmyk-element');
+            const el2 = document.getElementById('drag-uv-element');
+            const el3 = document.getElementById('drag-foil-element');
+
+            if (el1) { el1.style.left = '1.25rem'; el1.style.right = '1.25rem'; el1.style.top = '2.5rem'; el1.style.bottom = 'auto'; }
+            if (el2) { el2.style.left = '1.25rem'; el2.style.right = '1.25rem'; el2.style.top = '2.5rem'; el2.style.bottom = 'auto'; }
+            if (el3) { el3.style.left = '0'; el3.style.right = '0'; el3.style.top = '0'; el3.style.bottom = '0'; }
+
+            // Restablecer el orden original en la lista DOM
+            const list = document.getElementById('layer-controls-list');
+            const foilItem = document.getElementById('layer-item-foil');
+            const uvItem = document.getElementById('layer-item-uv');
+            const cmykItem = document.getElementById('layer-item-cmyk');
+
+            if (list && foilItem && uvItem && cmykItem) {
+                list.appendChild(foilItem);
+                list.appendChild(uvItem);
+                list.appendChild(cmykItem);
+                updateLayerZIndexes();
+            }
+        }
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.add('hidden');
@@ -1307,23 +1614,40 @@
 
         const resLayersState = { cmyk: true, uv: false, foil: false };
 
-        function toggleResourceLayer(key) {
-            resLayersState[key] = !resLayersState[key];
-            const btn = document.getElementById(`res-btn-${key}`);
+        function updateLayerToggleUI(key) {
+            const isVisible = resLayersState[key];
+            const btn = document.getElementById(`layer-item-${key}`);
             const eye = document.getElementById(`res-eye-${key}`);
             const preview = document.getElementById(`res-layer-preview-${key}`);
 
-            if (resLayersState[key]) {
-                btn.className = 'w-full text-left p-3 rounded-xl border border-cmyk-cyan/40 bg-cmyk-cyan/10 text-white flex items-center justify-between font-mono';
-                eye.className = 'fa-solid fa-eye text-cmyk-cyan';
+            if (!btn || !eye || !preview) return;
+
+            if (isVisible) {
                 preview.classList.remove('opacity-0');
                 preview.classList.add('opacity-100');
+                eye.className = 'fa-solid fa-eye ' + (key === 'foil' ? 'text-palette-yellow' : key === 'uv' ? 'text-cmyk-cyan' : 'text-palette-cyan');
+
+                btn.classList.remove('border-slate-800', 'bg-slate-950/80', 'opacity-60');
+                if (key === 'foil') {
+                    btn.classList.add('border-palette-yellow/50', 'bg-palette-yellow/10');
+                } else if (key === 'uv') {
+                    btn.classList.add('border-cmyk-cyan/50', 'bg-cmyk-cyan/10');
+                } else {
+                    btn.classList.add('border-palette-blue/50', 'bg-palette-blue/10');
+                }
             } else {
-                btn.className = 'w-full text-left p-3 rounded-xl border border-slate-800 bg-slate-950 text-slate-400 flex items-center justify-between font-mono';
-                eye.className = 'fa-solid fa-eye-slash text-slate-500';
                 preview.classList.remove('opacity-100');
                 preview.classList.add('opacity-0');
+                eye.className = 'fa-solid fa-eye-slash text-slate-500';
+
+                btn.classList.remove('border-palette-yellow/50', 'bg-palette-yellow/10', 'border-cmyk-cyan/50', 'bg-cmyk-cyan/10', 'border-palette-blue/50', 'bg-palette-blue/10');
+                btn.classList.add('border-slate-800', 'bg-slate-950/80', 'opacity-60');
             }
+        }
+
+        function toggleResourceLayer(key) {
+            resLayersState[key] = !resLayersState[key];
+            updateLayerToggleUI(key);
         }
 
         function updateChecklist() {
@@ -1336,6 +1660,14 @@
         window.onload = function() {
             calculateBleed();
             updateLivePreview();
+            initDraggableLayers();
+            initLayerListReordering();
+            updateLayerZIndexes();
+
+            // Sincronizar estado inicial de capas
+            updateLayerToggleUI('cmyk');
+            updateLayerToggleUI('uv');
+            updateLayerToggleUI('foil');
         };
     </script>
 </body>
