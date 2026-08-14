@@ -3,1047 +3,1418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Interactiva No. 5 - Composición y Modos de Color | 5to. Diseño Gráfico</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Guía Interactiva No. 5 - Diseño Computarizado II (5to. Diseño Gráfico)</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        mono: ['"Fira Code"', '"JetBrains Mono"', 'monospace'],
+                    },
                     colors: {
                         brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        cmyk: {
                             cyan: '#00f0ff',
                             magenta: '#ff007f',
                             yellow: '#ffe600',
-                            dark: '#090a10',
-                            card: '#121526',
-                            border: '#232742'
+                            black: '#0a0a0f',
+                        },
+                        palette: {
+                            blue: '#008CC9',
+                            cyan: '#00B4E6',
+                            yellow: '#F4D058',
+                            amber: '#D99726',
+                            coral: '#D85D43'
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
         }
     </script>
-
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- html2pdf for direct PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #090a10;
-            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080c14;
+            color: #f1f5f9;
         }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #0f1220;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #282e4e;
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #00f0ff;
+        .font-mono-code {
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
         }
         .tab-active {
-            border-bottom: 3px solid #00f0ff;
-            color: #00f0ff;
-            background-color: rgba(0, 240, 255, 0.08);
+            border-bottom: 3px solid #00B4E6;
+            color: #00B4E6;
+            font-weight: 700;
+            background-color: rgba(0, 180, 230, 0.08);
+        }
+        .glass-card {
+            background: rgba(15, 21, 36, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .gradient-text-cmyk {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff007f 50%, #ffe600 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         @media print {
             .no-print { display: none !important; }
             .print-only { display: block !important; }
-            body { background: white; color: black; }
+            body { 
+                background: white !important; 
+                color: black !important; 
+                padding: 0 !important; 
+                font-family: 'Plus Jakarta Sans', sans-serif !important; 
+            }
+            .print-card { 
+                border: none !important; 
+                box-shadow: none !important; 
+                padding: 0 !important; 
+                margin-bottom: 0 !important; 
+                background: white !important;
+            }
+            .print-break-avoid {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            img {
+                max-height: 160px !important;
+                object-fit: contain;
+            }
         }
+        .print-only { display: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col custom-scrollbar">
+<body class="min-h-screen flex flex-col justify-between selection:bg-palette-cyan selection:text-black">
 
-    <!-- Top Navigation Header -->
-    <header class="bg-slate-950/90 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+    <!-- Header Principal -->
+    <header class="bg-slate-950 text-white shadow-xl sticky top-0 z-50 border-b border-slate-800/80 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Branding -->
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan via-brand-magenta to-brand-yellow p-[2px] shadow-lg shadow-brand-cyan/20">
-                        <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-black text-brand-cyan text-sm">
-                            CMM
-                        </div>
+                <div class="flex items-center space-x-3.5">
+                    <div class="bg-gradient-to-tr from-palette-blue to-palette-cyan p-2.5 rounded-xl text-slate-950 font-extrabold shadow-lg shadow-palette-cyan/20">
+                        <i class="fa-solid fa-palette text-xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-base sm:text-lg font-extrabold text-slate-100 leading-tight">Guía Interactiva No. 5</h1>
-                        <p class="text-xs text-brand-cyan font-medium">Diseño Computarizado II | 5to. Bachillerato en Diseño Gráfico</p>
+                        <h1 class="text-lg font-extrabold tracking-tight text-white leading-tight">Arquitecto Educativo 2026</h1>
+                        <p class="text-[11px] font-medium text-slate-400 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Guía No. 5 | Diseño Computarizado II — 5to. Bachillerato en Diseño Gráfico
+                        </p>
                     </div>
                 </div>
-
-                <!-- Global Progress Bar -->
-                <div class="hidden md:flex items-center space-x-4 bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800">
-                    <div class="text-xs text-slate-300 font-medium">Progreso Tarea:</div>
-                    <div class="w-32 bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-700">
-                        <div id="global-progress-bar" class="bg-gradient-to-r from-brand-cyan via-brand-magenta to-emerald-400 h-full w-0 transition-all duration-500"></div>
-                    </div>
-                    <span id="global-progress-text" class="text-xs font-bold text-brand-cyan">0/10 pts</span>
-                </div>
-
-                <!-- Quick Action Buttons -->
-                <div class="flex items-center space-x-2">
-                    <button onclick="openModal('modal-rubrica')" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-medium rounded-lg transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-award text-brand-yellow"></i>
-                        <span class="hidden sm:inline">Rúbrica</span> (10 pts)
-                    </button>
-                    <button onclick="switchTab('tab-entregable')" class="px-3 py-1.5 bg-gradient-to-r from-brand-cyan to-blue-600 hover:opacity-90 text-slate-950 font-bold text-xs rounded-lg transition shadow-md shadow-brand-cyan/20 flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-pdf"></i>
-                        <span>Generar PDF</span>
-                    </button>
+                <div class="hidden md:flex space-x-2 text-sm">
+                    <span class="bg-slate-900/90 text-palette-cyan px-3.5 py-1.5 rounded-full text-xs font-semibold border border-slate-800 shadow-inner flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-check text-xs text-palette-cyan"></i> Entrega: 18/08/2026
+                    </span>
+                    <span class="bg-slate-900/90 text-palette-yellow px-3.5 py-1.5 rounded-full text-xs font-semibold border border-slate-800 shadow-inner flex items-center gap-1.5">
+                        <i class="fa-solid fa-award text-xs text-palette-yellow"></i> 10 pts. Netos
+                    </span>
                 </div>
             </div>
         </div>
-
-        <!-- Navigation Tabs -->
-        <nav class="bg-slate-950 border-t border-slate-800/80 overflow-x-auto custom-scrollbar">
-            <div class="max-w-7xl mx-auto px-4 flex whitespace-nowrap">
-                <button onclick="switchTab('tab-inicio')" id="nav-tab-inicio" class="tab-btn tab-active px-4 py-3 text-xs sm:text-sm font-semibold flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-house"></i> 1. Inicio y Contenido
-                </button>
-                <button onclick="switchTab('tab-act1')" id="nav-tab-act1" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-vector-square"></i> 2. Act. 1: Vectores y Bitmaps (4pts)
-                </button>
-                <button onclick="switchTab('tab-act2')" id="nav-tab-act2" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-palette"></i> 3. Act. 2: Modos de Color (3pts)
-                </button>
-                <button onclick="switchTab('tab-act3')" id="nav-tab-act3" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-print"></i> 4. Act. 3: Pre-prensa & Afiche (3pts)
-                </button>
-                <button onclick="switchTab('tab-entregable')" id="nav-tab-entregable" class="tab-btn px-4 py-3 text-xs sm:text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 transition border-b-2 border-transparent">
-                    <i class="fa-solid fa-file-export"></i> 5. Compilador de PDF Final
-                </button>
-            </div>
-        </nav>
     </header>
 
-    <!-- Main Container -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Navegación por Pestañas -->
+    <div class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 shadow-sm sticky top-16 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 text-xs sm:text-sm font-medium" id="tabNav">
+                <button onclick="switchTab('docTab')" id="btn-docTab" class="tab-button tab-active py-2.5 px-3 rounded-lg inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-book-open text-palette-cyan"></i>
+                    <span>Guía Académica Oficial</span>
+                </button>
+                <button onclick="switchTab('resourceTab')" id="btn-resourceTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-400 hover:text-palette-cyan hover:bg-slate-800/50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-sliders text-cmyk-magenta"></i>
+                    <span>Recurso: Guía Técnica de Color & ICC</span>
+                </button>
+                <button onclick="switchTab('workbookTab')" id="btn-workbookTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-400 hover:text-palette-cyan hover:bg-slate-800/50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>Cuaderno de Trabajo Estudiantil</span>
+                </button>
+                <button onclick="switchTab('rubricTab')" id="btn-rubricTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-400 hover:text-palette-cyan hover:bg-slate-800/50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-list-check text-palette-yellow"></i>
+                    <span>Autoevaluador Rúbrica</span>
+                </button>
+                <button onclick="switchTab('previewTab')" id="btn-previewTab" class="tab-button py-2.5 px-3 rounded-lg text-slate-400 hover:text-palette-cyan hover:bg-slate-800/50 inline-flex items-center space-x-2 whitespace-nowrap transition-all duration-200">
+                    <i class="fa-solid fa-file-pdf text-palette-coral"></i>
+                    <span>Vista Previa & Exportar PDF</span>
+                </button>
+            </nav>
+        </div>
+    </div>
 
-        <!-- TAB 1: INICIO Y REGLAS -->
-        <section id="tab-inicio" class="tab-content space-y-6">
-            <!-- Header Banner -->
-            <div class="relative bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-800 overflow-hidden shadow-2xl">
-                <div class="absolute -right-10 -bottom-10 opacity-10 text-brand-cyan pointer-events-none">
-                    <i class="fa-solid fa-swatchbook text-9xl"></i>
-                </div>
-                <div class="relative z-10 max-w-3xl space-y-3">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan text-xs font-semibold">
-                        <i class="fa-solid fa-graduation-cap"></i> Área de Artes Visuales y Diseño Computarizado
-                    </div>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                        Composición y Modos de Color: Integración Vectorial y Raster
-                    </h2>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        Esta guía interactiva te acompañará en el desarrollo de la Guía No. 5. Aprenderás a integrar elementos vectoriales (<strong class="text-brand-cyan">Inkscape / Illustrator</strong>) con fotografías de mapa de bits (<strong class="text-brand-magenta">Photoshop / GIMP</strong>), configurando los perfiles de color (<strong class="text-brand-yellow">RGB vs CMYK</strong>) adecuados según el medio de salida.
-                    </p>
-                    <div class="pt-2 flex flex-wrap gap-4 text-xs text-slate-400">
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-book-bookmark text-brand-cyan"></i> Curso: Diseño Computarizado II</span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-users text-brand-magenta"></i> Grado: 5to. Bachillerato en Diseño Gráfico</span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar-check text-brand-yellow"></i> Publicación: 14/08/2026</span>
-                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-clock text-rose-400 font-bold"></i> Entrega: Viernes 14/08/2026</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
 
-            <!-- Mandatory Rules & Competencies Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Rules Card -->
-                <div class="bg-slate-900/80 rounded-xl p-5 border border-slate-800 space-y-4">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-                        <i class="fa-solid fa-triangle-exclamation text-brand-yellow"></i>
-                        Reglas de Entrega de la Tarea (Obligatorias)
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 1: GUÍA ACADÉMICA OFICIAL COMPLETA -->
+        <!-- ==================================================================== -->
+        <div id="docTab" class="tab-content block">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Encabezado Oficial -->
+                <div class="glass-card rounded-2xl p-6 md:p-8 border border-slate-800">
+                    <div class="border-b-2 border-palette-blue pb-4 mb-4">
+                        <span class="bg-palette-blue/20 text-palette-cyan text-xs font-bold px-3 py-1 rounded-md uppercase tracking-wider border border-palette-blue/30">
+                            GUÍA DE TRABAJO NO. 5 - TERCER BIMESTRE
+                        </span>
+                        <h2 class="text-xl md:text-2xl font-extrabold text-white mt-3 leading-snug">
+                            TEMA: Composición y Modos de Color: Composición Digital Uniendo Vectores e Imágenes de Mapas de Bits, Configuración de Perfiles y Modos de Color según Salida (Pantalla: RGB / Prensa: CMYK)
+                        </h2>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-4 bg-slate-950/80 p-4 rounded-xl text-xs md:text-sm border border-slate-800">
+                            <div><strong class="text-slate-400">Institución:</strong><br><span class="text-slate-200">Instituto Industrial Central General Lázaro Chacón González</span></div>
+                            <div><strong class="text-slate-400">Carrera:</strong><br><span class="text-slate-200">Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</span></div>
+                            <div><strong class="text-slate-400">Grado:</strong><br><span class="text-slate-200">Quinto Bachillerato</span></div>
+                            <div><strong class="text-slate-400">Curso:</strong><br><span class="text-slate-200">Diseño Computarizado II</span></div>
+                            <div><strong class="text-slate-400">Docente:</strong><br><span class="text-slate-200">Erick Enrique Zamora Paz</span></div>
+                            <div><strong class="text-slate-400">Ponderación:</strong><br><span class="text-palette-cyan font-bold">10 puntos Netos</span></div>
+                            <div><strong class="text-slate-400">Fecha de Asignación:</strong><br><span class="text-slate-200">Viernes 14/08/2026</span></div>
+                            <div><strong class="text-slate-400">Fecha Límite:</strong><br><span class="text-palette-yellow font-semibold">Martes 18/08/2026, 23:59 hrs</span></div>
+                            <div><strong class="text-slate-400">Formato:</strong><br><span class="text-slate-200">Archivo único PDF en Classroom</span></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-palette-blue/10 border-l-4 border-palette-blue p-3.5 rounded-r-xl text-xs">
+                            <h3 class="font-bold text-palette-cyan uppercase mb-1">COMPETENCIA CNB</h3>
+                            <p class="text-slate-300 leading-relaxed">
+                                Integra imágenes de mapa de bits y trazados vectoriales en composiciones complejas, aplicando perfiles cromáticos, modelos de color e índices de resolución según las especificaciones técnicas de salida para medios impresos y digitales.
+                            </p>
+                        </div>
+                        <div class="bg-palette-cyan/10 border-l-4 border-palette-cyan p-3.5 rounded-r-xl text-xs">
+                            <h3 class="font-bold text-palette-yellow uppercase mb-1">INDICADOR DE LOGRO</h3>
+                            <p class="text-slate-300 leading-relaxed">
+                                3.1. Ajusta los modos de color (RGB, CMYK, Escala de Grises) y perfiles ICC en proyectos de diseño publicitario, garantizando la fidelidad cromática y la separación técnica de canales según el soporte final.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Recursos de apoyo list -->
+                    <div class="p-4 bg-slate-950/90 rounded-xl border border-slate-800 text-xs space-y-2">
+                        <h4 class="font-bold text-palette-yellow flex items-center gap-2">
+                            <i class="fa-solid fa-folder-open"></i> RECURSOS DE APOYO CONFIRMADOS
+                        </h4>
+                        <ul class="list-disc list-inside text-slate-300 space-y-1">
+                            <li>Software de edición de mapa de bits y diseño vectorial del laboratorio (Adobe Photoshop / Adobe Illustrator / Inkscape / GIMP).</li>
+                            <li>Guía técnica interactiva sobre perfiles cromáticos ICC (FOGRA39, GRACoL, sRGB), aviso de fuera de gama y separación de canales TAC (disponible en la pestaña interactiva adjunta).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Resumen Actividades Académicas -->
+                <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-base font-bold text-white border-b border-slate-800 pb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-palette-cyan"></i> ACTIVIDADES A DESARROLLAR
                     </h3>
-                    <ul class="space-y-2.5 text-xs text-slate-300">
-                        <li class="flex items-start gap-2.5">
-                            <i class="fa-solid fa-pen-nib text-brand-cyan mt-0.5"></i>
-                            <span><strong class="text-white">TEXTO DE ANÁLISIS ESCRITO:</strong> Cada actividad exige una respuesta escrita explicativa. Debes redactarla en texto editable iniciando obligatoriamente con <strong class="text-brand-cyan">Actividad 1:</strong>, <strong class="text-brand-magenta">Actividad 2:</strong> o <strong class="text-brand-yellow">Actividad 3:</strong>.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <i class="fa-solid fa-image text-brand-magenta mt-0.5"></i>
-                            <span><strong class="text-white">SUBIDA DE CAPTURAS:</strong> Utiliza las casillas de subida en cada pestaña para adjuntar las capturas de pantalla de tus ejercicios en Inkscape/Illustrator/Photoshop.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <i class="fa-solid fa-file-pdf text-rose-400 mt-0.5"></i>
-                            <span><strong class="text-white">ENTREGABLE EN PDF ÚNICO:</strong> Genera el PDF desde el compilador integrado e inclúyelo en la entrega oficial de Google Classroom.</span>
-                        </li>
+
+                    <div class="space-y-4 text-xs">
+                        <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-palette-cyan text-sm">Actividad 1: Composición Digital Híbrida (Vectores + Mapa de Bits) y Máscaras de Recorte</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-palette-blue/20 text-palette-cyan font-bold">3 pts</span>
+                            </div>
+                            <p class="text-slate-300">Creación de un afiche o pieza publicitaria compleja combinando imágenes de mapa de bits recortadas con máscaras no destructivas y trazados vectoriales.</p>
+                            <p class="text-slate-400"><strong>Evidencia:</strong> Captura legible del lienzo con el panel de capas y máscaras visible. <strong>Texto:</strong> Análisis técnico de mínimo 5 líneas sobre píxeles vs. vectores.</p>
+                        </div>
+
+                        <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-palette-cyan text-sm">Actividad 2: Configuración y Conversión de Perfiles Cromáticos (RGB vs. CMYK)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-palette-blue/20 text-palette-cyan font-bold">4 pts</span>
+                            </div>
+                            <p class="text-slate-300">Configuración de perfiles ICC en dos salidas (sRGB a 72/150 DPI vs. FOGRA39/GRACoL a 300 DPI) con aviso de fuera de gama (Gamut Warning) y prueba en pantalla (Soft Proofing).</p>
+                            <p class="text-slate-400"><strong>Evidencia:</strong> Captura de la ventana de configuración y comparativa visual lado a lado con el aviso de fuera de gama activo. <strong>Texto:</strong> Tabla comparativa de especificaciones técnicas.</p>
+                        </div>
+
+                        <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-palette-cyan text-sm">Actividad 3: Análisis de Separación de Canales y Control de Cobertura de Tinta (TAC)</span>
+                                <span class="px-2.5 py-0.5 rounded-full bg-palette-blue/20 text-palette-cyan font-bold">3 pts</span>
+                            </div>
+                            <p class="text-slate-300">Inspección de separación de canales cromáticos (C, M, Y, K), verificación de negro 100%K en textos finos, negro enriquecido (C:40 M:30 Y:30 K:100) y medición de TAC (&lt;300%).</p>
+                            <p class="text-slate-400"><strong>Evidencia:</strong> Captura del panel de canales con la placa de negro (K) aislada y lectura de muestra cromática en la zona oscura. <strong>Texto:</strong> Informe técnico de mínimo 150 palabras.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reglas de Entrega -->
+                <div class="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+                    <h3 class="text-base font-bold text-white border-b border-slate-800 pb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-palette-yellow"></i> REGLAS GENERALES DE OBLIGADO CUMPLIMIENTO
+                    </h3>
+                    <ul class="list-disc list-inside text-xs text-slate-300 space-y-2 leading-relaxed">
+                        <li><strong>TEXTO DE ANÁLISIS:</strong> Todo análisis, tabla de especificaciones e informe debe escribirse directamente en texto editable en el documento PDF.</li>
+                        <li><strong>EVIDENCIAS:</strong> Insertar las capturas de pantalla requeridas directamente en el informe PDF antes de cada escrito.</li>
+                        <li><strong>REDACCIÓN PROPIA:</strong> Las explicaciones y especificaciones deben redactarse con palabras propias del estudiante sin copiar literalmente los enunciados.</li>
+                        <li><strong>FORMATO:</strong> Archivo único PDF en Google Classroom con los títulos <code class="text-palette-cyan font-mono">Actividad 1:</code>, <code class="text-palette-cyan font-mono">Actividad 2:</code> y <code class="text-palette-cyan font-mono">Actividad 3:</code>.</li>
                     </ul>
                 </div>
 
-                <!-- Competencies & Tools Card -->
-                <div class="bg-slate-900/80 rounded-xl p-5 border border-slate-800 space-y-4">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-                        <i class="fa-solid fa-bullseye text-emerald-400"></i>
-                        Competencia e Indicadores de Logro
-                    </h3>
-                    <div class="space-y-3 text-xs">
-                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
-                            <p class="font-semibold text-brand-cyan mb-1">Competencia Principal:</p>
-                            <p class="text-slate-300">Combina con precisión técnica gráficos vectoriales y fotografías matriciales, aplicando perfiles cromáticos estandarizados de acuerdo con la naturaleza del medio de reproducción final.</p>
-                        </div>
-                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
-                            <p class="font-semibold text-emerald-400 mb-1">Indicador de Logro:</p>
-                            <p class="text-slate-300">Diferencia la resolución en DPI, el comportamiento del gamut en RGB frente a CMYK y aplica marcas de sangrado en composiciones híbridas.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
+        </div>
 
-            <!-- Interactive Roadmap / Quick Start -->
-            <div class="bg-slate-900/50 rounded-xl p-6 border border-slate-800">
-                <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-map-location-dot text-brand-cyan"></i> Ruta Sugerida de Trabajo
-                </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div onclick="switchTab('tab-act1')" class="cursor-pointer bg-slate-900 hover:bg-slate-800 p-4 rounded-xl border border-slate-800 transition group">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="w-8 h-8 rounded-lg bg-brand-cyan/20 text-brand-cyan font-bold flex items-center justify-center text-sm">1</span>
-                            <span class="text-xs font-bold text-brand-cyan">4 Puntos</span>
-                        </div>
-                        <h4 class="font-semibold text-white text-sm group-hover:text-brand-cyan transition">Vectores vs. Bitmaps</h4>
-                        <p class="text-xs text-slate-400 mt-1">Sube la captura de vectorización/trazo + prueba interactiva de zoom.</p>
-                    </div>
-
-                    <div onclick="switchTab('tab-act2')" class="cursor-pointer bg-slate-900 hover:bg-slate-800 p-4 rounded-xl border border-slate-800 transition group">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="w-8 h-8 rounded-lg bg-brand-magenta/20 text-brand-magenta font-bold flex items-center justify-center text-sm">2</span>
-                            <span class="text-xs font-bold text-brand-magenta">3 Puntos</span>
-                        </div>
-                        <h4 class="font-semibold text-white text-sm group-hover:text-brand-magenta transition">Modos RGB vs. CMYK</h4>
-                        <p class="text-xs text-slate-400 mt-1">Sube captura de ajuste de perfil FOGRA39 + prueba de conversión.</p>
-                    </div>
-
-                    <div onclick="switchTab('tab-act3')" class="cursor-pointer bg-slate-900 hover:bg-slate-800 p-4 rounded-xl border border-slate-800 transition group">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="w-8 h-8 rounded-lg bg-brand-yellow/20 text-brand-yellow font-bold flex items-center justify-center text-sm">3</span>
-                            <span class="text-xs font-bold text-brand-yellow">3 Puntos</span>
-                        </div>
-                        <h4 class="font-semibold text-white text-sm group-hover:text-brand-yellow transition">Afiche Híbrido & Pre-prensa</h4>
-                        <p class="text-xs text-slate-400 mt-1">Sube la captura del afiche A4 con sangrado de 3mm + marcas de corte.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: ACTIVIDAD 1 - VECTORES VS BITMAPS -->
-        <section id="tab-act1" class="tab-content hidden space-y-6">
-            <!-- Header info -->
-            <div class="bg-slate-900/90 rounded-xl p-5 border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div>
-                    <span class="px-2.5 py-1 rounded bg-brand-cyan/20 text-brand-cyan text-xs font-bold uppercase">Actividad 1 - Valor: 4 Puntos</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Integración de Arte Vectorial y Gráficos Matriciales (Bitmaps)</h2>
-                    <p class="text-xs text-slate-300 mt-1">Diseña o vectoriza un isotipo en <strong class="text-white">Inkscape / Illustrator</strong> y analiza la escalabilidad frente al mapa de bits.</p>
-                </div>
-                <div class="bg-slate-950 px-4 py-2 rounded-lg border border-slate-800 text-xs flex items-center gap-2">
-                    <i class="fa-solid fa-vector-square text-brand-cyan text-base"></i>
-                    <div>
-                        <span id="act1-status" class="font-bold text-brand-yellow">Incompleto</span>
-                        <p class="text-slate-400 text-[10px]">Requisitos: <span id="act1-count">0</span>/4</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Interactive Vector vs Raster Zoom Simulator (Left) -->
-                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-xl flex flex-col">
-                    <div class="bg-slate-950 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                        <div class="flex items-center gap-2 text-xs font-semibold text-slate-200">
-                            <i class="fa-solid fa-magnifying-glass text-brand-cyan"></i>
-                            <span>Simulador de Zoom: Vector vs. Bitmap Pixelado</span>
-                        </div>
-                        <span class="text-[11px] font-mono text-brand-cyan" id="zoom-val-display">Zoom: 100%</span>
-                    </div>
-
-                    <div class="p-5 space-y-4">
-                        <!-- Zoom Slider -->
-                        <div class="space-y-1">
-                            <label class="block text-xs font-mono text-slate-300">Aumentar Zoom (Escala de Inspección):</label>
-                            <input type="range" id="zoomSlider" min="100" max="600" value="100" oninput="updateZoomSimulator(this.value)" class="w-full accent-brand-cyan cursor-pointer">
-                        </div>
-
-                        <!-- Side by side preview canvas -->
-                        <div class="grid grid-cols-2 gap-4">
-                            <!-- Raster Side -->
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center overflow-hidden">
-                                <span class="text-[10px] font-mono text-rose-400 block mb-2">MAPA DE BITS / RASTER (300 DPI -> 72 DPI)</span>
-                                <div class="w-full h-40 flex items-center justify-center overflow-hidden border border-slate-800 rounded bg-slate-900">
-                                    <div id="raster-circle" class="w-20 h-20 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 transition-all duration-200" style="transform: scale(1); filter: contrast(100%);"></div>
-                                </div>
-                                <p class="text-[10px] text-slate-400 mt-2 font-mono" id="raster-desc">Muestreo por píxeles continuos</p>
-                            </div>
-
-                            <!-- Vector Side -->
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center overflow-hidden">
-                                <span class="text-[10px] font-mono text-brand-cyan block mb-2">TRAZO VECTORIAL (BÉZIER / INKSCAPE)</span>
-                                <div class="w-full h-40 flex items-center justify-center overflow-hidden border border-slate-800 rounded bg-slate-900">
-                                    <svg id="vector-svg" class="w-20 h-20 transition-all duration-200" viewBox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="40" fill="url(#cyanGrad)" stroke="#00f0ff" stroke-width="2"/>
-                                        <defs>
-                                            <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                <stop offset="0%" stop-color="#00f0ff" />
-                                                <stop offset="100%" stop-color="#7000ff" />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <p class="text-[10px] text-slate-400 mt-2 font-mono">Fórmula matemática infinitamente nítida</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Evidence Upload & Written Requirement (Right) -->
-                <div class="lg:col-span-5 space-y-4">
-                    <!-- Screenshot Upload Box -->
-                    <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-camera text-brand-cyan"></i> Captura de Pantalla Requerida
-                        </h3>
-                        <p class="text-xs text-slate-300">
-                            Sube la captura de tu ejercicio en <strong class="text-white">Inkscape / Illustrator</strong> (Trazado vectorial o vectorización de logotipo):
-                        </p>
-                        
-                        <div class="space-y-2">
-                            <input type="file" id="act1-file" accept="image/*" onchange="handleImageUpload(this, 'act1-img-prev', 'pdf-img-1', 'act1-ph')" class="hidden">
-                            <label for="act1-file" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-dashed border-brand-cyan/50 rounded-lg text-xs text-brand-cyan font-bold flex items-center justify-center gap-2 cursor-pointer transition">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>
-                                <span>Seleccionar Captura de Inkscape/Illustrator</span>
-                            </label>
-                        </div>
-
-                        <!-- Image Preview Box -->
-                        <div id="act1-ph" class="p-3 bg-slate-900/50 rounded-lg border border-slate-800 text-center text-xs text-slate-500">
-                            Ninguna imagen seleccionada aún.
-                        </div>
-                        <img id="act1-img-prev" class="w-full h-32 object-cover rounded-lg border border-brand-cyan hidden" alt="Vista previa captura 1">
-                    </div>
-
-                    <!-- Written Text Area Section -->
-                    <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-pen-fancy text-brand-cyan"></i> Análisis Escrito Obligatorio
-                            </h3>
-                            <span class="text-[10px] bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/30 px-2 py-0.5 rounded font-mono">
-                                Iniciar con 'Actividad 1:'
-                            </span>
-                        </div>
-
-                        <p class="text-[11px] text-slate-400 leading-normal">
-                            Explica detalladamente la diferencia de comportamiento entre un vector e imagen de mapa de bits al modificar su tamaño para impresión a gran formato.
-                        </p>
-
-                        <textarea id="act1-text" oninput="checkAct1Validation()" rows="5" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-800 focus:border-brand-cyan outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu respuesta. Ejemplo:
-Actividad 1:
-La principal diferencia técnica entre un mapa de bits y un gráfico vectorial radica en su estructura de almacenamiento. Los mapas de bits dependen de una grilla finita de píxeles (DPI)..."></textarea>
-
-                        <div class="flex items-center justify-between text-[11px] text-slate-400">
-                            <span id="act1-word-count">Palabras: 0</span>
-                            <span id="act1-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 1:' o texto suficiente</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 3: ACTIVIDAD 2 - MODOS DE COLOR Y PERFILES ICC -->
-        <section id="tab-act2" class="tab-content hidden space-y-6">
-            <!-- Header info -->
-            <div class="bg-slate-900/90 rounded-xl p-5 border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div>
-                    <span class="px-2.5 py-1 rounded bg-brand-magenta/20 text-brand-magenta text-xs font-bold uppercase">Actividad 2 - Valor: 3 Puntos</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Configuración de Modos de Color y Perfiles Cromáticos ICC</h2>
-                    <p class="text-xs text-slate-300 mt-1">Configura documentos en <strong class="text-white">RGB (sRGB)</strong> para pantallas y <strong class="text-white">CMYK (FOGRA39 / ISO Coated)</strong> para impresión offset/digital.</p>
-                </div>
-                <div class="bg-slate-950 px-4 py-2 rounded-lg border border-slate-800 text-xs flex items-center gap-2">
-                    <i class="fa-solid fa-palette text-brand-magenta text-base"></i>
-                    <div>
-                        <span id="act2-status" class="font-bold text-brand-yellow">Incompleto</span>
-                        <p class="text-slate-400 text-[10px]">Requisitos: <span id="act2-count">0</span>/4</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Color Gamut Simulator (Left) -->
-                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-800 p-5 space-y-5">
-                    <h3 class="text-sm font-bold text-white flex items-center justify-between border-b border-slate-800 pb-3">
-                        <span class="flex items-center gap-2"><i class="fa-solid fa-sliders text-brand-magenta"></i> Simulador de Gamut: RGB vs. CMYK (Pérdida de Neón)</span>
-                        <span class="text-xs font-mono text-brand-magenta">Gamut Warning Test</span>
-                    </h3>
-
-                    <!-- Interactive Color Picker Input -->
-                    <div class="grid sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-                            <label class="block text-xs font-mono text-slate-300">Selecciona Tono Neón en Pantalla (RGB):</label>
-                            <input type="color" id="rgbPicker" value="#00f0ff" onchange="updateColorGamutSim(this.value)" class="w-full h-12 rounded cursor-pointer bg-transparent border-0">
-                            <div class="text-[11px] font-mono text-slate-400" id="rgbValCode">HEX: #00F0FF | RGB(0, 240, 255)</div>
-                        </div>
-
-                        <!-- CMYK Conversion Result -->
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-                            <span class="text-xs font-mono text-brand-yellow block">Resultado Simulado Impresión CMYK (FOGRA39):</span>
-                            <div id="cmykBoxPrev" class="w-full h-12 rounded border border-slate-700 flex items-center justify-center font-mono text-xs font-bold text-slate-950" style="background-color: #00c8d6;">
-                                CMYK Impreso
-                            </div>
-                            <div class="text-[10px] font-mono text-slate-400" id="cmykValCode">C: 100% | M: 0% | Y: 10% | K: 0%</div>
-                        </div>
-                    </div>
-
-                    <!-- Warning Alert Box -->
-                    <div id="gamutAlert" class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs text-amber-300 flex items-start gap-2">
-                        <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-0.5"></i>
-                        <span><strong class="text-white">Alerta de Fuera de Gama:</strong> Los colores extremadamente brillantes o fosforescentes de pantalla (RGB) pierden saturación al convertirse a tintas físicas de impresión (CMYK).</span>
-                    </div>
-                </div>
-
-                <!-- Written Requirement & Evidence Upload (Right) -->
-                <div class="lg:col-span-5 space-y-4">
-                    <!-- Screenshot Upload Box -->
-                    <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-camera text-brand-magenta"></i> Captura de Pantalla Requerida
-                        </h3>
-                        <p class="text-xs text-slate-300">
-                            Sube la captura de la configuración del Documento o Muestra de Color en <strong class="text-white">CMYK (FOGRA39 / 300 DPI)</strong> en tu software:
-                        </p>
-                        
-                        <div class="space-y-2">
-                            <input type="file" id="act2-file" accept="image/*" onchange="handleImageUpload(this, 'act2-img-prev', 'pdf-img-2', 'act2-ph')" class="hidden">
-                            <label for="act2-file" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-dashed border-brand-magenta/50 rounded-lg text-xs text-brand-magenta font-bold flex items-center justify-center gap-2 cursor-pointer transition">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>
-                                <span>Seleccionar Captura de Modo CMYK / Perfil</span>
-                            </label>
-                        </div>
-
-                        <!-- Image Preview Box -->
-                        <div id="act2-ph" class="p-3 bg-slate-900/50 rounded-lg border border-slate-800 text-center text-xs text-slate-500">
-                            Ninguna imagen seleccionada aún.
-                        </div>
-                        <img id="act2-img-prev" class="w-full h-32 object-cover rounded-lg border border-brand-magenta hidden" alt="Vista previa captura 2">
-                    </div>
-
-                    <!-- Written Text Area Section -->
-                    <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-pen-fancy text-brand-magenta"></i> Análisis Escrito Obligatorio
-                            </h3>
-                            <span class="text-[10px] bg-brand-magenta/10 text-brand-magenta border border-brand-magenta/30 px-2 py-0.5 rounded font-mono">
-                                Iniciar con 'Actividad 2:'
-                            </span>
-                        </div>
-
-                        <p class="text-[11px] text-slate-400 leading-normal">
-                            Explica la importancia de asignar el perfil FOGRA39 o Coated v2 en archivos de imprenta y por qué nunca se debe enviar un archivo RGB a producción gráfica.
-                        </p>
-
-                        <textarea id="act2-text" oninput="checkAct2Validation()" rows="5" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-800 focus:border-brand-magenta outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu respuesta. Ejemplo:
-Actividad 2:
-Configurar correctamente el perfil ICC en CMYK (como FOGRA39) garantiza que los colores proyectados en el monitor tengan el menor rango de error al ser impresos con tintas cyan, magenta, amarillo y negro..."></textarea>
-
-                        <div class="flex items-center justify-between text-[11px] text-slate-400">
-                            <span id="act2-word-count">Palabras: 0</span>
-                            <span id="act2-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 2:' o texto suficiente</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 4: ACTIVIDAD 3 - AFICHE HÍBRIDO Y PRE-PRENSA -->
-        <section id="tab-act3" class="tab-content hidden space-y-6">
-            <!-- Header info -->
-            <div class="bg-slate-900/90 rounded-xl p-5 border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div>
-                    <span class="px-2.5 py-1 rounded bg-brand-yellow/20 text-brand-yellow text-xs font-bold uppercase">Actividad 3 - Valor: 3 Puntos</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Composición de Afiche Promocional Híbrido (A4) y Marcas de Pre-prensa</h2>
-                    <p class="text-xs text-slate-300 mt-1">Diseña un afiche publicitario combinando fotografía a <strong class="text-white">300 DPI</strong> con titulados vectoriales, agregando <strong class="text-white">3 mm de Sangrado (Bleed)</strong>.</p>
-                </div>
-                <div class="bg-slate-950 px-4 py-2 rounded-lg border border-slate-800 text-xs flex items-center gap-2">
-                    <i class="fa-solid fa-print text-brand-yellow text-base"></i>
-                    <div>
-                        <span id="act3-status" class="font-bold text-brand-yellow">Incompleto</span>
-                        <p class="text-slate-400 text-[10px]">Requisitos: <span id="act3-count">0</span>/4</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Bleed Visualizer Canvas (Left) -->
-                <div class="lg:col-span-7 bg-slate-900 rounded-xl border border-slate-800 p-5 space-y-4">
-                    <h3 class="text-sm font-bold text-white flex items-center justify-between border-b border-slate-800 pb-3">
-                        <span class="flex items-center gap-2"><i class="fa-solid fa-crop-simple text-brand-yellow"></i> Esquema de Sangrado (+3mm) y Margen de Seguridad (-4mm)</span>
-                        <span class="text-xs font-mono text-brand-yellow">Lienzo A4</span>
-                    </h3>
-
-                    <!-- Visual Canvas Mockup -->
-                    <div class="relative w-full aspect-[4/3] bg-slate-950 rounded-xl border border-slate-800 p-4 flex items-center justify-center overflow-hidden">
-                        <!-- Outer Bleed Box (+3mm) -->
-                        <div class="w-[92%] h-[88%] border-2 border-dashed border-brand-cyan relative flex items-center justify-center">
-                            <span class="absolute top-1 left-2 text-[9px] font-mono text-brand-cyan bg-slate-950 px-1">Línea de Sangrado (+3mm Bleed)</span>
-
-                            <!-- Cut Line (Trim Line) -->
-                            <div class="w-[88%] h-[84%] border-2 border-rose-500 relative flex items-center justify-center bg-slate-900/80">
-                                <span class="absolute top-1 left-2 text-[9px] font-mono text-rose-400 bg-slate-950 px-1">Línea de Corte (Trim Line)</span>
-
-                                <!-- Safe Margin Box (-4mm) -->
-                                <div class="w-[82%] h-[78%] border-2 border-dashed border-emerald-400 relative flex flex-col items-center justify-center p-2 text-center bg-emerald-950/20">
-                                    <span class="absolute top-1 left-2 text-[9px] font-mono text-emerald-400 bg-slate-950 px-1">Margen de Seguridad (-4mm)</span>
-                                    <i class="fa-solid fa-shield-halved text-emerald-400 text-lg mb-1"></i>
-                                    <span class="text-xs font-bold text-white">Área Segura para Textos y Logotipos</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Written Requirement & Evidence Upload (Right) -->
-                <div class="lg:col-span-5 space-y-4">
-                    <!-- Screenshot Upload Box -->
-                    <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3">
-                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-camera text-brand-yellow"></i> Captura del Afiche Promocional
-                        </h3>
-                        <p class="text-xs text-slate-300">
-                            Sube la captura del arte final de tu <strong class="text-white">Afiche Híbrido Promocional A4</strong> (con foto a 300 DPI y vectores):
-                        </p>
-                        
-                        <div class="space-y-2">
-                            <input type="file" id="act3-file" accept="image/*" onchange="handleImageUpload(this, 'act3-img-prev', 'pdf-img-3', 'act3-ph')" class="hidden">
-                            <label for="act3-file" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-dashed border-brand-yellow/50 rounded-lg text-xs text-brand-yellow font-bold flex items-center justify-center gap-2 cursor-pointer transition">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>
-                                <span>Seleccionar Captura del Afiche A4</span>
-                            </label>
-                        </div>
-
-                        <!-- Image Preview Box -->
-                        <div id="act3-ph" class="p-3 bg-slate-900/50 rounded-lg border border-slate-800 text-center text-xs text-slate-500">
-                            Ninguna imagen seleccionada aún.
-                        </div>
-                        <img id="act3-img-prev" class="w-full h-32 object-cover rounded-lg border border-brand-yellow hidden" alt="Vista previa captura 3">
-                    </div>
-
-                    <!-- Written Text Area Section -->
-                    <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-pen-fancy text-brand-yellow"></i> Análisis Escrito Obligatorio
-                            </h3>
-                            <span class="text-[10px] bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/30 px-2 py-0.5 rounded font-mono">
-                                Iniciar con 'Actividad 3:'
-                            </span>
-                        </div>
-
-                        <p class="text-[11px] text-slate-400 leading-normal">
-                            Justifica por qué es indispensable dejar 3 mm de sangrado y mantener los textos dentro del margen de seguridad de 4 mm al imprimir con guillotina.
-                        </p>
-
-                        <textarea id="act3-text" oninput="checkAct3Validation()" rows="5" class="w-full bg-slate-900 text-xs text-slate-100 p-3 rounded-lg border border-slate-800 focus:border-brand-yellow outline-none font-sans leading-relaxed" placeholder="Escribe aquí tu respuesta. Ejemplo:
-Actividad 3:
-El sangrado de 3 mm garantiza que al pasar la guillotina de corte en la imprenta no queden filos blancos o bordes no deseados. Por otro lado, el margen interno de seguridad previene que los textos..."></textarea>
-
-                        <div class="flex items-center justify-between text-[11px] text-slate-400">
-                            <span id="act3-word-count">Palabras: 0</span>
-                            <span id="act3-kw-check" class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> Falta título 'Actividad 3:' o texto suficiente</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 5: COMPILADOR Y GENERADOR PDF FINAL -->
-        <section id="tab-entregable" class="tab-content hidden space-y-6">
-            <div class="bg-slate-900/90 rounded-xl p-5 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <span class="px-2.5 py-1 rounded bg-brand-cyan/20 text-brand-cyan text-xs font-bold uppercase">Compilador Oficial de Tarea</span>
-                    <h2 class="text-xl font-bold text-white mt-1">Compilador y Verificador del Documento Entregable</h2>
-                    <p class="text-xs text-slate-300 mt-1">Completa tus datos personales, verifica el puntaje de rúbrica y descarga el archivo PDF para Google Classroom.</p>
-                </div>
-                <button onclick="downloadAsPDF()" class="px-4 py-2.5 bg-gradient-to-r from-brand-cyan via-brand-magenta to-brand-yellow text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-brand-cyan/20 transition flex items-center gap-2 hover:opacity-90">
-                    <i class="fa-solid fa-file-pdf text-base"></i>
-                    <span>Descargar PDF para Entrega</span>
-                </button>
-            </div>
-
-            <!-- Student Metadata Form -->
-            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1">Nombre Completo del Estudiante:</label>
-                    <input type="text" id="student-name" oninput="updatePDFPreview()" placeholder="Ej: María José Ramírez Juárez" class="w-full bg-slate-950 text-xs text-white p-2.5 rounded border border-slate-800 focus:border-brand-cyan outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1">Clave y Sección:</label>
-                    <input type="text" id="student-key" oninput="updatePDFPreview()" placeholder="Ej: Clave 12 - Sección A" class="w-full bg-slate-950 text-xs text-white p-2.5 rounded border border-slate-800 focus:border-brand-cyan outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-300 mb-1">Fecha de Entrega:</label>
-                    <input type="text" id="delivery-date" value="14 de Agosto de 2026" class="w-full bg-slate-950 text-xs text-slate-400 p-2.5 rounded border border-slate-800" readonly>
-                </div>
-            </div>
-
-            <!-- Rubric Live Score Assessment Banner -->
-            <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <div id="score-badge" class="w-14 h-14 rounded-full bg-brand-cyan/20 border-2 border-brand-cyan text-brand-cyan font-extrabold text-lg flex items-center justify-center">
-                        0/10
-                    </div>
-                    <div>
-                        <h4 class="text-sm font-bold text-white">Verificación Automática de Rúbrica</h4>
-                        <p id="score-description" class="text-xs text-slate-400">Completa las 3 actividades y sube tus capturas para obtener los 10 puntos netos.</p>
-                    </div>
-                </div>
-                <button onclick="openModal('modal-rubrica')" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-xs text-slate-200 rounded border border-slate-700">
-                    Ver Criterios de Rúbrica (10 pts)
-                </button>
-            </div>
-
-            <!-- REAL DOCUMENT PRINT PREVIEW AREA -->
-            <div id="pdf-document-area" class="bg-white text-slate-900 p-8 sm:p-12 rounded-xl shadow-2xl max-w-4xl mx-auto space-y-8 font-sans text-xs">
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 2: RECURSO DE APOYO TÉCNICO INTERACTIVO (COLOR & ICC) -->
+        <!-- ==================================================================== -->
+        <div id="resourceTab" class="tab-content hidden">
+            <div class="space-y-8">
                 
-                <!-- Institutional Header -->
-                <div class="border-b-2 border-slate-900 pb-4 flex justify-between items-start">
-                    <div>
-                        <h1 class="text-base font-extrabold text-slate-900 uppercase">INFORME TÉCNICO DE TRABAJO - GUÍA NO. 5</h1>
-                        <p class="text-xs font-semibold text-slate-700">Curso: Diseño Computarizado II | 5to. Bachillerato en Diseño Gráfico</p>
-                        <p class="text-[11px] text-slate-600">Tema: Composición Digital y Modos de Color (RGB / CMYK / DPI)</p>
-                    </div>
-                    <div class="text-right">
-                        <span class="inline-block bg-slate-900 text-white font-bold text-xs px-2.5 py-1 rounded">VALOR: 10 PTS</span>
-                        <p class="text-[10px] text-slate-500 mt-1 font-mono">Ciclo Lectivo 2026</p>
-                    </div>
-                </div>
-
-                <!-- Student Info Card -->
-                <div class="bg-slate-100 p-3 rounded border border-slate-300 grid grid-cols-2 gap-2 text-xs">
-                    <div><strong>Estudiante:</strong> <span id="pdf-preview-name" class="text-slate-800">[Nombre del Estudiante]</span></div>
-                    <div><strong>Clave/Sección:</strong> <span id="pdf-preview-key" class="text-slate-800">[Clave / Sección]</span></div>
-                    <div><strong>Fecha de Publicación:</strong> 14 de Agosto de 2026</div>
-                    <div><strong>Fecha de Entrega:</strong> 14 de Agosto de 2026</div>
-                </div>
-
-                <!-- SECTION 1 -->
-                <div class="space-y-3 border-b border-slate-200 pb-6">
-                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-cyan-500 pl-2">
-                        Actividad 1: Integración Vectorial y Análisis de Escala
-                    </h2>
-                    <div id="pdf-act1-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
-                        [El texto escrito de la Actividad 1 aparecerá aquí automáticamente]
-                    </div>
-                    <!-- Evidence Box 1 -->
-                    <div class="space-y-1">
-                        <p class="font-bold text-slate-700 text-[11px]">Evidencia de Captura de Pantalla 1 (Inkscape / Illustrator):</p>
-                        <img id="pdf-img-1" class="w-full max-h-64 object-contain rounded border border-slate-300 hidden" alt="Captura 1 PDF">
+                <!-- Hero Resource Header -->
+                <div class="relative overflow-hidden p-8 rounded-2xl glass-card border border-slate-800">
+                    <div class="absolute top-0 right-0 w-80 h-80 bg-cmyk-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 text-center max-w-3xl mx-auto">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900 border border-cmyk-cyan/30 text-cmyk-cyan text-xs font-mono mb-4">
+                            <span class="w-2 h-2 rounded-full bg-cmyk-cyan animate-pulse"></span>
+                            <span>RECURSO DE APOYO TÉCNICO INTERACTIVO // MODOS & PERFILES ICC</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white mb-3 leading-tight">
+                            Guía Técnica sobre Gestión de Color, <br>
+                            <span class="gradient-text-cmyk">Perfiles ICC, Gamut & Control TAC</span>
+                        </h2>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                            Aprenda a detectar tonos fuera de gama al convertir de RGB a CMYK, inspeccione placas de canales y verifique la cobertura de tinta (TAC) para evitar problemas de imprenta.
+                        </p>
                     </div>
                 </div>
 
-                <!-- SECTION 2 -->
-                <div class="space-y-3 border-b border-slate-200 pb-6">
-                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-pink-500 pl-2">
-                        Actividad 2: Configuración de Perfiles de Color y Gamut Cromático
-                    </h2>
-                    <div id="pdf-act2-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
-                        [El texto escrito de la Actividad 2 aparecerá aquí automáticamente]
+                <!-- SECCIÓN 01: SIMULADOR DE AVISO DE FUERA DE GAMA (GAMUT WARNING) -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-8 bg-cmyk-magenta rounded-full"></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">01. Simulador de Conversión RGB $\rightarrow$ CMYK y Aviso Fuera de Gama (*Gamut Warning*)</h3>
+                                <p class="text-xs text-slate-400">Observe cómo se desaturan los tonos neón al pasar a la gama imprimible de prensa.</p>
+                            </div>
+                        </div>
+
+                        <button onclick="toggleGamutWarning()" id="btn-gamut-toggle" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-cmyk-magenta/20 border border-cmyk-magenta/40 text-cmyk-magenta font-mono text-xs font-bold flex items-center gap-2 hover:bg-cmyk-magenta/30 transition">
+                            <i class="fa-solid fa-triangle-exclamation" id="icon-gamut"></i>
+                            <span id="label-gamut">Activar Aviso Fuera de Gama (Gamut Warning)</span>
+                        </button>
                     </div>
-                    <!-- Evidence Box 2 -->
-                    <div class="space-y-1">
-                        <p class="font-bold text-slate-700 text-[11px]">Evidencia de Captura de Pantalla 2 (CMYK / Photoshop):</p>
-                        <img id="pdf-img-2" class="w-full max-h-64 object-contain rounded border border-slate-300 hidden" alt="Captura 2 PDF">
+
+                    <!-- Muestras de Tono Interactivas -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        
+                        <!-- Color 1: Cian Neón -->
+                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+                            <div class="flex justify-between items-center text-xs font-mono">
+                                <span class="text-slate-300 font-bold">Cian Neón / Eléctrico</span>
+                                <span class="text-palette-cyan">sRGB vs. FOGRA39</span>
+                            </div>
+
+                            <div class="relative h-28 rounded-lg overflow-hidden border border-slate-800 flex">
+                                <div class="w-1/2 h-full bg-[#00f0ff] p-2 flex flex-col justify-between text-[10px] font-mono text-slate-950 font-bold">
+                                    <span>RGB (Pantalla)</span>
+                                    <span>R:0 G:240 B:255</span>
+                                </div>
+
+                                <div id="cmyk-sample-1" class="w-1/2 h-full bg-[#00b2cc] p-2 flex flex-col justify-between text-[10px] font-mono text-slate-950 font-bold transition-colors duration-300">
+                                    <span>CMYK (Prensa)</span>
+                                    <span>C:85 M:0 Y:10 K:0</span>
+                                </div>
+
+                                <!-- Gamut Alert Overlay -->
+                                <div id="gamut-overlay-1" class="absolute inset-y-0 right-0 w-1/2 bg-slate-500/80 backdrop-blur-[1px] opacity-0 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                                    <span class="bg-slate-950 text-amber-400 border border-amber-400/50 px-2 py-1 rounded text-[9px] font-mono font-bold flex items-center gap-1">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Fuera de Gama
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400">El cian RGB hiperbrillante pierde luminosidad debido a los límites de absorción del pigmento cian impreso.</p>
+                        </div>
+
+                        <!-- Color 2: Verde Vivo -->
+                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+                            <div class="flex justify-between items-center text-xs font-mono">
+                                <span class="text-slate-300 font-bold">Verde Esmeralda Neón</span>
+                                <span class="text-palette-cyan">sRGB vs. FOGRA39</span>
+                            </div>
+
+                            <div class="relative h-28 rounded-lg overflow-hidden border border-slate-800 flex">
+                                <div class="w-1/2 h-full bg-[#00ff55] p-2 flex flex-col justify-between text-[10px] font-mono text-slate-950 font-bold">
+                                    <span>RGB (Pantalla)</span>
+                                    <span>R:0 G:255 B:85</span>
+                                </div>
+
+                                <div id="cmyk-sample-2" class="w-1/2 h-full bg-[#2eab4f] p-2 flex flex-col justify-between text-[10px] font-mono text-slate-950 font-bold transition-colors duration-300">
+                                    <span>CMYK (Prensa)</span>
+                                    <span>C:75 M:0 Y:90 K:0</span>
+                                </div>
+
+                                <!-- Gamut Alert Overlay -->
+                                <div id="gamut-overlay-2" class="absolute inset-y-0 right-0 w-1/2 bg-slate-500/80 backdrop-blur-[1px] opacity-0 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                                    <span class="bg-slate-950 text-amber-400 border border-amber-400/50 px-2 py-1 rounded text-[9px] font-mono font-bold flex items-center gap-1">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Fuera de Gama
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400">Los verdes saturados sufren la mayor compresión cromática al pasar de luz RGB a cuatricromía CMYK.</p>
+                        </div>
+
+                        <!-- Color 3: Violeta Eléctrico -->
+                        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+                            <div class="flex justify-between items-center text-xs font-mono">
+                                <span class="text-slate-300 font-bold">Violeta / Azul Intenso</span>
+                                <span class="text-palette-cyan">sRGB vs. FOGRA39</span>
+                            </div>
+
+                            <div class="relative h-28 rounded-lg overflow-hidden border border-slate-800 flex">
+                                <div class="w-1/2 h-full bg-[#7000ff] p-2 flex flex-col justify-between text-[10px] font-mono text-white font-bold">
+                                    <span>RGB (Pantalla)</span>
+                                    <span>R:112 G:0 B:255</span>
+                                </div>
+
+                                <div id="cmyk-sample-3" class="w-1/2 h-full bg-[#522b82] p-2 flex flex-col justify-between text-[10px] font-mono text-white font-bold transition-colors duration-300">
+                                    <span>CMYK (Prensa)</span>
+                                    <span>C:85 M:95 Y:0 K:0</span>
+                                </div>
+
+                                <!-- Gamut Alert Overlay -->
+                                <div id="gamut-overlay-3" class="absolute inset-y-0 right-0 w-1/2 bg-slate-500/80 backdrop-blur-[1px] opacity-0 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                                    <span class="bg-slate-950 text-amber-400 border border-amber-400/50 px-2 py-1 rounded text-[9px] font-mono font-bold flex items-center gap-1">
+                                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Fuera de Gama
+                                    </span>
+                                </div>
+                            </div>
+
+                            <p class="text-[11px] text-slate-400">Los tonos violetas luminosos se oscurecen hacia tonos púrpuras apagados en papel sin tinta Pantone especial.</p>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- SECTION 3 -->
-                <div class="space-y-3">
-                    <h2 class="text-sm font-bold text-slate-900 uppercase border-l-4 border-yellow-500 pl-2">
-                        Actividad 3: Afiche Híbrido A4 y Pre-prensa (Sangrado + Seguridad)
-                    </h2>
-                    <div id="pdf-act3-body" class="text-slate-800 leading-relaxed whitespace-pre-wrap font-sans text-xs p-3 bg-slate-50 rounded border border-slate-200">
-                        [El texto escrito de la Actividad 3 aparecerá aquí automáticamente]
+                <!-- SECCIÓN 02: CALCULADORA DE COBERTURA TOTAL DE TINTA (TAC METER) -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-6">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="w-3 h-8 bg-cmyk-yellow rounded-full"></div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">02. Calculadora e Inspector de Cobertura Total de Tinta (TAC - Total Ink Coverage)</h3>
+                            <p class="text-xs text-slate-400">Ajuste los porcentajes de canal para evaluar si la carga cromática es segura para imprenta.</p>
+                        </div>
                     </div>
-                    <!-- Evidence Box 3 -->
-                    <div class="space-y-1">
-                        <p class="font-bold text-slate-700 text-[11px]">Evidencia de Captura de Pantalla 3 (Afiche Promocional A4):</p>
-                        <img id="pdf-img-3" class="w-full max-h-64 object-contain rounded border border-slate-300 hidden" alt="Captura 3 PDF">
+
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <!-- Controles de Sliders CMYK -->
+                        <div class="space-y-4 text-xs font-mono bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <h4 class="font-bold text-slate-200 text-sm border-b border-slate-800 pb-2">Valores Porcentuales Muestreados</h4>
+
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-cmyk-cyan font-bold">Cian (C):</span>
+                                    <span id="val-c">40%</span>
+                                </div>
+                                <input type="range" id="slider-c" min="0" max="100" value="40" oninput="calculateTAC()" class="w-full accent-cmyk-cyan">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-cmyk-magenta font-bold">Magenta (M):</span>
+                                    <span id="val-m">30%</span>
+                                </div>
+                                <input type="range" id="slider-m" min="0" max="100" value="30" oninput="calculateTAC()" class="w-full accent-cmyk-magenta">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-cmyk-yellow font-bold">Amarillo (Y):</span>
+                                    <span id="val-y">30%</span>
+                                </div>
+                                <input type="range" id="slider-y" min="0" max="100" value="30" oninput="calculateTAC()" class="w-full accent-cmyk-yellow">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-slate-300 font-bold">Negro (K):</span>
+                                    <span id="val-k">100%</span>
+                                </div>
+                                <input type="range" id="slider-k" min="0" max="100" value="100" oninput="calculateTAC()" class="w-full accent-slate-400">
+                            </div>
+                        </div>
+
+                        <!-- Indicador TAC Gauge -->
+                        <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="text-xs font-bold text-white uppercase font-mono">Lectura de Cobertura TAC Acumulada</h4>
+                                    <span id="tac-badge" class="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                                        SEGURO PARA PRENSA
+                                    </span>
+                                </div>
+
+                                <div class="text-3xl font-black font-mono text-white mb-2" id="tac-total-val">
+                                    200% TAC
+                                </div>
+
+                                <p id="tac-desc" class="text-xs text-slate-300 leading-relaxed">
+                                    Esta mezcla corresponde a la fórmula de **Negro Enriquecido (Rich Black)**. Es ideal para fondos oscuros sin correr riesgo de saturación excesiva de tinta.
+                                </p>
+                            </div>
+
+                            <!-- Visual Meter Bar -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-mono text-slate-400">
+                                    <span>Mín. 0%</span>
+                                    <span class="text-amber-400">Límite Recomendado: 300%</span>
+                                    <span>Máx. 400%</span>
+                                </div>
+                                <div class="w-full h-3.5 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800 relative">
+                                    <!-- Marker line at 300% (75% width) -->
+                                    <div class="absolute top-0 bottom-0 left-[75%] w-0.5 bg-amber-400 z-20"></div>
+                                    <div id="tac-bar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Document Footer -->
-                <div class="border-t border-slate-300 pt-3 text-center text-[10px] text-slate-500">
-                    <p>Entrega oficial de la Guía No. 5 para el curso de Diseño Computarizado II - 5to. Bachillerato en Diseño Gráfico</p>
+                <!-- SECCIÓN 03: SIMULADOR DE SEPARACIÓN DE CANALES CMYK -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-8 bg-palette-cyan rounded-full"></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white">03. Simulador Interactivo de Separación de Canales CMYK</h3>
+                                <p class="text-xs text-slate-400">Active o desactive los canales cromáticos para inspeccionar la película de cada placa.</p>
+                            </div>
+                        </div>
+
+                        <!-- Channel Selector Buttons -->
+                        <div class="flex flex-wrap gap-2 text-xs font-mono">
+                            <button onclick="toggleChannel('c')" id="btn-chan-c" class="px-3 py-1.5 rounded-lg bg-cmyk-cyan text-slate-950 font-bold transition">Cian (C)</button>
+                            <button onclick="toggleChannel('m')" id="btn-chan-m" class="px-3 py-1.5 rounded-lg bg-cmyk-magenta text-white font-bold transition">Magenta (M)</button>
+                            <button onclick="toggleChannel('y')" id="btn-chan-y" class="px-3 py-1.5 rounded-lg bg-cmyk-yellow text-slate-950 font-bold transition">Amarillo (Y)</button>
+                            <button onclick="toggleChannel('k')" id="btn-chan-k" class="px-3 py-1.5 rounded-lg bg-slate-700 text-white font-bold transition">Negro (K)</button>
+                            <button onclick="resetAllChannels()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition">Ver Todos</button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Box Simulation -->
+                    <div class="relative w-full aspect-[2/1] min-h-[220px] bg-slate-950 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between overflow-hidden shadow-2xl">
+                        <!-- Background preview box with simulated channels -->
+                        <div id="channel-canvas-preview" class="absolute inset-0 p-6 flex flex-col justify-between transition-all duration-300 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900">
+                            
+                            <div class="flex justify-between items-start z-10">
+                                <div>
+                                    <span class="text-xs font-bold text-white block">AFICHE PUBLICITARIO DIGITAL & PRENSA</span>
+                                    <span class="text-[10px] text-palette-cyan font-mono" id="chan-status-text">Canales Visibles: C + M + Y + K (Cuatricromía Completa)</span>
+                                </div>
+                                <span class="text-[10px] font-mono px-2 py-1 rounded bg-slate-900 border border-slate-800 text-slate-300">Resolución: 300 DPI</span>
+                            </div>
+
+                            <div class="my-auto z-10 text-center space-y-1">
+                                <div id="chan-title" class="text-2xl sm:text-3xl font-black tracking-tight transition-colors duration-300" style="color: #00f0ff;">
+                                    EXPERIENCIA VISUAL PURE COLOR
+                                </div>
+                                <p class="text-xs text-slate-300 font-mono" id="chan-subtitle">Placa K: Textos finos en K:100% puro para evitar descalce de registro.</p>
+                            </div>
+
+                            <div class="border-t border-slate-800 pt-2 flex justify-between text-[10px] font-mono text-slate-400 z-10">
+                                <span>Perfil: ISO Coated v2 (FOGRA39)</span>
+                                <span>Control TAC: 220% Máx</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- SECCIÓN 04: CATÁLOGO DE PERFILES CROMÁTICOS ICC -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-6">
+                    <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                        <div class="w-3 h-8 bg-palette-amber rounded-full"></div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">04. Catálogo de Perfiles Cromáticos ICC Estándar</h3>
+                            <p class="text-xs text-slate-400">Especificaciones técnicas de espacios de color según el soporte de salida final.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Perfil 1: sRGB -->
+                        <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-palette-cyan/20 text-palette-cyan block w-fit mb-2">PANTALLA / DIGITAL</span>
+                                <h4 class="font-bold text-white text-sm mb-1">sRGB IEC61966-2.1</h4>
+                                <p class="text-xs text-slate-400 mb-4 leading-relaxed">Espacio cromático estándar para monitores, web, redes sociales y dispositivos móviles.</p>
+                                <div class="space-y-1.5 text-xs font-mono">
+                                    <div class="flex justify-between border-b border-slate-800 pb-1">
+                                        <span class="text-slate-400">Modo:</span>
+                                        <span class="text-slate-200">RGB (Luz)</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-slate-800 pb-1">
+                                        <span class="text-slate-400">Resolución:</span>
+                                        <span class="text-palette-yellow font-bold">72 / 150 DPI</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-400">Gama:</span>
+                                        <span class="text-palette-cyan">Brillante / Neón</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+                                <strong class="text-white">Uso:</strong> Redes sociales, sitios web, e-books e iteración digital.
+                            </div>
+                        </div>
+
+                        <!-- Perfil 2: FOGRA39 -->
+                        <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cmyk-magenta/20 text-cmyk-magenta block w-fit mb-2">PRENSA OFFSET ESTUCADO</span>
+                                <h4 class="font-bold text-white text-sm mb-1">Coated FOGRA39 / ISO Coated v2</h4>
+                                <p class="text-xs text-slate-400 mb-4 leading-relaxed">Estándar europeo ISO 12647-2 para impresión comercial en papeles couché/estucados.</p>
+                                <div class="space-y-1.5 text-xs font-mono">
+                                    <div class="flex justify-between border-b border-slate-800 pb-1">
+                                        <span class="text-slate-400">Modo:</span>
+                                        <span class="text-slate-200">CMYK (Pigmento)</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-slate-800 pb-1">
+                                        <span class="text-slate-400">Resolución:</span>
+                                        <span class="text-palette-yellow font-bold">300 DPI</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-400">Límite TAC:</span>
+                                        <span class="text-emerald-400 font-bold">300% Maximum</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+                                <strong class="text-white">Uso:</strong> Afiches, revistas, catálogos y tarjetas en papel couché.
+                            </div>
+                        </div>
+
+                        <!-- Perfil 3: GRACoL 2006 -->
+                        <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-palette-yellow/20 text-palette-yellow block w-fit mb-2">PRENSA NORTEAMÉRICA</span>
+                                <h4 class="font-bold text-white text-sm mb-1">GRACoL2006_Coated1v2</h4>
+                                <p class="text-xs text-slate-400 mb-4 leading-relaxed">Estándar común en imprentas de la región americana para papelería de alta calidad.</p>
+                                <div class="space-y-1.5 text-xs font-mono">
+                                    <div class="flex justify-between border-b border-slate-800 pb-1">
+                                        <span class="text-slate-400">Modo:</span>
+                                        <span class="text-slate-200">CMYK (Pigmento)</span>
+                                    </div>
+                                    <div class="flex justify-between border-b border-slate-800 pb-1">
+                                        <span class="text-slate-400">Resolución:</span>
+                                        <span class="text-palette-yellow font-bold">300 DPI</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-400">Límite TAC:</span>
+                                        <span class="text-emerald-400 font-bold">320% Maximum</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+                                <strong class="text-white">Uso:</strong> Empaques, etiquetas comerciales y prensa rotativa.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </section>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 3: CUADERNO DE TRABAJO DIGITAL DEL ESTUDIANTE -->
+        <!-- ==================================================================== -->
+        <div id="workbookTab" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Encabezado Ficha Estudiantil -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <div class="flex items-center space-x-3 mb-4 border-b pb-3 border-slate-800">
+                        <div class="p-3 bg-palette-blue/20 text-palette-cyan rounded-xl border border-palette-blue/30">
+                            <i class="fa-solid fa-id-card text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold text-white">Ficha de Identificación del Estudiante</h2>
+                            <p class="text-xs text-slate-400">Ingrese sus datos personales antes de subir las capturas y redactar los informes técnicos.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Nombre Completo: *</label>
+                            <input type="text" id="studentName" placeholder="Ej. Mario Roberto Ramos" oninput="updateLivePreview()" class="w-full p-2.5 bg-slate-950 border border-slate-800 text-white rounded-xl focus:ring-2 focus:ring-palette-cyan focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Clave o Carné: *</label>
+                            <input type="text" id="studentKey" placeholder="Ej. 18" oninput="updateLivePreview()" class="w-full p-2.5 bg-slate-950 border border-slate-800 text-white rounded-xl focus:ring-2 focus:ring-palette-cyan focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Sección / Grupo: *</label>
+                            <input type="text" id="studentSection" value="Sección A" oninput="updateLivePreview()" class="w-full p-2.5 bg-slate-950 border border-slate-800 text-white rounded-xl focus:ring-2 focus:ring-palette-cyan focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Fecha de Elaboración:</label>
+                            <input type="date" id="studentDate" value="2026-08-18" oninput="updateLivePreview()" class="w-full p-2.5 bg-slate-950 border border-slate-800 text-white rounded-xl focus:ring-2 focus:ring-palette-cyan focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 1 ESTUDIANTIL -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-800">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-palette-blue text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-md">Actividad 1</span>
+                            <h3 class="font-bold text-white text-base">Composición Digital Híbrida (Vectores + Mapa de Bits) y Máscaras</h3>
+                        </div>
+                        <span class="text-xs font-extrabold text-palette-cyan bg-palette-blue/20 px-3 py-1 rounded-full border border-palette-blue/30">Ponderación: 3 pts</span>
+                    </div>
+
+                    <!-- Carga de Imagen Actividad 1 -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-image text-palette-cyan"></i> Evidencia Requerida: Captura de pantalla legible del lienzo mostrando la composición final y el panel de capas con sus máscaras y vectores visibles: *
+                        </label>
+                        <input type="file" id="act1_imgInput" accept="image/*" onchange="handleImageUpload('act1_imgInput', 'act1_imgPreview')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-palette-blue/20 file:text-palette-cyan hover:file:bg-palette-blue/30">
+                        <div id="act1_imgPreview" class="mt-2 hidden">
+                            <img src="" alt="Vista previa Composición Híbrida" class="max-h-52 rounded-xl border border-slate-700 shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- Escrito de Análisis Actividad 1 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold text-slate-300">Contenido Escrito Requerido (Análisis técnico sobre la diferencia estructural entre píxeles y vectores - Mínimo 5 líneas): *</label>
+                            <span id="act1_lineCount" class="text-[11px] font-bold text-palette-amber bg-palette-amber/10 px-2.5 py-0.5 rounded border border-palette-amber/30">0 / 5 líneas</span>
+                        </div>
+                        <textarea id="act1_text" rows="5" oninput="validateLineCount('act1_text', 'act1_lineCount', 5)" placeholder="Redacte aquí (mínimo 5 líneas de texto continuo) su análisis técnico explicando la diferencia conceptual entre la estructura por píxeles dependientes de resolución del mapa de bits y la estructura matemática basada en vectores Bézier, argumentando cómo la integración armónica de ambos enriquece la jerarquía visual del diseño publicitario..." class="w-full p-3 text-xs bg-slate-950 border border-slate-800 text-slate-200 rounded-xl focus:ring-2 focus:ring-palette-cyan focus:outline-none leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 2 ESTUDIANTIL -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-800">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-palette-blue text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-md">Actividad 2</span>
+                            <h3 class="font-bold text-white text-base">Configuración y Conversión de Perfiles Cromáticos (RGB vs. CMYK)</h3>
+                        </div>
+                        <span class="text-xs font-extrabold text-palette-cyan bg-palette-blue/20 px-3 py-1 rounded-full border border-palette-blue/30">Ponderación: 4 pts</span>
+                    </div>
+
+                    <!-- Carga de Imagen Actividad 2 -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-desktop text-palette-cyan"></i> Evidencia Requerida: Captura de pantalla de la ventana de configuración de color y la comparativa lado a lado (Side-by-side) del arte en RGB versus CMYK con el aviso de fuera de gama (Gamut Warning) activo: *
+                        </label>
+                        <input type="file" id="act2_imgInput" accept="image/*" onchange="handleImageUpload('act2_imgInput', 'act2_imgPreview')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-palette-blue/20 file:text-palette-cyan hover:file:bg-palette-blue/30">
+                        <div id="act2_imgPreview" class="mt-2 hidden">
+                            <img src="" alt="Vista previa Conversión RGB vs CMYK" class="max-h-56 rounded-xl border border-slate-700 shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- Tabla Interactiva de Especificaciones Técnicas -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-xs font-bold text-slate-300">Contenido Escrito Requerido: Tabla Comparativa de Especificaciones Técnicas por Salida: *</label>
+                        </div>
+
+                        <!-- Banner explicativo de la tabla -->
+                        <div class="p-3 rounded-xl bg-palette-amber/10 border border-palette-amber/30 text-xs text-palette-yellow mb-3 flex items-start gap-2">
+                            <i class="fa-solid fa-circle-info text-base mt-0.5"></i>
+                            <div>
+                                <strong>Nota importante para el estudiante:</strong>
+                                <p class="text-[11px] text-slate-300 mt-0.5">Los datos presentados inicialmente en la siguiente tabla son **ejemplos orientativos**. Debe editar e ingresar la información técnica verificada en su proyecto de diseño.</p>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs border border-slate-800 rounded-xl overflow-hidden">
+                                <thead>
+                                    <tr class="bg-slate-950 text-palette-cyan font-mono border-b border-slate-800">
+                                        <th class="p-2.5 border border-slate-800">Parámetro Técnico</th>
+                                        <th class="p-2.5 border border-slate-800">Versión Digital (Pantalla)</th>
+                                        <th class="p-2.5 border border-slate-800">Versión Impresa (Prensa Offset)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-2 border border-slate-800 bg-slate-950/80 font-bold text-slate-300">Modo de Color</td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_m1" value="RGB (Síntesis Aditiva)" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_m2" value="CMYK (Síntesis Sustractiva)" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-slate-800 bg-slate-950/80 font-bold text-slate-300">Espacio / Perfil ICC</td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_p1" value="sRGB IEC61966-2.1" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_p2" value="Coated FOGRA39 / ISO Coated v2" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-slate-800 bg-slate-950/80 font-bold text-slate-300">Resolución de Salida</td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_r1" value="72 PPI / 150 PPI" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_r2" value="300 DPI (Prensa Offset Alta)" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-slate-800 bg-slate-950/80 font-bold text-slate-300">Soporte Final</td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_s1" value="Monitores, Móviles, Web, Redes" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_s2" value="Papel Couché Estucado 300g / Prensa" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 border border-slate-800 bg-slate-950/80 font-bold text-slate-300">Comportamiento Saturación</td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_sat1" value="Tonos cianes y verdes brillantes neón" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                        <td class="p-1.5 border border-slate-800 bg-slate-950/60"><input type="text" id="spec_sat2" value="Desaturación y opacidad por compresión de gamut" oninput="updateLivePreview()" class="w-full p-1.5 bg-slate-900 border border-slate-800 rounded text-slate-200 font-mono"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIVIDAD 3 ESTUDIANTIL -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-800">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-palette-blue text-slate-950 font-extrabold text-xs px-2.5 py-1 rounded-md">Actividad 3</span>
+                            <h3 class="font-bold text-white text-base">Análisis de Separación de Canales y Control de Cobertura (TAC)</h3>
+                        </div>
+                        <span class="text-xs font-extrabold text-palette-cyan bg-palette-blue/20 px-3 py-1 rounded-full border border-palette-blue/30">Ponderación: 3 pts</span>
+                    </div>
+
+                    <!-- Carga de Imagen Actividad 3 -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-vial text-palette-cyan"></i> Evidencia Requerida: Captura de pantalla del panel de canales con la visualización separada de la placa de Negro (K) y la lectura de muestra cromática CMYK en la zona con mayor carga de tinta: *
+                        </label>
+                        <input type="file" id="act3_imgInput" accept="image/*" onchange="handleImageUpload('act3_imgInput', 'act3_imgPreview')" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-palette-blue/20 file:text-palette-cyan hover:file:bg-palette-blue/30">
+                        <div id="act3_imgPreview" class="mt-2 hidden">
+                            <img src="" alt="Vista previa Separación Canales y TAC" class="max-h-56 rounded-xl border border-slate-700 shadow-sm">
+                        </div>
+                    </div>
+
+                    <!-- Escrito Memoria Técnica Actividad 3 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold text-slate-300">Contenido Escrito Requerido (Informe técnico sobre separación de canales, TAC e impresiones - Mínimo 150 palabras): *</label>
+                            <span id="act3_wordCount" class="text-[11px] font-bold text-palette-amber bg-palette-amber/10 px-2.5 py-0.5 rounded border border-palette-amber/30">0 / 150 palabras</span>
+                        </div>
+                        <textarea id="act3_text" rows="5" oninput="validateWordCount('act3_text', 'act3_wordCount', 150)" placeholder="Redacte aquí (mínimo 150 palabras) el informe técnico explicando el proceso de separación de canales cromáticos en pre-prensa, el concepto de Cobertura Total de Tinta (TAC), la diferencia entre el negro puro 100%K para textos y el negro enriquecido (C:40 M:30 Y:30 K:100) para fondos, y los problemas de imprenta (repintado, secado lento) que se evitan al controlar el límite del 300%..." class="w-full p-3 text-xs bg-slate-950 border border-slate-800 text-slate-200 rounded-xl focus:ring-2 focus:ring-palette-cyan focus:outline-none leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 4: AUTOEVALUADOR INTERACTIVO DE RÚBRICA -->
+        <!-- ==================================================================== -->
+        <div id="rubricTab" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                        <div>
+                            <h3 class="text-base font-bold text-white">Autoevaluador de Rúbrica Estudiantil</h3>
+                            <p class="text-xs text-slate-400">Seleccione el nivel alcanzado en cada criterio para estimar su nota antes de la entrega final.</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 block">Punteo Estimado</span>
+                            <span id="totalScore" class="text-3xl font-black text-palette-cyan">10 / 10 pts</span>
+                        </div>
+                    </div>
+
+                    <!-- Criterios Selección -->
+                    <div class="space-y-6 text-xs">
+                        
+                        <!-- Criterio 1 Calc -->
+                        <div class="p-4 bg-slate-950/80 rounded-xl border border-slate-800">
+                            <h4 class="font-bold text-white mb-2">CRITERIO DE CALIFICACIÓN 1: Composición Digital Híbrida (Vectores + Mapa de Bits) y Máscaras de Recorte</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button onclick="setScore(1, 3)" id="c1-opt1" class="rubric-btn bg-palette-blue text-slate-950 p-3 rounded-xl text-left transition font-semibold shadow">
+                                    EXCELENTE (3 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura capas/máscaras + análisis escrito ≥5 líneas.</span>
+                                </button>
+                                <button onclick="setScore(1, 1.5)" id="c1-opt2" class="rubric-btn bg-slate-900 text-slate-300 p-3 rounded-xl text-left transition font-semibold">
+                                    ACEPTABLE (1.5 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Recorte destructivo o análisis escrito &lt;5 líneas.</span>
+                                </button>
+                                <button onclick="setScore(1, 0)" id="c1-opt3" class="rubric-btn bg-slate-900 text-slate-300 p-3 rounded-xl text-left transition font-semibold">
+                                    DEFICIENTE (0 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Sin composición híbrida ni análisis técnico.</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Criterio 2 Calc -->
+                        <div class="p-4 bg-slate-950/80 rounded-xl border border-slate-800">
+                            <h4 class="font-bold text-white mb-2">CRITERIO DE CALIFICACIÓN 2: Configuración y Conversión de Perfiles Cromáticos (RGB vs. CMYK)</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button onclick="setScore(2, 4)" id="c2-opt1" class="rubric-btn bg-palette-blue text-slate-950 p-3 rounded-xl text-left transition font-semibold shadow">
+                                    EXCELENTE (4 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura lado a lado con aviso fuera de gama + tabla completa.</span>
+                                </button>
+                                <button onclick="setScore(2, 2)" id="c2-opt2" class="rubric-btn bg-slate-900 text-slate-300 p-3 rounded-xl text-left transition font-semibold">
+                                    ACEPTABLE (2 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Sin aviso Gamut Warning activo o tabla incompleta.</span>
+                                </button>
+                                <button onclick="setScore(2, 0)" id="c2-opt3" class="rubric-btn bg-slate-900 text-slate-300 p-3 rounded-xl text-left transition font-semibold">
+                                    DEFICIENTE (0 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Sin configuración de color ni especificaciones.</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Criterio 3 Calc -->
+                        <div class="p-4 bg-slate-950/80 rounded-xl border border-slate-800">
+                            <h4 class="font-bold text-white mb-2">CRITERIO DE CALIFICACIÓN 3: Análisis de Separación de Canales y Control de Cobertura de Tinta (TAC)</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button onclick="setScore(3, 3)" id="c3-opt1" class="rubric-btn bg-palette-blue text-slate-950 p-3 rounded-xl text-left transition font-semibold shadow">
+                                    EXCELENTE (3 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Captura canal K/medición TAC + informe técnico ≥150 p.</span>
+                                </button>
+                                <button onclick="setScore(3, 1.5)" id="c3-opt2" class="rubric-btn bg-slate-900 text-slate-300 p-3 rounded-xl text-left transition font-semibold">
+                                    ACEPTABLE (1.5 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Sin medición TAC clara o informe técnico &lt;150 p.</span>
+                                </button>
+                                <button onclick="setScore(3, 0)" id="c3-opt3" class="rubric-btn bg-slate-900 text-slate-300 p-3 rounded-xl text-left transition font-semibold">
+                                    DEFICIENTE (0 pts)<br>
+                                    <span class="font-normal text-[10px] opacity-90">Sin inspección de canales ni informe de tinta.</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Estado y Política de Mejoramiento -->
+                    <div id="statusBox" class="mt-6 p-4 rounded-xl bg-emerald-950/80 text-emerald-300 border border-emerald-800 text-xs font-semibold flex items-center justify-between">
+                        <div>
+                            <i class="fa-solid fa-circle-check text-emerald-400 mr-2 text-base"></i>
+                            <span>Resultado: Desempeño Satisfactorio. La entrega cumple con los estándares requeridos.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PESTAÑA 5: VISTA PREVIA DEL INFORME Y EXPORTACIÓN A PDF -->
+        <!-- ==================================================================== -->
+        <div id="previewTab" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Acciones de Impresión no-print -->
+                <div class="glass-card p-4 rounded-2xl border border-slate-800 flex justify-between items-center no-print">
+                    <div>
+                        <h3 class="font-bold text-sm text-white">Informe Digital Unificado de Entrega</h3>
+                        <p class="text-xs text-slate-400">Revise su informe final compilado antes de guardarlo en PDF para Google Classroom.</p>
+                    </div>
+                    <button onclick="window.print()" class="bg-palette-coral hover:bg-rose-600 text-white text-xs font-bold px-5 py-2.5 rounded-xl flex items-center space-x-2 shadow transition">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Imprimir / Guardar en PDF</span>
+                    </button>
+                </div>
+
+                <!-- HOJA IMPRESA COMPLETA (PRINT-OPTIMIZED AREA) -->
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200 print-card text-slate-900 space-y-8">
+                    
+                    <!-- Encabezado Institucional -->
+                    <div class="border-b-2 border-palette-blue pb-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h1 class="text-xl font-black text-slate-900 uppercase tracking-tight">Instituto Industrial Central General Lázaro Chacón González</h1>
+                                <p class="text-xs font-bold text-palette-blue">Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</p>
+                                <p class="text-xs text-slate-600">Curso: Diseño Computarizado II | Ciclo Lectivo 2026 | Prof. Erick Enrique Zamora Paz</p>
+                            </div>
+                            <div class="text-right text-xs">
+                                <span class="font-black text-slate-800 block text-sm">GUÍA NO. 5</span>
+                                <span class="text-slate-500">Ponderación: 10 pts.</span>
+                            </div>
+                        </div>
+
+                        <!-- Ficha de Datos del Estudiante Llena -->
+                        <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-50 p-3 rounded-xl text-xs border border-slate-200">
+                            <div><strong>Estudiante:</strong> <span id="prev_name" class="text-palette-blue font-semibold">[No ingresado]</span></div>
+                            <div><strong>Clave:</strong> <span id="prev_key" class="text-palette-blue font-semibold">[Sin Clave]</span></div>
+                            <div><strong>Sección:</strong> <span id="prev_sec" class="text-palette-blue font-semibold">Sección A</span></div>
+                            <div><strong>Fecha:</strong> <span id="prev_date" class="text-palette-blue font-semibold">18/08/2026</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Título del Informe -->
+                    <div>
+                        <h2 class="text-base font-extrabold text-slate-900 uppercase text-center border-y py-2 bg-slate-50 border-slate-200">
+                            INFORME TÉCNICO: COMPOSICIÓN HÍBRIDA, PERFILES ICC Y SEPARACIÓN DE CANALES CMYK
+                        </h2>
+                    </div>
+
+                    <!-- SECCIÓN ACTIVIDAD 1 IMPRESA -->
+                    <div class="space-y-3 print-break-avoid">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h3 class="font-bold text-sm text-slate-800">Actividad 1: Composición Digital Híbrida y Máscaras de Recorte</h3>
+                            <span class="text-xs font-bold text-slate-600">(3 Puntos)</span>
+                        </div>
+
+                        <!-- Captura Actividad 1 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Evidencia: Captura de pantalla del lienzo con el panel de capas y máscaras visible</p>
+                            <div id="prev_act1_imgBox" class="p-2 border border-slate-200 bg-slate-50 rounded min-h-24 flex items-center justify-center">
+                                <span id="prev_act1_noimg" class="text-xs text-slate-400 italic">[Captura de composición híbrida no cargada]</span>
+                                <img id="prev_act1_img" src="" class="max-h-44 rounded border border-slate-300 hidden">
+                            </div>
+                        </div>
+
+                        <!-- Texto Actividad 1 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Análisis Técnico sobre Estructura por Píxeles vs. Geometría Vectorial:</p>
+                            <p id="prev_act1_text" class="text-xs leading-relaxed text-slate-800 bg-slate-50 p-3 rounded border border-slate-200 italic whitespace-pre-wrap">
+                                [Sin respuesta redactada]
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN ACTIVIDAD 2 IMPRESA -->
+                    <div class="space-y-3 pt-4 border-t border-slate-200 print-break-avoid">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h3 class="font-bold text-sm text-slate-800">Actividad 2: Configuración y Conversión de Perfiles Cromáticos (RGB vs. CMYK)</h3>
+                            <span class="text-xs font-bold text-slate-600">(4 Puntos)</span>
+                        </div>
+
+                        <!-- Captura Actividad 2 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Evidencia: Captura lado a lado (RGB vs. CMYK) con el aviso de fuera de gama activo</p>
+                            <div id="prev_act2_imgBox" class="p-2 border border-slate-200 bg-slate-50 rounded min-h-24 flex items-center justify-center">
+                                <span id="prev_act2_noimg" class="text-xs text-slate-400 italic">[Captura de conversión de color no cargada]</span>
+                                <img id="prev_act2_img" src="" class="max-h-44 rounded border border-slate-300 hidden">
+                            </div>
+                        </div>
+
+                        <!-- Tabla Especificaciones Impresa -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Tabla de Especificaciones Técnicas de Salida:</p>
+                            <table class="w-full text-left border-collapse text-[11px] border border-slate-300">
+                                <thead>
+                                    <tr class="bg-slate-100 font-bold text-slate-800 border-b border-slate-300">
+                                        <th class="p-1.5 border border-slate-300">Parámetro</th>
+                                        <th class="p-1.5 border border-slate-300">Versión Digital (Pantalla)</th>
+                                        <th class="p-1.5 border border-slate-300">Versión Impresa (Prensa Offset)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-200"><td class="p-1.5 border font-semibold">Modo de Color</td><td id="prev_sm1" class="p-1.5 border">--</td><td id="prev_sm2" class="p-1.5 border">--</td></tr>
+                                    <tr class="border-b border-slate-200 bg-slate-50/50"><td class="p-1.5 border font-semibold">Perfil ICC</td><td id="prev_sp1" class="p-1.5 border">--</td><td id="prev_sp2" class="p-1.5 border">--</td></tr>
+                                    <tr class="border-b border-slate-200"><td class="p-1.5 border font-semibold">Resolución</td><td id="prev_sr1" class="p-1.5 border">--</td><td id="prev_sr2" class="p-1.5 border">--</td></tr>
+                                    <tr class="border-b border-slate-200 bg-slate-50/50"><td class="p-1.5 border font-semibold">Soporte Final</td><td id="prev_ss1" class="p-1.5 border">--</td><td id="prev_ss2" class="p-1.5 border">--</td></tr>
+                                    <tr><td class="p-1.5 border font-semibold">Saturación</td><td id="prev_ssat1" class="p-1.5 border">--</td><td id="prev_ssat2" class="p-1.5 border">--</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN ACTIVIDAD 3 IMPRESA -->
+                    <div class="space-y-3 pt-4 border-t border-slate-200 print-break-avoid">
+                        <div class="border-b border-slate-300 pb-1 flex justify-between items-center">
+                            <h3 class="font-bold text-sm text-slate-800">Actividad 3: Análisis de Separación de Canales y Control de Cobertura (TAC)</h3>
+                            <span class="text-xs font-bold text-slate-600">(3 Puntos)</span>
+                        </div>
+
+                        <!-- Captura Actividad 3 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Evidencia: Captura del panel de canales con la placa de negro (K) y medición TAC</p>
+                            <div id="prev_act3_imgBox" class="p-2 border border-slate-200 bg-slate-50 rounded min-h-24 flex items-center justify-center">
+                                <span id="prev_act3_noimg" class="text-xs text-slate-400 italic">[Captura de canales cromáticos no cargada]</span>
+                                <img id="prev_act3_img" src="" class="max-h-48 rounded border border-slate-300 hidden">
+                            </div>
+                        </div>
+
+                        <!-- Texto Actividad 3 -->
+                        <div>
+                            <p class="text-xs font-semibold text-slate-700 mb-1">Informe Técnico sobre Separación de Tinta, Negro Enriquecido y Control TAC:</p>
+                            <p id="prev_act3_text" class="text-xs leading-relaxed text-slate-800 bg-slate-50 p-3 rounded border border-slate-200 italic whitespace-pre-wrap">
+                                [Sin respuesta redactada]
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- AUTOEVALUACIÓN IMPRESA -->
+                    <div class="pt-4 border-t-2 border-slate-800 space-y-2 print-break-avoid">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-800">Resumen de Autoevaluación del Estudiante</h4>
+                        <div class="grid grid-cols-3 gap-2 text-[11px] text-center font-semibold">
+                            <div class="p-2 bg-slate-100 rounded border">Crit. 1: <span id="prev_score1">3</span>/3 pts</div>
+                            <div class="p-2 bg-slate-100 rounded border">Crit. 2: <span id="prev_score2">4</span>/4 pts</div>
+                            <div class="p-2 bg-slate-100 rounded border">Crit. 3: <span id="prev_score3">3</span>/3 pts</div>
+                        </div>
+                        <div class="text-right text-xs font-bold text-slate-900 pt-1">
+                            Punteado Estimado Total: <span id="prev_scoreTotal" class="text-palette-blue font-extrabold text-sm">10 / 10 Puntos</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
 
     </main>
 
-    <!-- Rubric Modal Dialog -->
-    <div id="modal-rubrica" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl custom-scrollbar max-h-[90vh] overflow-y-auto">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-award text-brand-yellow"></i> Rúbrica Oficial de Evaluación (10 Puntos Netos)
-                </h3>
-                <button onclick="closeModal('modal-rubrica')" class="text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <div class="space-y-4 text-xs">
-                <!-- Criterio 1 -->
-                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <div class="flex justify-between font-bold text-brand-cyan mb-1">
-                        <span>Criterio 1: Vectores y Bitmaps (Actividad 1)</span>
-                        <span>4 Pts Max</span>
-                    </div>
-                    <p class="text-slate-300 text-[11px]"><strong class="text-emerald-400">Excelente (4 pts):</strong> Adjunta captura legible de vectorización/isotipo en Inkscape/Illustrator e incluye el escrito con encabezado 'Actividad 1:' explicando la diferencia entre píxeles y trazos vectoriales.</p>
-                </div>
-
-                <!-- Criterio 2 -->
-                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <div class="flex justify-between font-bold text-brand-magenta mb-1">
-                        <span>Criterio 2: Modos de Color y Perfiles ICC (Actividad 2)</span>
-                        <span>3 Pts Max</span>
-                    </div>
-                    <p class="text-slate-300 text-[11px]"><strong class="text-emerald-400">Excelente (3 pts):</strong> Adjunta captura de la muestra CMYK (FOGRA39 / 300 DPI) e incluye escrito con encabezado 'Actividad 2:' sobre la conversión cromática.</p>
-                </div>
-
-                <!-- Criterio 3 -->
-                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                    <div class="flex justify-between font-bold text-brand-yellow mb-1">
-                        <span>Criterio 3: Afiche A4 y Pre-prensa (Actividad 3)</span>
-                        <span>3 Pts Max</span>
-                    </div>
-                    <p class="text-slate-300 text-[11px]"><strong class="text-emerald-400">Excelente (3 pts):</strong> Adjunta captura del afiche A4 con sangrado e incluye escrito con encabezado 'Actividad 3:' justificando las marcas de corte y margen seguro.</p>
-                </div>
-            </div>
-
-            <div class="pt-2 text-right">
-                <button onclick="closeModal('modal-rubrica')" class="px-4 py-2 bg-brand-cyan hover:opacity-90 text-slate-950 font-bold text-xs rounded-lg">
-                    Entendido
-                </button>
-            </div>
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-7 border-t border-slate-800/80 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p><strong class="text-slate-300">Instituto Industrial Central General Lázaro Chacón González</strong> | Nivel Medio - Ciclo Diversificado</p>
+            <p class="text-slate-500 font-medium">Recurso Educativo Digital e Innovación Pedagógica 2026 — Desarrollado para la Cátedra del Prof. Erick Enrique Zamora Paz</p>
         </div>
-    </div>
+    </footer>
 
-    <!-- Custom Toast Message -->
-    <div id="toast-message" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl border border-slate-800 shadow-2xl z-50 hidden flex items-center gap-3 text-xs">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-        <span id="toast-text">Acción realizada con éxito</span>
-    </div>
-
+    <!-- Lógica JavaScript de la Aplicación Web -->
     <script>
-        // Tab Navigation Logic
+        let studentData = {
+            images: {
+                act1: '',
+                act2: '',
+                act3: ''
+            },
+            scores: { 1: 3, 2: 4, 3: 3 }
+        };
+
+        // Cambiar pestañas
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(btn => {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+                tab.classList.remove('block');
+            });
+
+            document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('tab-active');
                 btn.classList.add('text-slate-400');
             });
 
-            document.getElementById(tabId).classList.remove('hidden');
-            const activeBtn = document.getElementById('nav-' + tabId);
-            if (activeBtn) {
-                activeBtn.classList.add('tab-active');
-                activeBtn.classList.remove('text-slate-400');
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+                targetTab.classList.add('block');
             }
 
-            if (tabId === 'tab-entregable') {
-                updatePDFPreview();
+            const targetBtn = document.getElementById('btn-' + tabId);
+            if (targetBtn) {
+                targetBtn.classList.add('tab-active');
+                targetBtn.classList.remove('text-slate-400');
+            }
+
+            if (tabId === 'previewTab') {
+                updateLivePreview();
             }
         }
 
-        // Modal Controls
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
-
-        // Toast Notification System
-        function showToast(text, iconClass = "fa-solid fa-circle-check text-emerald-400") {
-            const toast = document.getElementById('toast-message');
-            document.getElementById('toast-text').innerText = text;
-            document.getElementById('toast-icon').className = iconClass + " text-base";
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3500);
-        }
-
-        // Word Counter Helper
-        function countWords(str) {
-            return str.trim() ? str.trim().split(/\s+/).length : 0;
-        }
-
-        // Image Uploader Handler
-        function handleImageUpload(input, previewImgId, pdfImgId, placeholderId) {
-            const file = input.files[0];
-            if (file) {
+        // Carga de imágenes
+        function handleImageUpload(inputId, previewBoxId) {
+            const input = document.getElementById(inputId);
+            const previewBox = document.getElementById(previewBoxId);
+            
+            if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const dataUrl = e.target.result;
-                    
-                    // Show in tab preview
-                    const prevEl = document.getElementById(previewImgId);
-                    if (prevEl) {
-                        prevEl.src = dataUrl;
-                        prevEl.classList.remove('hidden');
-                    }
+                    const img = previewBox.querySelector('img');
+                    img.src = e.target.result;
+                    previewBox.classList.remove('hidden');
 
-                    // Hide placeholder box
-                    const phEl = document.getElementById(placeholderId);
-                    if (phEl) phEl.classList.add('hidden');
+                    if (inputId === 'act1_imgInput') studentData.images.act1 = e.target.result;
+                    if (inputId === 'act2_imgInput') studentData.images.act2 = e.target.result;
+                    if (inputId === 'act3_imgInput') studentData.images.act3 = e.target.result;
 
-                    // Show in PDF print preview
-                    const pdfEl = document.getElementById(pdfImgId);
-                    if (pdfEl) {
-                        pdfEl.src = dataUrl;
-                        pdfEl.classList.remove('hidden');
-                    }
-
-                    showToast("Captura de pantalla cargada exitosamente.");
-                    calculateGlobalScore();
+                    updateLivePreview();
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(input.files[0]);
             }
         }
 
-        // --- SIMULATORS ENGINE --- //
+        // Validación de líneas
+        function validateLineCount(textareaId, counterId, minLines) {
+            const text = document.getElementById(textareaId).value;
+            const lines = text ? text.split('\n').filter(l => l.trim().length > 0).length : 0;
+            const counterEl = document.getElementById(counterId);
 
-        // Zoom Simulator (Tab 2)
-        function updateZoomSimulator(val) {
-            document.getElementById('zoom-val-display').innerText = `Zoom: ${val}%`;
-            const scale = val / 100;
-            
-            const raster = document.getElementById('raster-circle');
-            raster.style.transform = `scale(${scale})`;
-            
-            // Apply pixelation blur effect on raster side
-            if (val > 200) {
-                raster.style.filter = `contrast(${100 + (val/5)}%) blur(${(val-200)/100}px)`;
-                document.getElementById('raster-desc').innerText = "Pérdida de nitidez / Píxeles visibles";
-                document.getElementById('raster-desc').className = "text-[10px] text-rose-400 mt-2 font-mono font-bold";
+            counterEl.innerText = `${lines} / ${minLines} líneas`;
+
+            if (lines >= minLines) {
+                counterEl.className = 'text-[11px] font-bold text-palette-cyan bg-palette-blue/20 px-2.5 py-0.5 rounded border border-palette-blue/30';
+            } else if (lines > 0) {
+                counterEl.className = 'text-[11px] font-bold text-palette-amber bg-palette-amber/10 px-2.5 py-0.5 rounded border border-palette-amber/30';
             } else {
-                raster.style.filter = "contrast(100%)";
-                document.getElementById('raster-desc').innerText = "Muestreo por píxeles continuos";
-                document.getElementById('raster-desc').className = "text-[10px] text-slate-400 mt-2 font-mono";
+                counterEl.className = 'text-[11px] font-bold text-slate-500 bg-slate-900 px-2.5 py-0.5 rounded border border-slate-800';
             }
 
-            const vector = document.getElementById('vector-svg');
-            vector.style.transform = `scale(${scale})`;
+            updateLivePreview();
         }
 
-        // Color Gamut Simulator (Tab 3)
-        function updateColorGamutSim(hexColor) {
-            document.getElementById('rgbValCode').innerText = `HEX: ${hexColor.toUpperCase()}`;
-            
-            // Simulating CMYK dullness effect
-            const box = document.getElementById('cmykBoxPrev');
-            box.style.backgroundColor = hexColor;
-            box.style.filter = "saturate(60%) brightness(90%)";
-            
-            document.getElementById('cmykValCode').innerText = "CMYK Simulado: FOGRA39 (Compensado para Imprenta)";
-        }
+        // Validación de palabras
+        function validateWordCount(textareaId, counterId, minWords) {
+            const text = document.getElementById(textareaId).value.trim();
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0).length : 0;
+            const counterEl = document.getElementById(counterId);
 
-        // --- VALIDATION & SCORING ENGINE --- //
+            counterEl.innerText = `${words} / ${minWords} palabras`;
 
-        function checkAct1Validation() {
-            const text = document.getElementById('act1-text').value;
-            const wordCount = countWords(text);
-            document.getElementById('act1-word-count').innerText = `Palabras: ${wordCount}`;
-
-            const hasHeading = text.toLowerCase().includes('actividad 1:');
-            const isLongEnough = wordCount >= 20;
-
-            const statusEl = document.getElementById('act1-status');
-            const kwCheck = document.getElementById('act1-kw-check');
-
-            if (hasHeading && isLongEnough) {
-                statusEl.innerText = "Completado (4/4 pts)";
-                statusEl.className = "font-bold text-emerald-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Encabezado y escrito vigentes';
-                kwCheck.className = "text-emerald-400";
+            if (words >= minWords) {
+                counterEl.className = 'text-[11px] font-bold text-palette-cyan bg-palette-blue/20 px-2.5 py-0.5 rounded border border-palette-blue/30';
+            } else if (words > 0) {
+                counterEl.className = 'text-[11px] font-bold text-palette-amber bg-palette-amber/10 px-2.5 py-0.5 rounded border border-palette-amber/30';
             } else {
-                statusEl.innerText = "Incompleto";
-                statusEl.className = "font-bold text-brand-yellow";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i> Falta título "Actividad 1:" o análisis (mínimo 20 palabras)';
-                kwCheck.className = "text-rose-400";
+                counterEl.className = 'text-[11px] font-bold text-slate-500 bg-slate-900 px-2.5 py-0.5 rounded border border-slate-800';
             }
 
-            calculateGlobalScore();
+            updateLivePreview();
         }
 
-        function checkAct2Validation() {
-            const text = document.getElementById('act2-text').value;
-            const wordCount = countWords(text);
-            document.getElementById('act2-word-count').innerText = `Palabras: ${wordCount}`;
+        // Actualizar vista previa
+        function updateLivePreview() {
+            document.getElementById('prev_name').innerText = document.getElementById('studentName').value || '[Nombre del Estudiante]';
+            document.getElementById('prev_key').innerText = document.getElementById('studentKey').value || '[Sin Clave]';
+            document.getElementById('prev_sec').innerText = document.getElementById('studentSection').value || 'Sección A';
+            document.getElementById('prev_date').innerText = document.getElementById('studentDate').value || '18/08/2026';
 
-            const hasHeading = text.toLowerCase().includes('actividad 2:');
-            const isLongEnough = wordCount >= 20;
+            // Actividad 1
+            document.getElementById('prev_act1_text').innerText = document.getElementById('act1_text').value || '[Sin respuesta redactada]';
+            if (studentData.images.act1) {
+                document.getElementById('prev_act1_img').src = studentData.images.act1;
+                document.getElementById('prev_act1_img').classList.remove('hidden');
+                document.getElementById('prev_act1_noimg').classList.add('hidden');
+            }
 
-            const statusEl = document.getElementById('act2-status');
-            const kwCheck = document.getElementById('act2-kw-check');
+            // Actividad 2
+            if (studentData.images.act2) {
+                document.getElementById('prev_act2_img').src = studentData.images.act2;
+                document.getElementById('prev_act2_img').classList.remove('hidden');
+                document.getElementById('prev_act2_noimg').classList.add('hidden');
+            }
 
-            if (hasHeading && isLongEnough) {
-                statusEl.innerText = "Completado (3/3 pts)";
-                statusEl.className = "font-bold text-emerald-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Encabezado y escrito vigentes';
-                kwCheck.className = "text-emerald-400";
+            // Tabla Especificaciones
+            document.getElementById('prev_sm1').innerText = document.getElementById('spec_m1').value;
+            document.getElementById('prev_sm2').innerText = document.getElementById('spec_m2').value;
+            document.getElementById('prev_sp1').innerText = document.getElementById('spec_p1').value;
+            document.getElementById('prev_sp2').innerText = document.getElementById('spec_p2').value;
+            document.getElementById('prev_sr1').innerText = document.getElementById('spec_r1').value;
+            document.getElementById('prev_sr2').innerText = document.getElementById('spec_r2').value;
+            document.getElementById('prev_ss1').innerText = document.getElementById('spec_s1').value;
+            document.getElementById('prev_ss2').innerText = document.getElementById('spec_s2').value;
+            document.getElementById('prev_ssat1').innerText = document.getElementById('spec_sat1').value;
+            document.getElementById('prev_ssat2').innerText = document.getElementById('spec_sat2').value;
+
+            // Actividad 3
+            document.getElementById('prev_act3_text').innerText = document.getElementById('act3_text').value || '[Sin respuesta redactada]';
+            if (studentData.images.act3) {
+                document.getElementById('prev_act3_img').src = studentData.images.act3;
+                document.getElementById('prev_act3_img').classList.remove('hidden');
+                document.getElementById('prev_act3_noimg').classList.add('hidden');
+            }
+
+            // Scores
+            document.getElementById('prev_score1').innerText = studentData.scores[1];
+            document.getElementById('prev_score2').innerText = studentData.scores[2];
+            document.getElementById('prev_score3').innerText = studentData.scores[3];
+            const tot = studentData.scores[1] + studentData.scores[2] + studentData.scores[3];
+            document.getElementById('prev_scoreTotal').innerText = `${tot} / 10 Puntos`;
+        }
+
+        // Punteo Rúbrica
+        function setScore(critNum, scoreVal) {
+            studentData.scores[critNum] = scoreVal;
+
+            const optMap = {
+                1: { 3: 'c1-opt1', 1.5: 'c1-opt2', 0: 'c1-opt3' },
+                2: { 4: 'c2-opt1', 2: 'c2-opt2', 0: 'c2-opt3' },
+                3: { 3: 'c3-opt1', 1.5: 'c3-opt2', 0: 'c3-opt3' }
+            };
+
+            Object.keys(optMap[critNum]).forEach(val => {
+                const btn = document.getElementById(optMap[critNum][val]);
+                if (parseFloat(val) === scoreVal) {
+                    btn.className = 'rubric-btn bg-palette-blue text-slate-950 p-3 rounded-xl text-left transition font-semibold shadow';
+                } else {
+                    btn.className = 'rubric-btn bg-slate-900 text-slate-300 p-3 rounded-xl text-left transition font-semibold';
+                }
+            });
+
+            const total = studentData.scores[1] + studentData.scores[2] + studentData.scores[3];
+            document.getElementById('totalScore').innerText = total + ' / 10 pts';
+
+            const statusBox = document.getElementById('statusBox');
+            if (total < 4) {
+                statusBox.className = 'mt-6 p-4 rounded-xl bg-rose-950/80 text-rose-300 border border-rose-800 text-xs font-semibold flex items-center justify-between';
+                statusBox.innerHTML = '<div><i class="fa-solid fa-triangle-exclamation text-rose-400 mr-2 text-base"></i><span>Resultado: Punteo menor a 4 pts. Se requiere Proceso de Mejoramiento Obligatorio.</span></div>';
+            } else if (total === 5) {
+                statusBox.className = 'mt-6 p-4 rounded-xl bg-amber-950/80 text-amber-300 border border-amber-800 text-xs font-semibold flex items-center justify-between';
+                statusBox.innerHTML = '<div><i class="fa-solid fa-circle-info text-amber-400 mr-2 text-base"></i><span>Resultado: Punteo de 5 pts. Proceso de Mejoramiento Opcional de acuerdo con la normativa.</span></div>';
             } else {
-                statusEl.innerText = "Incompleto";
-                statusEl.className = "font-bold text-brand-yellow";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i> Falta título "Actividad 2:" o análisis suficiente';
-                kwCheck.className = "text-rose-400";
+                statusBox.className = 'mt-6 p-4 rounded-xl bg-emerald-950/80 text-emerald-300 border border-emerald-800 text-xs font-semibold flex items-center justify-between';
+                statusBox.innerHTML = '<div><i class="fa-solid fa-circle-check text-emerald-400 mr-2 text-base"></i><span>Resultado: Desempeño Satisfactorio. La actividad cumple con los estándares requeridos.</span></div>';
             }
 
-            calculateGlobalScore();
+            updateLivePreview();
         }
 
-        function checkAct3Validation() {
-            const text = document.getElementById('act3-text').value;
-            const wordCount = countWords(text);
-            document.getElementById('act3-word-count').innerText = `Palabras: ${wordCount}`;
+        // LÓGICA DE RECURSO TÉCNICO INTERACTIVO:
+        let isGamutWarningActive = false;
 
-            const hasHeading = text.toLowerCase().includes('actividad 3:');
-            const isLongEnough = wordCount >= 20;
+        function toggleGamutWarning() {
+            isGamutWarningActive = !isGamutWarningActive;
 
-            const statusEl = document.getElementById('act3-status');
-            const kwCheck = document.getElementById('act3-kw-check');
+            const btn = document.getElementById('btn-gamut-toggle');
+            const label = document.getElementById('label-gamut');
+            const icon = document.getElementById('icon-gamut');
 
-            if (hasHeading && isLongEnough) {
-                statusEl.innerText = "Completado (3/3 pts)";
-                statusEl.className = "font-bold text-emerald-400";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Encabezado y escrito vigentes';
-                kwCheck.className = "text-emerald-400";
+            const o1 = document.getElementById('gamut-overlay-1');
+            const o2 = document.getElementById('gamut-overlay-2');
+            const o3 = document.getElementById('gamut-overlay-3');
+
+            if (isGamutWarningActive) {
+                btn.className = 'self-start sm:self-auto px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-mono text-xs font-bold flex items-center gap-2 shadow-lg shadow-amber-500/20 transition';
+                label.innerText = 'Desactivar Aviso Fuera de Gama (Gamut Warning)';
+                icon.className = 'fa-solid fa-eye-slash';
+
+                [o1, o2, o3].forEach(o => { if (o) o.classList.remove('opacity-0'); });
             } else {
-                statusEl.innerText = "Incompleto";
-                statusEl.className = "font-bold text-brand-yellow";
-                kwCheck.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i> Falta título "Actividad 3:" o análisis suficiente';
-                kwCheck.className = "text-rose-400";
-            }
+                btn.className = 'self-start sm:self-auto px-4 py-2 rounded-xl bg-cmyk-magenta/20 border border-cmyk-magenta/40 text-cmyk-magenta font-mono text-xs font-bold flex items-center gap-2 hover:bg-cmyk-magenta/30 transition';
+                label.innerText = 'Activar Aviso Fuera de Gama (Gamut Warning)';
+                icon.className = 'fa-solid fa-triangle-exclamation';
 
-            calculateGlobalScore();
+                [o1, o2, o3].forEach(o => { if (o) o.classList.add('opacity-0'); });
+            }
         }
 
-        function calculateGlobalScore() {
-            const t1 = document.getElementById('act1-text').value;
-            const t2 = document.getElementById('act2-text').value;
-            const t3 = document.getElementById('act3-text').value;
+        // Calculadora TAC Meter
+        function calculateTAC() {
+            const c = parseInt(document.getElementById('slider-c').value) || 0;
+            const m = parseInt(document.getElementById('slider-m').value) || 0;
+            const y = parseInt(document.getElementById('slider-y').value) || 0;
+            const k = parseInt(document.getElementById('slider-k').value) || 0;
 
-            const img1Loaded = !document.getElementById('pdf-img-1').classList.contains('hidden');
-            const img2Loaded = !document.getElementById('pdf-img-2').classList.contains('hidden');
-            const img3Loaded = !document.getElementById('pdf-img-3').classList.contains('hidden');
+            document.getElementById('val-c').innerText = `${c}%`;
+            document.getElementById('val-m').innerText = `${m}%`;
+            document.getElementById('val-y').innerText = `${y}%`;
+            document.getElementById('val-k').innerText = `${k}%`;
 
-            let points = 0;
+            const totalTac = c + m + y + k;
+            const tacTotalEl = document.getElementById('tac-total-val');
+            const tacBadge = document.getElementById('tac-badge');
+            const tacDesc = document.getElementById('tac-desc');
+            const tacBar = document.getElementById('tac-bar');
 
-            // Actividad 1 (4 pts max)
-            if (t1.toLowerCase().includes('actividad 1:') && countWords(t1) >= 20 && img1Loaded) {
-                points += 4;
-            } else if (t1.trim().length > 10 || img1Loaded) {
-                points += 2;
-            }
+            tacTotalEl.innerText = `${totalTac}% TAC`;
+            const widthPct = Math.min(100, (totalTac / 400) * 100);
+            tacBar.style.width = `${widthPct}%`;
 
-            // Actividad 2 (3 pts max)
-            if (t2.toLowerCase().includes('actividad 2:') && countWords(t2) >= 20 && img2Loaded) {
-                points += 3;
-            } else if (t2.trim().length > 10 || img2Loaded) {
-                points += 1;
-            }
-
-            // Actividad 3 (3 pts max)
-            if (t3.toLowerCase().includes('actividad 3:') && countWords(t3) >= 20 && img3Loaded) {
-                points += 3;
-            } else if (t3.trim().length > 10 || img3Loaded) {
-                points += 1;
-            }
-
-            // Update Progress Bar
-            document.getElementById('global-progress-bar').style.width = (points * 10) + "%";
-            document.getElementById('global-progress-text').innerText = `${points}/10 pts`;
-
-            // Update Badge
-            const badge = document.getElementById('score-badge');
-            const scoreDesc = document.getElementById('score-description');
-            badge.innerText = `${points}/10`;
-
-            if (points === 10) {
-                badge.className = "w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-500 text-emerald-400 font-extrabold text-lg flex items-center justify-center";
-                scoreDesc.innerText = "¡Excelente! Has alcanzado la nota máxima de la Rúbrica Oficial (10/10).";
-            } else if (points >= 5) {
-                badge.className = "w-14 h-14 rounded-full bg-brand-yellow/20 border-2 border-brand-yellow text-brand-yellow font-extrabold text-lg flex items-center justify-center";
-                scoreDesc.innerText = "Nivel Aceptable. Asegúrate de adjuntar todas las capturas y textos para obtener los 10 pts.";
+            if (totalTac > 300) {
+                tacBadge.className = 'px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse';
+                tacBadge.innerText = '¡ALERTA! TAC SUPERADO (>300%)';
+                tacBar.className = 'h-full bg-rose-500 rounded-full transition-all duration-300';
+                tacDesc.innerText = 'Peligro de repintado en imprenta, secado muy lento y abolsamiento de papel. Se debe reducir la carga cromática o aplicar GCR/UCR.';
+            } else if (totalTac === 200) {
+                tacBadge.className = 'px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+                tacBadge.innerText = 'NEGRO ENRIQUECIDO ESTÁNDAR';
+                tacBar.className = 'h-full bg-emerald-500 rounded-full transition-all duration-300';
+                tacDesc.innerText = 'Fórmula recomendada para Negro Enriquecido (Rich Black) en fondos oscuros: C:40 M:30 Y:30 K:100. Garantiza oscuridad limpia e imprenta segura.';
             } else {
-                badge.className = "w-14 h-14 rounded-full bg-rose-500/20 border-2 border-rose-500 text-rose-400 font-extrabold text-lg flex items-center justify-center";
-                scoreDesc.innerText = "Puntaje incompleto. Redacta las explicaciones escritas y sube las capturas correspondientes.";
+                tacBadge.className = 'px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+                tacBadge.innerText = 'COBERTURA SEGURA EN PRENSA';
+                tacBar.className = 'h-full bg-emerald-500 rounded-full transition-all duration-300';
+                tacDesc.innerText = 'El nivel de tinta acumulado está dentro de los límites seguros para papel estucado/couche. Buen tiempo de secado en máquina.';
             }
         }
 
-        // Update PDF Live Preview Content
-        function updatePDFPreview() {
-            const name = document.getElementById('student-name').value || "[Nombre del Estudiante]";
-            const key = document.getElementById('student-key').value || "[Clave / Sección]";
+        // Simulador de Separación de Canales CMYK
+        const channelState = { c: true, m: true, y: true, k: true };
 
-            document.getElementById('pdf-preview-name').innerText = name;
-            document.getElementById('pdf-preview-key').innerText = key;
+        function updateChannelCanvasUI() {
+            const preview = document.getElementById('channel-canvas-preview');
+            const title = document.getElementById('chan-title');
+            const status = document.getElementById('chan-status-text');
+            const subtitle = document.getElementById('chan-subtitle');
 
-            const t1 = document.getElementById('act1-text').value || "Pendiente de redacción en Pestaña 2 (Actividad 1)...";
-            const t2 = document.getElementById('act2-text').value || "Pendiente de redacción en Pestaña 3 (Actividad 2)...";
-            const t3 = document.getElementById('act3-text').value || "Pendiente de redacción en Pestaña 4 (Actividad 3)...";
+            const activeChans = Object.keys(channelState).filter(key => channelState[key]).map(k => k.toUpperCase());
 
-            document.getElementById('pdf-act1-body').innerText = t1;
-            document.getElementById('pdf-act2-body').innerText = t2;
-            document.getElementById('pdf-act3-body').innerText = t3;
-        }
-
-        // Download Document as PDF using html2pdf
-        function downloadAsPDF() {
-            const studentName = document.getElementById('student-name').value.trim();
-            if (!studentName) {
-                showToast("Por favor escribe tu nombre completo antes de exportar el PDF", "fa-solid fa-triangle-exclamation text-brand-yellow");
-                switchTab('tab-entregable');
-                document.getElementById('student-name').focus();
+            if (activeChans.length === 0) {
+                preview.style.background = '#0a0a0f';
+                title.style.color = '#334155';
+                title.innerText = 'PLACA EN BLANCO (SIN TINTA)';
+                subtitle.innerText = 'Todos los canales cromáticos están desactivados.';
+                status.innerText = 'Canales Visibles: Ninguno';
                 return;
             }
 
-            showToast("Generando archivo PDF técnico...", "fa-solid fa-gear fa-spin text-brand-cyan");
+            status.innerText = `Canales Visibles: ${activeChans.join(' + ')}`;
 
-            const element = document.getElementById('pdf-document-area');
-            const opt = {
-                margin:       0.4,
-                filename:     `Guia5_Diseno2_${studentName.replace(/\s+/g, '_')}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
+            if (activeChans.length === 1) {
+                const solo = activeChans[0];
+                if (solo === 'K') {
+                    preview.style.background = '#1e293b';
+                    title.style.color = '#ffffff';
+                    title.innerText = 'PLACA DE NEGRO (100% K)';
+                    subtitle.innerText = 'Verificación de textos e iconografía fina. Deben aparecer únicamente en la película de Negro puro.';
+                } else if (solo === 'C') {
+                    preview.style.background = '#003840';
+                    title.style.color = '#00f0ff';
+                    title.innerText = 'PLACA SEPARADA DE CIAN';
+                    subtitle.innerText = 'Proyección de película para la plancha de tinta Cian.';
+                } else if (solo === 'M') {
+                    preview.style.background = '#380020';
+                    title.style.color = '#ff007f';
+                    title.innerText = 'PLACA SEPARADA DE MAGENTA';
+                    subtitle.innerText = 'Proyección de película para la plancha de tinta Magenta.';
+                } else if (solo === 'Y') {
+                    preview.style.background = '#383300';
+                    title.style.color = '#ffe600';
+                    title.innerText = 'PLACA SEPARADA DE AMARILLO';
+                    subtitle.innerText = 'Proyección de película para la plancha de tinta Amarilla.';
+                }
+            } else if (channelState.c && channelState.m && channelState.y && channelState.k) {
+                preview.style.background = 'linear-gradient(135deg, #0f172a 0%, #020617 100%)';
+                title.style.color = '#00f0ff';
+                title.innerText = 'EXPERIENCIA VISUAL PURE COLOR';
+                subtitle.innerText = 'Placa K: Textos finos en K:100% puro para evitar descalce de registro.';
+            } else {
+                preview.style.background = '#1e1b4b';
+                title.style.color = '#f4d058';
+                title.innerText = `MEZCLA PARCIAL (${activeChans.join(' + ')})`;
+                subtitle.innerText = 'Inspección de sobreimpresión combinada entre canales seleccionados.';
+            }
 
-            html2pdf().set(opt).from(element).save().then(() => {
-                showToast("PDF descargado exitosamente. ¡Listo para entregar en Google Classroom!", "fa-solid fa-circle-check text-emerald-400");
-            }).catch(err => {
-                showToast("Error al exportar PDF. Puedes presionar Ctrl+P para guardar como PDF.", "fa-solid fa-circle-exclamation text-rose-400");
+            // Update button styles
+            const btnKeys = ['c', 'm', 'y', 'k'];
+            btnKeys.forEach(key => {
+                const btn = document.getElementById(`btn-chan-${key}`);
+                if (!btn) return;
+                if (channelState[key]) {
+                    btn.classList.remove('opacity-40');
+                } else {
+                    btn.classList.add('opacity-40');
+                }
             });
         }
 
-        // Initialize App State
+        function toggleChannel(key) {
+            channelState[key] = !channelState[key];
+            updateChannelCanvasUI();
+        }
+
+        function resetAllChannels() {
+            channelState.c = true;
+            channelState.m = true;
+            channelState.y = true;
+            channelState.k = true;
+            updateChannelCanvasUI();
+        }
+
         window.onload = function() {
-            checkAct1Validation();
-            checkAct2Validation();
-            checkAct3Validation();
-            updatePDFPreview();
+            updateLivePreview();
+            calculateTAC();
+            updateChannelCanvasUI();
         };
     </script>
 </body>
