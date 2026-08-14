@@ -73,7 +73,7 @@
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
                     <div class="p-2 bg-inst-dark/80 border border-inst-red/40 rounded-2xl shadow-xl shrink-0">
-                        <img src="Logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain" onerror="this.onerror=null; this.src='logo.jpg';">
+                        <img src="Logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain" onerror="this.onerror=null; this.src='Logo.jpg';">
                     </div>
                     <div>
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-inst-red/10 border border-inst-red/40 text-inst-red text-xs font-semibold uppercase tracking-wider mb-3">
@@ -154,7 +154,7 @@
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl font-bold text-white">1. Matriz de Auditoría y Cumplimiento Normativo MINEDUC</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Cada propuesta ofertada ha sido evaluada strictly frente a la <em>Guía de Criterios para la Selección de Recursos Educativos Tecnológicos dirigida a OPF</em>. El cumplimiento del 100% es condición indispensable para evitar hallazgos administrativos.
+                    Cada propuesta ofertada ha sido evaluada estrictamente frente a la <em>Guía de Criterios para la Selección de Recursos Educativos Tecnológicos dirigida a OPF</em>. El cumplimiento del 100% es condición indispensable para evitar hallazgos administrativos.
                 </p>
             </div>
 
@@ -270,7 +270,7 @@
                         <span class="text-xs bg-inst-red/20 text-inst-red px-2.5 py-1 rounded-full font-semibold border border-inst-red/40">Balance Técnico</span>
                     </div>
                     <p class="text-xs text-slate-400 mb-4">
-                        Evaluación integral ponderada en escala de 0 a 100 en 5 factores: RAM, Almacenamiento, Red Celular (5G vs 4G), Batería y Completes del Kit de Accesorios.
+                        Evaluación integral ponderada en escala de 0 a 100 en 5 factores: RAM, Almacenamiento, Red Celular (5G vs 4G), Batería y Completez del Kit de Accesorios.
                     </p>
                     <div class="chart-container">
                         <canvas id="radarChart"></canvas>
@@ -494,7 +494,7 @@
 
     <footer class="bg-inst-black border-t border-inst-red/30 py-8 px-4 sm:px-8 text-center text-xs text-slate-400">
         <div class="max-w-7xl mx-auto space-y-3 flex flex-col items-center">
-            <img src="logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80" onerror="this.onerror=null; this.src='logo.jpg';">
+            <img src="Logo.png" alt="Insignia Institucional" class="w-12 h-12 object-contain opacity-80" onerror="this.onerror=null; this.src='Logo.jpg';">
             <p class="font-bold text-slate-200">
                 Instituto Industrial Central General Lázaro Chacón González • Departamento de Computación e Informática
             </p>
@@ -537,7 +537,7 @@
             new Chart(ctxBudget, {
                 type: 'doughnut',
                 data: {
-                    labels: [['Subsidio Tablet', '(Q 2,000.00)'], ['Subsidio Internet', '(Q 600.00)']],
+                    labels: ['Subsidio Tablet (Q 2,000.00)', 'Subsidio Internet (Q 600.00)'],
                     datasets: [{
                         data: [2000, 600],
                         backgroundColor: ['#ef4444', '#3b82f6'],
@@ -547,7 +547,18 @@
                 },
                 options: {
                     ...tooltipConfig,
-                    cutout: '65%'
+                    cutout: '65%',
+                    plugins: {
+                        ...tooltipConfig.plugins,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#e2e8f0',
+                                font: { size: 11 },
+                                padding: 14
+                            }
+                        }
+                    }
                 }
             });
 
