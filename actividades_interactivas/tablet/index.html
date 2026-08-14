@@ -68,11 +68,12 @@
 </head>
 <body class="bg-[#08090d] text-slate-100 font-sans antialiased custom-scrollbar min-h-screen">
 
+    <!-- ENCABEZADO -->
     <header class="relative bg-gradient-to-r from-inst-black via-inst-dark to-[#180a10] border-b border-inst-red/30 py-8 px-4 sm:px-8 lg:px-12 shadow-2xl">
         <div class="max-w-[1650px] w-full mx-auto">
             <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-                    <div class="p-2.5 bg-inst-dark/80 border border-inst-red/40 rounded-2xl shadow-xl shrink-0">
+                    <div id="header-logo" class="p-2.5 bg-inst-dark/80 border border-inst-red/40 rounded-2xl shadow-xl shrink-0 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:border-inst-red" onclick="abrirCuadroCompleto('header-logo')">
                         <img src="logo.png" alt="Logotipo Instituto Industrial Central General Lázaro Chacón González" class="w-20 h-20 sm:w-24 sm:h-24 object-contain">
                     </div>
                     <div>
@@ -89,11 +90,11 @@
                     </div>
                 </div>
                 <div class="flex flex-row sm:flex-row gap-4 shrink-0">
-                    <div class="glass-card-blue px-6 py-4 rounded-xl text-center border-l-4 border-inst-blue shadow-lg flex-1 sm:flex-none">
+                    <div id="header-stat-fondo" class="glass-card-blue px-6 py-4 rounded-xl text-center border-l-4 border-inst-blue shadow-lg flex-1 sm:flex-none cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-inst-blue/30" onclick="abrirCuadroCompleto('header-stat-fondo')">
                         <span class="text-xs text-slate-300 font-medium uppercase tracking-wider block">Fondo Total / Alumno</span>
                         <span class="text-2xl sm:text-3xl font-bold text-inst-sky">Q 2,600.00</span>
                     </div>
-                    <div class="glass-card-red px-6 py-4 rounded-xl text-center border-l-4 border-inst-red shadow-lg flex-1 sm:flex-none">
+                    <div id="header-stat-modalidad" class="glass-card-red px-6 py-4 rounded-xl text-center border-l-4 border-inst-red shadow-lg flex-1 sm:flex-none cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-inst-red/30" onclick="abrirCuadroCompleto('header-stat-modalidad')">
                         <span class="text-xs text-slate-300 font-medium uppercase tracking-wider block">Modalidad de Compra</span>
                         <span class="text-2xl sm:text-3xl font-bold text-inst-red">Factura Doble</span>
                     </div>
@@ -101,28 +102,28 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-8">
-                <div class="bg-inst-dark/90 border border-inst-blue/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                <div id="stat-subsidio-tablet" class="bg-inst-dark/90 border border-inst-blue/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md cursor-pointer transition-all duration-300 transform hover:scale-105 hover:border-inst-sky" onclick="abrirCuadroCompleto('stat-subsidio-tablet')">
                     <div class="w-12 h-12 rounded-lg bg-inst-blue/20 text-inst-sky flex items-center justify-center font-bold text-xl border border-inst-blue/40 shrink-0">📱</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Subsidio Tablet</div>
                         <div class="text-xl sm:text-2xl font-bold text-white">Q 2,000.00</div>
                     </div>
                 </div>
-                <div class="bg-inst-dark/90 border border-inst-red/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                <div id="stat-subsidio-internet" class="bg-inst-dark/90 border border-inst-red/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md cursor-pointer transition-all duration-300 transform hover:scale-105 hover:border-inst-red" onclick="abrirCuadroCompleto('stat-subsidio-internet')">
                     <div class="w-12 h-12 rounded-lg bg-inst-red/20 text-inst-red flex items-center justify-center font-bold text-xl border border-inst-red/40 shrink-0">📶</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Subsidio Internet</div>
                         <div class="text-xl sm:text-2xl font-bold text-white">Q 600.00</div>
                     </div>
                 </div>
-                <div class="bg-inst-dark/90 border border-inst-blue/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                <div id="stat-beneficiarios" class="bg-inst-dark/90 border border-inst-blue/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md cursor-pointer transition-all duration-300 transform hover:scale-105 hover:border-inst-sky" onclick="abrirCuadroCompleto('stat-beneficiarios')">
                     <div class="w-12 h-12 rounded-lg bg-inst-royal/20 text-inst-sky flex items-center justify-center font-bold text-xl border border-inst-blue/40 shrink-0">🎓</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Beneficiarios</div>
                         <div class="text-xl sm:text-2xl font-bold text-white">4to Bach.</div>
                     </div>
                 </div>
-                <div class="bg-inst-dark/90 border border-inst-red/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md">
+                <div id="stat-especialidades" class="bg-inst-dark/90 border border-inst-red/30 p-4 sm:p-5 rounded-xl flex items-center gap-4 shadow-md cursor-pointer transition-all duration-300 transform hover:scale-105 hover:border-inst-red" onclick="abrirCuadroCompleto('stat-especialidades')">
                     <div class="w-12 h-12 rounded-lg bg-inst-crimson/20 text-inst-red flex items-center justify-center font-bold text-xl border border-inst-red/40 shrink-0">🛠️</div>
                     <div>
                         <div class="text-slate-400 text-xs font-semibold">Especialidades</div>
@@ -156,29 +157,37 @@
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">1. Matriz de Auditoría y Cumplimiento Normativo MINEDUC</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Cada propuesta ofertada ha sido evaluada estrictamente frente a la <em>Guía de Criterios para la Selección de Recursos Educativos Tecnológicos dirigida a OPF</em>. El cumplimiento del 100% es condición indispensable para evitar hallazgos administrativos.
+                    Haz clic en el desglose de presupuesto o en la tabla de auditoría para verlos ampliados en primer plano[cite: 1].
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div class="lg:col-span-4 glass-card-red p-6 rounded-2xl flex flex-col justify-between">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
+                <!-- Tarjeta Estructura Aporte -->
+                <div id="normativa-presupuesto" class="lg:col-span-4 glass-card-red p-6 rounded-2xl flex flex-col justify-between cursor-pointer transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-inst-red/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('normativa-presupuesto')">
                     <div>
-                        <h3 class="text-lg font-bold text-white mb-2">Estructura del Aporte (Q 2,600)</h3>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-white">Estructura del Aporte (Q 2,600)</h3>
+                            <span class="text-[10px] text-slate-400">🔍 Clic para ampliar</span>
+                        </div>
                         <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-                            El normativo MINEDUC exige la separación de fondos en dos rubros independientes con facturación exclusiva a nombre de la OPF.
+                            El normativo MINEDUC exige la separación de fondos en dos rubros independientes con facturación exclusiva a nombre de la OPF[cite: 1].
                         </p>
                         <div class="chart-container">
                             <canvas id="budgetChart"></canvas>
                         </div>
                     </div>
                     <div class="mt-4 p-3.5 bg-inst-black/80 rounded-xl border border-inst-red/30 text-xs text-slate-300">
-                        <strong class="text-inst-red">Nota Legal:</strong> La adquisición del equipo (Q2,000) y del servicio de conectividad (Q600) se realiza mediante facturas separadas, permitiendo combinar libremente el mejor proveedor de hardware con la mejor operadora de datos.
+                        <strong class="text-inst-red">Nota Legal:</strong> La adquisición del equipo (Q2,000) y del servicio de conectividad (Q600) se realiza mediante facturas separadas, permitiendo combinar libremente el mejor proveedor de hardware con la mejor operadora de datos[cite: 1].
                     </div>
                 </div>
 
-                <div class="lg:col-span-8 glass-card-blue p-6 rounded-2xl flex flex-col justify-between overflow-hidden">
+                <!-- Tarjeta Matriz de Auditoría -->
+                <div id="normativa-matriz" class="lg:col-span-8 glass-card-blue p-6 rounded-2xl flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 transform hover:scale-[1.01] hover:shadow-2xl hover:shadow-inst-blue/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('normativa-matriz')">
                     <div>
-                        <h3 class="text-lg font-bold text-white mb-4">Evaluación de Criterios Obligatorios y Disponibilidad de SIM</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-white">Evaluación de Criterios Obligatorios y Disponibilidad de SIM</h3>
+                            <span class="text-[10px] text-slate-400">🔍 Clic para ampliar tabla</span>
+                        </div>
                         <div class="overflow-x-auto custom-scrollbar">
                             <table class="w-full text-left text-xs sm:text-sm">
                                 <thead>
@@ -252,20 +261,18 @@
             </div>
         </section>
 
-        <!-- 2. COTIZACIONES (AMPLIACIÓN COMPLETA AL CLIC) -->
+        <!-- 2. COTIZACIONES -->
         <section id="cotizaciones" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">2. Catálogo Visual y Cotizaciones Oficiales Recibidas</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Exhibición de los tres modelos cotizados. Pasa el cursor para ver resalte o <strong>haz clic sobre cualquier cuadro para abrir la ficha en primer plano</strong>[cite: 1].
+                    Exhibición de los tres modelos cotizados. Haz clic sobre cualquier cuadro para proyectar la cotización oficial en primer plano[cite: 1].
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-                
-                <!-- Tarjeta 1: Blackview -->
-                <div id="card-blackview" class="group glass-card-red rounded-2xl overflow-hidden border-2 border-inst-red/60 flex flex-col justify-between shadow-2xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-red/40 hover:border-inst-red z-10 hover:z-30"
-                     onclick="abrirCuadroCompleto('card-blackview')">
+                <!-- Blackview -->
+                <div id="card-blackview" class="group glass-card-red rounded-2xl overflow-hidden border-2 border-inst-red/60 flex flex-col justify-between shadow-2xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-red/40 hover:border-inst-red z-10 hover:z-30" onclick="abrirCuadroCompleto('card-blackview')">
                     <div class="absolute top-3 right-3 bg-inst-red text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-md z-10">
                         Recomendado TI
                     </div>
@@ -325,9 +332,8 @@
                     </div>
                 </div>
 
-                <!-- Tarjeta 2: TCL -->
-                <div id="card-tcl" class="group glass-card-blue rounded-2xl overflow-hidden border border-inst-blue/40 flex flex-col justify-between shadow-xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-blue/40 hover:border-inst-sky z-10 hover:z-30"
-                     onclick="abrirCuadroCompleto('card-tcl')">
+                <!-- TCL -->
+                <div id="card-tcl" class="group glass-card-blue rounded-2xl overflow-hidden border border-inst-blue/40 flex flex-col justify-between shadow-xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-blue/40 hover:border-inst-sky z-10 hover:z-30" onclick="abrirCuadroCompleto('card-tcl')">
                     <div class="absolute top-3 right-3 bg-inst-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md z-10">
                         Opción Unificada
                     </div>
@@ -387,9 +393,8 @@
                     </div>
                 </div>
 
-                <!-- Tarjeta 3: Dataflex -->
-                <div id="card-dataflex" class="group glass-card-blue rounded-2xl overflow-hidden border border-slate-700 flex flex-col justify-between shadow-xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-slate-500/40 hover:border-slate-400 z-10 hover:z-30"
-                     onclick="abrirCuadroCompleto('card-dataflex')">
+                <!-- Dataflex -->
+                <div id="card-dataflex" class="group glass-card-blue rounded-2xl overflow-hidden border border-slate-700 flex flex-col justify-between shadow-xl relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-slate-500/40 hover:border-slate-400 z-10 hover:z-30" onclick="abrirCuadroCompleto('card-dataflex')">
                     <div class="absolute top-3 right-3 bg-slate-700 text-slate-200 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md z-10">
                         Rango Mínimo
                     </div>
@@ -451,36 +456,38 @@
             </div>
         </section>
 
-        <!-- 3. COMPARATIVA HARDWARE -->
+        <!-- 3. COMPARATIVA HARDWARE (GRÁFICAS INTERACTIVAS) -->
         <section id="comparativa" class="space-y-6">
             <div class="border-l-4 border-inst-blue pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">3. Comparativa Técnica y Métricas de Hardware (Presupuesto Q 2,000.00)</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Análisis cuantitativo de las tres alternativas de tablets disponibles en el mercado nacional por el techo presupuestario de Q 2,000.00 por dispositivo.
+                    Haz clic en cualquiera de las tarjetas de gráficas para analizarlas en primer plano[cite: 1].
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="glass-card-blue p-6 rounded-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative">
+                <!-- Gráfica de Barras -->
+                <div id="grafica-barras" class="glass-card-blue p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-inst-blue/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('grafica-barras')">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="text-lg font-bold text-white">Capacidad de Memoria y Almacenamiento</h3>
                         <span class="text-xs bg-inst-blue/20 text-inst-sky px-2.5 py-1 rounded-full font-semibold border border-inst-blue/40">Métricas Principales</span>
                     </div>
                     <p class="text-xs text-slate-400 mb-4">
-                        Comparación directa de Memoria RAM Física (GB) y Almacenamiento Interno (GB). Los 256 GB de la Blackview ofrecen el doble de capacidad que la TCL y cuatro veces más que Dataflex.
+                        Comparación directa de Memoria RAM Física (GB) y Almacenamiento Interno (GB)[cite: 1]. Los 256 GB de la Blackview ofrecen el doble de capacidad que la TCL y cuatro veces más que Dataflex[cite: 1].
                     </p>
                     <div class="chart-container">
                         <canvas id="hardwareBarChart"></canvas>
                     </div>
                 </div>
 
-                <div class="glass-card-red p-6 rounded-2xl">
+                <!-- Gráfica Radar -->
+                <div id="grafica-radar" class="glass-card-red p-6 rounded-2xl cursor-pointer transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-inst-red/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('grafica-radar')">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="text-lg font-bold text-white">Rendimiento Multidimensional</h3>
                         <span class="text-xs bg-inst-red/20 text-inst-red px-2.5 py-1 rounded-full font-semibold border border-inst-red/40">Balance Técnico</span>
                     </div>
                     <p class="text-xs text-slate-400 mb-4">
-                        Evaluación integral ponderada en escala de 0 a 100 en 5 factores: RAM, Almacenamiento, Red Celular (5G vs 4G), Batería y Completez del Kit de Accesorios.
+                        Evaluación integral ponderada en escala de 0 a 100 en 5 factores: RAM, Almacenamiento, Red Celular (5G vs 4G), Batería y Completez del Kit de Accesorios[cite: 1].
                     </p>
                     <div class="chart-container">
                         <canvas id="radarChart"></canvas>
@@ -494,53 +501,58 @@
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">4. Justificación Técnico-Pedagógica para Bachilleratos Industriales</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Las exigencias académicas del Instituto Industrial Central General Lázaro Chacón González sobrepasan el uso educativo básico.
+                    Haz clic sobre cualquier especialidad técnica para ver el detalle de requerimientos de software y memoria[cite: 1].
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="glass-card-red p-6 rounded-xl border-t-4 border-inst-red hover:-translate-y-1 transition duration-200">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+                <!-- Computación -->
+                <div id="esp-computacion" class="glass-card-red p-6 rounded-xl border-t-4 border-inst-red cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-inst-red/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('esp-computacion')">
                     <div class="text-4xl mb-3">💻</div>
                     <h3 class="text-base font-bold text-white mb-2">Computación</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Requiere compilación de código, emulación de entornos web, editores de código (VS Code web) y ejecución simultánea de IDEs. Exige mínimo 6 GB de RAM física.
+                        Requiere compilación de código, emulación de entornos web, editores de código (VS Code web) y ejecución simultánea de IDEs[cite: 1]. Exige mínimo 6 GB de RAM física[cite: 1].
                     </p>
                 </div>
 
-                <div class="glass-card-blue p-6 rounded-xl border-t-4 border-inst-blue hover:-translate-y-1 transition duration-200">
+                <!-- Diseño Gráfico -->
+                <div id="esp-diseno" class="glass-card-blue p-6 rounded-xl border-t-4 border-inst-blue cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-inst-blue/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('esp-diseno')">
                     <div class="text-4xl mb-3">🎨</div>
                     <h3 class="text-base font-bold text-white mb-2">Diseño Gráfico</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Exige manejo de renderizado vectorial en Canva/Figma, manipulación de proyectos pesados y precisión. La inclusión de <strong class="text-inst-sky">Mouse Óptico</strong> en Click GT es crítica.
+                        Exige manejo de renderizado vectorial en Canva/Figma, manipulación de proyectos pesados y precisión[cite: 1]. La inclusión de <strong class="text-inst-sky">Mouse Óptico</strong> en Click GT es crítica[cite: 1].
                     </p>
                 </div>
 
-                <div class="glass-card-red p-6 rounded-xl border-t-4 border-inst-crimson hover:-translate-y-1 transition duration-200">
+                <!-- Electricidad -->
+                <div id="esp-electricidad" class="glass-card-red p-6 rounded-xl border-t-4 border-inst-crimson cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-inst-red/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('esp-electricidad')">
                     <div class="text-4xl mb-3">⚡</div>
                     <h3 class="text-base font-bold text-white mb-2">Electricidad</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Simulación de circuitos esquemáticos (Tinkercad, Crocodile Clips), diagramas unifilares y catálogos de componentes industriales que requieren pantalla de 11" y 256GB.
+                        Simulación de circuitos esquemáticos (Tinkercad, Crocodile Clips), diagramas unifilares y catálogos de componentes industriales que requieren pantalla de 11" y 256GB[cite: 1].
                     </p>
                 </div>
 
-                <div class="glass-card-blue p-6 rounded-xl border-t-4 border-inst-royal hover:-translate-y-1 transition duration-200">
+                <!-- Mecánica -->
+                <div id="esp-mecanica" class="glass-card-blue p-6 rounded-xl border-t-4 border-inst-royal cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-inst-blue/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('esp-mecanica')">
                     <div class="text-4xl mb-3">🔧</div>
                     <h3 class="text-base font-bold text-white mb-2">Mecánica</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Visualización de piezas 3D en CAD, manuales de despiece vehicular pesados y simuladores mecánicos donde la memoria interna extendida evita la saturación del equipo.
+                        Visualización de piezas 3D en CAD, manuales de despiece vehicular pesados y simuladores mecánicos donde la memoria interna extendida evita la saturación del equipo[cite: 1].
                     </p>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-inst-black via-inst-dark to-inst-black border border-inst-red/40 p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-xl">
+            <!-- Destacado 256GB -->
+            <div id="destacado-256gb" class="bg-gradient-to-r from-inst-black via-inst-dark to-inst-black border border-inst-red/40 p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center gap-6 shadow-xl cursor-pointer transition-all duration-300 transform hover:scale-[1.02] hover:border-inst-red" onclick="abrirCuadroCompleto('destacado-256gb')">
                 <div class="w-20 h-20 rounded-2xl bg-inst-red/20 text-inst-red flex flex-col items-center justify-center text-3xl font-black shrink-0 border border-inst-red/50 shadow-inner">
                     256
                     <span class="text-xs font-semibold block">GB</span>
                 </div>
                 <div class="space-y-1 text-center md:text-left">
-                    <h4 class="text-lg font-bold text-white">¿Por qué 256 GB de Almacenamiento hacen la diferencia?</h4>
+                    <h4 class="text-lg font-bold text-white">¿Por qué 256 GB de Almacenamiento hacen la diferencia?[cite: 1]</h4>
                     <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        El sistema operativo Android 14 y las aplicaciones del MINEDUC consumen aproximadamente 18 GB iniciales. En una tablet de 64 GB (Dataflex), solo quedan 46 GB libres. En la tablet TCL (128 GB) quedan 110 GB. En la <strong class="text-inst-red">Blackview Zeno 10 (256 GB)</strong> el estudiante dispone de más de <strong class="text-inst-sky">230 GB libres</strong> para almacenar planos, código, videos didácticos y proyectos de graduación a lo largo de 2 años.
+                        El sistema operativo Android 14 y las aplicaciones del MINEDUC consumen aproximadamente 18 GB iniciales[cite: 1]. En una tablet de 64 GB (Dataflex), solo quedan 46 GB libres[cite: 1]. En la tablet TCL (128 GB) quedan 110 GB[cite: 1]. En la <strong class="text-inst-red">Blackview Zeno 10 (256 GB)</strong> el estudiante dispone de más de <strong class="text-inst-sky">230 GB libres</strong> para almacenar planos, código, videos didácticos y proyectos de graduación a lo largo de 2 años[cite: 1].
                     </p>
                 </div>
             </div>
@@ -551,12 +563,13 @@
             <div class="border-l-4 border-inst-blue pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">5. Análisis del Plan de Conectividad Móvil (Presupuesto Q 600.00)</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Dado que **Click GT** y **Dataflex** únicamente venden el hardware y carecen de contrato de SIM, la OPF contratará el plan de datos anual directamente con **Claro Empresas** o **Tigo B2B**.
+                    Haz clic sobre cada propuesta de operadora telefónica para proyectar sus condiciones completas[cite: 1].
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card-red p-6 sm:p-8 rounded-2xl border border-inst-red/40 relative overflow-hidden flex flex-col justify-between">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                <!-- Claro -->
+                <div id="operadora-claro" class="glass-card-red p-6 sm:p-8 rounded-2xl border border-inst-red/40 relative overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-red/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('operadora-claro')">
                     <div>
                         <div class="absolute top-0 right-0 bg-inst-red text-white font-bold text-[10px] px-3 py-1.5 rounded-bl-lg uppercase tracking-wider">
                             Operadora SIM 1
@@ -566,25 +579,26 @@
                         <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-red font-bold">✓</span>
-                                <span><strong>Navegación Educación e IA:</strong> Acceso ilimitado a plataformas MINEDUC, Microsoft Teams, Office 365, Canva, ChatGPT, Copilot.</span>
+                                <span><strong>Navegación Educación e IA:</strong> Acceso ilimitado a plataformas MINEDUC, Microsoft Teams, Office 365, Canva, ChatGPT, Copilot[cite: 1].</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-red font-bold">✓</span>
-                                <span><strong>Formato:</strong> Tarjeta SIM Física asignada individualmente por estudiante.</span>
+                                <span><strong>Formato:</strong> Tarjeta SIM Física asignada individualmente por estudiante[cite: 1].</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-red font-bold">✓</span>
-                                <span><strong>Vigencia:</strong> 12 meses garantizados de cobertura continua.</span>
+                                <span><strong>Vigencia:</strong> 12 meses garantizados de cobertura continua[cite: 1].</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-red font-bold">✓</span>
-                                <span><strong>Facturación:</strong> Emitida por TELGUA, S.A. a nombre de la OPF (Factura B - Q600.00).</span>
+                                <span><strong>Facturación:</strong> Emitida por TELGUA, S.A. a nombre de la OPF (Factura B - Q600.00)[cite: 1].</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/40 relative overflow-hidden flex flex-col justify-between">
+                <!-- Tigo -->
+                <div id="operadora-tigo" class="glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/40 relative overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-blue/30 z-10 hover:z-30" onclick="abrirCuadroCompleto('operadora-tigo')">
                     <div>
                         <div class="absolute top-0 right-0 bg-inst-blue text-white font-bold text-[10px] px-3 py-1.5 rounded-bl-lg uppercase tracking-wider">
                             Operadora SIM 2
@@ -594,47 +608,38 @@
                         <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-blue font-bold">✓</span>
-                                <span><strong>Navegación Educación e IA:</strong> Portales MINEDUC, Google Workspace, Canvas LMS, Khan Academy, ChatGPT, Claude, Gemini.</span>
+                                <span><strong>Navegación Educación e IA:</strong> Portales MINEDUC, Google Workspace, Canvas LMS, Khan Academy, ChatGPT, Claude, Gemini[cite: 1].</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-blue font-bold">✓</span>
-                                <span><strong>Bono Adicional:</strong> Incluye bono inicial único de <strong>10 GB para navegación libre</strong> al activar la SIM.</span>
+                                <span><strong>Bono Adicional:</strong> Incluye bono inicial único de <strong>10 GB para navegación libre</strong> al activar la SIM[cite: 1].</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-blue font-bold">✓</span>
-                                <span><strong>Formato:</strong> Tarjeta SIM Física entregada por alumno.</span>
+                                <span><strong>Formato:</strong> Tarjeta SIM Física entregada por alumno[cite: 1].</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-inst-blue font-bold">✓</span>
-                                <span><strong>Facturación:</strong> Emitida por Tigo B2B a nombre de la OPF (Factura B - Q600.00).</span>
+                                <span><strong>Facturación:</strong> Emitida por Tigo B2B a nombre de la OPF (Factura B - Q600.00)[cite: 1].</span>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
-            <div class="p-4 sm:p-5 bg-inst-dark border border-inst-red/40 rounded-xl text-xs sm:text-sm text-slate-300 flex items-center gap-4">
-                <span class="text-3xl">💡</span>
-                <div>
-                    <strong class="text-inst-red">Recomendación para Conectividad:</strong> Ambas empresas cumplen al 100% las exigencias gubernamentales. Se recomienda que la OPF seleccione la compañía que presente la <strong>mejor intensidad de señal móvil 4G/5G en el sector de residencia de los estudiantes</strong>.
-                </div>
-            </div>
         </section>
 
-        <!-- 6. DICTAMEN FINAL (AMPLIACIÓN INTERACTIVA DE CADA CUADRO) -->
+        <!-- 6. DICTAMEN FINAL -->
         <section id="recomendaciones" class="space-y-6">
             <div class="border-l-4 border-inst-red pl-4">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">6. Dictamen Final y Opciones de Adquisición para la OPF</h2>
                 <p class="text-slate-400 text-sm mt-1">
-                    Con base en el análisis técnico, la falta de contrato de SIM en Click GT/Dataflex y la flexibilidad del marco legal del MINEDUC, se presentan las dos rutas de compra para la Junta Directiva de la OPF[cite: 1]. <strong>Haz clic en cualquier opción o paso de la ruta para proyectarlo en pantalla completa</strong>[cite: 1].
+                    Haz clic en cualquier opción de compra o fase de la hoja de ruta para verla en pantalla completa[cite: 1].
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-                
-                <!-- Dictamen: Opción A -->
-                <div id="dictamen-opcion-a" class="group glass-card-red p-6 sm:p-8 rounded-2xl border-2 border-inst-red bg-gradient-to-b from-inst-dark via-inst-card to-inst-black relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-red/40 z-10 hover:z-30"
-                     onclick="abrirCuadroCompleto('dictamen-opcion-a')">
+                <!-- Opción A -->
+                <div id="dictamen-opcion-a" class="group glass-card-red p-6 sm:p-8 rounded-2xl border-2 border-inst-red bg-gradient-to-b from-inst-dark via-inst-card to-inst-black relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-red/40 z-10 hover:z-30" onclick="abrirCuadroCompleto('dictamen-opcion-a')">
                     <div class="flex items-center justify-between mb-3">
                         <div class="inline-block bg-inst-red text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow">
                             ⭐ Opción A (Recomendada por Área de TI)
@@ -645,21 +650,20 @@
                     <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
                         <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-red/30">
                             <strong class="text-inst-red block mb-1">1. Proveedor de Tablets (Q 2,000.00): Click GT</strong>
-                            Tablet Blackview Zeno 10 5GAI (6GB RAM / 256GB ROM / Dual SIM / Kit Completo con Mouse Óptico). *Click GT emite solo Factura A por hardware.*
+                            Tablet Blackview Zeno 10 5GAI (6GB RAM / 256GB ROM / Dual SIM / Kit Completo con Mouse Óptico)[cite: 1]. *Click GT emite solo Factura A por hardware.*[cite: 1]
                         </div>
                         <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-blue/30">
                             <strong class="text-inst-sky block mb-1">2. Proveedor de Conectividad (Q 600.00): Claro o Tigo</strong>
-                            Tarjeta SIM Física con Plan Estudiantil Anual por 12 meses. *Claro/Tigo emite Factura B por conectividad.*
+                            Tarjeta SIM Física con Plan Estudiantil Anual por 12 meses[cite: 1]. *Claro/Tigo emite Factura B por conectividad.*[cite: 1]
                         </div>
                     </div>
                     <div class="text-xs sm:text-sm text-inst-sky font-semibold flex items-center gap-2">
-                        <span>✅ Permite obtener la tablet de mayor capacidad (256 GB) supliendo la falta de contrato SIM de Click GT con la operadora elegida.</span>
+                        <span>✅ Permite obtener la tablet de mayor capacidad (256 GB) supliendo la falta de contrato SIM de Click GT con la operadora elegida[cite: 1].</span>
                     </div>
                 </div>
 
-                <!-- Dictamen: Opción B -->
-                <div id="dictamen-opcion-b" class="group glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/50 bg-inst-dark/80 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-blue/40 z-10 hover:z-30"
-                     onclick="abrirCuadroCompleto('dictamen-opcion-b')">
+                <!-- Opción B -->
+                <div id="dictamen-opcion-b" class="group glass-card-blue p-6 sm:p-8 rounded-2xl border border-inst-blue/50 bg-inst-dark/80 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-inst-blue/40 z-10 hover:z-30" onclick="abrirCuadroCompleto('dictamen-opcion-b')">
                     <div class="flex items-center justify-between mb-3">
                         <div class="inline-block bg-inst-blue text-white font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
                             Opción B (Alternativa Unificada)
@@ -670,61 +674,52 @@
                     <div class="space-y-3 text-xs sm:text-sm text-slate-300 mb-6">
                         <div class="p-3.5 bg-inst-black/90 rounded-xl border border-inst-blue/30">
                             <strong class="text-slate-200 block mb-1">Proveedor Único (Q 2,600.00): Claro Empresas</strong>
-                            Tablet TCL TAB 11 FE LTE (4GB RAM / 128GB ROM) por Q2,000.00 + SuperPack Estudiantil por Q600.00 en la misma empresa (TELGUA, S.A.).
+                            Tablet TCL TAB 11 FE LTE (4GB RAM / 128GB ROM) por Q2,000.00 + SuperPack Estudiantil por Q600.00 en la misma empresa (TELGUA, S.A.)[cite: 1].
                         </div>
                     </div>
                     <div class="text-xs sm:text-sm text-slate-400 flex items-center gap-2">
-                        <span>ℹ️ Simplifica la gestión administrativa al concentrar la entrega de hardware y contrato SIM con una sola firma nacional.</span>
+                        <span>ℹ️ Simplifica la gestión administrativa al concentrar la entrega de hardware y contrato SIM con una sola firma nacional[cite: 1].</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Hoja de Ruta con Cuadros Interactivos -->
+            <!-- Hoja de Ruta -->
             <div class="glass-card-red p-6 sm:p-8 rounded-2xl">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold text-white">Hoja de Ruta del Procedimiento Financiero y Administrativo</h3>
-                    <span class="text-xs text-slate-400 hidden sm:inline">Pasa el cursor o haz clic en cualquier fase</span>
+                    <span class="text-xs text-slate-400 hidden sm:inline">Haz clic en cualquier fase para ampliarla</span>
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-                    
-                    <!-- Fase 1 -->
-                    <div id="fase-1" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-red z-10 hover:z-30"
-                         onclick="abrirCuadroCompleto('fase-1')">
+                    <div id="fase-1" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-red z-10 hover:z-30" onclick="abrirCuadroCompleto('fase-1')">
                         <div class="w-9 h-9 rounded-full bg-inst-red text-white font-black flex items-center justify-center text-sm mb-3 shadow">1</div>
                         <h4 class="text-sm font-bold text-white mb-1">Aprobación OPF</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            Acta de Junta Directiva ratificando la opción seleccionada (Opción A Combinada u Opción B Unificada).
+                            Acta de Junta Directiva ratificando la opción seleccionada (Opción A Combinada u Opción B Unificada)[cite: 1].
                         </p>
                     </div>
 
-                    <!-- Fase 2 -->
-                    <div id="fase-2" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-blue z-10 hover:z-30"
-                         onclick="abrirCuadroCompleto('fase-2')">
+                    <div id="fase-2" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-blue z-10 hover:z-30" onclick="abrirCuadroCompleto('fase-2')">
                         <div class="w-9 h-9 rounded-full bg-inst-blue text-white font-black flex items-center justify-center text-sm mb-3 shadow">2</div>
                         <h4 class="text-sm font-bold text-white mb-1">Cotizaciones Oficiales</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            Emisión de cotizaciones desglosadas (Factura A por Q2,000.00 y Factura B por Q600.00).
+                            Emisión de cotizaciones desglosadas (Factura A por Q2,000.00 y Factura B por Q600.00)[cite: 1].
                         </p>
                     </div>
 
-                    <!-- Fase 3 -->
-                    <div id="fase-3" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-crimson z-10 hover:z-30"
-                         onclick="abrirCuadroCompleto('fase-3')">
+                    <div id="fase-3" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-red/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-crimson z-10 hover:z-30" onclick="abrirCuadroCompleto('fase-3')">
                         <div class="w-9 h-9 rounded-full bg-inst-crimson text-white font-black flex items-center justify-center text-sm mb-3 shadow">3</div>
                         <h4 class="text-sm font-bold text-white mb-1">Documentación Tutor</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            Recopilación de DPI de tutores legales, RTU de la OPF y listados de alumnos de 4to/5to.
+                            Recopilación de DPI de tutores legales, RTU de la OPF y listados de alumnos de 4to/5to[cite: 1].
                         </p>
                     </div>
 
-                    <!-- Fase 4 -->
-                    <div id="fase-4" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-royal z-10 hover:z-30"
-                         onclick="abrirCuadroCompleto('fase-4')">
+                    <div id="fase-4" class="group bg-inst-black/90 p-5 rounded-xl border border-inst-blue/40 relative cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-inst-royal z-10 hover:z-30" onclick="abrirCuadroCompleto('fase-4')">
                         <div class="w-9 h-9 rounded-full bg-inst-royal text-white font-black flex items-center justify-center text-sm mb-3 shadow">4</div>
                         <h4 class="text-sm font-bold text-white mb-1">Pago y Recepción</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            Emisión de cheques independientes por la OPF y recepción auditada de tablets y SIMs.
+                            Emisión de cheques independientes por la OPF y recepción auditada de tablets y SIMs[cite: 1].
                         </p>
                     </div>
                 </div>
@@ -745,59 +740,67 @@
         </div>
     </footer>
 
-    <!-- CONTENEDOR MODAL: PROYECTA CUALQUIER CUADRO EN PRIMER PLANO (z-[9999]) -->
+    <!-- MODAL UNIVERSAL PARA CUALQUIER CUADRO (z-[9999]) -->
     <div id="fullCardModal" class="fixed inset-0 z-[9999] bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 overflow-y-auto" onclick="cerrarCuadroCompleto()">
         <div class="relative w-full max-w-2xl my-auto" onclick="event.stopPropagation()">
             <!-- Botón Cerrar -->
             <button class="absolute -top-4 -right-4 bg-red-600 hover:bg-red-700 text-white text-xl font-bold w-10 h-10 rounded-full flex items-center justify-center shadow-2xl border-2 border-white z-50 transition cursor-pointer" onclick="cerrarCuadroCompleto()">
                 &times;
             </button>
-            <!-- Contenedor donde se inserta el cuadro clonado -->
             <div id="modalTargetCard" class="shadow-2xl rounded-2xl overflow-hidden"></div>
         </div>
     </div>
 
     <script>
-        // Función unificada para proyectar CUALQUIER cuadro en primer plano
+        // Función universal de proyección de cuadros en primer plano
         function abrirCuadroCompleto(cardId) {
             const originalCard = document.getElementById(cardId);
             const modal = document.getElementById('fullCardModal');
             const target = document.getElementById('modalTargetCard');
             
-            if(!originalCard) return;
+            if (!originalCard) return;
 
-            // Clonamos el elemento completo
             const clone = originalCard.cloneNode(true);
             
-            // Limpiamos atributos que interfieran en el modal
             clone.removeAttribute('id');
             clone.removeAttribute('onclick');
-            clone.classList.remove('hover:scale-105', 'hover:z-30', 'cursor-pointer');
-            
-            // Si tiene imagen de cotización, la ampliamos para apreciarla mejor
+            clone.classList.remove('hover:scale-105', 'hover:scale-[1.02]', 'hover:scale-[1.01]', 'hover:z-30', 'cursor-pointer');
+
+            // Ajuste para imágenes dentro del modal
             const imgContainer = clone.querySelector('div[class*="h-56"]');
-            if(imgContainer) {
+            if (imgContainer) {
                 imgContainer.classList.remove('h-56');
                 imgContainer.classList.add('h-72');
             }
 
-            // Ocultamos textos/botones de "ampliar" dentro de la vista modal
+            // Ocultar etiquetas indicadoras de clic dentro de la vista modal
             const labelsToHide = clone.querySelectorAll('span');
             labelsToHide.forEach(span => {
-                if(span.textContent.includes('Clic para ampliar') || span.textContent.includes('Ampliar Ficha')) {
+                if (span.textContent.includes('Clic para') || span.textContent.includes('Ampliar Ficha')) {
                     span.style.display = 'none';
                 }
             });
 
             target.innerHTML = '';
             target.appendChild(clone);
+
+            // Re-renderizar canvas si el clon contiene gráficas
+            const originalCanvases = originalCard.querySelectorAll('canvas');
+            const cloneCanvases = clone.querySelectorAll('canvas');
+            cloneCanvases.forEach((cCanvas, index) => {
+                const oCanvas = originalCanvases[index];
+                if (oCanvas) {
+                    const ctx = cCanvas.getContext('2d');
+                    ctx.drawImage(oCanvas, 0, 0);
+                }
+            });
             
             modal.classList.remove('hidden');
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
             }, 10);
             
-            document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
+            document.body.style.overflow = 'hidden';
         }
 
         function cerrarCuadroCompleto() {
@@ -806,18 +809,17 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
                 document.getElementById('modalTargetCard').innerHTML = '';
-                document.body.style.overflow = ''; // Restablece el scroll
+                document.body.style.overflow = '';
             }, 300);
         }
 
-        // Permitir cerrar con la tecla Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 cerrarCuadroCompleto();
             }
         });
 
-        // Configuración de Gráficas Chart.js
+        // Gráficas Chart.js
         document.addEventListener('DOMContentLoaded', function() {
             
             const tooltipConfig = {
