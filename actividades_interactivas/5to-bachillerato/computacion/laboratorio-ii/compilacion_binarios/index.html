@@ -109,6 +109,44 @@ nav{
   padding:3px 10px;
   font-weight:bold;
 }
+
+.route-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+  gap:12px;
+  margin:12px 0;
+}
+.route-card{
+  border:1px solid var(--borde);
+  border-radius:10px;
+  padding:14px;
+  background:#fafcff;
+}
+.route-card h3{margin-top:0}
+.route-result{
+  border:2px solid var(--azul2);
+  border-radius:10px;
+  padding:14px;
+  margin:14px 0;
+  background:#f5faff;
+}
+.checkline{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  margin:10px 0;
+}
+.checkline input{width:auto;margin-top:5px}
+.download-link{
+  display:inline-block;
+  background:var(--verde);
+  color:white;
+  text-decoration:none;
+  padding:10px 14px;
+  border-radius:7px;
+  font-weight:bold;
+  margin:6px 0;
+}
 .file-list{
   margin-top:10px;
   display:grid;
@@ -162,7 +200,7 @@ th{background:var(--claro)}
 @media print{
   body{background:white}
   header,nav,#identityPanel,#saveStatus,.no-print,
-  #guidePanel,#rubricPanel,#reviewPanel,#backupPanel,
+  #guidePanel,#diagnosisPanel,#rubricPanel,#reviewPanel,#backupPanel,
   #activity1,#activity2,#activity3,#activity4{
     display:none!important;
   }
@@ -211,6 +249,7 @@ th{background:var(--claro)}
 
 <nav class="no-print">
   <button class="nav-btn active" data-target="guidePanel">Guía</button>
+  <button class="nav-btn" data-target="diagnosisPanel">Diagnóstico / ruta</button>
   <button class="nav-btn" data-target="activity1">Actividad 1</button>
   <button class="nav-btn" data-target="activity2">Actividad 2</button>
   <button class="nav-btn" data-target="activity3">Actividad 3</button>
@@ -228,7 +267,7 @@ th{background:var(--claro)}
   <p><strong>Curso:</strong> Laboratorio II</p>
   <p><strong>Docente:</strong> Erick Enrique Zamora Paz</p>
   <p><strong>Fecha de Asignación:</strong> 17/08/2026</p>
-  <p><strong>Fecha de Entrega:</strong> martes 18/08/2026</p>
+  <p><strong>Fecha de Entrega:</strong> viernes 21/08/2026</p>
   <p><strong>Hora de Entrega:</strong> 18:00 </p>
   <p><strong>Ponderación:</strong> 10 puntos Netos</p>
 
@@ -243,8 +282,8 @@ th{background:var(--claro)}
   <p><strong>3.2.2.</strong> Instalación de programas adecuados para usos prácticos y compatibles con los recursos disponibles.</p>
 
   <div class="notice">
-    <strong>Continuidad del proyecto:</strong>
-    esta guía no inicia un proyecto nuevo. Utiliza el mismo sistema de información desarrollado durante la III Unidad.
+    <strong>Continuidad y ruta de trabajo:</strong>
+    esta guía no vuelve a evaluar las actividades anteriores. Antes de iniciar, realiza el diagnóstico de continuidad para determinar si trabajarás con tu proyecto propio, una recuperación parcial o el proyecto general de contingencia. La ruta utilizada no cambia la ponderación de 10 puntos.
   </div>
 
   <p><strong>Secuencia trabajada:</strong> Lectura/Filtro → Inserción/Validación → Actualización/Eliminación → CRUD → Seguridad/Login/Hashing → Reportes → Despliegue.</p>
@@ -269,7 +308,57 @@ th{background:var(--claro)}
   <h3>Política de mejoramiento</h3>
   <p><strong>Menor de 4 puntos:</strong> Mejoramiento obligatorio.</p>
   <p><strong>Exactamente 5 puntos:</strong> Mejoramiento opcional.</p>
-  <p><strong>Exactamente 4 puntos:</strong> Mejoramiento obligatorio</p>
+  <p><strong>Exactamente 4 puntos:</strong> Mejoramiento obligatorio.</p>
+  <p class="small">La ruta A, B o C no modifica la política de mejoramiento ni la ponderación de la guía.</p>
+</section>
+
+<section id="diagnosisPanel" class="panel card">
+  <h2>DIAGNÓSTICO DE CONTINUIDAD DEL PROYECTO</h2>
+  <p>Marca únicamente lo que puedes comprobar en este momento. Este diagnóstico no asigna puntos; sirve para escoger una ruta de trabajo justa para la Guía No. 6.</p>
+
+  <div class="info">
+    <strong>Revisa tu copia actual del proyecto:</strong> no marques una opción solo porque recuerdas haberla trabajado. Debes conservar archivos que permitan comprobarla o ejecutarla.
+  </div>
+
+  <label class="checkline"><input id="diagSource" type="checkbox"> <span>Conservo la carpeta o los archivos fuente principales del sistema.</span></label>
+  <label class="checkline"><input id="diagDatabase" type="checkbox"> <span>Conservo la base de datos del proyecto o una copia que el sistema puede utilizar.</span></label>
+  <label class="checkline"><input id="diagRuns" type="checkbox"> <span>El sistema puede iniciarse actualmente desde su entorno de desarrollo o mediante su forma habitual de ejecución.</span></label>
+  <label class="checkline"><input id="diagCrud" type="checkbox"> <span>Puedo comprobar lectura/filtro, inserción, actualización y eliminación de registros.</span></label>
+  <label class="checkline"><input id="diagSecurityReports" type="checkbox"> <span>Conservo el acceso/login y al menos un reporte o salida de datos trabajada durante la unidad.</span></label>
+
+  <button id="diagnoseBtn" class="good">EVALUAR MI PUNTO DE PARTIDA</button>
+  <input id="projectRoute" type="hidden" value="">
+  <div id="diagnosisResult" class="route-result">
+    Aún no has realizado el diagnóstico.
+  </div>
+
+  <h2>Rutas posibles</h2>
+  <div class="route-grid">
+    <div class="route-card">
+      <h3>Ruta A — Proyecto propio completo</h3>
+      <p>Utiliza el sistema que desarrollaste durante la III Unidad. No vuelvas a hacer las guías anteriores. Continúa directamente con preparación, empaquetado, instalación, prueba y documentación.</p>
+    </div>
+    <div class="route-card">
+      <h3>Ruta B — Recuperación parcial</h3>
+      <p>Utiliza los archivos que conservas. Corrige únicamente lo indispensable para que el sistema pueda ejecutarse y desplegarse. Si después de revisar tu copia no existe una base utilizable, pasa a la Ruta C.</p>
+    </div>
+    <div class="route-card">
+      <h3>Ruta C — Proyecto general de contingencia</h3>
+      <p>Utiliza el proyecto base proporcionado con esta guía. No se calificará que hayas programado ese proyecto; se calificará el despliegue real que realices durante la Guía No. 6.</p>
+    </div>
+  </div>
+
+  <h2>Proyecto general de contingencia</h2>
+  <p><strong>Nombre:</strong> Sistema de Inventario y Control de Equipos del Laboratorio.</p>
+  <p>El proyecto utiliza Python, Tkinter y SQLite, y contiene un punto de partida funcional con login protegido, inventario, lectura y filtro, inserción, actualización, eliminación y generación de reporte CSV.</p>
+  <p><strong>Uso:</strong> corresponde a la Ruta C y también puede utilizarse en Ruta B cuando la recuperación resulte insuficiente para realizar el despliegue, previa decisión del estudiante registrada en este diagnóstico.</p>
+  <p><strong>No sustituye calificaciones anteriores:</strong> el código base solo permite que puedas realizar el cierre de la unidad. Los 10 puntos de esta guía siguen correspondiendo a preparación del producto, mecanismo de instalación, prueba en limpio y documentación.</p>
+
+  <a class="download-link" href="proyecto_contingencia_laboratorioII.zip" download>DESCARGAR PROYECTO DE CONTINGENCIA</a>
+  <p class="small">Para que este botón funcione al publicar la guía, coloca el archivo <strong>proyecto_contingencia_laboratorioII.zip</strong> en la misma carpeta que este HTML.</p>
+
+  <h3>Plataforma de despliegue</h3>
+  <p>La ruta de continuidad no cambia la plataforma elegida para la Guía No. 6. En Windows se requiere un mecanismo MSI. En Linux Q4OS se utiliza script Bash O paquete .deb; uno de los dos es suficiente.</p>
 </section>
 
 <section id="activity1" class="panel card">
@@ -279,10 +368,10 @@ th{background:var(--claro)}
   <p>Preparar el sistema de información que ya desarrollaste para su distribución y obtener el producto ejecutable o distribuible correspondiente a tu proyecto.</p>
 
   <h3>Qué debes hacer</h3>
-  <p>Trabaja sobre el mismo sistema desarrollado durante la III Unidad. Prepara el sistema para distribución y genera el producto ejecutable o distribuible correspondiente a la plataforma de tu proyecto. Identifica y atiende los problemas que puedan impedir obtener adecuadamente el producto.</p>
+  <p>Trabaja con el sistema que corresponda a tu diagnóstico: proyecto propio, recuperación parcial o proyecto general de contingencia. Prepara ese sistema para distribución y genera el producto ejecutable o distribuible correspondiente a la plataforma seleccionada. Identifica y atiende los problemas que puedan impedir obtener adecuadamente el producto.</p>
 
   <h3>Evidencia requerida</h3>
-  <p><strong>Producto ejecutable o distribuible generado a partir del sistema desarrollado y evidencia verificable del proceso real realizado.</strong></p>
+  <p><strong>Producto ejecutable o distribuible generado a partir del sistema utilizado según tu ruta de diagnóstico y evidencia verificable del proceso real realizado.</strong></p>
 
   <label for="a1Product">Producto ejecutable o distribuible</label>
   <input id="a1Product" type="file" multiple>
@@ -360,7 +449,7 @@ th{background:var(--claro)}
 
   <div class="info">
     <strong>Orientación para tu documentación:</strong>
-    puede abordar la identificación del sistema, plataforma utilizada, producto generado, procedimiento de instalación, forma de iniciar el sistema, problemas encontrados cuando existan, solución aplicada cuando corresponda y resultado general de la prueba en limpio.
+    identifica primero la ruta utilizada (A, B o C) y el sistema con el que realizaste el despliegue. Después documenta la plataforma utilizada, producto generado, procedimiento de instalación, forma de iniciar el sistema, problemas encontrados cuando existan, solución aplicada cuando corresponda y resultado general de la prueba en limpio.
   </div>
 
   <h3>Evidencia requerida</h3>
@@ -388,8 +477,8 @@ th{background:var(--claro)}
     <tbody>
       <tr>
         <td><strong>Preparación y generación del producto desplegable</strong></td>
-        <td>Producto ejecutable o distribuible y evidencia verificable del proceso real, con resultado adecuado para distribución. <strong>3 pts</strong></td>
-        <td>Producto y evidencia real presentados, con aspectos parcialmente resueltos en la preparación o generación. <strong>2 pts</strong></td>
+        <td>Producto ejecutable o distribuible generado desde el sistema correspondiente a la ruta declarada y evidencia verificable del proceso real, con resultado adecuado para distribución. <strong>3 pts</strong></td>
+        <td>Producto y evidencia real presentados, con aspectos parcialmente resueltos en la preparación o generación, independientemente de la ruta utilizada. <strong>2 pts</strong></td>
         <td>No presenta el producto requerido o la evidencia no permite verificar adecuadamente el proceso real. <strong>0 pts</strong></td>
       </tr>
       <tr>
@@ -406,7 +495,7 @@ th{background:var(--claro)}
       </tr>
       <tr>
         <td><strong>Documentación técnica del despliegue</strong></td>
-        <td>Documentación coherente con el proceso real y que permite comprender preparación, instalación y comprobación. <strong>2 pts</strong></td>
+        <td>Documentación coherente con la ruta declarada y el proceso real, y que permite comprender preparación, instalación y comprobación. <strong>2 pts</strong></td>
         <td>Documentación relacionada con el despliegue, con aspectos explicados parcialmente. <strong>1 pt</strong></td>
         <td>No presenta la documentación requerida o no permite reconocer adecuadamente el proceso real. <strong>0 pts</strong></td>
       </tr>
@@ -432,8 +521,10 @@ th{background:var(--claro)}
   <input id="importFile" type="file" accept=".json,application/json">
 
   <div class="notice">
-    Para Classroom, conserva también los archivos reales que constituyen el producto y el mecanismo de instalación de tu proyecto.
+    <strong>Respaldo preventivo obligatorio:</strong> el JSON conserva el trabajo de esta guía, pero no sustituye tu código fuente ni el instalador. Al terminar cada sesión, guarda también una copia comprimida de la carpeta del proyecto y conserva una segunda copia en otra ubicación. Para Classroom, conserva los archivos reales que constituyen el producto y el mecanismo de instalación.
   </div>
+
+  <label class="checkline"><input id="backupConfirmed" type="checkbox"> <span>Confirmo que guardé una copia del proyecto y una segunda copia de respaldo en otra ubicación.</span></label>
 
   <button id="printBtn" class="good">IMPRIMIR / GUARDAR COMO PDF</button>
   <button id="changeStudentBtn" class="secondary">Cambiar de estudiante</button>
@@ -567,6 +658,15 @@ function collectFormData(){
     studentName: currentIdentity ? currentIdentity.studentName : "",
     platform: byId("platform").value,
     linuxMechanism: byId("linuxMechanism").value,
+    diagnosis:{
+      source:byId("diagSource").checked,
+      database:byId("diagDatabase").checked,
+      runs:byId("diagRuns").checked,
+      crud:byId("diagCrud").checked,
+      securityReports:byId("diagSecurityReports").checked,
+      route:byId("projectRoute").value
+    },
+    backupConfirmed:byId("backupConfirmed").checked,
     activity1:{
       processText:byId("a1ProcessText").value
     },
@@ -634,6 +734,15 @@ function restoreFormData(record){
 
   byId("platform").value=data.platform || "";
   byId("linuxMechanism").value=data.linuxMechanism || "";
+  const diagnosis=data.diagnosis || {};
+  byId("diagSource").checked=!!diagnosis.source;
+  byId("diagDatabase").checked=!!diagnosis.database;
+  byId("diagRuns").checked=!!diagnosis.runs;
+  byId("diagCrud").checked=!!diagnosis.crud;
+  byId("diagSecurityReports").checked=!!diagnosis.securityReports;
+  byId("projectRoute").value=diagnosis.route || "";
+  byId("backupConfirmed").checked=!!data.backupConfirmed;
+  renderDiagnosisResult();
   byId("a1ProcessText").value=(data.activity1 && data.activity1.processText) || "";
   byId("a3TestText").value=(data.activity3 && data.activity3.testText) || "";
   byId("a3Problems").value=(data.activity3 && data.activity3.problems) || "";
@@ -733,11 +842,61 @@ function cancelDraftSelection(){
 function clearForm(){
   byId("platform").value="";
   byId("linuxMechanism").value="";
+  ["diagSource","diagDatabase","diagRuns","diagCrud","diagSecurityReports"].forEach(id=>byId(id).checked=false);
+  byId("projectRoute").value="";
+  byId("backupConfirmed").checked=false;
+  renderDiagnosisResult();
   byId("a1ProcessText").value="";
   byId("a3TestText").value="";
   byId("a3Problems").value="";
   byId("a4Documentation").value="";
   updatePlatformUI();
+}
+
+function getRouteDescription(route){
+  if(route==="A") return "Ruta A — Proyecto propio completo";
+  if(route==="B") return "Ruta B — Recuperación parcial";
+  if(route==="C") return "Ruta C — Proyecto general de contingencia";
+  return "Sin ruta determinada";
+}
+
+function renderDiagnosisResult(){
+  const route=byId("projectRoute").value;
+  const box=byId("diagnosisResult");
+  if(!route){
+    box.innerHTML="Aún no has realizado el diagnóstico.";
+    return;
+  }
+
+  let detail="";
+  if(route==="A"){
+    detail="Conservas una copia funcional y suficientemente completa. Continúa con tu propio sistema y realiza únicamente el trabajo de despliegue de esta guía.";
+  }else if(route==="B"){
+    detail="Conservas parte del proyecto. Recupera solamente lo necesario para poder ejecutarlo y desplegarlo. Si la copia resulta inutilizable, puedes pasar a la Ruta C y dejar registrada esa decisión en tu documentación.";
+  }else{
+    detail="No existe una copia utilizable del proyecto anterior. Utiliza el Proyecto General de Contingencia y realiza personalmente todo el proceso de despliegue requerido por esta guía.";
+  }
+
+  box.innerHTML="<strong>"+getRouteDescription(route)+"</strong><br>"+detail;
+}
+
+function diagnoseProject(){
+  const source=byId("diagSource").checked;
+  const database=byId("diagDatabase").checked;
+  const runs=byId("diagRuns").checked;
+  const crud=byId("diagCrud").checked;
+  const securityReports=byId("diagSecurityReports").checked;
+
+  let route="C";
+  if(source && database && runs && crud && securityReports){
+    route="A";
+  }else if(source){
+    route="B";
+  }
+
+  byId("projectRoute").value=route;
+  renderDiagnosisResult();
+  scheduleSave();
 }
 
 function switchPanel(targetId){
@@ -946,6 +1105,7 @@ async function attachmentExists(activity,kind){
 async function reviewWork(){
   const platform=byId("platform").value;
   const linuxMechanism=byId("linuxMechanism").value;
+  const route=byId("projectRoute").value;
 
   const a1Product=await attachmentExists(1,"product");
   const a1ProcessFile=await attachmentExists(1,"process");
@@ -983,6 +1143,18 @@ async function reviewWork(){
   const box=byId("reviewResults");
   box.textContent="";
 
+  if(!route){
+    const warning=document.createElement("div");
+    warning.className="status pending";
+    warning.textContent="PENDIENTE — Realiza el diagnóstico de continuidad y determina tu ruta de trabajo.";
+    box.appendChild(warning);
+  }else{
+    const routeOk=document.createElement("div");
+    routeOk.className="status complete";
+    routeOk.textContent="RUTA REGISTRADA — "+getRouteDescription(route);
+    box.appendChild(routeOk);
+  }
+
   if(!platform){
     const warning=document.createElement("div");
     warning.className="status pending";
@@ -1005,9 +1177,17 @@ async function reviewWork(){
     box.appendChild(item);
   });
 
+  const backup=byId("backupConfirmed").checked;
+  const backupBox=document.createElement("div");
+  backupBox.className="status "+(backup ? "complete" : "pending");
+  backupBox.textContent=backup
+    ? "RESPALDO REGISTRADO — Confirmaste una copia adicional del proyecto."
+    : "PENDIENTE — Guarda una copia del proyecto y otra copia de respaldo en una ubicación diferente.";
+  box.appendChild(backupBox);
+
   const note=document.createElement("div");
   note.className="notice";
-  note.textContent="Esta revisión indica únicamente COMPLETO o PENDIENTE. La calificación oficial corresponde al docente.";
+  note.textContent="Esta revisión indica únicamente COMPLETO o PENDIENTE. El diagnóstico y el respaldo preventivo no agregan puntos. La calificación oficial corresponde al docente.";
   box.appendChild(note);
 }
 
@@ -1173,6 +1353,15 @@ async function importBackup(file){
 
     byId("platform").value=data.platform || "";
     byId("linuxMechanism").value=data.linuxMechanism || "";
+    const diagnosis=data.diagnosis || {};
+    byId("diagSource").checked=!!diagnosis.source;
+    byId("diagDatabase").checked=!!diagnosis.database;
+    byId("diagRuns").checked=!!diagnosis.runs;
+    byId("diagCrud").checked=!!diagnosis.crud;
+    byId("diagSecurityReports").checked=!!diagnosis.securityReports;
+    byId("projectRoute").value=diagnosis.route || "";
+    byId("backupConfirmed").checked=!!data.backupConfirmed;
+    renderDiagnosisResult();
     byId("a1ProcessText").value=
       (data.activity1 && data.activity1.processText) || "";
     byId("a3TestText").value=
@@ -1272,7 +1461,7 @@ async function buildPrintArea(){
   appendText(
     area,
     "p",
-    "Fecha de entrega: martes 18/08/2026 | Hora: [PENDIENTE DE DEFINIR POR EL DOCENTE] | Valor: 10 puntos Netos"
+    "Fecha de entrega: viernes 21/08/2026 | Hora: 18:00 | Valor: 10 puntos Netos"
   );
 
   const platform=byId("platform").value;
@@ -1287,10 +1476,11 @@ async function buildPrintArea(){
       "Linux Q4OS";
   }
 
+  appendText(area,"p","Ruta de continuidad: "+getRouteDescription(byId("projectRoute").value));
   appendText(area,"p","Plataforma del proyecto: "+platformText);
 
   appendText(area,"h2","Actividad 1 — Preparación y generación del producto desplegable — 3 puntos");
-  appendText(area,"p","Evidencia: producto ejecutable o distribuible generado a partir del sistema desarrollado y evidencia verificable del proceso real realizado.");
+  appendText(area,"p","Evidencia: producto ejecutable o distribuible generado a partir del sistema correspondiente a la ruta de continuidad y evidencia verificable del proceso real realizado.");
   await appendAttachmentSummary(area,1,"product","Producto ejecutable o distribuible");
   appendText(area,"h4","Registro del proceso real");
   appendText(area,"p",byId("a1ProcessText").value.trim() || "Sin registro textual.");
@@ -1313,6 +1503,11 @@ async function buildPrintArea(){
   appendText(area,"h4","Documentación técnica");
   appendText(area,"p",byId("a4Documentation").value.trim() || "Sin documentación redactada en la guía.");
   await appendAttachmentSummary(area,4,"documentation","Archivos relacionados con la documentación");
+
+  appendText(area,"h2","Respaldo preventivo");
+  appendText(area,"p",byId("backupConfirmed").checked
+    ? "El estudiante confirmó una copia del proyecto y una segunda copia en otra ubicación."
+    : "Pendiente de confirmar respaldo preventivo.");
 }
 
 async function printWork(){
@@ -1350,6 +1545,15 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   byId("platform").addEventListener("change",updatePlatformUI);
   byId("linuxMechanism").addEventListener("change",scheduleSave);
+  byId("diagnoseBtn").addEventListener("click",diagnoseProject);
+  ["diagSource","diagDatabase","diagRuns","diagCrud","diagSecurityReports"].forEach(id=>{
+    byId(id).addEventListener("change",()=>{
+      byId("projectRoute").value="";
+      renderDiagnosisResult();
+      scheduleSave();
+    });
+  });
+  byId("backupConfirmed").addEventListener("change",scheduleSave);
 
   [
     "a1ProcessText",
