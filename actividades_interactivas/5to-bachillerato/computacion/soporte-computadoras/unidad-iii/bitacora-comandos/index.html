@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guía No. 6 - Soporte de Computadoras II</title>
+<style>
+:root{
+  --azul:#17365d;--azul2:#28578c;--claro:#eef4fb;
+  --verde:#18794e;--rojo:#b42318;--amarillo:#fff7d6;
+  --borde:#ccd6e0;--texto:#17202a;--gris:#667085;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fa;color:var(--texto);line-height:1.55}
+header{background:var(--azul);color:#fff;padding:22px;text-align:center}
+header h1{margin:0;font-size:1.55rem}
+header p{margin:5px 0}
+main{max-width:1100px;margin:auto;padding:18px}
+.card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:20px;margin:15px 0;box-shadow:0 2px 7px #0001}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+label{font-weight:bold;display:block;margin-top:10px}
+input,textarea,select{width:100%;padding:10px;border:1px solid #aab7c4;border-radius:7px;font:inherit}
+textarea{min-height:130px;resize:vertical}
+button,.button{background:var(--azul2);color:#fff;border:0;border-radius:7px;padding:10px 14px;cursor:pointer;font-weight:bold;margin:4px}
+button.secondary{background:#5f6b7a}
+button.danger{background:var(--rojo)}
+button.good{background:var(--verde)}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:15px 0}
+.nav-btn.active{background:var(--verde)}
+.panel{display:none}
+.panel.active{display:block}
+.command{background:#111827;color:#d1fae5;padding:11px;border-radius:7px;font-family:monospace}
+.notice{background:var(--amarillo);border-left:5px solid #d6a600;padding:12px;margin:12px 0}
+.sim-warning{position:sticky;top:0;z-index:5;background:#7a1c1c;color:#fff;padding:12px;font-weight:bold;text-align:center;border-radius:8px}
+.terminal{background:#080c10;color:#b7ffbf;padding:15px;border-radius:8px;font-family:monospace;white-space:pre-wrap;min-height:220px;overflow:auto}
+.status{padding:8px;border-radius:6px;margin:8px 0}
+.complete{background:#e8f7ef;color:#11613e}
+.pending{background:#fff1f0;color:#8f1d16}
+.preview{max-width:100%;max-height:360px;border:1px solid var(--borde);margin-top:8px}
+.hidden{display:none!important}
+#saveStatus{position:fixed;right:12px;bottom:12px;background:#17202a;color:#fff;padding:8px 12px;border-radius:7px;z-index:20}
+.dialog{position:fixed;inset:0;background:#0009;display:flex;align-items:center;justify-content:center;z-index:50}
+.dialog-box{background:#fff;padding:22px;border-radius:12px;max-width:520px;width:92%}
+.small{color:var(--gris);font-size:.92rem}
+.rubric{width:100%;border-collapse:collapse}
+.rubric th,.rubric td{border:1px solid var(--borde);padding:9px;vertical-align:top}
+.rubric th{background:var(--claro)}
+@media print{
+  body{background:#fff}
+  header,nav,#identityScreen,#simulatorPanel,#reviewPanel,#backupPanel,
+  #saveStatus,.no-print,button,input[type=file]{display:none!important}
+  main{max-width:none;padding:0}
+  .panel{display:block!important}
+  .card{box-shadow:none;border:0;padding:4px}
+  textarea,input{border:0;padding:0}
+  .print-only{display:block!important}
+}
+.print-only{display:none}
+</style>
+</head>
+<body>
+
+<header>
+<h1>GUÍA DE TRABAJO NO. 6 - III Unidad</h1>
+<p>Soporte de Computadoras II</p>
+<p>Bitácora de Comandos de Red - Resolución de fallas mediante comandos en consola.</p>
+</header>
+
+<main>
+<section id="identityScreen" class="card">
+<h2>Identificar estudiante</h2>
+<p>Ingresa tu Clave/Carné y Sección antes de abrir o recuperar tu trabajo.</p>
+<div class="grid">
+<div><label for="studentKey">Clave/Carné</label><input id="studentKey"></div>
+<div><label for="section">Sección</label><input id="section"></div>
+<div><label for="studentName">Nombre</label><input id="studentName"></div>
+</div>
+<button id="identifyBtn">Ingresar a la guía</button>
+</section>
+
+<div id="app" class="hidden">
+<nav class="no-print">
+<button class="nav-btn active" data-panel="guidePanel">Guía</button>
+<button class="nav-btn" data-panel="activity1">Actividad 1</button>
+<button class="nav-btn" data-panel="activity2">Actividad 2</button>
+<button class="nav-btn" data-panel="activity3">Actividad 3</button>
+<button class="nav-btn" data-panel="simulatorPanel">Simulador</button>
+<button class="nav-btn" data-panel="reviewPanel">Revisar</button>
+<button class="nav-btn" data-panel="backupPanel">Respaldo / PDF</button>
+</nav>
+
+<section id="guidePanel" class="panel active card">
+<h2>Datos generales</h2>
+<p><strong>Institución:</strong> Instituto Industrial Central General Lázaro Chacón González</p>
+<p><strong>Carrera:</strong> Bachillerato en Ciencias y Letras con Orientación en Computación</p>
+<p><strong>Grado:</strong> Quinto Bachillerato en Ciencias y Letras con Orientación en Computación</p>
+<p><strong>Curso:</strong> Soporte de Computadoras II</p>
+<p><strong>Docente:</strong> Erick Enrique Zamora Paz</p>
+<p><strong>Fecha de Asignación:</strong> 17/08/2026</p>
+<p><strong>Fecha y Hora de Entrega:</strong> 18/08/2026 a las 18:00</p>
+<p><strong>Ponderación:</strong> 10 puntos Netos</p>
+
+<h3>Competencia</h3>
+<p>Utiliza la herramienta básica en la aplicación del mantenimiento al equipo de cómputo para accesar a la Red.</p>
+
+<h3>Indicador de logro</h3>
+<p>Utiliza las herramientas básicas de mantenimiento para determinar el funcionamiento correcto de la computadora.</p>
+
+<h3>Contenido relacionado</h3>
+<p>Utilización correcta de las herramientas básicas adecuadas para el mantenimiento y reparación de computadoras.</p>
+
+<div class="notice">
+<strong>Entornos de trabajo:</strong> Linux Bash es el entorno principal en el laboratorio.
+Windows CMD se utiliza únicamente como alternativa para continuar en casa si no terminaste
+en el laboratorio. No debes repetir las actividades en ambos sistemas.
+</div>
+</section>
+
+<section id="activity1" class="panel card">
+<h2>Actividad 1 — Identificación de la configuración de red — 3 puntos</h2>
+<p><strong>Qué aprenderás:</strong> Reconocer la interfaz o adaptador y comprender la información de configuración de red mostrada.</p>
+<p><strong>Linux Bash:</strong></p><div class="command">ip a</div>
+<p><strong>Windows CMD, alternativa en casa:</strong></p><div class="command">ipconfig</div>
+<p><strong>Qué debes hacer:</strong> Ejecuta el comando correspondiente en una consola real, observa la salida y explica técnicamente la información pertinente.</p>
+<p><strong>Evidencia evaluada:</strong> captura de pantalla de una consola real O registro textual de la salida obtenida en una consola real.</p>
+
+<label for="a1EvidenceText">Registro textual de la salida real, si utilizas este formato</label>
+<textarea id="a1EvidenceText"></textarea>
+<label for="a1Image">Captura de pantalla de la consola real, si utilizas este formato</label>
+<input id="a1Image" type="file" accept="image/*">
+<div id="a1Preview"></div>
+<button class="danger no-print" data-remove-image="1">Eliminar captura</button>
+<label for="a1Explanation">Explicación técnica</label>
+<textarea id="a1Explanation"></textarea>
+</section>
+
+<section id="activity2" class="panel card">
+<h2>Actividad 2 — Prueba de conectividad con ping — 3 puntos</h2>
+<p><strong>Qué aprenderás:</strong> Observar si existe respuesta, pérdida de paquetes y comprender el significado general de los tiempos mostrados.</p>
+<p><strong>Linux Bash:</strong></p><div class="command">ping -c 4 google.com</div>
+<p><strong>Windows CMD, alternativa en casa:</strong></p><div class="command">ping google.com</div>
+<p><strong>Qué debes hacer:</strong> Ejecuta el comando correspondiente en una consola real y analiza el resultado.</p>
+<p><strong>Evidencia evaluada:</strong> captura de pantalla de una consola real O registro textual de la salida obtenida en una consola real.</p>
+
+<label for="a2EvidenceText">Registro textual de la salida real, si utilizas este formato</label>
+<textarea id="a2EvidenceText"></textarea>
+<label for="a2Image">Captura de pantalla de la consola real, si utilizas este formato</label>
+<input id="a2Image" type="file" accept="image/*">
+<div id="a2Preview"></div>
+<button class="danger no-print" data-remove-image="2">Eliminar captura</button>
+<label for="a2Explanation">Interpretación técnica</label>
+<textarea id="a2Explanation"></textarea>
+</section>
+
+<section id="activity3" class="panel card">
+<h2>Actividad 3 — Trazado de la ruta de red — 4 puntos</h2>
+<p><strong>Qué aprenderás:</strong> Reconocer los saltos de la ruta y comprender de forma general qué representan.</p>
+<p><strong>Linux Bash:</strong></p><div class="command">traceroute google.com</div>
+<p><strong>Windows CMD, alternativa en casa:</strong></p><div class="command">tracert google.com</div>
+<p><strong>Qué debes hacer:</strong> Ejecuta el comando correspondiente en una consola real y analiza la ruta mostrada.</p>
+<p><strong>Evidencia evaluada:</strong> captura de pantalla de una consola real O registro textual de la salida obtenida en una consola real.</p>
+
+<label for="a3EvidenceText">Registro textual de la salida real, si utilizas este formato</label>
+<textarea id="a3EvidenceText"></textarea>
+<label for="a3Image">Captura de pantalla de la consola real, si utilizas este formato</label>
+<input id="a3Image" type="file" accept="image/*">
+<div id="a3Preview"></div>
+<button class="danger no-print" data-remove-image="3">Eliminar captura</button>
+<label for="a3Explanation">Interpretación técnica de la ruta</label>
+<textarea id="a3Explanation"></textarea>
+</section>
+
+<section id="simulatorPanel" class="panel card">
+<div class="sim-warning">
+SIMULADOR EDUCATIVO — LOS RESULTADOS SON FICTICIOS. SIRVE ÚNICAMENTE PARA PRACTICAR. NO CONSTITUYE EVIDENCIA REAL.
+</div>
+<h2>Práctica formativa</h2>
+<p>El simulador no otorga puntos, no completa actividades y no copia resultados a la evidencia.</p>
+<label for="simOS">Entorno</label>
+<select id="simOS">
+<option value="linux">Linux Bash</option>
+<option value="windows">Windows CMD</option>
+</select>
+<label for="simCommand">Comando</label>
+<input id="simCommand" autocomplete="off">
+<button id="runSim">Ejecutar práctica</button>
+<pre id="simOutput" class="terminal">DATO DE SIMULACIÓN
+Selecciona el entorno e introduce uno de los comandos autorizados.</pre>
+</section>
+
+<section id="reviewPanel" class="panel card">
+<h2>REVISAR MI ENTREGA</h2>
+<p>La revisión comprueba únicamente si existen los componentes requeridos. No asigna una calificación oficial.</p>
+<button id="reviewBtn" class="good">REVISAR MI ENTREGA</button>
+<div id="reviewResults"></div>
+</section>
+
+<section id="backupPanel" class="panel card">
+<h2>Respaldo y entrega</h2>
+<p>El borrador permanece almacenado localmente en este navegador para tu identidad activa.</p>
+<button id="saveBtn">Guardar ahora</button>
+<button id="exportBtn">Descargar respaldo JSON</button>
+<label for="importFile">Importar respaldo JSON</label>
+<input id="importFile" type="file" accept=".json,application/json">
+<button id="printBtn" class="good">IMPRIMIR / GUARDAR COMO PDF</button>
+<button id="changeStudentBtn" class="secondary">Cambiar de estudiante</button>
+</section>
+
+<section class="print-only" id="printReport"></section>
+</div>
+</main>
+
+<div id="saveStatus" class="hidden">Guardado automáticamente ✓</div>
+
+<div id="draftDialog" class="dialog hidden">
+<div class="dialog-box">
+<h2>Se encontró un borrador</h2>
+<p id="draftInfo"></p>
+<button id="continueDraftBtn" class="good">Continuar trabajo</button>
+<button id="newDraftBtn" class="danger">Iniciar nuevamente</button>
+<button id="cancelDraftBtn" class="secondary">Cancelar</button>
+</div>
+</div>
+
+<script>
+"use strict";
+
+const DB_NAME = "Guia06SoporteDB";
+const DB_VERSION = 1;
+const DRAFT_STORE = "drafts";
+const IMAGE_STORE = "images";
+
+const SCHEMA_VERSION = "2026.1";
+const GUIDE_ID = "soporte-computadoras-ii-guia-06-iii-unidad";
+const COURSE_ID = "soporte-computadoras-ii";
+const GRADE = "Quinto Bachillerato en Ciencias y Letras con Orientación en Computación";
+const ORIENTATION = "Computación";
+const GUIDE_NUMBER = "Guía 06";
+
+let db = null;
+let activeIdentity = null;
+let draftKey = null;
+let pendingDraft = null;
+let saveTimer = null;
+const imageURLs = {};
+
+const $ = id => document.getElementById(id);
+
+function normalize(value){
+  return String(value || "").trim().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+}
+
+function makeDraftKey(key, section){
+  return [
+    normalize(GRADE),
+    normalize(ORIENTATION),
+    normalize(COURSE_ID),
+    normalize(GUIDE_NUMBER),
+    normalize(section),
+    normalize(key)
+  ].join("__");
+}
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(DB_NAME,DB_VERSION);
+    req.onupgradeneeded=e=>{
+      const database=e.target.result;
+      if(!database.objectStoreNames.contains(DRAFT_STORE)){
+        database.createObjectStore(DRAFT_STORE,{keyPath:"id"});
+      }
+      if(!database.objectStoreNames.contains(IMAGE_STORE)){
+        const store=database.createObjectStore(IMAGE_STORE,{keyPath:"id"});
+        store.createIndex("draftKey","draftKey",{unique:false});
+      }
+    };
+    req.onsuccess=()=>{db=req.result;resolve(db);};
+    req.onerror=()=>reject(req.error);
+  });
+}
+
+function request(store,mode,operation){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(store,mode);
+    const os=tx.objectStore(store);
+    const req=operation(os);
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+}
+
+async function getDraft(){
+  return request(DRAFT_STORE,"readonly",os=>os.get(draftKey));
+}
+
+async function putDraft(record){
+  return request(DRAFT_STORE,"readwrite",os=>os.put(record));
+}
+
+async function deleteDraft(){
+  await request(DRAFT_STORE,"readwrite",os=>os.delete(draftKey));
+  const tx=db.transaction(IMAGE_STORE,"readwrite");
+  const store=tx.objectStore(IMAGE_STORE);
+  const idx=store.index("draftKey");
+  const range=IDBKeyRange.only(draftKey);
+  idx.openCursor(range).onsuccess=e=>{
+    const cursor=e.target.result;
+    if(cursor){cursor.delete();cursor.continue();}
+  };
+  return new Promise((resolve,reject)=>{
+    tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
+  });
+}
+
+function imageId(n){ return draftKey+"__activity_"+n; }
+
+async function saveImage(n,blob){
+  await request(IMAGE_STORE,"readwrite",os=>os.put({
+    id:imageId(n),draftKey,activity:n,blob,
+    type:blob.type,lastModified:new Date().toISOString()
+  }));
+  showPreview(n,blob);
+}
+
+async function getImage(n){
+  return request(IMAGE_STORE,"readonly",os=>os.get(imageId(n)));
+}
+
+async function removeImage(n){
+  if(!confirm("¿Deseas eliminar la captura almacenada para esta actividad?")) return;
+  await request(IMAGE_STORE,"readwrite",os=>os.delete(imageId(n)));
+  clearPreview(n);
+  scheduleSave();
+}
+
+function clearPreview(n){
+  if(imageURLs[n]){URL.revokeObjectURL(imageURLs[n]);delete imageURLs[n];}
+  $("a"+n+"Preview").textContent="";
+}
+
+function showPreview(n,blob){
+  clearPreview(n);
+  const url=URL.createObjectURL(blob);
+  imageURLs[n]=url;
+  const img=document.createElement("img");
+  img.className="preview";
+  img.alt="Captura de evidencia real de la Actividad "+n;
+  img.src=url;
+  $("a"+n+"Preview").appendChild(img);
+}
+
+async function restoreImages(){
+  for(const n of [1,2,3]){
+    const record=await getImage(n);
+    if(record && record.blob) showPreview(n,record.blob);
+  }
+}
+
+function collectData(){
+  return {
+    studentName: activeIdentity.studentName,
+    activities:{
+      1:{
+        evidenceText:$("a1EvidenceText").value,
+        explanation:$("a1Explanation").value
+      },
+      2:{
+        evidenceText:$("a2EvidenceText").value,
+        explanation:$("a2Explanation").value
+      },
+      3:{
+        evidenceText:$("a3EvidenceText").value,
+        explanation:$("a3Explanation").value
+      }
+    }
+  };
+}
+
+async function saveDraft(){
+  if(!activeIdentity || !draftKey) return;
+  setSaveStatus("Guardando...");
+  try{
+    await putDraft({
+      id:draftKey,
+      schemaVersion:SCHEMA_VERSION,
+      guideId:GUIDE_ID,
+      courseId:COURSE_ID,
+      grade:GRADE,
+      orientation:ORIENTATION,
+      studentKey:activeIdentity.studentKey,
+      section:activeIdentity.section,
+      studentName:activeIdentity.studentName,
+      timestamp:new Date().toISOString(),
+      data:collectData()
+    });
+    setSaveStatus("Guardado automáticamente ✓");
+  }catch(error){
+    console.error(error);
+    const quota=error && (error.name==="QuotaExceededError" || error.name==="NS_ERROR_DOM_QUOTA_REACHED");
+    setSaveStatus(quota ?
+      "Almacenamiento local lleno. Descarga un respaldo antes de continuar." :
+      "Error al guardar");
+  }
+}
+
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveDraft,500);
+}
+
+function setSaveStatus(text){
+  $("saveStatus").textContent=text;
+  $("saveStatus").classList.remove("hidden");
+  clearTimeout(setSaveStatus.timer);
+  setSaveStatus.timer=setTimeout(()=>$("saveStatus").classList.add("hidden"),2600);
+}
+
+function restoreDraft(record){
+  if(!record || !record.data) return;
+  const a=record.data.activities || {};
+  for(const n of [1,2,3]){
+    const item=a[n] || {};
+    $("a"+n+"EvidenceText").value=item.evidenceText || "";
+    $("a"+n+"Explanation").value=item.explanation || "";
+  }
+}
+
+async function identifyStudent(){
+  const key=$("studentKey").value.trim();
+  const section=$("section").value.trim();
+  const name=$("studentName").value.trim();
+
+  if(!key || !section){
+    alert("Ingresa tu Clave/Carné y Sección.");
+    return;
+  }
+
+  activeIdentity={studentKey:key,section,studentName:name};
+  draftKey=makeDraftKey(key,section);
+
+  try{
+    pendingDraft=await getDraft();
+    if(pendingDraft){
+      $("draftInfo").textContent=
+        "Se encontró un trabajo guardado para esta guía. Último guardado: "+
+        new Date(pendingDraft.timestamp).toLocaleString();
+      $("draftDialog").classList.remove("hidden");
+    }else{
+      showApp();
+      await saveDraft();
+    }
+  }catch(e){
+    alert("No fue posible consultar el almacenamiento local.");
+  }
+}
+
+async function startAgain(){
+  const ok=confirm(
+    "Se eliminará el trabajo guardado de esta guía para esta Clave/Carné y Sección. "+
+    "Esta acción no puede deshacerse si no tienes un respaldo.\n\n¿Deseas continuar?"
+  );
+  if(!ok) return;
+  await deleteDraft();
+  pendingDraft=null;
+  $("draftDialog").classList.add("hidden");
+  showApp();
+  await saveDraft();
+}
+
+async function continueDraft(){
+  $("draftDialog").classList.add("hidden");
+  restoreDraft(pendingDraft);
+  showApp();
+  await restoreImages();
+}
+
+function cancelIdentity(){
+  $("draftDialog").classList.add("hidden");
+  activeIdentity=null;draftKey=null;pendingDraft=null;
+}
+
+function showApp(){
+  $("identityScreen").classList.add("hidden");
+  $("app").classList.remove("hidden");
+}
+
+function switchPanel(id){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.panel===id));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+async function hasImage(n){
+  return !!(await getImage(n));
+}
+
+async function activityStatus(n){
+  const text=$("a"+n+"EvidenceText").value.trim();
+  const image=await hasImage(n);
+  const explanation=$("a"+n+"Explanation").value.trim();
+  return {
+    evidence:!!text || image,
+    explanation:!!explanation,
+    complete:(!!text || image) && !!explanation
+  };
+}
+
+async function review(){
+  const box=$("reviewResults");
+  box.textContent="";
+  const names={
+    1:"Actividad 1 — Identificación de la configuración de red",
+    2:"Actividad 2 — Prueba de conectividad con ping",
+    3:"Actividad 3 — Trazado de la ruta de red"
+  };
+
+  for(const n of [1,2,3]){
+    const s=await activityStatus(n);
+    const div=document.createElement("div");
+    div.className="status "+(s.complete?"complete":"pending");
+
+    const title=document.createElement("strong");
+    title.textContent=names[n]+" — "+(s.complete?"COMPLETO":"PENDIENTE");
+    div.appendChild(title);
+
+    const p=document.createElement("p");
+    p.textContent=
+      (s.evidence?"✓":"⚠")+" Evidencia real en uno de los formatos permitidos | "+
+      (s.explanation?"✓":"⚠")+" Explicación / interpretación técnica";
+    div.appendChild(p);
+    box.appendChild(div);
+  }
+
+  const note=document.createElement("div");
+  note.className="notice";
+  note.textContent="Esta revisión indica únicamente COMPLETO o PENDIENTE. La calificación oficial corresponde al docente.";
+  box.appendChild(note);
+}
+
+function linuxEngine(command){
+  const c=command.trim();
+
+  if(c==="ipconfig")
+    return "DATO DE SIMULACIÓN\nEste comando corresponde a Windows CMD. En Linux utiliza: ip a";
+
+  if(c==="ping google.com")
+    return "DATO DE SIMULACIÓN\nEn Linux utiliza la sintaxis autorizada: ping -c 4 google.com";
+
+  if(c==="tracert google.com")
+    return "DATO DE SIMULACIÓN\nEste comando corresponde a Windows CMD. En Linux utiliza: traceroute google.com";
+
+  if(c==="ip a"){
+    return [
+      "DATO DE SIMULACIÓN",
+      "2: interfaz-simulada: <BROADCAST,MULTICAST,UP,LOWER_UP>",
+      "    inet [IP DE SIMULACIÓN]/24 scope global interfaz-simulada",
+      "",
+      "Observa la interfaz y la información de configuración mostrada."
+    ].join("\n");
+  }
+
+  if(c==="ping -c 4 google.com"){
+    return [
+      "DATO DE SIMULACIÓN",
+      "PING google.com ([IP DE SIMULACIÓN]) 56(84) bytes of data.",
+      "64 bytes from [IP DE SIMULACIÓN]: icmp_seq=1 time=24 ms",
+      "64 bytes from [IP DE SIMULACIÓN]: icmp_seq=2 time=23 ms",
+      "64 bytes from [IP DE SIMULACIÓN]: icmp_seq=3 time=25 ms",
+      "64 bytes from [IP DE SIMULACIÓN]: icmp_seq=4 time=24 ms",
+      "--- google.com ping statistics ---",
+      "4 packets transmitted, 4 received, 0% packet loss",
+      "",
+      "Todos los valores anteriores son DATO DE SIMULACIÓN."
+    ].join("\n");
+  }
+
+  if(c==="traceroute google.com"){
+    return [
+      "DATO DE SIMULACIÓN",
+      "traceroute to google.com ([IP DE SIMULACIÓN])",
+      " 1  Router local de simulación     1 ms  1 ms  1 ms",
+      " 2  Nodo intermedio simulado        8 ms  9 ms  8 ms",
+      " 3  Router intermedio simulado     16 ms 15 ms 16 ms",
+      " 4  Destino de simulación          24 ms 23 ms 24 ms",
+      "",
+      "ESCENARIO FICTICIO DE SIMULACIÓN"
+    ].join("\n");
+  }
+
+  return "DATO DE SIMULACIÓN\nbash: comando no reconocido para esta práctica.";
+}
+
+function windowsEngine(command){
+  const c=command.trim();
+
+  if(c==="ip a")
+    return "DATO DE SIMULACIÓN\r\nEste comando corresponde a Linux. En Windows utiliza: ipconfig";
+
+  if(c==="ping -c 4 google.com")
+    return "DATO DE SIMULACIÓN\r\nLa opción -c corresponde al comando Linux autorizado. En Windows utiliza: ping google.com";
+
+  if(c==="traceroute google.com")
+    return "DATO DE SIMULACIÓN\r\nEste comando corresponde a Linux. En Windows utiliza: tracert google.com";
+
+  if(c==="ipconfig"){
+    return [
+      "DATO DE SIMULACIÓN",
+      "",
+      "Configuración IP de Windows",
+      "",
+      "Adaptador de red de simulación:",
+      "   Dirección IPv4. . . . . . . . . . : [IP DE SIMULACIÓN]",
+      "   Máscara de subred . . . . . . . . : [DATO DE SIMULACIÓN]",
+      "   Puerta de enlace predeterminada . . : [DATO DE SIMULACIÓN]",
+      "",
+      "Todos los valores anteriores son DATO DE SIMULACIÓN."
+    ].join("\r\n");
+  }
+
+  if(c==="ping google.com"){
+    return [
+      "DATO DE SIMULACIÓN",
+      "",
+      "Haciendo ping a google.com [[IP DE SIMULACIÓN]] con 32 bytes de datos:",
+      "Respuesta desde [IP DE SIMULACIÓN]: bytes=32 tiempo=24ms",
+      "Respuesta desde [IP DE SIMULACIÓN]: bytes=32 tiempo=23ms",
+      "Respuesta desde [IP DE SIMULACIÓN]: bytes=32 tiempo=25ms",
+      "Respuesta desde [IP DE SIMULACIÓN]: bytes=32 tiempo=24ms",
+      "",
+      "Paquetes: enviados = 4, recibidos = 4, perdidos = 0",
+      "",
+      "Todos los valores anteriores son DATO DE SIMULACIÓN."
+    ].join("\r\n");
+  }
+
+  if(c==="tracert google.com"){
+    return [
+      "DATO DE SIMULACIÓN",
+      "",
+      "Traza a google.com [[IP DE SIMULACIÓN]]",
+      "",
+      "  1     1 ms     1 ms     1 ms  Router local de simulación",
+      "  2     8 ms     9 ms     8 ms  Nodo intermedio simulado",
+      "  3    16 ms    15 ms    16 ms  Router intermedio simulado",
+      "  4    24 ms    23 ms    24 ms  Destino de simulación",
+      "",
+      "Traza completa.",
+      "ESCENARIO FICTICIO DE SIMULACIÓN"
+    ].join("\r\n");
+  }
+
+  return "DATO DE SIMULACIÓN\r\n'"+c+"' no se reconoce como comando autorizado para esta práctica de Windows CMD.";
+}
+
+function runSimulator(){
+  const os=$("simOS").value;
+  const command=$("simCommand").value;
+  $("simOutput").textContent=
+    "SIMULADOR EDUCATIVO — RESULTADO FICTICIO\n\n"+
+    (os==="linux" ? linuxEngine(command) : windowsEngine(command));
+}
+
+async function blobToDataURL(blob){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function exportBackup(){
+  await saveDraft();
+  const images={};
+  for(const n of [1,2,3]){
+    const rec=await getImage(n);
+    if(rec && rec.blob){
+      images[n]={
+        type:rec.blob.type,
+        dataURL:await blobToDataURL(rec.blob)
+      };
+    }
+  }
+
+  const backup={
+    schemaVersion:SCHEMA_VERSION,
+    guideId:GUIDE_ID,
+    courseId:COURSE_ID,
+    grade:GRADE,
+    orientation:ORIENTATION,
+    studentKey:activeIdentity.studentKey,
+    section:activeIdentity.section,
+    studentName:activeIdentity.studentName,
+    timestamp:new Date().toISOString(),
+    data:{
+      ...collectData(),
+      images
+    }
+  };
+
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="respaldo_guia06_"+normalize(activeIdentity.section)+"_"+normalize(activeIdentity.studentKey)+".json";
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+function dataURLToBlob(dataURL){
+  const parts=dataURL.split(",");
+  const match=parts[0].match(/:(.*?);/);
+  if(!match) throw new Error("Imagen inválida");
+  const mime=match[1];
+  const bytes=atob(parts[1]);
+  const arr=new Uint8Array(bytes.length);
+  for(let i=0;i<bytes.length;i++) arr[i]=bytes.charCodeAt(i);
+  return new Blob([arr],{type:mime});
+}
+
+function validateBackup(obj){
+  if(!obj || typeof obj!=="object") return "Estructura de respaldo inválida.";
+  if(obj.schemaVersion!==SCHEMA_VERSION) return "Versión de respaldo no compatible.";
+  if(obj.guideId!==GUIDE_ID || obj.courseId!==COURSE_ID)
+    return "Este respaldo pertenece a otra guía o curso y no puede cargarse aquí.";
+  if(!obj.data || typeof obj.data!=="object") return "El respaldo no contiene una estructura de datos válida.";
+  if(!obj.studentKey || !obj.section) return "El respaldo no contiene la identificación requerida.";
+  return "";
+}
+
+async function importBackup(file){
+  try{
+    const text=await file.text();
+    let obj;
+    try{obj=JSON.parse(text);}
+    catch{alert("El archivo seleccionado no contiene JSON válido.");return;}
+
+    const error=validateBackup(obj);
+    if(error){alert(error);return;}
+
+    if(obj.studentKey!==activeIdentity.studentKey || obj.section!==activeIdentity.section){
+      const ok=confirm(
+        "El respaldo pertenece a una Clave/Carné o Sección diferente de la identidad activa. "+
+        "¿Deseas importarlo en el trabajo actual?"
+      );
+      if(!ok) return;
+    }
+
+    const activities=obj.data.activities || {};
+    for(const n of [1,2,3]){
+      const item=activities[n] || {};
+      $("a"+n+"EvidenceText").value=item.evidenceText || "";
+      $("a"+n+"Explanation").value=item.explanation || "";
+    }
+
+    const images=obj.data.images || {};
+    for(const n of [1,2,3]){
+      if(images[n] && images[n].dataURL){
+        await saveImage(n,dataURLToBlob(images[n].dataURL));
+      }
+    }
+
+    await saveDraft();
+    alert("Respaldo importado y validado correctamente.");
+  }catch(e){
+    console.error(e);
+    alert("No fue posible importar el respaldo.");
+  }
+}
+
+async function buildPrintReport(){
+  const report=$("printReport");
+  report.textContent="";
+
+  const h=document.createElement("h1");
+  h.textContent="GUÍA DE TRABAJO NO. 6 - III Unidad";
+  report.appendChild(h);
+
+  const meta=document.createElement("p");
+  meta.textContent=
+    "Curso: Soporte de Computadoras II | Estudiante: "+
+    (activeIdentity.studentName || "No indicado")+
+    " | Clave/Carné: "+activeIdentity.studentKey+
+    " | Sección: "+activeIdentity.section+
+    " | Entrega: 18/08/2026 a las 18:00 | Valor: 10 puntos Netos";
+  report.appendChild(meta);
+
+  const names={
+    1:"Actividad 1 — Identificación de la configuración de red — 3 puntos",
+    2:"Actividad 2 — Prueba de conectividad con ping — 3 puntos",
+    3:"Actividad 3 — Trazado de la ruta de red — 4 puntos"
+  };
+
+  const labels={
+    1:"Explicación técnica:",
+    2:"Interpretación técnica:",
+    3:"Interpretación técnica de la ruta:"
+  };
+
+  for(const n of [1,2,3]){
+    const sec=document.createElement("section");
+    const title=document.createElement("h2");
+    title.textContent=names[n];
+    sec.appendChild(title);
+
+    const text=$("a"+n+"EvidenceText").value.trim();
+    if(text){
+      const label=document.createElement("strong");
+      label.textContent="Registro textual de la salida real:";
+      sec.appendChild(label);
+      const p=document.createElement("pre");
+      p.style.whiteSpace="pre-wrap";
+      p.textContent=text;
+      sec.appendChild(p);
+    }
+
+    const image=await getImage(n);
+    if(image && image.blob){
+      const label=document.createElement("p");
+      label.textContent="Captura de pantalla de la consola real:";
+      sec.appendChild(label);
+      const img=document.createElement("img");
+      img.style.maxWidth="100%";
+      img.src=URL.createObjectURL(image.blob);
+      sec.appendChild(img);
+    }
+
+    const expLabel=document.createElement("strong");
+    expLabel.textContent=labels[n];
+    sec.appendChild(expLabel);
+    const exp=document.createElement("p");
+    exp.textContent=$("a"+n+"Explanation").value.trim() || "Pendiente.";
+    sec.appendChild(exp);
+
+    report.appendChild(sec);
+  }
+}
+
+async function printWork(){
+  await saveDraft();
+  await buildPrintReport();
+  window.print();
+}
+
+async function changeStudent(){
+  await saveDraft();
+  if(!confirm("Tu trabajo actual será guardado antes de cambiar de estudiante. ¿Deseas continuar?")) return;
+  Object.values(imageURLs).forEach(url=>URL.revokeObjectURL(url));
+  location.reload();
+}
+
+document.addEventListener("DOMContentLoaded",async()=>{
+  try{await openDB();}
+  catch(e){
+    alert("No fue posible iniciar IndexedDB. Verifica que el navegador permita almacenamiento local.");
+    return;
+  }
+
+  $("identifyBtn").addEventListener("click",identifyStudent);
+  $("continueDraftBtn").addEventListener("click",continueDraft);
+  $("newDraftBtn").addEventListener("click",startAgain);
+  $("cancelDraftBtn").addEventListener("click",cancelIdentity);
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.addEventListener("click",()=>switchPanel(btn.dataset.panel));
+  });
+
+  for(const n of [1,2,3]){
+    $("a"+n+"Image").addEventListener("change",async e=>{
+      const file=e.target.files[0];
+      if(!file) return;
+      try{
+        setSaveStatus("Guardando...");
+        await saveImage(n,file);
+        await saveDraft();
+      }catch(error){
+        console.error(error);
+        setSaveStatus("Error al guardar");
+      }
+    });
+
+    document.querySelector('[data-remove-image="'+n+'"]')
+      .addEventListener("click",()=>removeImage(n));
+
+    $("a"+n+"EvidenceText").addEventListener("input",scheduleSave);
+    $("a"+n+"Explanation").addEventListener("input",scheduleSave);
+  }
+
+  $("runSim").addEventListener("click",runSimulator);
+  $("reviewBtn").addEventListener("click",review);
+  $("saveBtn").addEventListener("click",saveDraft);
+  $("exportBtn").addEventListener("click",exportBackup);
+  $("printBtn").addEventListener("click",printWork);
+  $("changeStudentBtn").addEventListener("click",changeStudent);
+
+  $("importFile").addEventListener("change",e=>{
+    const file=e.target.files[0];
+    if(file) importBackup(file);
+    e.target.value="";
+  });
+
+  window.addEventListener("beforeunload",()=>{
+    Object.values(imageURLs).forEach(url=>URL.revokeObjectURL(url));
+  });
+});
+</script>
+</body>
+</html>

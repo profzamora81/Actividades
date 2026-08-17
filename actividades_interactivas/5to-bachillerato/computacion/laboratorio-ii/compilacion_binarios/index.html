@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guía No. 6 - Laboratorio II</title>
+<style>
+:root{
+  --azul:#143b63;
+  --azul2:#205b91;
+  --verde:#16734a;
+  --rojo:#b42318;
+  --gris:#667085;
+  --fondo:#f4f7fa;
+  --borde:#cbd5e1;
+  --claro:#eef5fb;
+  --aviso:#fff6d8;
+  --texto:#17202a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--fondo);
+  color:var(--texto);
+  line-height:1.55;
+}
+header{
+  background:linear-gradient(135deg,var(--azul),#0b2743);
+  color:white;
+  padding:24px 16px;
+  text-align:center;
+}
+header h1{margin:0 0 5px;font-size:1.6rem}
+header p{margin:3px}
+main{max-width:1180px;margin:auto;padding:18px}
+.card{
+  background:white;
+  border:1px solid var(--borde);
+  border-radius:12px;
+  padding:20px;
+  margin:14px 0;
+  box-shadow:0 2px 8px #00000012;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:12px;
+}
+label{display:block;font-weight:bold;margin:12px 0 5px}
+input,textarea,select{
+  width:100%;
+  padding:10px;
+  border:1px solid #a9b7c5;
+  border-radius:7px;
+  font:inherit;
+  background:white;
+}
+textarea{min-height:130px;resize:vertical}
+button{
+  border:0;
+  border-radius:7px;
+  background:var(--azul2);
+  color:white;
+  padding:10px 14px;
+  margin:4px;
+  cursor:pointer;
+  font-weight:bold;
+}
+button:hover{filter:brightness(.95)}
+button.good{background:var(--verde)}
+button.danger{background:var(--rojo)}
+button.secondary{background:#5e6876}
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:14px 0;
+}
+.nav-btn.active{background:var(--verde)}
+.panel{display:none}
+.panel.active{display:block}
+.notice{
+  background:var(--aviso);
+  border-left:5px solid #d9a900;
+  padding:12px;
+  margin:12px 0;
+}
+.info{
+  background:var(--claro);
+  border-left:5px solid var(--azul2);
+  padding:12px;
+  margin:12px 0;
+}
+.status{
+  border-radius:8px;
+  padding:11px;
+  margin:9px 0;
+}
+.complete{background:#e7f6ee;color:#105b39}
+.pending{background:#fff0ef;color:#8d1b14}
+.hidden{display:none!important}
+.small{font-size:.92rem;color:var(--gris)}
+.points{
+  display:inline-block;
+  background:var(--azul);
+  color:#fff;
+  border-radius:20px;
+  padding:3px 10px;
+  font-weight:bold;
+}
+.file-list{
+  margin-top:10px;
+  display:grid;
+  gap:8px;
+}
+.file-row{
+  border:1px solid var(--borde);
+  border-radius:8px;
+  padding:10px;
+  background:#fafcff;
+}
+.file-row img{
+  display:block;
+  max-width:100%;
+  max-height:280px;
+  object-fit:contain;
+  margin-top:8px;
+  border:1px solid var(--borde);
+}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid var(--borde);padding:9px;vertical-align:top}
+th{background:var(--claro)}
+#saveStatus{
+  position:fixed;
+  right:12px;
+  bottom:12px;
+  background:#111827;
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
+  z-index:30;
+}
+.dialog{
+  position:fixed;
+  inset:0;
+  background:#0009;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:50;
+}
+.dialog-box{
+  background:white;
+  border-radius:12px;
+  max-width:560px;
+  width:100%;
+  padding:22px;
+}
+.print-only{display:none}
+@media print{
+  body{background:white}
+  header,nav,#identityPanel,#saveStatus,.no-print,
+  #guidePanel,#rubricPanel,#reviewPanel,#backupPanel,
+  #activity1,#activity2,#activity3,#activity4{
+    display:none!important;
+  }
+  #printArea{
+    display:block!important;
+    padding:0;
+  }
+  main{max-width:none;padding:0}
+  .card{border:0;box-shadow:none;padding:0}
+  img{max-width:100%!important}
+  @page{margin:14mm}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>GUÍA DE TRABAJO NO. 6 - III Unidad</h1>
+  <p>Laboratorio II</p>
+  <p>Despliegue del Sistema - Compilación de binarios, instaladores autoejecutables, pruebas en limpio y documentación técnica.</p>
+</header>
+
+<main>
+
+<section id="identityPanel" class="card">
+  <h2>Identificar estudiante</h2>
+  <p>Ingresa primero tu Clave/Carné y Sección. Después de identificarte se buscará únicamente el borrador correspondiente a tu trabajo.</p>
+  <div class="grid">
+    <div>
+      <label for="studentKey">Clave/Carné</label>
+      <input id="studentKey" autocomplete="off">
+    </div>
+    <div>
+      <label for="section">Sección</label>
+      <input id="section" autocomplete="off">
+    </div>
+    <div>
+      <label for="studentName">Nombre</label>
+      <input id="studentName" autocomplete="name">
+    </div>
+  </div>
+  <button id="identifyBtn">Ingresar a la guía</button>
+</section>
+
+<div id="app" class="hidden">
+
+<nav class="no-print">
+  <button class="nav-btn active" data-target="guidePanel">Guía</button>
+  <button class="nav-btn" data-target="activity1">Actividad 1</button>
+  <button class="nav-btn" data-target="activity2">Actividad 2</button>
+  <button class="nav-btn" data-target="activity3">Actividad 3</button>
+  <button class="nav-btn" data-target="activity4">Actividad 4</button>
+  <button class="nav-btn" data-target="rubricPanel">Rúbrica</button>
+  <button class="nav-btn" data-target="reviewPanel">Revisar</button>
+  <button class="nav-btn" data-target="backupPanel">Respaldo / PDF</button>
+</nav>
+
+<section id="guidePanel" class="panel active card">
+  <h2>Datos generales</h2>
+  <p><strong>Institución:</strong> Instituto Industrial Central General Lázaro Chacón González</p>
+  <p><strong>Carrera:</strong> Bachillerato en Ciencias y Letras con Orientación en Computación</p>
+  <p><strong>Grado:</strong> Quinto Bachillerato en Ciencias y Letras con Orientación en Computación</p>
+  <p><strong>Curso:</strong> Laboratorio II</p>
+  <p><strong>Docente:</strong> Erick Enrique Zamora Paz</p>
+  <p><strong>Fecha de Asignación:</strong> 17/08/2026</p>
+  <p><strong>Fecha de Entrega:</strong> martes 18/08/2026</p>
+  <p><strong>Hora de Entrega:</strong> 18:00 </p>
+  <p><strong>Ponderación:</strong> 10 puntos Netos</p>
+
+  <h3>Competencia</h3>
+  <p>Utiliza su conocimiento del sistema operativo al realizar ejercicios prácticos en el laboratorio.</p>
+
+  <h3>Indicador de logro</h3>
+  <p>Establece el uso de software para ayudar a desarrollar, mejorar ideas y la calidad del trabajo.</p>
+
+  <h3>Contenidos relacionados</h3>
+  <p><strong>3.2.1.</strong> Instalación y desinstalación de programas.</p>
+  <p><strong>3.2.2.</strong> Instalación de programas adecuados para usos prácticos y compatibles con los recursos disponibles.</p>
+
+  <div class="notice">
+    <strong>Continuidad del proyecto:</strong>
+    esta guía no inicia un proyecto nuevo. Utiliza el mismo sistema de información desarrollado durante la III Unidad.
+  </div>
+
+  <p><strong>Secuencia trabajada:</strong> Lectura/Filtro → Inserción/Validación → Actualización/Eliminación → CRUD → Seguridad/Login/Hashing → Reportes → Despliegue.</p>
+
+  <h3>Plataforma correspondiente al proyecto</h3>
+  <label for="platform">Selecciona la plataforma de tu proyecto</label>
+  <select id="platform">
+    <option value="">Selecciona...</option>
+    <option value="windows">Windows</option>
+    <option value="linux">Linux Q4OS</option>
+  </select>
+
+  <div id="platformHelp" class="info">
+    Selecciona la plataforma correspondiente al sistema que desarrollaste.
+  </div>
+
+  <h3>Prueba en limpio</h3>
+  <p>Es la instalación y ejecución del producto desplegable en otro entorno compatible que no dependa del proyecto abierto en el IDE ni de la configuración manual utilizada durante el desarrollo.</p>
+  <p>Puede realizarse en otro equipo compatible disponible, un entorno preparado para pruebas u otro mecanismo equivalente autorizado por el docente.</p>
+  <p>No se exige específicamente máquina virtual, reinstalación del sistema operativo ni un equipo físico determinado.</p>
+
+  <h3>Política de mejoramiento</h3>
+  <p><strong>Menor de 4 puntos:</strong> Mejoramiento obligatorio.</p>
+  <p><strong>Exactamente 5 puntos:</strong> Mejoramiento opcional.</p>
+  <p><strong>Exactamente 4 puntos:</strong> Mejoramiento obligatorio</p>
+</section>
+
+<section id="activity1" class="panel card">
+  <h2>Actividad 1 — Preparación y generación del producto desplegable <span class="points">3 puntos</span></h2>
+
+  <h3>Qué aprenderás</h3>
+  <p>Preparar el sistema de información que ya desarrollaste para su distribución y obtener el producto ejecutable o distribuible correspondiente a tu proyecto.</p>
+
+  <h3>Qué debes hacer</h3>
+  <p>Trabaja sobre el mismo sistema desarrollado durante la III Unidad. Prepara el sistema para distribución y genera el producto ejecutable o distribuible correspondiente a la plataforma de tu proyecto. Identifica y atiende los problemas que puedan impedir obtener adecuadamente el producto.</p>
+
+  <h3>Evidencia requerida</h3>
+  <p><strong>Producto ejecutable o distribuible generado a partir del sistema desarrollado y evidencia verificable del proceso real realizado.</strong></p>
+
+  <label for="a1Product">Producto ejecutable o distribuible</label>
+  <input id="a1Product" type="file" multiple>
+  <div id="a1ProductList" class="file-list"></div>
+
+  <label for="a1ProcessText">Registro de evidencia verificable del proceso real, si utilizas texto</label>
+  <textarea id="a1ProcessText" placeholder="Registra aquí información que permita documentar el proceso real realizado."></textarea>
+
+  <label for="a1ProcessFiles">Archivos o imágenes de evidencia del proceso real, si utilizas este formato</label>
+  <input id="a1ProcessFiles" type="file" multiple>
+  <div id="a1ProcessList" class="file-list"></div>
+</section>
+
+<section id="activity2" class="panel card">
+  <h2>Actividad 2 — Creación del mecanismo de instalación <span class="points">3 puntos</span></h2>
+
+  <h3>Qué aprenderás</h3>
+  <p>Preparar un mecanismo que permita instalar el mismo sistema de información en la plataforma correspondiente al proyecto.</p>
+
+  <div id="mechanismHelp" class="info">
+    Selecciona primero la plataforma de tu proyecto en la sección Guía.
+  </div>
+
+  <div id="linuxMechanismBox" class="hidden">
+    <label for="linuxMechanism">Mecanismo utilizado en Linux Q4OS</label>
+    <select id="linuxMechanism">
+      <option value="">Selecciona...</option>
+      <option value="bash">Script Bash</option>
+      <option value="deb">Paquete .deb</option>
+    </select>
+    <p class="small">En Linux Q4OS uno de los dos mecanismos es suficiente.</p>
+  </div>
+
+  <h3>Evidencia requerida</h3>
+  <p><strong>Mecanismo de instalación funcional correspondiente a la plataforma del proyecto: MSI para Windows; o script Bash O paquete .deb para Linux Q4OS.</strong></p>
+
+  <label for="a2Mechanism">Archivo del mecanismo de instalación</label>
+  <input id="a2Mechanism" type="file" multiple>
+  <div id="a2MechanismList" class="file-list"></div>
+</section>
+
+<section id="activity3" class="panel card">
+  <h2>Actividad 3 — Prueba del sistema instalado en un entorno limpio <span class="points">2 puntos</span></h2>
+
+  <h3>Qué aprenderás</h3>
+  <p>Comprobar el comportamiento del sistema después de instalarlo fuera de las condiciones utilizadas durante su desarrollo.</p>
+
+  <h3>La prueba debe permitir comprobar cualitativamente</h3>
+  <ul>
+    <li>que el mecanismo de instalación funciona;</li>
+    <li>que el sistema puede instalarse;</li>
+    <li>que el sistema instalado puede iniciarse;</li>
+    <li>que los problemas de despliegue, cuando existan, pueden identificarse.</li>
+  </ul>
+
+  <h3>Evidencia requerida</h3>
+  <p><strong>Evidencia verificable de la instalación y ejecución real del sistema desplegado, acompañada del registro técnico de problemas encontrados cuando existan.</strong></p>
+
+  <label for="a3TestText">Registro de la instalación y ejecución real, si utilizas texto</label>
+  <textarea id="a3TestText" placeholder="Registra aquí la evidencia o descripción técnica de la prueba realizada."></textarea>
+
+  <label for="a3TestFiles">Archivos o imágenes de evidencia de la prueba real, si utilizas este formato</label>
+  <input id="a3TestFiles" type="file" multiple>
+  <div id="a3TestList" class="file-list"></div>
+
+  <label for="a3Problems">Problemas encontrados y tratamiento aplicado, cuando corresponda</label>
+  <textarea id="a3Problems" placeholder="Completa este espacio cuando se hayan presentado problemas durante el despliegue."></textarea>
+</section>
+
+<section id="activity4" class="panel card">
+  <h2>Actividad 4 — Documentación técnica del despliegue <span class="points">2 puntos</span></h2>
+
+  <h3>Qué aprenderás</h3>
+  <p>Documentar técnicamente el proceso real de preparación, instalación y comprobación del sistema desplegado.</p>
+
+  <div class="info">
+    <strong>Orientación para tu documentación:</strong>
+    puede abordar la identificación del sistema, plataforma utilizada, producto generado, procedimiento de instalación, forma de iniciar el sistema, problemas encontrados cuando existan, solución aplicada cuando corresponda y resultado general de la prueba en limpio.
+  </div>
+
+  <h3>Evidencia requerida</h3>
+  <p><strong>Documentación técnica del proceso real de despliegue realizado.</strong></p>
+
+  <label for="a4Documentation">Documentación técnica redactada en la guía</label>
+  <textarea id="a4Documentation" placeholder="Redacta aquí tu documentación técnica del despliegue realizado."></textarea>
+
+  <label for="a4DocumentationFiles">Documento o archivos relacionados con la documentación, si utilizas este formato</label>
+  <input id="a4DocumentationFiles" type="file" multiple>
+  <div id="a4DocumentationList" class="file-list"></div>
+</section>
+
+<section id="rubricPanel" class="panel card">
+  <h2>RÚBRICA DE CALIFICACIÓN (10 pts)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>Excelente</th>
+        <th>Aceptable</th>
+        <th>Deficiente</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Preparación y generación del producto desplegable</strong></td>
+        <td>Producto ejecutable o distribuible y evidencia verificable del proceso real, con resultado adecuado para distribución. <strong>3 pts</strong></td>
+        <td>Producto y evidencia real presentados, con aspectos parcialmente resueltos en la preparación o generación. <strong>2 pts</strong></td>
+        <td>No presenta el producto requerido o la evidencia no permite verificar adecuadamente el proceso real. <strong>0 pts</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Creación del mecanismo de instalación</strong></td>
+        <td>Mecanismo funcional correspondiente a la plataforma del proyecto. <strong>3 pts</strong></td>
+        <td>Mecanismo correspondiente presentado, con aspectos parcialmente resueltos en su funcionamiento. <strong>2 pts</strong></td>
+        <td>No presenta el mecanismo correspondiente o no permite verificar adecuadamente el proceso previsto. <strong>0 pts</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Prueba del sistema instalado en un entorno limpio</strong></td>
+        <td>Evidencia verificable de instalación y ejecución real conforme a la guía y registro técnico de problemas cuando existen. <strong>2 pts</strong></td>
+        <td>Evidencia de la prueba real presentada, con comprobación o registro técnico parcialmente desarrollado. <strong>1 pt</strong></td>
+        <td>No presenta evidencia que permita verificar la instalación y ejecución real en un entorno limpio. <strong>0 pts</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Documentación técnica del despliegue</strong></td>
+        <td>Documentación coherente con el proceso real y que permite comprender preparación, instalación y comprobación. <strong>2 pts</strong></td>
+        <td>Documentación relacionada con el despliegue, con aspectos explicados parcialmente. <strong>1 pt</strong></td>
+        <td>No presenta la documentación requerida o no permite reconocer adecuadamente el proceso real. <strong>0 pts</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="reviewPanel" class="panel card">
+  <h2>REVISAR MI ENTREGA</h2>
+  <p>Esta revisión comprueba únicamente si están presentes los componentes requeridos por la guía. No asigna una calificación.</p>
+  <button id="reviewBtn" class="good">REVISAR MI ENTREGA</button>
+  <div id="reviewResults"></div>
+</section>
+
+<section id="backupPanel" class="panel card">
+  <h2>Respaldo y entrega</h2>
+  <p>Tu trabajo se guarda localmente para la Clave/Carné y Sección con las que ingresaste.</p>
+
+  <button id="saveBtn">Guardar ahora</button>
+  <button id="exportBtn">Descargar respaldo JSON</button>
+
+  <label for="importFile">Importar respaldo JSON</label>
+  <input id="importFile" type="file" accept=".json,application/json">
+
+  <div class="notice">
+    Para Classroom, conserva también los archivos reales que constituyen el producto y el mecanismo de instalación de tu proyecto.
+  </div>
+
+  <button id="printBtn" class="good">IMPRIMIR / GUARDAR COMO PDF</button>
+  <button id="changeStudentBtn" class="secondary">Cambiar de estudiante</button>
+</section>
+
+<section id="printArea" class="print-only"></section>
+
+</div>
+</main>
+
+<div id="saveStatus" class="hidden">Guardado automáticamente ✓</div>
+
+<div id="draftDialog" class="dialog hidden">
+  <div class="dialog-box">
+    <h2>Se encontró un trabajo guardado para esta guía</h2>
+    <p id="draftInfo"></p>
+    <button id="continueBtn" class="good">Continuar trabajo</button>
+    <button id="restartBtn" class="danger">Iniciar nuevamente</button>
+    <button id="cancelDraftBtn" class="secondary">Cancelar</button>
+  </div>
+</div>
+
+<div id="changeDialog" class="dialog hidden">
+  <div class="dialog-box">
+    <h2>Cambiar de estudiante</h2>
+    <p>El trabajo actual no será mezclado con otro estudiante.</p>
+    <button id="saveAndChangeBtn" class="good">Guardar y cambiar de estudiante</button>
+    <button id="newStudentBtn">Crear nuevo borrador</button>
+    <button id="cancelChangeBtn" class="secondary">Cancelar</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+const APP_SCHEMA = "2026.1";
+const GUIDE_ID = "laboratorio-ii-guia-06-iii-unidad";
+const COURSE_ID = "laboratorio-ii";
+const GRADE = "Quinto Bachillerato en Ciencias y Letras con Orientación en Computación";
+const ORIENTATION = "Computación";
+const GUIDE_NUMBER = "Guía No. 6";
+
+const DB_NAME = "LaboratorioII_Guia06_2026";
+const DB_VERSION = 1;
+const DRAFT_STORE = "drafts";
+const BLOB_STORE = "evidenceBlobs";
+
+let db = null;
+let currentIdentity = null;
+let currentDraftKey = "";
+let foundDraft = null;
+let saveTimer = null;
+let previewUrls = [];
+let printUrls = [];
+
+const byId = id => document.getElementById(id);
+
+function normalizeKey(value){
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-|-$/g,"");
+}
+
+function buildDraftKey(studentKey, section){
+  return [
+    normalizeKey(GRADE),
+    normalizeKey(ORIENTATION),
+    normalizeKey(COURSE_ID),
+    normalizeKey(GUIDE_NUMBER),
+    normalizeKey(section),
+    normalizeKey(studentKey)
+  ].join("__");
+}
+
+function openDatabase(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(DB_NAME,DB_VERSION);
+
+    req.onupgradeneeded=event=>{
+      const database=event.target.result;
+
+      if(!database.objectStoreNames.contains(DRAFT_STORE)){
+        database.createObjectStore(DRAFT_STORE,{keyPath:"id"});
+      }
+
+      if(!database.objectStoreNames.contains(BLOB_STORE)){
+        const store=database.createObjectStore(BLOB_STORE,{keyPath:"id"});
+        store.createIndex("draftKey","draftKey",{unique:false});
+      }
+    };
+
+    req.onsuccess=()=>{
+      db=req.result;
+      resolve(db);
+    };
+
+    req.onerror=()=>reject(req.error);
+  });
+}
+
+function dbRequest(storeName,mode,operation){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(storeName,mode);
+    const store=tx.objectStore(storeName);
+    const req=operation(store);
+
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error);
+  });
+}
+
+async function getDraft(){
+  return dbRequest(DRAFT_STORE,"readonly",store=>store.get(currentDraftKey));
+}
+
+async function putDraft(record){
+  return dbRequest(DRAFT_STORE,"readwrite",store=>store.put(record));
+}
+
+async function removeDraft(){
+  await dbRequest(DRAFT_STORE,"readwrite",store=>store.delete(currentDraftKey));
+  await removeAllAttachments();
+}
+
+function collectFormData(){
+  return {
+    studentName: currentIdentity ? currentIdentity.studentName : "",
+    platform: byId("platform").value,
+    linuxMechanism: byId("linuxMechanism").value,
+    activity1:{
+      processText:byId("a1ProcessText").value
+    },
+    activity3:{
+      testText:byId("a3TestText").value,
+      problems:byId("a3Problems").value
+    },
+    activity4:{
+      documentation:byId("a4Documentation").value
+    }
+  };
+}
+
+async function saveDraft(){
+  if(!currentIdentity || !currentDraftKey || !db) return;
+
+  showSaveStatus("Guardando...");
+
+  try{
+    await putDraft({
+      id:currentDraftKey,
+      schemaVersion:APP_SCHEMA,
+      guideId:GUIDE_ID,
+      courseId:COURSE_ID,
+      grade:GRADE,
+      orientation:ORIENTATION,
+      studentKey:currentIdentity.studentKey,
+      section:currentIdentity.section,
+      studentName:currentIdentity.studentName,
+      timestamp:new Date().toISOString(),
+      data:collectFormData()
+    });
+
+    showSaveStatus("Guardado automáticamente ✓");
+  }catch(error){
+    console.error(error);
+    if(error && error.name==="QuotaExceededError"){
+      showSaveStatus("Almacenamiento local lleno. Descarga un respaldo antes de continuar.");
+    }else{
+      showSaveStatus("Error al guardar");
+    }
+  }
+}
+
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveDraft,500);
+}
+
+function showSaveStatus(message){
+  const box=byId("saveStatus");
+  box.textContent=message;
+  box.classList.remove("hidden");
+
+  clearTimeout(showSaveStatus.timer);
+  showSaveStatus.timer=setTimeout(()=>{
+    box.classList.add("hidden");
+  },2800);
+}
+
+function restoreFormData(record){
+  if(!record || !record.data) return;
+
+  const data=record.data;
+
+  byId("platform").value=data.platform || "";
+  byId("linuxMechanism").value=data.linuxMechanism || "";
+  byId("a1ProcessText").value=(data.activity1 && data.activity1.processText) || "";
+  byId("a3TestText").value=(data.activity3 && data.activity3.testText) || "";
+  byId("a3Problems").value=(data.activity3 && data.activity3.problems) || "";
+  byId("a4Documentation").value=(data.activity4 && data.activity4.documentation) || "";
+
+  updatePlatformUI();
+}
+
+function showApplication(){
+  byId("identityPanel").classList.add("hidden");
+  byId("app").classList.remove("hidden");
+}
+
+function returnToIdentity(){
+  byId("app").classList.add("hidden");
+  byId("identityPanel").classList.remove("hidden");
+
+  currentIdentity=null;
+  currentDraftKey="";
+  foundDraft=null;
+
+  byId("studentKey").value="";
+  byId("section").value="";
+  byId("studentName").value="";
+
+  revokePreviews();
+}
+
+async function identifyStudent(){
+  const studentKey=byId("studentKey").value.trim();
+  const section=byId("section").value.trim();
+  const studentName=byId("studentName").value.trim();
+
+  if(!studentKey || !section){
+    alert("Ingresa tu Clave/Carné y Sección.");
+    return;
+  }
+
+  currentIdentity={studentKey,section,studentName};
+  currentDraftKey=buildDraftKey(studentKey,section);
+
+  try{
+    if(!db) await openDatabase();
+
+    foundDraft=await getDraft();
+
+    if(foundDraft){
+      const last=new Date(foundDraft.timestamp).toLocaleString();
+      byId("draftInfo").textContent="Último guardado: "+last;
+      byId("draftDialog").classList.remove("hidden");
+    }else{
+      showApplication();
+      await saveDraft();
+      await renderAllAttachments();
+    }
+  }catch(error){
+    console.error(error);
+    alert("No fue posible acceder al almacenamiento local del navegador.");
+  }
+}
+
+async function continueExistingDraft(){
+  byId("draftDialog").classList.add("hidden");
+  restoreFormData(foundDraft);
+  showApplication();
+  await renderAllAttachments();
+}
+
+async function restartDraft(){
+  const phrase=prompt(
+    "Se eliminará el trabajo guardado de esta guía para esta Clave/Carné y Sección. "+
+    "Esta acción no puede deshacerse si no tienes un respaldo.\n\n"+
+    "Escribe INICIAR NUEVAMENTE para confirmar."
+  );
+
+  if(phrase!=="INICIAR NUEVAMENTE"){
+    alert("No se realizó ningún cambio.");
+    return;
+  }
+
+  await removeDraft();
+
+  byId("draftDialog").classList.add("hidden");
+  clearForm();
+  showApplication();
+  await saveDraft();
+  await renderAllAttachments();
+}
+
+function cancelDraftSelection(){
+  byId("draftDialog").classList.add("hidden");
+  currentIdentity=null;
+  currentDraftKey="";
+  foundDraft=null;
+}
+
+function clearForm(){
+  byId("platform").value="";
+  byId("linuxMechanism").value="";
+  byId("a1ProcessText").value="";
+  byId("a3TestText").value="";
+  byId("a3Problems").value="";
+  byId("a4Documentation").value="";
+  updatePlatformUI();
+}
+
+function switchPanel(targetId){
+  document.querySelectorAll(".panel").forEach(panel=>{
+    panel.classList.toggle("active",panel.id===targetId);
+  });
+
+  document.querySelectorAll(".nav-btn").forEach(button=>{
+    button.classList.toggle("active",button.dataset.target===targetId);
+  });
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function updatePlatformUI(){
+  const platform=byId("platform").value;
+  const help=byId("platformHelp");
+  const mechanismHelp=byId("mechanismHelp");
+  const linuxBox=byId("linuxMechanismBox");
+
+  linuxBox.classList.add("hidden");
+
+  if(platform==="windows"){
+    help.textContent="Proyecto Windows: el mecanismo de instalación correspondiente es MSI.";
+    mechanismHelp.textContent="Para tu proyecto Windows, presenta el mecanismo de instalación MSI.";
+    byId("linuxMechanism").value="";
+  }else if(platform==="linux"){
+    help.textContent="Proyecto Linux Q4OS: utiliza script Bash O paquete .deb. Uno de los dos es suficiente.";
+    mechanismHelp.textContent="Para tu proyecto Linux Q4OS, selecciona script Bash O paquete .deb.";
+    linuxBox.classList.remove("hidden");
+  }else{
+    help.textContent="Selecciona la plataforma correspondiente al sistema que desarrollaste.";
+    mechanismHelp.textContent="Selecciona primero la plataforma de tu proyecto en la sección Guía.";
+    byId("linuxMechanism").value="";
+  }
+
+  scheduleSave();
+}
+
+function makeAttachmentId(activity,kind){
+  const random=window.crypto && crypto.randomUUID
+    ? crypto.randomUUID()
+    : Date.now()+"_"+Math.random().toString(16).slice(2);
+
+  return currentDraftKey+"::"+activity+"::"+kind+"::"+random;
+}
+
+async function storeFiles(activity,kind,fileList){
+  if(!fileList || !fileList.length) return;
+
+  for(const file of Array.from(fileList)){
+    showSaveStatus("Guardando...");
+
+    try{
+      await dbRequest(BLOB_STORE,"readwrite",store=>store.put({
+        id:makeAttachmentId(activity,kind),
+        draftKey:currentDraftKey,
+        activity,
+        kind,
+        name:file.name,
+        type:file.type || "application/octet-stream",
+        size:file.size,
+        lastModified:file.lastModified || null,
+        timestamp:new Date().toISOString(),
+        blob:file
+      }));
+    }catch(error){
+      console.error(error);
+
+      if(error && error.name==="QuotaExceededError"){
+        showSaveStatus("Almacenamiento local lleno. Descarga un respaldo antes de continuar.");
+        return;
+      }
+
+      showSaveStatus("Error al guardar");
+      return;
+    }
+  }
+
+  await saveDraft();
+  await renderAttachmentGroup(activity,kind);
+}
+
+async function getAllAttachments(){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(BLOB_STORE,"readonly");
+    const store=tx.objectStore(BLOB_STORE);
+    const index=store.index("draftKey");
+    const req=index.getAll(IDBKeyRange.only(currentDraftKey));
+
+    req.onsuccess=()=>resolve(req.result || []);
+    req.onerror=()=>reject(req.error);
+  });
+}
+
+async function getAttachments(activity,kind){
+  const all=await getAllAttachments();
+  return all.filter(item=>item.activity===activity && item.kind===kind);
+}
+
+async function removeAttachment(id){
+  const confirmed=confirm("¿Deseas eliminar este archivo de evidencia guardado?");
+  if(!confirmed) return;
+
+  await dbRequest(BLOB_STORE,"readwrite",store=>store.delete(id));
+  await renderAllAttachments();
+  scheduleSave();
+}
+
+async function removeAllAttachments(){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(BLOB_STORE,"readwrite");
+    const store=tx.objectStore(BLOB_STORE);
+    const index=store.index("draftKey");
+    const req=index.openCursor(IDBKeyRange.only(currentDraftKey));
+
+    req.onsuccess=event=>{
+      const cursor=event.target.result;
+      if(cursor){
+        cursor.delete();
+        cursor.continue();
+      }
+    };
+
+    tx.oncomplete=resolve;
+    tx.onerror=()=>reject(tx.error);
+  });
+}
+
+function humanSize(bytes){
+  if(bytes<1024) return bytes+" B";
+  if(bytes<1024*1024) return (bytes/1024).toFixed(1)+" KB";
+  return (bytes/(1024*1024)).toFixed(1)+" MB";
+}
+
+function revokePreviews(){
+  previewUrls.forEach(url=>URL.revokeObjectURL(url));
+  previewUrls=[];
+}
+
+async function renderAttachmentGroup(activity,kind){
+  const map={
+    "1:product":"a1ProductList",
+    "1:process":"a1ProcessList",
+    "2:mechanism":"a2MechanismList",
+    "3:test":"a3TestList",
+    "4:documentation":"a4DocumentationList"
+  };
+
+  const listId=map[activity+":"+kind];
+  if(!listId) return;
+
+  const container=byId(listId);
+  container.textContent="";
+
+  const items=await getAttachments(activity,kind);
+
+  for(const item of items){
+    const row=document.createElement("div");
+    row.className="file-row";
+
+    const title=document.createElement("strong");
+    title.textContent=item.name;
+    row.appendChild(title);
+
+    const meta=document.createElement("div");
+    meta.className="small";
+    meta.textContent=humanSize(item.size)+" — "+item.type;
+    row.appendChild(meta);
+
+    if(item.type && item.type.startsWith("image/")){
+      const img=document.createElement("img");
+      const url=URL.createObjectURL(item.blob);
+      previewUrls.push(url);
+      img.src=url;
+      img.alt="Vista previa de evidencia";
+      row.appendChild(img);
+    }
+
+    const remove=document.createElement("button");
+    remove.type="button";
+    remove.className="danger no-print";
+    remove.textContent="Eliminar";
+    remove.addEventListener("click",()=>removeAttachment(item.id));
+    row.appendChild(remove);
+
+    container.appendChild(row);
+  }
+}
+
+async function renderAllAttachments(){
+  revokePreviews();
+
+  await renderAttachmentGroup(1,"product");
+  await renderAttachmentGroup(1,"process");
+  await renderAttachmentGroup(2,"mechanism");
+  await renderAttachmentGroup(3,"test");
+  await renderAttachmentGroup(4,"documentation");
+}
+
+async function attachmentExists(activity,kind){
+  const items=await getAttachments(activity,kind);
+  return items.length>0;
+}
+
+async function reviewWork(){
+  const platform=byId("platform").value;
+  const linuxMechanism=byId("linuxMechanism").value;
+
+  const a1Product=await attachmentExists(1,"product");
+  const a1ProcessFile=await attachmentExists(1,"process");
+  const a1ProcessText=byId("a1ProcessText").value.trim().length>0;
+  const a1Complete=a1Product && (a1ProcessFile || a1ProcessText);
+
+  const a2File=await attachmentExists(2,"mechanism");
+  let a2Complete=false;
+
+  if(platform==="windows"){
+    a2Complete=a2File;
+  }else if(platform==="linux"){
+    a2Complete=a2File && !!linuxMechanism;
+  }
+
+  const a3File=await attachmentExists(3,"test");
+  const a3Text=byId("a3TestText").value.trim().length>0;
+  const a3Complete=a3File || a3Text;
+
+  const a4File=await attachmentExists(4,"documentation");
+  const a4Text=byId("a4Documentation").value.trim().length>0;
+  const a4Complete=a4File || a4Text;
+
+  const results=[
+    ["Actividad 1 — Preparación y generación del producto desplegable",a1Complete,
+      "Producto desplegable y evidencia verificable del proceso real."],
+    ["Actividad 2 — Creación del mecanismo de instalación",a2Complete,
+      "Mecanismo de instalación correspondiente a la plataforma del proyecto."],
+    ["Actividad 3 — Prueba del sistema instalado en un entorno limpio",a3Complete,
+      "Evidencia verificable de la instalación y ejecución real."],
+    ["Actividad 4 — Documentación técnica del despliegue",a4Complete,
+      "Documentación técnica del proceso real de despliegue."]
+  ];
+
+  const box=byId("reviewResults");
+  box.textContent="";
+
+  if(!platform){
+    const warning=document.createElement("div");
+    warning.className="status pending";
+    warning.textContent="PENDIENTE — Selecciona la plataforma correspondiente a tu proyecto.";
+    box.appendChild(warning);
+  }
+
+  results.forEach(([name,complete,detail])=>{
+    const item=document.createElement("div");
+    item.className="status "+(complete ? "complete" : "pending");
+
+    const title=document.createElement("strong");
+    title.textContent=name+" — "+(complete ? "COMPLETO" : "PENDIENTE");
+    item.appendChild(title);
+
+    const text=document.createElement("div");
+    text.textContent=detail;
+    item.appendChild(text);
+
+    box.appendChild(item);
+  });
+
+  const note=document.createElement("div");
+  note.className="notice";
+  note.textContent="Esta revisión indica únicamente COMPLETO o PENDIENTE. La calificación oficial corresponde al docente.";
+  box.appendChild(note);
+}
+
+function arrayBufferToBase64(buffer){
+  const bytes=new Uint8Array(buffer);
+  let binary="";
+  const chunk=0x8000;
+
+  for(let i=0;i<bytes.length;i+=chunk){
+    binary+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+chunk,bytes.length)));
+  }
+
+  return btoa(binary);
+}
+
+function base64ToBlob(base64,type){
+  const binary=atob(base64);
+  const bytes=new Uint8Array(binary.length);
+
+  for(let i=0;i<binary.length;i++){
+    bytes[i]=binary.charCodeAt(i);
+  }
+
+  return new Blob([bytes],{type:type || "application/octet-stream"});
+}
+
+async function exportBackup(){
+  await saveDraft();
+
+  try{
+    const attachments=await getAllAttachments();
+    const portable=[];
+
+    for(const item of attachments){
+      const buffer=await item.blob.arrayBuffer();
+
+      portable.push({
+        activity:item.activity,
+        kind:item.kind,
+        name:item.name,
+        type:item.type,
+        size:item.size,
+        contentBase64:arrayBufferToBase64(buffer)
+      });
+    }
+
+    const backup={
+      schemaVersion:APP_SCHEMA,
+      guideId:GUIDE_ID,
+      courseId:COURSE_ID,
+      grade:GRADE,
+      orientation:ORIENTATION,
+      studentKey:currentIdentity.studentKey,
+      section:currentIdentity.section,
+      studentName:currentIdentity.studentName,
+      timestamp:new Date().toISOString(),
+      data:{
+        draft:collectFormData(),
+        attachments:portable
+      }
+    };
+
+    const blob=new Blob(
+      [JSON.stringify(backup,null,2)],
+      {type:"application/json"}
+    );
+
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+
+    link.href=url;
+    link.download=
+      "respaldo_laboratorioII_guia06_"+
+      normalizeKey(currentIdentity.section)+"_"+
+      normalizeKey(currentIdentity.studentKey)+".json";
+
+    link.click();
+
+    setTimeout(()=>URL.revokeObjectURL(url),1500);
+  }catch(error){
+    console.error(error);
+    alert("No fue posible generar el respaldo completo.");
+  }
+}
+
+function validateBackup(data){
+  if(!data || typeof data!=="object"){
+    return "La estructura del respaldo no es válida.";
+  }
+
+  if(data.schemaVersion!==APP_SCHEMA){
+    return "La versión del respaldo no corresponde a esta guía.";
+  }
+
+  if(data.guideId!==GUIDE_ID || data.courseId!==COURSE_ID){
+    return "Este respaldo pertenece a otra guía o curso y no puede cargarse aquí.";
+  }
+
+  if(data.grade!==GRADE || data.orientation!==ORIENTATION){
+    return "El respaldo no corresponde al grado u orientación de esta guía.";
+  }
+
+  if(!data.studentKey || !data.section){
+    return "El respaldo no contiene la identificación requerida.";
+  }
+
+  if(!data.data || typeof data.data!=="object"){
+    return "El respaldo no contiene una estructura de datos válida.";
+  }
+
+  if(!data.data.draft || typeof data.data.draft!=="object"){
+    return "El respaldo no contiene los datos de trabajo esperados.";
+  }
+
+  if(data.data.attachments!==undefined && !Array.isArray(data.data.attachments)){
+    return "La estructura de archivos del respaldo no es válida.";
+  }
+
+  return "";
+}
+
+async function importBackup(file){
+  let parsed;
+
+  try{
+    parsed=JSON.parse(await file.text());
+  }catch(error){
+    alert("El archivo seleccionado no contiene JSON válido.");
+    return;
+  }
+
+  const validationError=validateBackup(parsed);
+
+  if(validationError){
+    alert(validationError);
+    return;
+  }
+
+  if(
+    parsed.studentKey!==currentIdentity.studentKey ||
+    parsed.section!==currentIdentity.section
+  ){
+    const proceed=confirm(
+      "El respaldo pertenece a una Clave/Carné o Sección diferente de la identidad activa. "+
+      "No se importará sin autorización explícita. ¿Deseas continuar?"
+    );
+
+    if(!proceed) return;
+  }
+
+  const phrase=prompt(
+    "La importación reemplazará el contenido del borrador activo. "+
+    "Escribe IMPORTAR para confirmar."
+  );
+
+  if(phrase!=="IMPORTAR"){
+    alert("Importación cancelada.");
+    return;
+  }
+
+  try{
+    const data=parsed.data.draft;
+
+    byId("platform").value=data.platform || "";
+    byId("linuxMechanism").value=data.linuxMechanism || "";
+    byId("a1ProcessText").value=
+      (data.activity1 && data.activity1.processText) || "";
+    byId("a3TestText").value=
+      (data.activity3 && data.activity3.testText) || "";
+    byId("a3Problems").value=
+      (data.activity3 && data.activity3.problems) || "";
+    byId("a4Documentation").value=
+      (data.activity4 && data.activity4.documentation) || "";
+
+    await removeAllAttachments();
+
+    for(const item of parsed.data.attachments || []){
+      if(
+        typeof item.activity!=="number" ||
+        typeof item.kind!=="string" ||
+        typeof item.name!=="string" ||
+        typeof item.contentBase64!=="string"
+      ){
+        throw new Error("Adjunto inválido");
+      }
+
+      const blob=base64ToBlob(item.contentBase64,item.type);
+
+      await dbRequest(BLOB_STORE,"readwrite",store=>store.put({
+        id:makeAttachmentId(item.activity,item.kind),
+        draftKey:currentDraftKey,
+        activity:item.activity,
+        kind:item.kind,
+        name:item.name,
+        type:item.type || "application/octet-stream",
+        size:blob.size,
+        timestamp:new Date().toISOString(),
+        blob
+      }));
+    }
+
+    updatePlatformUI();
+    await saveDraft();
+    await renderAllAttachments();
+
+    alert("Respaldo importado y validado correctamente.");
+  }catch(error){
+    console.error(error);
+    alert("No fue posible restaurar el respaldo.");
+  }
+}
+
+function appendText(parent,tag,text){
+  const node=document.createElement(tag);
+  node.textContent=text;
+  parent.appendChild(node);
+  return node;
+}
+
+async function appendAttachmentSummary(parent,activity,kind,title){
+  const files=await getAttachments(activity,kind);
+
+  if(!files.length) return;
+
+  appendText(parent,"h4",title);
+
+  for(const file of files){
+    appendText(parent,"p",file.name+" — "+humanSize(file.size));
+
+    if(file.type && file.type.startsWith("image/")){
+      const img=document.createElement("img");
+      const url=URL.createObjectURL(file.blob);
+      printUrls.push(url);
+      img.src=url;
+      img.alt="Evidencia";
+      img.style.maxWidth="100%";
+      img.style.maxHeight="520px";
+      img.style.objectFit="contain";
+      parent.appendChild(img);
+    }
+  }
+}
+
+async function buildPrintArea(){
+  printUrls.forEach(url=>URL.revokeObjectURL(url));
+  printUrls=[];
+
+  const area=byId("printArea");
+  area.textContent="";
+
+  appendText(area,"h1","GUÍA DE TRABAJO NO. 6 - III Unidad");
+  appendText(area,"h2","Laboratorio II — Despliegue del Sistema");
+
+  appendText(
+    area,
+    "p",
+    "Estudiante: "+(currentIdentity.studentName || "No indicado")+
+    " | Clave/Carné: "+currentIdentity.studentKey+
+    " | Sección: "+currentIdentity.section
+  );
+
+  appendText(
+    area,
+    "p",
+    "Fecha de entrega: martes 18/08/2026 | Hora: [PENDIENTE DE DEFINIR POR EL DOCENTE] | Valor: 10 puntos Netos"
+  );
+
+  const platform=byId("platform").value;
+  let platformText="No seleccionada";
+
+  if(platform==="windows") platformText="Windows — MSI";
+  if(platform==="linux"){
+    const mech=byId("linuxMechanism").value;
+    platformText=
+      mech==="deb" ? "Linux Q4OS — paquete .deb" :
+      mech==="bash" ? "Linux Q4OS — script Bash" :
+      "Linux Q4OS";
+  }
+
+  appendText(area,"p","Plataforma del proyecto: "+platformText);
+
+  appendText(area,"h2","Actividad 1 — Preparación y generación del producto desplegable — 3 puntos");
+  appendText(area,"p","Evidencia: producto ejecutable o distribuible generado a partir del sistema desarrollado y evidencia verificable del proceso real realizado.");
+  await appendAttachmentSummary(area,1,"product","Producto ejecutable o distribuible");
+  appendText(area,"h4","Registro del proceso real");
+  appendText(area,"p",byId("a1ProcessText").value.trim() || "Sin registro textual.");
+  await appendAttachmentSummary(area,1,"process","Archivos de evidencia del proceso");
+
+  appendText(area,"h2","Actividad 2 — Creación del mecanismo de instalación — 3 puntos");
+  appendText(area,"p","Evidencia: mecanismo de instalación funcional correspondiente a la plataforma del proyecto.");
+  await appendAttachmentSummary(area,2,"mechanism","Mecanismo de instalación");
+
+  appendText(area,"h2","Actividad 3 — Prueba del sistema instalado en un entorno limpio — 2 puntos");
+  appendText(area,"p","Evidencia: instalación y ejecución real del sistema desplegado y registro técnico de problemas encontrados cuando existan.");
+  appendText(area,"h4","Registro de la prueba");
+  appendText(area,"p",byId("a3TestText").value.trim() || "Sin registro textual.");
+  appendText(area,"h4","Problemas encontrados y tratamiento aplicado, cuando corresponda");
+  appendText(area,"p",byId("a3Problems").value.trim() || "Sin registro adicional.");
+  await appendAttachmentSummary(area,3,"test","Archivos de evidencia de la prueba");
+
+  appendText(area,"h2","Actividad 4 — Documentación técnica del despliegue — 2 puntos");
+  appendText(area,"p","Evidencia: documentación técnica del proceso real de despliegue realizado.");
+  appendText(area,"h4","Documentación técnica");
+  appendText(area,"p",byId("a4Documentation").value.trim() || "Sin documentación redactada en la guía.");
+  await appendAttachmentSummary(area,4,"documentation","Archivos relacionados con la documentación");
+}
+
+async function printWork(){
+  await saveDraft();
+  await buildPrintArea();
+  window.print();
+}
+
+async function requestChangeStudent(){
+  byId("changeDialog").classList.remove("hidden");
+}
+
+async function saveAndChangeStudent(){
+  await saveDraft();
+  byId("changeDialog").classList.add("hidden");
+  returnToIdentity();
+}
+
+async function createNewStudentDraft(){
+  await saveDraft();
+  byId("changeDialog").classList.add("hidden");
+  returnToIdentity();
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  byId("identifyBtn").addEventListener("click",identifyStudent);
+  byId("continueBtn").addEventListener("click",continueExistingDraft);
+  byId("restartBtn").addEventListener("click",restartDraft);
+  byId("cancelDraftBtn").addEventListener("click",cancelDraftSelection);
+
+  document.querySelectorAll(".nav-btn").forEach(button=>{
+    button.addEventListener("click",()=>switchPanel(button.dataset.target));
+  });
+
+  byId("platform").addEventListener("change",updatePlatformUI);
+  byId("linuxMechanism").addEventListener("change",scheduleSave);
+
+  [
+    "a1ProcessText",
+    "a3TestText",
+    "a3Problems",
+    "a4Documentation"
+  ].forEach(id=>{
+    byId(id).addEventListener("input",scheduleSave);
+  });
+
+  byId("a1Product").addEventListener("change",async event=>{
+    await storeFiles(1,"product",event.target.files);
+    event.target.value="";
+  });
+
+  byId("a1ProcessFiles").addEventListener("change",async event=>{
+    await storeFiles(1,"process",event.target.files);
+    event.target.value="";
+  });
+
+  byId("a2Mechanism").addEventListener("change",async event=>{
+    await storeFiles(2,"mechanism",event.target.files);
+    event.target.value="";
+  });
+
+  byId("a3TestFiles").addEventListener("change",async event=>{
+    await storeFiles(3,"test",event.target.files);
+    event.target.value="";
+  });
+
+  byId("a4DocumentationFiles").addEventListener("change",async event=>{
+    await storeFiles(4,"documentation",event.target.files);
+    event.target.value="";
+  });
+
+  byId("reviewBtn").addEventListener("click",reviewWork);
+  byId("saveBtn").addEventListener("click",saveDraft);
+  byId("exportBtn").addEventListener("click",exportBackup);
+  byId("printBtn").addEventListener("click",printWork);
+
+  byId("importFile").addEventListener("change",async event=>{
+    const file=event.target.files[0];
+
+    if(file){
+      await importBackup(file);
+    }
+
+    event.target.value="";
+  });
+
+  byId("changeStudentBtn").addEventListener("click",requestChangeStudent);
+  byId("saveAndChangeBtn").addEventListener("click",saveAndChangeStudent);
+  byId("newStudentBtn").addEventListener("click",createNewStudentDraft);
+  byId("cancelChangeBtn").addEventListener("click",()=>{
+    byId("changeDialog").classList.add("hidden");
+  });
+
+  window.addEventListener("afterprint",()=>{
+    printUrls.forEach(url=>URL.revokeObjectURL(url));
+    printUrls=[];
+  });
+
+});
+</script>
+
+</body>
+</html>
