@@ -137,16 +137,6 @@ nav{
   margin:10px 0;
 }
 .checkline input{width:auto;margin-top:5px}
-.download-link{
-  display:inline-block;
-  background:var(--verde);
-  color:white;
-  text-decoration:none;
-  padding:10px 14px;
-  border-radius:7px;
-  font-weight:bold;
-  margin:6px 0;
-}
 .file-list{
   margin-top:10px;
   display:grid;
@@ -344,18 +334,20 @@ th{background:var(--claro)}
     </div>
     <div class="route-card">
       <h3>Ruta C — Proyecto general de contingencia</h3>
-      <p>Utiliza el proyecto base proporcionado con esta guía. No se calificará que hayas programado ese proyecto; se calificará el despliegue real que realices durante la Guía No. 6.</p>
+      <p>Utiliza el proyecto base de contingencia que el docente te proporcionará únicamente si el diagnóstico te ubica en esta ruta. No se calificará que hayas programado ese proyecto; se calificará el despliegue real que realices durante la Guía No. 6.</p>
     </div>
   </div>
 
   <h2>Proyecto general de contingencia</h2>
   <p><strong>Nombre:</strong> Sistema de Inventario y Control de Equipos del Laboratorio.</p>
   <p>El proyecto utiliza Python, Tkinter y SQLite, y contiene un punto de partida funcional con login protegido, inventario, lectura y filtro, inserción, actualización, eliminación y generación de reporte CSV.</p>
-  <p><strong>Uso:</strong> corresponde a la Ruta C y también puede utilizarse en Ruta B cuando la recuperación resulte insuficiente para realizar el despliegue, previa decisión del estudiante registrada en este diagnóstico.</p>
+  <p><strong>Uso:</strong> corresponde a la Ruta C. Si estabas en Ruta B pero los archivos recuperados no permiten continuar, registra el cambio a Ruta C y utiliza el proyecto base que te proporcione el docente.</p>
   <p><strong>No sustituye calificaciones anteriores:</strong> el código base solo permite que puedas realizar el cierre de la unidad. Los 10 puntos de esta guía siguen correspondiendo a preparación del producto, mecanismo de instalación, prueba en limpio y documentación.</p>
 
-  <a class="download-link" href="proyecto_contingencia_laboratorioII.zip" download>DESCARGAR PROYECTO DE CONTINGENCIA</a>
-  <p class="small">Para que este botón funcione al publicar la guía, coloca el archivo <strong>proyecto_contingencia_laboratorioII.zip</strong> en la misma carpeta que este HTML.</p>
+  <div class="notice">
+    <strong>Si tu diagnóstico indica Ruta C:</strong>
+    informa al docente. El proyecto general de contingencia se entrega por separado y únicamente sirve como punto de partida para realizar el despliegue. No debes crear, reconstruir ni generar ese proyecto a partir de esta guía.
+  </div>
 
   <h3>Plataforma de despliegue</h3>
   <p>La ruta de continuidad no cambia la plataforma elegida para la Guía No. 6. En Windows se requiere un mecanismo MSI. En Linux Q4OS se utiliza script Bash O paquete .deb; uno de los dos es suficiente.</p>
@@ -566,6 +558,7 @@ const COURSE_ID = "laboratorio-ii";
 const GRADE = "Quinto Bachillerato en Ciencias y Letras con Orientación en Computación";
 const ORIENTATION = "Computación";
 const GUIDE_NUMBER = "Guía No. 6";
+
 
 const DB_NAME = "LaboratorioII_Guia06_2026";
 const DB_VERSION = 1;

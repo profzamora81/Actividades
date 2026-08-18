@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guía No. 6 — TIC I — Procesamiento Estadístico de Recursos</title>
+<style>
+:root{
+  --azul:#163b65;--azul2:#245d91;--claro:#eef5fb;
+  --verde:#176b45;--amarillo:#8a5b00;--rojo:#9d2929;
+  --texto:#1f2937;--borde:#cbd5e1;--blanco:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fa;color:var(--texto);line-height:1.55}
+header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:white;padding:24px}
+header h1{margin:0 0 6px;font-size:1.55rem}
+header p{margin:3px 0}
+main{max-width:1050px;margin:auto;padding:18px}
+.card{background:white;border:1px solid var(--borde);border-radius:12px;padding:20px;margin:0 0 16px;box-shadow:0 2px 8px #0000000d}
+.notice{border-left:5px solid var(--azul2);background:var(--claro);padding:14px;margin:12px 0}
+.warning{border-left-color:#d18b00;background:#fff8e6}
+.success{border-left-color:var(--verde);background:#edf9f2}
+h2{color:var(--azul);margin-top:0}
+h3{color:#234e73}
+button{border:0;border-radius:8px;background:var(--azul2);color:white;padding:11px 15px;margin:4px;cursor:pointer;font-weight:bold}
+button.secondary{background:#64748b}
+button.danger{background:#9d2929}
+button.success{background:var(--verde)}
+button:focus,input:focus,textarea:focus{outline:3px solid #90caf9;outline-offset:2px}
+input,textarea{width:100%;padding:10px;border:1px solid var(--borde);border-radius:7px;font:inherit;margin:5px 0 12px}
+textarea{min-height:90px;resize:vertical}
+label{font-weight:bold}
+.tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:15px}
+.tab{display:none}
+.tab.active{display:block}
+.hidden{display:none!important}
+.status{padding:9px 12px;border-radius:7px;font-weight:bold;margin:8px 0}
+.complete{background:#e9f8ef;color:var(--verde)}
+.pending{background:#fff5dc;color:var(--amarillo)}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid var(--borde);padding:9px;text-align:left;vertical-align:top}
+th{background:#eaf1f8}
+.small{font-size:.9rem;color:#475569}
+.actions{display:flex;flex-wrap:wrap;gap:6px}
+#app{display:none}
+@media print{
+  body{background:white}
+  .no-print,.tabs,button{display:none!important}
+  main{max-width:none;padding:0}
+  .card{box-shadow:none;break-inside:avoid}
+  .tab{display:block!important}
+  header{background:white!important;color:black;border-bottom:2px solid black}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Guía de Trabajo No. 6 — TIC I</h1>
+  <p>Procesamiento Estadístico de Recursos</p>
+  <p>III Unidad · Bimestre No. 3 · 10 puntos Netos</p>
+</header>
+
+<main>
+<section id="identity" class="card">
+  <h2>Identificar estudiante</h2>
+  <p>Identifícate antes de consultar o crear tu borrador de esta guía.</p>
+
+  <label for="studentKey">Clave / Carné</label>
+  <input id="studentKey" autocomplete="off">
+
+  <label for="section">Sección</label>
+  <input id="section" autocomplete="off">
+
+  <label for="studentName">Nombre</label>
+  <input id="studentName" autocomplete="name">
+
+  <button id="identifyBtn">Continuar</button>
+  <p id="identityMsg" aria-live="polite"></p>
+</section>
+
+<section id="draftDialog" class="card hidden">
+  <h2>Se encontró un borrador</h2>
+  <p id="lastSaved"></p>
+  <div class="actions">
+    <button id="continueDraft">Continuar trabajo</button>
+    <button id="newDraft" class="danger">Iniciar nuevamente</button>
+    <button id="cancelDraft" class="secondary">Cancelar</button>
+  </div>
+</section>
+
+<div id="app">
+<nav class="tabs no-print" aria-label="Secciones">
+  <button data-tab="guide">Guía</button>
+  <button data-tab="a1">Actividad 1</button>
+  <button data-tab="a2">Actividad 2</button>
+  <button data-tab="a3">Actividad 3</button>
+  <button data-tab="review">Revisar entrega</button>
+  <button data-tab="backup">Respaldo</button>
+</nav>
+
+<section id="guide" class="tab active card">
+  <h2>Información de la guía</h2>
+  <p><strong>Institución:</strong> Instituto Industrial Central General Lázaro Chacón González</p>
+  <p><strong>Docente:</strong> Erick Enrique Zamora Paz</p>
+  <p><strong>Grado:</strong> Cuarto Bachillerato en Ciencias y Letras con Orientación en Diseño</p>
+  <p><strong>Curso:</strong> TIC I</p>
+  <p><strong>Unidad:</strong> III Unidad</p>
+  <p><strong>Bimestre:</strong> No. 3</p>
+  <p><strong>Publicación:</strong> 18/08/2026</p>
+  <p><strong>Entrega:</strong> 21/08/2026 a las 18:00</p>
+  <p><strong>Valor:</strong> 10 puntos Netos</p>
+
+  <div class="notice">
+    <strong>Importante:</strong> el trabajo evaluado se realiza directamente en
+    Google Sheets. Esta guía interactiva sirve para acompañarte y ayudarte a
+    revisar el proceso; no sustituye tu trabajo en Google Sheets.
+  </div>
+
+  <h3>Competencia 1</h3>
+  <p>Aplica conocimientos básicos de las TIC al procesar información de diferentes fuentes, según sus necesidades dialógicas.</p>
+
+  <h3>Indicador 1.2</h3>
+  <p>Utiliza diferentes herramientas de productividad para generar diferentes tipos de información.</p>
+
+  <h3>Contenido principal 1.2.1</h3>
+  <p>Procesamiento de diferentes tipos de datos: texto, números, fórmulas, funciones, fechas y horas, en diferentes programas.</p>
+
+  <p class="small">Esta guía no establece como requisitos obligatorios fórmulas,
+  funciones matemáticas, promedios, porcentajes, sumatorias, gráficos u
+  operaciones estadísticas específicas.</p>
+</section>
+
+<section id="a1" class="tab card">
+  <h2>Actividad 1 — Organización técnica de recursos — 3 puntos</h2>
+  <p><strong>Qué debes hacer:</strong> trabaja directamente en Google Sheets y
+  organiza técnicamente la información correspondiente a los recursos visuales
+  provenientes de trabajos anteriores de Diseño.</p>
+
+  <p><strong>Evidencia evaluada:</strong> trabajo real realizado en Google Sheets
+  correspondiente a la Organización técnica de recursos.</p>
+
+  <label for="note1">Notas personales de seguimiento (opcional)</label>
+  <textarea id="note1" data-save placeholder="Puedes registrar aquí recordatorios de tu proceso. Estas notas no sustituyen el trabajo en Google Sheets."></textarea>
+</section>
+
+<section id="a2" class="tab card">
+  <h2>Actividad 2 — Relación de recursos y paletas de color — 3 puntos</h2>
+  <p><strong>Qué debes hacer:</strong> continúa trabajando directamente en
+  Google Sheets y relaciona de forma organizada los recursos visuales con la
+  información correspondiente a sus paletas de colores asociadas.</p>
+
+  <p><strong>Evidencia evaluada:</strong> trabajo real realizado en Google Sheets
+  correspondiente a la Relación de recursos y paletas de color.</p>
+
+  <label for="note2">Notas personales de seguimiento (opcional)</label>
+  <textarea id="note2" data-save placeholder="Registra aquí recordatorios si los necesitas."></textarea>
+</section>
+
+<section id="a3" class="tab card">
+  <h2>Actividad 3 — Registro y presentación técnica de costos estimados — 4 puntos</h2>
+  <p><strong>Qué debes hacer:</strong> registra directamente en Google Sheets
+  los costos estimados asociados con los recursos y presenta la información
+  de forma técnica y ordenada.</p>
+
+  <p><strong>Evidencia evaluada:</strong> trabajo real realizado en Google Sheets
+  correspondiente al Registro y presentación técnica de costos estimados.</p>
+
+  <p class="small">No se establece una moneda obligatoria ni se exigen fórmulas,
+  funciones, promedios, porcentajes, sumatorias, gráficos u operaciones
+  estadísticas específicas.</p>
+
+  <label for="note3">Notas personales de seguimiento (opcional)</label>
+  <textarea id="note3" data-save placeholder="Registra aquí recordatorios si los necesitas."></textarea>
+</section>
+
+<section id="review" class="tab card">
+  <h2>REVISAR MI ENTREGA</h2>
+  <p>Esta revisión es de apoyo. No constituye una calificación oficial y no puede
+  inspeccionar técnicamente tu archivo externo de Google Sheets.</p>
+
+  <div class="notice warning">
+    Revisa directamente tu trabajo en Google Sheets y recuerda adjuntarlo o
+    entregarlo mediante Google Classroom.
+  </div>
+
+  <label>
+    <input type="checkbox" id="confirm1" data-save>
+    Revisé en Google Sheets la Actividad 1 — Organización técnica de recursos.
+  </label><br>
+
+  <label>
+    <input type="checkbox" id="confirm2" data-save>
+    Revisé en Google Sheets la Actividad 2 — Relación de recursos y paletas de color.
+  </label><br>
+
+  <label>
+    <input type="checkbox" id="confirm3" data-save>
+    Revisé en Google Sheets la Actividad 3 — Registro y presentación técnica de costos estimados.
+  </label><br>
+
+  <label>
+    <input type="checkbox" id="confirmClassroom" data-save>
+    Recordé que debo adjuntar o entregar mi trabajo de Google Sheets mediante Google Classroom.
+  </label>
+
+  <p class="small">Estas confirmaciones son recordatorios del estudiante; no
+  significan que el archivo de Google Sheets haya sido inspeccionado o validado
+  por esta página.</p>
+
+  <button id="reviewBtn">REVISAR MI ENTREGA</button>
+  <div id="reviewResult" aria-live="polite"></div>
+
+  <h3>Preparación de la entrega</h3>
+  <p>Entrega el trabajo real de Google Sheets mediante Google Classroom,
+  utilizando el mecanismo disponible para adjuntar tu archivo o trabajo de
+  Google Sheets.</p>
+
+  <button id="printBtn">Imprimir / Guardar como PDF</button>
+  <p class="small">La impresión corresponde al contenido de acompañamiento de
+  esta guía. No sustituye la entrega del trabajo real de Google Sheets.</p>
+</section>
+
+<section id="backup" class="tab card">
+  <h2>Respaldo del espacio interactivo</h2>
+  <p>El respaldo conserva los elementos propios de esta guía interactiva. No
+  contiene ni sustituye tu archivo de Google Sheets.</p>
+
+  <div class="actions">
+    <button id="exportBtn">Guardar respaldo JSON</button>
+    <button id="importBtn" class="secondary">Cargar respaldo JSON</button>
+    <input type="file" id="importFile" accept="application/json,.json" class="hidden">
+  </div>
+  <p id="backupMsg" aria-live="polite"></p>
+</section>
+
+<section class="card">
+  <h2>Rúbrica de calificación (10 pts)</h2>
+  <table>
+    <thead>
+      <tr><th>Criterio</th><th>Excelente</th><th>Aceptable</th><th>Deficiente</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Organización técnica de recursos</td>
+        <td>Organización técnica, clara y adecuada. <strong>3 pts</strong></td>
+        <td>Presenta la organización, pero requiere mejoras de claridad, organización técnica o presentación. <strong>2 pts</strong></td>
+        <td>No permite evidenciar adecuadamente la actividad solicitada. <strong>0 pts</strong></td>
+      </tr>
+      <tr>
+        <td>Relación de recursos y paletas de color</td>
+        <td>Relación clara, coherente y técnicamente organizada. <strong>3 pts</strong></td>
+        <td>Presenta la relación, pero requiere mejoras de claridad, coherencia u organización. <strong>2 pts</strong></td>
+        <td>No permite evidenciar adecuadamente la relación solicitada. <strong>0 pts</strong></td>
+      </tr>
+      <tr>
+        <td>Registro y presentación técnica de costos estimados</td>
+        <td>Costos comprensibles e información técnica y ordenada. <strong>4 pts</strong></td>
+        <td>Presenta costos, pero requiere mejoras de claridad, organización o presentación técnica. <strong>2 pts</strong></td>
+        <td>No permite evidenciar adecuadamente el registro y presentación solicitados. <strong>0 pts</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+</div>
+</main>
+
+<script>
+"use strict";
+
+const CONFIG = Object.freeze({
+  schemaVersion: "2026.1",
+  guideId: "tic1-guia06-2026",
+  courseId: "tic1-diseno-4to",
+  grade: "Cuarto Bachillerato",
+  orientation: "Diseno",
+  course: "TIC I",
+  guide: "06"
+});
+
+let db = null;
+let activeIdentity = null;
+let draftKey = null;
+let saveTimer = null;
+
+function safePart(value){
+  return String(value).trim().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
+}
+
+function makeDraftKey(section, studentKey){
+  return [
+    safePart(CONFIG.grade),
+    safePart(CONFIG.orientation),
+    safePart(CONFIG.course),
+    "guia" + CONFIG.guide,
+    safePart(section),
+    safePart(studentKey)
+  ].join("_");
+}
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const request=indexedDB.open("GuiaTIC2026",1);
+    request.onupgradeneeded=e=>{
+      const database=e.target.result;
+      if(!database.objectStoreNames.contains("drafts")){
+        database.createObjectStore("drafts",{keyPath:"draftKey"});
+      }
+    };
+    request.onsuccess=e=>{db=e.target.result;resolve(db);};
+    request.onerror=()=>reject(request.error);
+  });
+}
+
+function getDraft(key){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction("drafts","readonly");
+    const req=tx.objectStore("drafts").get(key);
+    req.onsuccess=()=>resolve(req.result||null);
+    req.onerror=()=>reject(req.error);
+  });
+}
+
+function putDraft(record){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction("drafts","readwrite");
+    tx.objectStore("drafts").put(record);
+    tx.oncomplete=()=>resolve();
+    tx.onerror=()=>reject(tx.error);
+  });
+}
+
+function deleteDraft(key){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction("drafts","readwrite");
+    tx.objectStore("drafts").delete(key);
+    tx.oncomplete=()=>resolve();
+    tx.onerror=()=>reject(tx.error);
+  });
+}
+
+function collectData(){
+  return {
+    note1:document.getElementById("note1").value,
+    note2:document.getElementById("note2").value,
+    note3:document.getElementById("note3").value,
+    confirm1:document.getElementById("confirm1").checked,
+    confirm2:document.getElementById("confirm2").checked,
+    confirm3:document.getElementById("confirm3").checked,
+    confirmClassroom:document.getElementById("confirmClassroom").checked
+  };
+}
+
+function applyData(data){
+  if(!data || typeof data!=="object") return;
+  ["note1","note2","note3"].forEach(id=>{
+    if(typeof data[id]==="string") document.getElementById(id).value=data[id];
+  });
+  ["confirm1","confirm2","confirm3","confirmClassroom"].forEach(id=>{
+    if(typeof data[id]==="boolean") document.getElementById(id).checked=data[id];
+  });
+}
+
+async function saveDraft(){
+  if(!activeIdentity || !draftKey) return;
+  const record={
+    draftKey,
+    schemaVersion:CONFIG.schemaVersion,
+    guideId:CONFIG.guideId,
+    courseId:CONFIG.courseId,
+    grade:CONFIG.grade,
+    orientation:CONFIG.orientation,
+    studentKey:activeIdentity.studentKey,
+    section:activeIdentity.section,
+    studentName:activeIdentity.studentName,
+    timestamp:new Date().toISOString(),
+    data:collectData()
+  };
+  await putDraft(record);
+}
+
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>saveDraft().catch(console.error),500);
+}
+
+function showApp(){
+  document.getElementById("identity").classList.add("hidden");
+  document.getElementById("draftDialog").classList.add("hidden");
+  document.getElementById("app").style.display="block";
+}
+
+function showIdentity(){
+  document.getElementById("app").style.display="none";
+  document.getElementById("draftDialog").classList.add("hidden");
+  document.getElementById("identity").classList.remove("hidden");
+}
+
+async function identify(){
+  const studentKey=document.getElementById("studentKey").value.trim();
+  const section=document.getElementById("section").value.trim();
+  const studentName=document.getElementById("studentName").value.trim();
+  const msg=document.getElementById("identityMsg");
+
+  if(!studentKey || !section){
+    msg.textContent="Ingresa tu Clave/Carné y Sección.";
+    return;
+  }
+
+  activeIdentity={studentKey,section,studentName};
+  draftKey=makeDraftKey(section,studentKey);
+
+  try{
+    await openDB();
+    const existing=await getDraft(draftKey);
+
+    if(existing){
+      document.getElementById("identity").classList.add("hidden");
+      document.getElementById("draftDialog").classList.remove("hidden");
+      document.getElementById("lastSaved").textContent=
+        "Último guardado: "+new Date(existing.timestamp).toLocaleString();
+      window.pendingDraft=existing;
+    }else{
+      applyData({});
+      showApp();
+      await saveDraft();
+    }
+  }catch(err){
+    msg.textContent="No fue posible abrir el almacenamiento local. Puedes consultar la guía, pero el autoguardado no está disponible.";
+    console.error(err);
+  }
+}
+
+function activateTab(id){
+  document.querySelectorAll(".tab").forEach(el=>el.classList.remove("active"));
+  const target=document.getElementById(id);
+  if(target) target.classList.add("active");
+}
+
+function reviewDelivery(){
+  const checks=[
+    ["Actividad 1 — Organización técnica de recursos","confirm1"],
+    ["Actividad 2 — Relación de recursos y paletas de color","confirm2"],
+    ["Actividad 3 — Registro y presentación técnica de costos estimados","confirm3"],
+    ["Recordatorio de entrega mediante Google Classroom","confirmClassroom"]
+  ];
+
+  const box=document.getElementById("reviewResult");
+  box.replaceChildren();
+
+  checks.forEach(([label,id])=>{
+    const ok=document.getElementById(id).checked;
+    const div=document.createElement("div");
+    div.className="status "+(ok?"complete":"pending");
+    div.textContent=(ok?"COMPLETO — ":"PENDIENTE — ")+label;
+    box.appendChild(div);
+  });
+
+  const note=document.createElement("p");
+  note.textContent="Esta revisión registra tus confirmaciones dentro de la guía. No inspecciona ni valida técnicamente el archivo externo de Google Sheets. La calificación oficial corresponde al docente.";
+  box.appendChild(note);
+}
+
+function validBackup(obj){
+  return obj &&
+    typeof obj==="object" &&
+    obj.schemaVersion===CONFIG.schemaVersion &&
+    obj.guideId===CONFIG.guideId &&
+    obj.courseId===CONFIG.courseId &&
+    obj.data &&
+    typeof obj.data==="object" &&
+    typeof obj.studentKey==="string" &&
+    typeof obj.section==="string";
+}
+
+async function exportBackup(){
+  await saveDraft();
+  const payload={
+    schemaVersion:CONFIG.schemaVersion,
+    guideId:CONFIG.guideId,
+    courseId:CONFIG.courseId,
+    grade:CONFIG.grade,
+    orientation:CONFIG.orientation,
+    studentKey:activeIdentity.studentKey,
+    section:activeIdentity.section,
+    studentName:activeIdentity.studentName,
+    timestamp:new Date().toISOString(),
+    data:collectData()
+  };
+
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="respaldo_guia06_"+safePart(activeIdentity.studentKey)+".json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function importBackup(file){
+  const msg=document.getElementById("backupMsg");
+  try{
+    const text=await file.text();
+    const obj=JSON.parse(text);
+
+    if(!validBackup(obj)){
+      msg.textContent="El respaldo no posee la estructura válida para esta guía.";
+      return;
+    }
+
+    if(obj.guideId!==CONFIG.guideId || obj.courseId!==CONFIG.courseId){
+      msg.textContent="Este respaldo pertenece a otra guía o curso y no puede cargarse aquí.";
+      return;
+    }
+
+    if(obj.studentKey!==activeIdentity.studentKey ||
+       obj.section!==activeIdentity.section){
+      const ok=confirm("La Clave/Carné o Sección del respaldo difiere de la identidad activa. ¿Deseas continuar con la importación?");
+      if(!ok) return;
+    }
+
+    applyData(obj.data);
+    await saveDraft();
+    msg.textContent="Respaldo cargado correctamente.";
+  }catch(err){
+    msg.textContent="No fue posible cargar el respaldo. Verifica que sea un archivo JSON válido.";
+  }
+}
+
+document.getElementById("identifyBtn").addEventListener("click",identify);
+
+document.getElementById("continueDraft").addEventListener("click",()=>{
+  applyData(window.pendingDraft.data);
+  showApp();
+});
+
+document.getElementById("newDraft").addEventListener("click",async()=>{
+  const first=confirm("INICIAR NUEVAMENTE eliminará el borrador guardado para esta identidad. ¿Deseas continuar?");
+  if(!first) return;
+  const strong=confirm("CONFIRMACIÓN FINAL: el borrador actual será eliminado y se creará un trabajo nuevo. ¿Confirmas?");
+  if(!strong) return;
+  await deleteDraft(draftKey);
+  applyData({
+    note1:"",note2:"",note3:"",
+    confirm1:false,confirm2:false,confirm3:false,confirmClassroom:false
+  });
+  showApp();
+  await saveDraft();
+});
+
+document.getElementById("cancelDraft").addEventListener("click",()=>{
+  activeIdentity=null;
+  draftKey=null;
+  window.pendingDraft=null;
+  showIdentity();
+});
+
+document.querySelectorAll("[data-tab]").forEach(btn=>{
+  btn.addEventListener("click",()=>activateTab(btn.dataset.tab));
+});
+
+document.querySelectorAll("[data-save]").forEach(el=>{
+  el.addEventListener("input",scheduleSave);
+  el.addEventListener("change",scheduleSave);
+});
+
+document.getElementById("reviewBtn").addEventListener("click",reviewDelivery);
+document.getElementById("printBtn").addEventListener("click",()=>window.print());
+document.getElementById("exportBtn").addEventListener("click",()=>exportBackup().catch(console.error));
+document.getElementById("importBtn").addEventListener("click",()=>document.getElementById("importFile").click());
+document.getElementById("importFile").addEventListener("change",e=>{
+  if(e.target.files[0]) importBackup(e.target.files[0]);
+  e.target.value="";
+});
+</script>
+</body>
+</html>
