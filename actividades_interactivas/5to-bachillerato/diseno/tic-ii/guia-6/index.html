@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía No. 6 - TIC II - Resolución de Caso Técnico</title>
+<style>
+:root{
+  --primary:#173d67;
+  --primary2:#28669c;
+  --accent:#d8a328;
+  --bg:#f3f6fa;
+  --surface:#ffffff;
+  --text:#1d2939;
+  --muted:#5f6b7a;
+  --border:#d5dde7;
+  --ok:#176b45;
+  --okbg:#e9f7ef;
+  --pending:#8a5a00;
+  --pendingbg:#fff5d9;
+  --danger:#9b2c2c;
+  --dangerbg:#fff0f0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+}
+header{
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:#fff;
+  padding:26px 18px;
+}
+.header-wrap,main{
+  width:min(1100px,calc(100% - 28px));
+  margin:auto;
+}
+header h1{margin:0 0 5px;font-size:1.65rem}
+header p{margin:3px 0}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:20px;
+  margin:17px 0;
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+h2{color:var(--primary);margin-top:0}
+h3{color:#244e74}
+.notice{
+  border-left:5px solid var(--primary2);
+  background:#eef6fd;
+  padding:14px;
+  border-radius:7px;
+  margin:15px 0;
+}
+.warning{
+  border-left-color:var(--accent);
+  background:#fff8e8;
+}
+.danger-note{
+  border-left-color:var(--danger);
+  background:var(--dangerbg);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+.info{
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:12px;
+}
+label{font-weight:700;display:block;margin-top:10px}
+input[type="text"],textarea{
+  width:100%;
+  padding:10px 11px;
+  margin-top:5px;
+  border:1px solid #b8c4d1;
+  border-radius:8px;
+  font:inherit;
+  background:#fff;
+}
+textarea{min-height:90px;resize:vertical}
+button{
+  border:0;
+  background:var(--primary2);
+  color:#fff;
+  border-radius:8px;
+  padding:10px 14px;
+  font-weight:700;
+  cursor:pointer;
+  margin:4px 3px 4px 0;
+}
+button:hover{filter:brightness(.94)}
+button.secondary{background:#64748b}
+button.success{background:var(--ok)}
+button.danger{background:var(--danger)}
+button:focus,input:focus,textarea:focus{
+  outline:3px solid #8cc4ef;
+  outline-offset:2px;
+}
+.hidden{display:none!important}
+.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:17px 0;
+}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.status{
+  padding:10px 12px;
+  border-radius:8px;
+  margin:8px 0;
+  font-weight:700;
+}
+.complete{background:var(--okbg);color:var(--ok)}
+.pending{background:var(--pendingbg);color:var(--pending)}
+.small{color:var(--muted);font-size:.92rem}
+.checkrow{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  margin:12px 0;
+}
+.checkrow input{margin-top:5px}
+.checkrow label{margin:0;font-weight:400}
+.progress-text{
+  display:inline-block;
+  padding:6px 10px;
+  background:#eef3f8;
+  border-radius:8px;
+  color:var(--muted);
+}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{
+  border:1px solid var(--border);
+  padding:10px;
+  vertical-align:top;
+  text-align:left;
+}
+th{background:#edf3f8}
+#saveState{font-weight:700;color:var(--muted)}
+.actionbar{display:flex;flex-wrap:wrap;gap:6px}
+footer{
+  width:min(1100px,calc(100% - 28px));
+  margin:20px auto;
+  color:var(--muted);
+  font-size:.9rem;
+}
+@media(max-width:650px){
+  header h1{font-size:1.35rem}
+  .card{padding:15px}
+  th,td{font-size:.9rem}
+}
+@media print{
+  body{background:#fff;color:#000}
+  header{
+    background:#fff!important;
+    color:#000;
+    border-bottom:2px solid #000;
+    padding:12px 0;
+  }
+  .header-wrap,main{width:100%}
+  .no-print,#identityScreen,#draftScreen,#saveState,button{display:none!important}
+  #workspace{display:block!important}
+  .tab-panel{display:block!important}
+  .card{
+    border:1px solid #bbb;
+    box-shadow:none;
+    break-inside:avoid;
+    margin:10px 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-wrap">
+    <h1>Guía de Trabajo No. 6 — TIC II</h1>
+    <p>Resolución de Caso Técnico</p>
+    <p>Quinto Bachillerato con Orientación en Diseño · III Unidad · Bimestre No. 3</p>
+  </div>
+</header>
+
+<main>
+
+<section id="identityScreen" class="card">
+  <h2>Identificar estudiante</h2>
+  <p>Ingresa tu Clave/Carné y Sección antes de continuar. La guía buscará únicamente el borrador correspondiente a esta identidad.</p>
+
+  <label for="studentKey">Clave / Carné</label>
+  <input id="studentKey" type="text" autocomplete="off">
+
+  <label for="section">Sección</label>
+  <input id="section" type="text" autocomplete="off">
+
+  <label for="studentName">Nombre del estudiante</label>
+  <input id="studentName" type="text" autocomplete="name">
+
+  <div class="actionbar">
+    <button id="identifyBtn" type="button">Ingresar a la guía</button>
+  </div>
+  <p id="identityMessage" aria-live="polite"></p>
+</section>
+
+<section id="draftScreen" class="card hidden">
+  <h2>Se encontró un borrador</h2>
+  <p>Existe un trabajo guardado para esta guía, Clave/Carné y Sección.</p>
+  <p id="lastSaved"></p>
+  <div class="actionbar">
+    <button id="continueBtn" type="button">Continuar trabajo</button>
+    <button id="restartBtn" type="button" class="danger">Iniciar nuevamente</button>
+    <button id="cancelBtn" type="button" class="secondary">Cancelar</button>
+  </div>
+</section>
+
+<div id="workspace" class="hidden">
+
+<div class="card no-print">
+  <div class="grid">
+    <div class="info"><strong>Estudiante</strong><br><span id="activeName"></span></div>
+    <div class="info"><strong>Clave / Carné</strong><br><span id="activeKey"></span></div>
+    <div class="info"><strong>Sección</strong><br><span id="activeSection"></span></div>
+    <div class="info"><strong>Autoguardado</strong><br><span id="saveState">Preparado</span></div>
+  </div>
+  <button id="changeStudentBtn" type="button" class="secondary">Cambiar estudiante</button>
+</div>
+
+<nav class="tabs no-print" aria-label="Secciones de la guía">
+  <button type="button" data-tab="guide">Guía</button>
+  <button type="button" data-tab="activity1">Actividad 1</button>
+  <button type="button" data-tab="activity2">Actividad 2</button>
+  <button type="button" data-tab="activity3">Actividad 3</button>
+  <button type="button" data-tab="review">Revisar mi entrega</button>
+  <button type="button" data-tab="backup">Respaldo</button>
+</nav>
+
+<section id="guide" class="tab-panel active card">
+  <h2>Guía de Trabajo No. 6 — III Unidad</h2>
+  <h3>Resolución de Caso Técnico</h3>
+
+  <div class="grid">
+    <div class="info"><strong>Curso:</strong><br>TIC II</div>
+    <div class="info"><strong>Bimestre:</strong><br>No. 3</div>
+    <div class="info"><strong>Publicación:</strong><br>18/08/2026</div>
+    <div class="info"><strong>Entrega:</strong><br>21/08/2026 — 18:00</div>
+    <div class="info"><strong>Ponderación:</strong><br>10 puntos Netos</div>
+    <div class="info"><strong>Docente:</strong><br>Erick Enrique Zamora Paz</div>
+  </div>
+
+  <h3>Competencia</h3>
+  <p>Uso responsable y crítico de las TIC</p>
+
+  <h3>Indicador de logro</h3>
+  <p>Utilizar las TIC para facilitar el aprendizaje</p>
+
+  <h3>Contenido relacionado</h3>
+  <p>Resolver problemas mediante habilidades ofimáticas basadas en casos reales.</p>
+
+  <div class="notice">
+    <strong>Caso técnico:</strong> Propuesta de servicio de diseño.
+    Los tres productos pertenecen al mismo caso y deben realizarse directamente
+    en Google Docs, Google Sheets y Google Slides.
+  </div>
+
+  <p><strong>Secuencia:</strong> Caso técnico → Planificación del caso técnico mediante cronograma → Elaboración de cotización de recursos → Presentación breve de la propuesta de venta.</p>
+
+  <div class="notice warning">
+    Esta guía interactiva acompaña tu proceso. No sustituye los trabajos reales que debes elaborar en Google Docs, Google Sheets y Google Slides.
+  </div>
+
+  <p>Cuando utilices información económica inventada para resolver el caso, identifícala como <strong>DATO FICTICIO DE CASO ACADÉMICO</strong>. No la presentes como precio real de mercado.</p>
+</section>
+
+<section id="activity1" class="tab-panel card">
+  <h2>Actividad 1 — Planificación del caso técnico mediante cronograma — 3 puntos</h2>
+  <p><strong>Herramienta real:</strong> Google Docs.</p>
+  <p><strong>Qué debes hacer:</strong> elabora en Google Docs un cronograma que permita organizar de forma comprensible la planificación necesaria para resolver el caso técnico de propuesta de servicio de diseño.</p>
+  <p><strong>Evidencia evaluada:</strong> trabajo real elaborado en Google Docs.</p>
+  <p>No existe una cantidad obligatoria de actividades, días, filas, columnas, páginas o fechas internas, ni una plantilla obligatoria.</p>
+
+  <label for="note1">Notas personales de seguimiento (opcional)</label>
+  <textarea id="note1" data-save placeholder="Puedes anotar recordatorios de tu proceso. Este campo no sustituye el documento de Google Docs."></textarea>
+</section>
+
+<section id="activity2" class="tab-panel card">
+  <h2>Actividad 2 — Elaboración de cotización de recursos — 4 puntos</h2>
+  <p><strong>Herramienta real:</strong> Google Sheets.</p>
+  <p><strong>Qué debes hacer:</strong> organiza en Google Sheets la información económica estimada correspondiente a los recursos necesarios para resolver el mismo caso técnico.</p>
+  <p><strong>Evidencia evaluada:</strong> trabajo real elaborado en Google Sheets.</p>
+
+  <div class="notice warning">
+    Si utilizas un dato económico inventado, identifícalo como <strong>DATO FICTICIO DE CASO ACADÉMICO</strong>. No representa un precio real de mercado.
+  </div>
+
+  <p>No son requisitos automáticos las fórmulas, funciones, sumatorias, porcentajes, impuestos, descuentos o gráficos. Tampoco existe una cantidad mínima de recursos, filas, columnas u hojas.</p>
+
+  <label for="note2">Notas personales de seguimiento (opcional)</label>
+  <textarea id="note2" data-save placeholder="Puedes anotar recordatorios de tu proceso. Este campo no sustituye la hoja de Google Sheets."></textarea>
+</section>
+
+<section id="activity3" class="tab-panel card">
+  <h2>Actividad 3 — Presentación breve de la propuesta de venta — 3 puntos</h2>
+  <p><strong>Herramienta real:</strong> Google Slides.</p>
+  <p><strong>Qué debes hacer:</strong> elabora en Google Slides una presentación breve de la propuesta de venta correspondiente al mismo caso técnico e integra conceptualmente información pertinente del cronograma y de la cotización.</p>
+  <p><strong>Evidencia evaluada:</strong> trabajo real elaborado en Google Slides.</p>
+  <p>No existe una cantidad obligatoria de diapositivas, duración, imágenes, exposición oral ni modalidad presencial.</p>
+
+  <label for="note3">Notas personales de seguimiento (opcional)</label>
+  <textarea id="note3" data-save placeholder="Puedes anotar recordatorios de tu proceso. Este campo no sustituye la presentación de Google Slides."></textarea>
+</section>
+
+<section id="review" class="tab-panel card">
+  <h2>REVISAR MI ENTREGA</h2>
+
+  <p>Esta revisión utiliza únicamente tus confirmaciones dentro de la guía interactiva. <strong>No inspecciona, valida ni verifica técnicamente los archivos de Google Docs, Google Sheets o Google Slides.</strong></p>
+
+  <div class="checkrow">
+    <input id="check1" type="checkbox" data-save>
+    <label for="check1">Confirmo que revisé mi trabajo real de Google Docs correspondiente a la Actividad 1 — Planificación del caso técnico mediante cronograma.</label>
+  </div>
+
+  <div class="checkrow">
+    <input id="check2" type="checkbox" data-save>
+    <label for="check2">Confirmo que revisé mi trabajo real de Google Sheets correspondiente a la Actividad 2 — Elaboración de cotización de recursos.</label>
+  </div>
+
+  <div class="checkrow">
+    <input id="check3" type="checkbox" data-save>
+    <label for="check3">Confirmo que revisé mi trabajo real de Google Slides correspondiente a la Actividad 3 — Presentación breve de la propuesta de venta.</label>
+  </div>
+
+  <div class="checkrow">
+    <input id="checkClassroom" type="checkbox" data-save>
+    <label for="checkClassroom">Recordé que debo entregar en Google Classroom el cronograma de Google Docs, la cotización de Google Sheets y la presentación de Google Slides.</label>
+  </div>
+
+  <button id="reviewBtn" type="button">REVISAR MI ENTREGA</button>
+  <div id="reviewResults" aria-live="polite"></div>
+
+  <p class="small"><strong>Importante:</strong> COMPLETO significa únicamente que marcaste la confirmación correspondiente. No constituye una calificación ni una verificación técnica del producto externo. La calificación oficial corresponde al docente.</p>
+
+  <h3>Preparación de la entrega</h3>
+  <p>Entrega en Google Classroom exactamente:</p>
+  <ul>
+    <li>cronograma elaborado en Google Docs;</li>
+    <li>cotización elaborada en Google Sheets;</li>
+    <li>presentación elaborada en Google Slides.</li>
+  </ul>
+
+  <p><strong>Fecha:</strong> 21/08/2026</p>
+  <p><strong>Hora:</strong> [PENDIENTE DE DEFINIR POR EL DOCENTE]</p>
+
+  <div class="notice">
+    Imprimir o guardar esta guía como PDF sirve únicamente como respaldo o consulta del acompañamiento. No sustituye la entrega de los tres productos reales en Google Classroom.
+  </div>
+
+  <button id="printBtn" type="button">Imprimir / Guardar como PDF</button>
+</section>
+
+<section id="backup" class="tab-panel card">
+  <h2>Respaldo del espacio interactivo</h2>
+  <p>El respaldo conserva las notas y confirmaciones de esta guía. No contiene ni sustituye tus archivos de Google Docs, Google Sheets o Google Slides.</p>
+
+  <div class="actionbar">
+    <button id="exportBtn" type="button">Guardar respaldo JSON</button>
+    <button id="importBtn" type="button" class="secondary">Cargar respaldo JSON</button>
+    <input id="importFile" class="hidden" type="file" accept=".json,application/json">
+  </div>
+
+  <p id="backupMessage" aria-live="polite"></p>
+</section>
+
+<section class="card">
+  <h2>RÚBRICA DE CALIFICACIÓN (10 pts)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Criterio</th>
+        <th>Excelente</th>
+        <th>Aceptable</th>
+        <th>Deficiente</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Planificación del caso técnico mediante cronograma</td>
+        <td>Planificación clara, comprensible y coherente con el caso. <strong>3 pts</strong></td>
+        <td>Presenta la planificación, pero requiere mejoras de claridad, organización o coherencia. <strong>2 pts</strong></td>
+        <td>No permite evidenciar adecuadamente la planificación solicitada. <strong>0 pts</strong></td>
+      </tr>
+      <tr>
+        <td>Elaboración de cotización de recursos</td>
+        <td>Información económica estimada clara, comprensible y coherente con el caso; los datos inventados, cuando existan, están identificados como datos ficticios del caso académico. <strong>4 pts</strong></td>
+        <td>Presenta la cotización, pero requiere mejoras de organización, claridad o coherencia. <strong>2 pts</strong></td>
+        <td>No permite evidenciar adecuadamente la cotización solicitada. <strong>0 pts</strong></td>
+      </tr>
+      <tr>
+        <td>Presentación breve de la propuesta de venta</td>
+        <td>Comunica coherentemente el mismo caso e integra información pertinente de la planificación y la cotización. <strong>3 pts</strong></td>
+        <td>Presenta la propuesta, pero requiere mejoras de coherencia, comunicación o integración. <strong>2 pts</strong></td>
+        <td>No permite evidenciar adecuadamente la presentación solicitada. <strong>0 pts</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Política institucional de mejoramiento</h3>
+  <p><strong>Menor de 4 puntos:</strong> Mejoramiento obligatorio.</p>
+  <p><strong>Exactamente 5 puntos:</strong> Mejoramiento opcional.</p>
+  <p><strong>Exactamente 4 puntos:</strong> [PENDIENTE DE DEFINIR POR EL DOCENTE: tratamiento de una calificación de 4 puntos]</p>
+</section>
+
+</div>
+</main>
+
+<footer>
+  Instituto Industrial Central General Lázaro Chacón González · TIC II · Guía No. 6
+</footer>
+
+<script>
+"use strict";
+
+const APP = Object.freeze({
+  schemaVersion: "2026.1",
+  guideId: "tic2-diseno-guia06-2026",
+  courseId: "tic2-diseno-quinto",
+  grade: "quinto_bachillerato",
+  orientation: "diseno",
+  course: "tic_ii",
+  guide: "06",
+  dbName: "GuiaTICII2026",
+  storeName: "drafts"
+});
+
+let db = null;
+let activeIdentity = null;
+let activeDraftKey = null;
+let pendingDraft = null;
+let saveTimer = null;
+
+const $ = id => document.getElementById(id);
+
+function normalizePart(value){
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9]+/g,"_")
+    .replace(/^_+|_+$/g,"");
+}
+
+function createDraftKey(section, studentKey){
+  return [
+    APP.grade,
+    APP.orientation,
+    APP.course,
+    "guia" + APP.guide,
+    normalizePart(section),
+    normalizePart(studentKey)
+  ].join("_");
+}
+
+function setText(id, text){
+  $(id).textContent = text;
+}
+
+function setSaveState(text){
+  setText("saveState", text);
+}
+
+function openDatabase(){
+  return new Promise((resolve,reject)=>{
+    const request = indexedDB.open(APP.dbName,1);
+
+    request.onupgradeneeded = event => {
+      const database = event.target.result;
+      if(!database.objectStoreNames.contains(APP.storeName)){
+        database.createObjectStore(APP.storeName,{keyPath:"draftKey"});
+      }
+    };
+
+    request.onsuccess = event => {
+      db = event.target.result;
+      resolve(db);
+    };
+
+    request.onerror = () => reject(request.error);
+  });
+}
+
+function getDraft(key){
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(APP.storeName,"readonly");
+    const request = tx.objectStore(APP.storeName).get(key);
+
+    request.onsuccess = () => resolve(request.result || null);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+function putDraft(record){
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(APP.storeName,"readwrite");
+    tx.objectStore(APP.storeName).put(record);
+
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+function removeDraft(key){
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(APP.storeName,"readwrite");
+    tx.objectStore(APP.storeName).delete(key);
+
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+function emptyData(){
+  return {
+    note1:"",
+    note2:"",
+    note3:"",
+    check1:false,
+    check2:false,
+    check3:false,
+    checkClassroom:false
+  };
+}
+
+function collectData(){
+  return {
+    note1:$("note1").value,
+    note2:$("note2").value,
+    note3:$("note3").value,
+    check1:$("check1").checked,
+    check2:$("check2").checked,
+    check3:$("check3").checked,
+    checkClassroom:$("checkClassroom").checked
+  };
+}
+
+function applyData(data){
+  const safe = data && typeof data === "object" ? data : emptyData();
+
+  ["note1","note2","note3"].forEach(id=>{
+    $(id).value = typeof safe[id] === "string" ? safe[id] : "";
+  });
+
+  ["check1","check2","check3","checkClassroom"].forEach(id=>{
+    $(id).checked = typeof safe[id] === "boolean" ? safe[id] : false;
+  });
+}
+
+function makeRecord(){
+  return {
+    draftKey:activeDraftKey,
+    schemaVersion:APP.schemaVersion,
+    guideId:APP.guideId,
+    courseId:APP.courseId,
+    grade:"Quinto Bachillerato en Ciencias y Letras con Orientación en Diseño",
+    orientation:"Diseño",
+    studentKey:activeIdentity.studentKey,
+    section:activeIdentity.section,
+    studentName:activeIdentity.studentName,
+    timestamp:new Date().toISOString(),
+    data:collectData()
+  };
+}
+
+async function saveDraft(){
+  if(!db || !activeIdentity || !activeDraftKey) return;
+
+  try{
+    setSaveState("Guardando...");
+    await putDraft(makeRecord());
+    setSaveState("Guardado automáticamente ✓");
+  }catch(error){
+    console.error(error);
+
+    if(error && (error.name === "QuotaExceededError" || error.name === "NS_ERROR_DOM_QUOTA_REACHED")){
+      setSaveState("Almacenamiento local lleno. Descarga un respaldo antes de continuar.");
+    }else{
+      setSaveState("Error al guardar");
+    }
+  }
+}
+
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveDraft,450);
+}
+
+function showWorkspace(){
+  $("identityScreen").classList.add("hidden");
+  $("draftScreen").classList.add("hidden");
+  $("workspace").classList.remove("hidden");
+
+  setText("activeName",activeIdentity.studentName || "No indicado");
+  setText("activeKey",activeIdentity.studentKey);
+  setText("activeSection",activeIdentity.section);
+}
+
+function returnToIdentity(){
+  $("workspace").classList.add("hidden");
+  $("draftScreen").classList.add("hidden");
+  $("identityScreen").classList.remove("hidden");
+
+  activeIdentity = null;
+  activeDraftKey = null;
+  pendingDraft = null;
+  db = null;
+
+  $("studentKey").value = "";
+  $("section").value = "";
+  $("studentName").value = "";
+  setText("identityMessage","");
+}
+
+async function identifyStudent(){
+  const studentKey = $("studentKey").value.trim();
+  const section = $("section").value.trim();
+  const studentName = $("studentName").value.trim();
+
+  if(!studentKey || !section){
+    setText("identityMessage","Ingresa tu Clave/Carné y Sección.");
+    return;
+  }
+
+  activeIdentity = {studentKey,section,studentName};
+  activeDraftKey = createDraftKey(section,studentKey);
+
+  try{
+    await openDatabase();
+    pendingDraft = await getDraft(activeDraftKey);
+
+    if(pendingDraft){
+      $("identityScreen").classList.add("hidden");
+      $("draftScreen").classList.remove("hidden");
+
+      const when = pendingDraft.timestamp
+        ? new Date(pendingDraft.timestamp).toLocaleString()
+        : "fecha no disponible";
+
+      setText("lastSaved","Último guardado: " + when);
+    }else{
+      applyData(emptyData());
+      showWorkspace();
+      await saveDraft();
+    }
+  }catch(error){
+    console.error(error);
+    setText(
+      "identityMessage",
+      "No fue posible iniciar el almacenamiento local. Verifica que el navegador permita IndexedDB."
+    );
+  }
+}
+
+async function continueDraft(){
+  if(!pendingDraft) return;
+  applyData(pendingDraft.data);
+  showWorkspace();
+  setSaveState("Borrador recuperado ✓");
+}
+
+async function restartDraft(){
+  const message =
+    "Se eliminará el trabajo guardado de esta guía para esta Clave/Carné y Sección. " +
+    "Esta acción no puede deshacerse si no tienes un respaldo.";
+
+  if(!window.confirm(message + "\n\n¿Deseas continuar?")){
+    return;
+  }
+
+  const phrase = window.prompt(
+    'CONFIRMACIÓN FINAL: escribe INICIAR NUEVAMENTE para eliminar el borrador.'
+  );
+
+  if(phrase !== "INICIAR NUEVAMENTE"){
+    window.alert("No se eliminó el borrador.");
+    return;
+  }
+
+  try{
+    await removeDraft(activeDraftKey);
+    pendingDraft = null;
+    applyData(emptyData());
+    showWorkspace();
+    await saveDraft();
+  }catch(error){
+    console.error(error);
+    window.alert("No fue posible eliminar el borrador.");
+  }
+}
+
+async function changeStudent(){
+  await saveDraft();
+
+  const ok = window.confirm(
+    "Se guardará el borrador de la identidad actual y volverás a la pantalla de identificación. ¿Deseas continuar?"
+  );
+
+  if(ok){
+    returnToIdentity();
+  }
+}
+
+function activateTab(tabId){
+  document.querySelectorAll(".tab-panel").forEach(panel=>{
+    panel.classList.toggle("active",panel.id === tabId);
+  });
+
+  const panel = $(tabId);
+  if(panel){
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+}
+
+function renderReview(){
+  const items = [
+    {
+      id:"check1",
+      label:"Actividad 1 — Planificación del caso técnico mediante cronograma"
+    },
+    {
+      id:"check2",
+      label:"Actividad 2 — Elaboración de cotización de recursos"
+    },
+    {
+      id:"check3",
+      label:"Actividad 3 — Presentación breve de la propuesta de venta"
+    },
+    {
+      id:"checkClassroom",
+      label:"Recordatorio de entrega de los tres productos mediante Google Classroom"
+    }
+  ];
+
+  const container = $("reviewResults");
+  container.replaceChildren();
+
+  items.forEach(item=>{
+    const checked = $(item.id).checked;
+    const box = document.createElement("div");
+
+    box.className = "status " + (checked ? "complete" : "pending");
+    box.textContent =
+      (checked ? "COMPLETO — " : "PENDIENTE — ") + item.label;
+
+    container.appendChild(box);
+  });
+
+  const message = document.createElement("p");
+  message.textContent =
+    "Resultado orientativo de completitud. La guía no inspecciona los archivos externos. La calificación oficial corresponde al docente.";
+  container.appendChild(message);
+
+  scheduleSave();
+}
+
+function validateBackupObject(obj){
+  if(!obj || typeof obj !== "object" || Array.isArray(obj)){
+    return {ok:false,message:"El archivo no contiene una estructura de respaldo válida."};
+  }
+
+  const required = [
+    "schemaVersion",
+    "guideId",
+    "courseId",
+    "grade",
+    "orientation",
+    "studentKey",
+    "section",
+    "studentName",
+    "timestamp",
+    "data"
+  ];
+
+  for(const field of required){
+    if(!(field in obj)){
+      return {ok:false,message:"El respaldo no contiene todos los campos requeridos."};
+    }
+  }
+
+  if(obj.schemaVersion !== APP.schemaVersion){
+    return {ok:false,message:"La versión del respaldo no corresponde a esta guía."};
+  }
+
+  if(obj.guideId !== APP.guideId || obj.courseId !== APP.courseId){
+    return {
+      ok:false,
+      message:"Este respaldo pertenece a otra guía o curso y no puede cargarse aquí."
+    };
+  }
+
+  if(!obj.data || typeof obj.data !== "object" || Array.isArray(obj.data)){
+    return {ok:false,message:"El contenido académico del respaldo no posee una estructura válida."};
+  }
+
+  const textFields = ["note1","note2","note3"];
+  for(const field of textFields){
+    if(field in obj.data && typeof obj.data[field] !== "string"){
+      return {ok:false,message:"El respaldo contiene un campo de texto inválido."};
+    }
+  }
+
+  const boolFields = ["check1","check2","check3","checkClassroom"];
+  for(const field of boolFields){
+    if(field in obj.data && typeof obj.data[field] !== "boolean"){
+      return {ok:false,message:"El respaldo contiene un estado de revisión inválido."};
+    }
+  }
+
+  return {ok:true,message:""};
+}
+
+async function exportBackup(){
+  if(!activeIdentity){
+    setText("backupMessage","Identifica al estudiante antes de crear un respaldo.");
+    return;
+  }
+
+  await saveDraft();
+
+  const payload = makeRecord();
+  delete payload.draftKey;
+
+  const blob = new Blob(
+    [JSON.stringify(payload,null,2)],
+    {type:"application/json"}
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download =
+    "respaldo_tic2_guia06_" +
+    normalizePart(activeIdentity.studentKey) +
+    ".json";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(()=>URL.revokeObjectURL(url),0);
+  setText("backupMessage","Respaldo JSON creado.");
+}
+
+async function importBackupFile(file){
+  try{
+    const raw = await file.text();
+    let obj;
+
+    try{
+      obj = JSON.parse(raw);
+    }catch(error){
+      setText("backupMessage","El archivo seleccionado no contiene JSON válido.");
+      return;
+    }
+
+    const validation = validateBackupObject(obj);
+
+    if(!validation.ok){
+      setText("backupMessage",validation.message);
+      return;
+    }
+
+    if(
+      obj.studentKey !== activeIdentity.studentKey ||
+      obj.section !== activeIdentity.section
+    ){
+      const allow = window.confirm(
+        "La Clave/Carné o Sección del respaldo difiere de la identidad activa. " +
+        "Si continúas, los datos se cargarán en el borrador de la identidad actualmente activa. ¿Deseas continuar?"
+      );
+
+      if(!allow){
+        setText("backupMessage","Importación cancelada.");
+        return;
+      }
+    }
+
+    applyData(obj.data);
+    await saveDraft();
+    setText("backupMessage","Respaldo validado y cargado correctamente.");
+  }catch(error){
+    console.error(error);
+    setText("backupMessage","No fue posible leer el archivo de respaldo.");
+  }
+}
+
+$("identifyBtn").addEventListener("click",identifyStudent);
+$("continueBtn").addEventListener("click",continueDraft);
+$("restartBtn").addEventListener("click",restartDraft);
+$("cancelBtn").addEventListener("click",returnToIdentity);
+$("changeStudentBtn").addEventListener("click",changeStudent);
+
+document.querySelectorAll("[data-tab]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    activateTab(button.dataset.tab);
+  });
+});
+
+document.querySelectorAll("[data-save]").forEach(element=>{
+  element.addEventListener("input",scheduleSave);
+  element.addEventListener("change",scheduleSave);
+});
+
+$("reviewBtn").addEventListener("click",renderReview);
+
+$("printBtn").addEventListener("click",async()=>{
+  await saveDraft();
+  window.print();
+});
+
+$("exportBtn").addEventListener("click",exportBackup);
+
+$("importBtn").addEventListener("click",()=>{
+  $("importFile").click();
+});
+
+$("importFile").addEventListener("change",event=>{
+  const file = event.target.files && event.target.files[0];
+
+  if(file){
+    importBackupFile(file);
+  }
+
+  event.target.value = "";
+});
+
+window.addEventListener("beforeunload",()=>{
+  clearTimeout(saveTimer);
+});
+</script>
+
+</body>
+</html>
