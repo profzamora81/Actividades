@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173f6d">
+<title>Instituto Lázaro Chacón — Panel de guías 2026</title>
+<style>
+:root{
+  --azul:#173f6d;--azul2:#255f9b;--azul3:#0f2e4e;
+  --claro:#eef4fb;--verde:#237153;--verde2:#e7f5ee;
+  --amarillo:#fff7d8;--amarillo2:#d5a925;--rojo:#9b3434;
+  --fondo:#edf3f7;--panel:#fff;--texto:#1d2935;--muted:#647687;
+  --borde:#d5e0e8;--sombra:0 9px 26px rgba(19,54,83,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--fondo);font-family:Arial,Helvetica,sans-serif;color:var(--texto);line-height:1.5}
+button,input,select,textarea{font:inherit}
+a{color:inherit}
+.wrap{max-width:1180px;margin:auto}
+header{background:linear-gradient(135deg,var(--azul3),var(--azul2));color:#fff;padding:25px 18px 22px}
+.brand{display:flex;gap:17px;align-items:center}
+.seal{width:82px;height:82px;border:3px solid rgba(255,255,255,.65);border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1.15rem;line-height:1.05;text-align:center;background:rgba(255,255,255,.08)}
+h1{margin:0 0 5px;font-size:clamp(1.55rem,4vw,2.25rem)}
+.subtitle{margin:0;opacity:.95}
+.top-note{margin-top:7px;font-size:.91rem;opacity:.9}
+main{max-width:1180px;margin:auto;padding:18px 18px 40px}
+.notice{background:var(--amarillo);border:1px solid #e2cb78;border-left:6px solid var(--amarillo2);border-radius:14px;padding:14px 16px;margin-bottom:16px}
+.notice strong{color:#684f10}
+.toolbar{background:#fff;border:1px solid var(--borde);border-radius:15px;padding:15px;box-shadow:var(--sombra);margin-bottom:17px}
+.toolbar-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+button,.button{border:0;border-radius:9px;padding:10px 13px;background:var(--azul);color:#fff;cursor:pointer;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+button:hover,.button:hover{filter:brightness(.97)}
+button.secondary,.button.secondary{background:#596d7e}
+button.good{background:var(--verde)}
+button.ghost,.button.ghost{background:#eef3f6;color:var(--azul);border:1px solid var(--borde)}
+.status-line{margin-top:10px;font-size:.9rem;color:var(--muted)}
+.unit-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.unit-tabs button{background:#edf2f6;color:var(--azul);border:1px solid var(--borde)}
+.unit-tabs button.active{background:var(--azul);color:#fff;border-color:var(--azul)}
+.unit-help{font-size:.86rem;color:var(--muted);margin-top:7px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.stat{background:#fff;border:1px solid var(--borde);border-radius:13px;padding:13px 15px;box-shadow:var(--sombra)}
+.stat-value{font-size:1.55rem;font-weight:800;color:var(--azul)}
+.stat-label{font-size:.82rem;color:var(--muted);font-weight:700}
+.instructions{background:#fff;border:1px solid var(--borde);border-radius:15px;padding:16px;margin-bottom:20px;box-shadow:var(--sombra)}
+.instructions h2{margin:0 0 7px;color:var(--azul)}
+.instructions ol{margin:8px 0 0;padding-left:24px}
+.instructions li{margin:5px 0}
+.course{margin:0 0 18px}
+.course-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--borde);border-radius:14px;padding:14px 15px;box-shadow:var(--sombra)}
+.course-head h2{margin:0;color:var(--azul);font-size:1.18rem}
+.course-meta{color:var(--muted);font-size:.88rem;margin-top:2px}
+.badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--claro);color:var(--azul);font-weight:800;font-size:.78rem}
+.badge.unit3{background:#f2ecff;color:#5a3b8b}
+.badge.unit4{background:var(--verde2);color:#246249}
+.guide-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:11px}
+.guide-card{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:14px;box-shadow:0 5px 18px rgba(18,55,83,.05);min-width:0}
+.guide-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.guide-title{font-size:1.03rem;font-weight:800;color:var(--azul);margin:6px 0 2px}
+.guide-sub{font-size:.86rem;color:var(--muted);margin-bottom:8px}
+.path{font-family:Consolas,monospace;font-size:.76rem;background:#f4f7f9;border:1px solid var(--borde);padding:8px;border-radius:8px;overflow:auto;white-space:nowrap;margin:8px 0}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.editor{display:none;margin-top:11px;border-top:1px solid #edf1f4;padding-top:11px}
+.editor.open{display:block}
+.editor label{font-size:.87rem;font-weight:800;display:block;margin:7px 0 4px}
+textarea{width:100%;min-height:290px;border:1px solid #b7c5d0;border-radius:9px;padding:10px;resize:vertical;background:#fff;color:var(--texto)}
+.title-box{min-height:54px}
+.meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;font-size:.84rem;margin:8px 0}
+.meta-item{background:#f7f9fb;border:1px solid #e4ebf0;border-radius:8px;padding:7px 8px}
+.meta-item strong{display:block;color:var(--azul)}
+.empty{background:#fff;border:1px dashed #b9c8d3;border-radius:12px;padding:17px;text-align:center;color:var(--muted);margin-top:10px}
+.loading{display:flex;gap:9px;align-items:center}
+.spinner{width:17px;height:17px;border:3px solid #c7d5e0;border-top-color:var(--azul);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.footer{text-align:center;color:var(--muted);font-size:.84rem;padding:3px 18px 28px}
+.toast{position:fixed;right:16px;bottom:16px;background:#173f6d;color:#fff;padding:10px 14px;border-radius:9px;box-shadow:0 6px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:.18s;z-index:50}
+.toast.show{opacity:1}
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--azul);font-weight:700}
+@media(max-width:800px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .guide-list{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .brand{align-items:flex-start}.seal{width:67px;height:67px;font-size:.95rem}
+  .stats{grid-template-columns:1fr}
+  .meta-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="seal" aria-hidden="true">IIC<br>LCH</div>
+      <div>
+        <h1>Panel de guías interactivas 2026</h1>
+        <p class="subtitle">Instituto Industrial Central General Lázaro Chacón González</p>
+        <div class="top-note">Docente: Erick Enrique Zamora Paz · III Unidad / IV Unidad · Generador para Google Classroom</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="notice">
+    <strong>Detección automática:</strong> el panel consulta el repositorio público
+    <strong>profzamora81/Actividades</strong>. Reconoce las guías antiguas de la III Unidad por el contenido del HTML
+    y las nuevas guías de la IV Unidad por la carpeta <code>unidad-iv</code> o por el texto de la propia guía.
+  </section>
+
+  <section class="toolbar">
+    <div class="toolbar-row">
+      <button id="refreshBtn" class="good">Actualizar desde GitHub</button>
+      <a class="button secondary" href="https://github.com/profzamora81/Actividades/tree/main/actividades_interactivas/4to-bachillerato" target="_blank" rel="noopener">Ver carpetas en GitHub</a>
+      <button id="copyGeneralBtn" class="ghost">Copiar instrucciones generales</button>
+    </div>
+
+    <div class="unit-tabs" id="unitTabs" aria-label="Seleccionar unidad">
+      <button type="button" data-unit="III Unidad">III Unidad</button>
+      <button type="button" data-unit="IV Unidad" class="active">IV Unidad</button>
+      <button type="button" data-unit="Todas">Todas</button>
+    </div>
+    <div class="unit-help">Unidad seleccionada: <strong id="selectedUnitLabel">IV Unidad</strong>. La selección queda guardada en este navegador.</div>
+    <div class="status-line" id="syncStatus">Preparando consulta…</div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="stat-value" id="statCourses">6</div><div class="stat-label">Cursos configurados</div></div>
+    <div class="stat"><div class="stat-value" id="statFolders">0</div><div class="stat-label">Carpetas detectadas</div></div>
+    <div class="stat"><div class="stat-value" id="statGuides">0</div><div class="stat-label">Guías de la vista actual</div></div>
+    <div class="stat"><div class="stat-value" id="statOther">0</div><div class="stat-label">HTML sin unidad reconocida</div></div>
+  </section>
+
+  <section class="instructions">
+    <h2>Instrucciones generales para los estudiantes</h2>
+    <p>Estas indicaciones se agregan automáticamente al texto de Classroom de cada guía.</p>
+    <ol>
+      <li>Ingresa correctamente tu <strong>Clave/Carné, Sección y nombre</strong> antes de comenzar.</li>
+      <li>Lee primero la sección <strong>Guía</strong> completa: propósito, instrucciones, actividades, evidencias y forma de entrega.</li>
+      <li>Desarrolla las actividades en el orden indicado y responde únicamente con información obtenida de tu propio trabajo.</li>
+      <li>Cuando exista simulador, ejemplo o práctica formativa, recuerda que <strong>no sustituye una evidencia real</strong> si la guía solicita práctica o archivo real.</li>
+      <li>Utiliza <strong>Revisar mi entrega</strong> para comprobar qué partes están COMPLETAS o PENDIENTES. Esa revisión no sustituye la calificación del docente.</li>
+      <li>Antes de cerrar la guía, guarda tu avance y <strong>descarga el respaldo JSON</strong>. Si continúas en otra computadora o navegador, carga ese archivo para recuperar el trabajo.</li>
+      <li>Evita trabajar en modo incógnito si necesitas conservar el autoguardado local del navegador.</li>
+      <li>Al finalizar, genera el PDF o comprobante solamente si la guía lo solicita y entrega en <strong>Google Classroom</strong> exactamente los archivos o evidencias indicados.</li>
+      <li>No sustituyas un archivo solicitado por un enlace de Drive u otro servicio, salvo que la guía lo autorice expresamente.</li>
+    </ol>
+  </section>
+
+  <div id="courses"></div>
+</main>
+
+<div class="toast" id="toast">Copiado</div>
+<div class="footer">La III Unidad existente no se mueve ni se elimina. La IV Unidad se integra dentro de cada curso bajo <code>unidad-iv/</code>.</div>
+
+<script>
+(function(){
+"use strict";
+
+const OWNER = "profzamora81";
+const REPO = "Actividades";
+const BRANCH = "main";
+const ROOT = "actividades_interactivas/4to-bachillerato";
+const API_TREE = `https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
+const PAGES_BASE = `https://${OWNER}.github.io/${REPO}/`;
+const RAW_BASE = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
+const UNIT_STORAGE_KEY = "lazaro-panel-unidad-2026";
+
+const COURSES = [
+  {
+    id:"laboratorio-i",
+    root:`${ROOT}/computacion/laboratorio-i`,
+    grade:"4.º Bachillerato en Ciencias y Letras con Orientación en Computación",
+    course:"Laboratorio I",
+    orientation:"Computación"
+  },
+  {
+    id:"sistemas",
+    root:`${ROOT}/computacion/sistemas-instalacion-software`,
+    grade:"4.º Bachillerato en Ciencias y Letras con Orientación en Computación",
+    course:"Sistemas e Instalación de Software",
+    orientation:"Computación"
+  },
+  {
+    id:"diseno-grafico",
+    root:`${ROOT}/diseno/diseño-computarizado-i`,
+    grade:"4.º Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico",
+    course:"Diseño Gráfico Computarizado I",
+    orientation:"Diseño Gráfico"
+  },
+  {
+    id:"tic-diseno",
+    root:`${ROOT}/diseno/tic-i`,
+    grade:"4.º Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico",
+    course:"TIC I",
+    orientation:"Diseño Gráfico"
+  },
+  {
+    id:"tic-mecanica",
+    root:`${ROOT}/mecanica/tic-i`,
+    grade:"4.º Bachillerato en Ciencias y Letras con Orientación en Mecánica Automotriz",
+    course:"TIC I",
+    orientation:"Mecánica Automotriz"
+  },
+  {
+    id:"tic-electricidad",
+    root:`${ROOT}/electricidad/tic-i`,
+    grade:"4.º Bachillerato en Ciencias y Letras con Orientación en Electricidad",
+    course:"TIC I",
+    orientation:"Electricidad"
+  }
+];
+
+const GENERAL_INSTRUCTIONS = `INSTRUCCIONES GENERALES
+
+• Ingresa correctamente tu Clave/Carné, Sección y nombre antes de comenzar.
+• Lee primero la sección Guía completa: propósito, instrucciones, actividades, evidencias y forma de entrega.
+• Desarrolla las actividades en el orden indicado y responde con información obtenida de tu propio trabajo.
+• Si existe un simulador o práctica formativa, no lo presentes como evidencia real cuando la guía solicite una práctica, archivo o resultado real.
+• Utiliza “Revisar mi entrega” para comprobar los estados COMPLETO/PENDIENTE. Esa revisión no asigna la calificación oficial.
+• Antes de cerrar la guía, guarda tu avance y descarga el respaldo JSON.
+• Si continúas en otra computadora o navegador, utiliza la opción de cargar el respaldo JSON.
+• Evita el modo incógnito si necesitas conservar el autoguardado local.
+• Genera PDF o comprobante únicamente cuando la guía lo solicite.
+• Entrega en Google Classroom exactamente los archivos o evidencias indicados en la guía.
+• No sustituyas un archivo solicitado por un enlace de Drive u otro servicio, salvo autorización expresa en la guía.`;
+
+const $ = id => document.getElementById(id);
+let toastTimer = null;
+let allGuides = [];
+let selectedUnit = localStorage.getItem(UNIT_STORAGE_KEY) || "IV Unidad";
+if(!["III Unidad","IV Unidad","Todas"].includes(selectedUnit)) selectedUnit = "IV Unidad";
+
+function esc(s){
+  return String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function encodePath(path){
+  return path.split("/").map(encodeURIComponent).join("/");
+}
+function rawUrl(path){
+  return RAW_BASE + encodePath(path);
+}
+function pageUrl(path){
+  const dir = path.replace(/\/index\.html$/i,"/");
+  return PAGES_BASE + encodePath(dir);
+}
+function sourceUrl(path){
+  return `https://github.com/${OWNER}/${REPO}/blob/${BRANCH}/` + encodePath(path);
+}
+function courseForPath(path){
+  return COURSES.find(c => path === c.root + "/index.html" || path.startsWith(c.root + "/")) || null;
+}
+function compact(text){
+  return String(text || "").replace(/\s+/g," ").trim();
+}
+function firstMatch(text, patterns){
+  for(const re of patterns){
+    const m = text.match(re);
+    if(m && m[1]) return compact(m[1]);
+  }
+  return "";
+}
+function normalizeUnit(value){
+  const t = String(value || "").toUpperCase().replace(/\s+/g," ");
+  if(/\bIV\s+UNIDAD\b/.test(t)) return "IV Unidad";
+  if(/\bIII\s+UNIDAD\b/.test(t)) return "III Unidad";
+  return "";
+}
+function detectUnit(path, bodyText, titleText){
+  const low = path.toLowerCase();
+  if(low.includes("/unidad-iv/")) return "IV Unidad";
+  if(low.includes("/unidad-iii/")) return "III Unidad";
+  return normalizeUnit(titleText) || normalizeUnit(bodyText);
+}
+function parseGuide(html, path, fallbackCourse){
+  if(!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) return null;
+  if(/NUEVA GUÍA\s+—\s+CONSTRUIR PRIMERO EL CONTRATO ACADÉMICO/i.test(html)) return null;
+
+  const doc = new DOMParser().parseFromString(html,"text/html");
+  const bodyText = doc.body ? doc.body.innerText : "";
+  const titleTag = compact(doc.title || "");
+  const h1 = compact(doc.querySelector("h1")?.textContent || "");
+  const heading = h1 || titleTag || path.split("/").slice(-2,-1)[0];
+  const unit = detectUnit(path, bodyText, `${titleTag} ${h1}`);
+
+  const guideNumber = firstMatch(bodyText,[
+    /GU[IÍ]A(?:\s+DE\s+TRABAJO|\s+INTERACTIVA)?\s*(?:NO\.?|NÚMERO)?\s*[:#-]?\s*(\d+)/i,
+    /Gu[ií]a\s+No\.\s*(\d+)/i
+  ]);
+  const delivery = firstMatch(bodyText,[
+    /Fecha\s+(?:y\s+Hora\s+de\s+)?Entrega\s*:\s*([^\n]+)/i,
+    /Fecha\s+de\s+Entrega\s*:\s*([^\n]+)/i,
+    /Fecha\s+de\s+entrega\s+([^\n]+)/i
+  ]);
+  const publication = firstMatch(bodyText,[
+    /Fecha\s+(?:de\s+)?Asignaci[oó]n(?:\/publicaci[oó]n)?\s*:\s*([^\n]+)/i,
+    /Fecha\s+de\s+publicaci[oó]n\s*:\s*([^\n]+)/i
+  ]);
+  const points = firstMatch(bodyText,[
+    /Ponderaci[oó]n\s*:\s*([^\n]+)/i,
+    /Valor\s*:\s*([^\n]+)/i
+  ]);
+  const courseFromHtml = firstMatch(bodyText,[/\bCurso\s*:\s*([^\n]+)/i]);
+  const gradeFromHtml = firstMatch(bodyText,[/\bGrado\s*:\s*([^\n]+)/i]);
+
+  return {
+    path,
+    url:pageUrl(path),
+    source:sourceUrl(path),
+    title:heading,
+    guideNumber,
+    unit,
+    delivery,
+    publication,
+    points,
+    course:courseFromHtml || fallbackCourse.course,
+    grade:gradeFromHtml || fallbackCourse.grade,
+    orientation:fallbackCourse.orientation
+  };
+}
+function classroomTitle(g){
+  const number = g.guideNumber ? `Guía No. ${g.guideNumber}` : "Guía interactiva";
+  const unit = g.unit ? ` — ${g.unit}` : "";
+  return `${number}${unit} — ${g.course}`;
+}
+function classroomText(g){
+  const number = g.guideNumber ? `Guía No. ${g.guideNumber}` : "guía interactiva";
+  const unitText = g.unit ? ` correspondiente a la ${g.unit}` : "";
+  let text =
+`Jóvenes, ya está disponible la ${number} de ${g.course}${unitText}.
+
+Antes de comenzar, lean con atención todo el contenido de la guía. La actividad está organizada para que puedan avanzar paso a paso y conservar su trabajo durante el proceso.
+
+${GENERAL_INSTRUCTIONS}
+
+GUÍA INTERACTIVA:
+${g.url}`;
+
+  if(g.publication) text += `\n\nFecha de publicación detectada: ${g.publication}`;
+  if(g.delivery) text += `\nFecha de entrega detectada: ${g.delivery}`;
+  if(g.points) text += `\nValor detectado: ${g.points}`;
+
+  text += `\n\nTrabajen con tiempo. Si encuentran un estado PENDIENTE, revisen qué requisito falta antes de realizar la entrega final.`;
+  return text;
+}
+function showToast(msg){
+  const t=$("toast");
+  t.textContent=msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),1500);
+}
+async function copyText(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+    }else{
+      const ta=document.createElement("textarea");
+      ta.value=text; ta.style.position="fixed"; ta.style.left="-9999px";
+      document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
+    }
+    showToast("Copiado al portapapeles");
+  }catch(e){
+    showToast("No se pudo copiar automáticamente");
+  }
+}
+function visibleGuides(){
+  return selectedUnit === "Todas" ? allGuides.filter(g=>g.unit) : allGuides.filter(g=>g.unit===selectedUnit);
+}
+function unitBadgeClass(unit){
+  return unit === "III Unidad" ? "unit3" : unit === "IV Unidad" ? "unit4" : "";
+}
+function cardHtml(g, globalIndex){
+  const meta = [
+    ["Curso",g.course],["Orientación",g.orientation],
+    ["Publicación",g.publication || "No detectada"],
+    ["Entrega",g.delivery || "No detectada"],
+    ["Valor",g.points || "No detectado"],
+    ["Unidad",g.unit || "No reconocida"]
+  ];
+  return `<article class="guide-card">
+    <div class="guide-top">
+      <span class="badge ${unitBadgeClass(g.unit)}">${esc(g.unit || "Unidad no reconocida")}</span>
+      <span class="badge">${g.guideNumber ? "Guía " + esc(g.guideNumber) : "Sin número detectado"}</span>
+    </div>
+    <div class="guide-title">${esc(g.title)}</div>
+    <div class="guide-sub">${esc(g.grade)}</div>
+    <div class="meta-grid">${meta.map(x=>`<div class="meta-item"><strong>${esc(x[0])}</strong>${esc(x[1])}</div>`).join("")}</div>
+    <div class="path">${esc(g.path)}</div>
+    <div class="actions">
+      <a class="button" href="${esc(g.url)}" target="_blank" rel="noopener">Abrir guía</a>
+      <button class="secondary copy-link" data-index="${globalIndex}">Copiar enlace</button>
+      <button class="ghost toggle-editor" data-index="${globalIndex}">Preparar tarea Classroom</button>
+    </div>
+    <details>
+      <summary>Ver archivo en GitHub</summary>
+      <div class="actions"><a class="button ghost" href="${esc(g.source)}" target="_blank" rel="noopener">Abrir código fuente</a></div>
+    </details>
+    <div class="editor" id="editor_${globalIndex}">
+      <label>Título sugerido para la tarea</label>
+      <textarea class="title-box" id="title_${globalIndex}">${esc(classroomTitle(g))}</textarea>
+      <div class="actions"><button class="ghost copy-title" data-index="${globalIndex}">Copiar título</button></div>
+      <label>Instrucciones / comentario para Classroom</label>
+      <textarea id="comment_${globalIndex}">${esc(classroomText(g))}</textarea>
+      <div class="actions">
+        <button class="good copy-comment" data-index="${globalIndex}">Copiar texto para Classroom</button>
+        <button class="secondary reset-comment" data-index="${globalIndex}">Restaurar texto</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render(){
+  const visible=visibleGuides();
+  $("selectedUnitLabel").textContent=selectedUnit;
+  document.querySelectorAll("#unitTabs button").forEach(b=>b.classList.toggle("active",b.dataset.unit===selectedUnit));
+  $("statGuides").textContent=visible.length;
+  $("statOther").textContent=allGuides.filter(g=>!g.unit).length;
+
+  $("courses").innerHTML = COURSES.map(course=>{
+    const guides=visible
+      .map(g=>({g,globalIndex:allGuides.indexOf(g)}))
+      .filter(x=>courseForPath(x.g.path)?.id===course.id)
+      .sort((a,b)=>{
+        const na=Number(a.g.guideNumber)||0, nb=Number(b.g.guideNumber)||0;
+        if(na!==nb) return nb-na;
+        return a.g.path.localeCompare(b.g.path,"es");
+      });
+
+    return `<section class="course">
+      <div class="course-head">
+        <div>
+          <h2>${esc(course.course)} — ${esc(course.orientation)}</h2>
+          <div class="course-meta">${esc(course.grade)}</div>
+          <div class="course-meta">${esc(course.root)}</div>
+        </div>
+        <span class="badge">${guides.length} guía(s) en ${esc(selectedUnit)}</span>
+      </div>
+      ${guides.length
+        ? `<div class="guide-list">${guides.map(x=>cardHtml(x.g,x.globalIndex)).join("")}</div>`
+        : `<div class="empty">No se encontró una guía válida de <strong>${esc(selectedUnit)}</strong> para este curso.</div>`}
+    </section>`;
+  }).join("");
+
+  document.querySelectorAll(".copy-link").forEach(b=>b.addEventListener("click",()=>copyText(allGuides[Number(b.dataset.index)].url)));
+  document.querySelectorAll(".toggle-editor").forEach(b=>b.addEventListener("click",()=>{
+    $("editor_"+b.dataset.index).classList.toggle("open");
+  }));
+  document.querySelectorAll(".copy-title").forEach(b=>b.addEventListener("click",()=>copyText($("title_"+b.dataset.index).value)));
+  document.querySelectorAll(".copy-comment").forEach(b=>b.addEventListener("click",()=>copyText($("comment_"+b.dataset.index).value)));
+  document.querySelectorAll(".reset-comment").forEach(b=>b.addEventListener("click",()=>{
+    const i=Number(b.dataset.index);
+    $("title_"+i).value=classroomTitle(allGuides[i]);
+    $("comment_"+i).value=classroomText(allGuides[i]);
+    showToast("Texto restaurado");
+  }));
+}
+async function refresh(){
+  allGuides=[];
+  $("refreshBtn").disabled=true;
+  $("syncStatus").innerHTML='<span class="loading"><span class="spinner"></span>Consultando la estructura del repositorio…</span>';
+  try{
+    const res=await fetch(API_TREE,{headers:{"Accept":"application/vnd.github+json"}});
+    if(!res.ok) throw new Error("GitHub respondió " + res.status);
+    const data=await res.json();
+    const tree=Array.isArray(data.tree)?data.tree:[];
+    const scoped=tree.filter(item=>COURSES.some(c=>item.path===c.root || item.path.startsWith(c.root+"/")));
+    const folders=scoped.filter(x=>x.type==="tree");
+    const htmlFiles=scoped.filter(x=>x.type==="blob" && /\/index\.html$/i.test(x.path));
+
+    $("statFolders").textContent=folders.length;
+    $("syncStatus").innerHTML=`Se detectaron ${folders.length} carpetas y ${htmlFiles.length} archivos index.html. Leyendo las guías…`;
+
+    const loaded=await Promise.all(htmlFiles.map(async item=>{
+      const course=courseForPath(item.path);
+      try{
+        const r=await fetch(rawUrl(item.path),{cache:"no-store"});
+        if(!r.ok) return null;
+        const text=await r.text();
+        return parseGuide(text,item.path,course);
+      }catch(e){
+        return null;
+      }
+    }));
+
+    allGuides=loaded.filter(Boolean);
+    const u3=allGuides.filter(g=>g.unit==="III Unidad").length;
+    const u4=allGuides.filter(g=>g.unit==="IV Unidad").length;
+    const other=allGuides.filter(g=>!g.unit).length;
+    $("syncStatus").textContent=`Actualización terminada: III Unidad ${u3} · IV Unidad ${u4} · sin clasificar ${other}.`;
+    render();
+  }catch(e){
+    $("syncStatus").textContent="No se pudo consultar GitHub: " + e.message + ". Comprueba la conexión o inténtalo de nuevo.";
+    render();
+  }finally{
+    $("refreshBtn").disabled=false;
+  }
+}
+
+document.querySelectorAll("#unitTabs button").forEach(b=>b.addEventListener("click",()=>{
+  selectedUnit=b.dataset.unit;
+  localStorage.setItem(UNIT_STORAGE_KEY,selectedUnit);
+  render();
+}));
+$("refreshBtn").addEventListener("click",refresh);
+$("copyGeneralBtn").addEventListener("click",()=>copyText(GENERAL_INSTRUCTIONS));
+
+render();
+refresh();
+})();
+</script>
+</body>
+</html>

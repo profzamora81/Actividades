@@ -1,0 +1,95 @@
+ESQUEMA DE INTEGRACIÓN — III Y IV UNIDAD 2026
+Instituto Industrial Central General Lázaro Chacón González
+Repositorio: profzamora81/Actividades
+
+OBJETIVO
+Conservar sin cambios las guías existentes de la III Unidad e incorporar la IV Unidad
+dentro de los mismos cursos. El índice general permite seleccionar III Unidad,
+IV Unidad o Todas.
+
+ESTRUCTURA PROPUESTA
+
+Actividades/
+├── actividades_interactivas/
+│   └── 4to-bachillerato/
+│       ├── index.html                          <- panel general III / IV
+│       │
+│       ├── computacion/
+│       │   ├── laboratorio-i/
+│       │   │   ├── [archivos y guías existentes de III Unidad]
+│       │   │   └── unidad-iv/
+│       │   │       ├── guia-01/index.html
+│       │   │       ├── guia-02/index.html
+│       │   │       ├── guia-03/index.html
+│       │   │       ├── guia-04/index.html
+│       │   │       ├── guia-05/index.html
+│       │   │       └── guia-06/index.html
+│       │   │
+│       │   └── sistemas-instalacion-software/
+│       │       ├── [archivos y guías existentes de III Unidad]
+│       │       └── unidad-iv/
+│       │           └── guia-01/index.html
+│       │
+│       ├── diseno/
+│       │   ├── diseño-computarizado-i/
+│       │   │   ├── [archivos y guías existentes de III Unidad]
+│       │   │   └── unidad-iv/
+│       │   │       └── guia-01/index.html
+│       │   └── tic-i/
+│       │       ├── [guías existentes de III Unidad]
+│       │       └── unidad-iv/
+│       │           └── guia-01/index.html
+│       │
+│       ├── mecanica/
+│       │   └── tic-i/
+│       │       ├── [guías existentes de III Unidad]
+│       │       └── unidad-iv/
+│       │           └── guia-01/index.html
+│       │
+│       └── electricidad/
+│           └── tic-i/
+│               ├── [guías existentes de III Unidad]
+│               └── unidad-iv/
+│                   └── guia-01/index.html
+│
+└── documentos_complementarios/
+    └── iv-unidad/
+        ├── guia-01/
+        │   ├── 00_CONSOLIDADO_Guia_01_Mejoramiento_Metadatos.docx
+        │   ├── 01_laboratorio-i_Guia_01_Mejoramiento_Metadatos.docx
+        │   ├── 02_sistemas-instalacion_Guia_01_Mejoramiento_Metadatos.docx
+        │   ├── 03_diseno-grafico-computarizado-i_Guia_01_Mejoramiento_Metadatos.docx
+        │   ├── 04_tic-i-mecanica_Guia_01_Mejoramiento_Metadatos.docx
+        │   ├── 05_tic-i-diseno_Guia_01_Mejoramiento_Metadatos.docx
+        │   └── 06_tic-i-electricidad_Guia_01_Mejoramiento_Metadatos.docx
+        ├── guia-02/
+        ├── guia-03/
+        ├── guia-04/
+        ├── guia-05/
+        └── guia-06/
+
+REGLAS DE INTEGRACIÓN
+
+1. NO borrar ni mover las guías actuales de III Unidad.
+2. Copiar el contenido de este paquete a la raíz del repositorio Actividades.
+3. Al combinar carpetas, elegir "combinar" y no reemplazar directorios completos.
+4. El archivo nuevo:
+   actividades_interactivas/4to-bachillerato/index.html
+   es el panel general.
+5. Cada nueva guía de IV Unidad debe quedar en:
+   .../<curso>/unidad-iv/guia-XX/index.html
+6. Los documentos para diarios pedagógicos NO van dentro de las carpetas de las
+   guías de estudiantes. Se guardan en documentos_complementarios/iv-unidad/.
+7. Para Diseño se conserva exactamente la carpeta que ya existe en GitHub:
+   diseño-computarizado-i
+8. El panel identifica:
+   - III Unidad: por el texto "III Unidad" del HTML o carpeta unidad-iii.
+   - IV Unidad: por carpeta unidad-iv o texto "IV Unidad" del HTML.
+9. Si una página HTML no contiene una unidad reconocible y no está dentro de
+   unidad-iii/unidad-iv, no se muestra en las vistas III/IV.
+10. El selector del panel ofrece:
+    III Unidad | IV Unidad | Todas
+
+NOTA
+Este paquete incluye únicamente los archivos NUEVOS necesarios para integrar
+la IV Unidad y el panel general. No duplica los archivos existentes de III Unidad.
