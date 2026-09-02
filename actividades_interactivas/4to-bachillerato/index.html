@@ -108,7 +108,7 @@ summary{cursor:pointer;color:var(--azul);font-weight:700}
   <section class="notice">
     <strong>Detección automática:</strong> el panel consulta el repositorio público
     <strong>profzamora81/Actividades</strong>. Reconoce las guías antiguas de la III Unidad por el contenido del HTML
-    y las nuevas guías de la IV Unidad por la carpeta <code>unidad-iv</code> o por el texto de la propia guía.
+    y las nuevas guías de la IV Unidad por la carpeta <code>unidad-iv</code> o por el texto de la propia guía. Las rúbricas se cargan desde <code>rubricas.json</code> y se agregan automáticamente al texto para Classroom.
   </section>
 
   <section class="toolbar">
@@ -167,6 +167,8 @@ const ROOT = "actividades_interactivas/4to-bachillerato";
 const API_TREE = `https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
 const PAGES_BASE = `https://${OWNER}.github.io/${REPO}/`;
 const RAW_BASE = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
+const RUBRICS_URL = "./rubricas.json";
+const RUBRICS_RAW_URL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${ROOT}/rubricas.json`;
 const UNIT_STORAGE_KEY = "lazaro-panel-unidad-2026";
 
 const COURSES = [
@@ -231,6 +233,7 @@ const GENERAL_INSTRUCTIONS = `INSTRUCCIONES GENERALES
 const $ = id => document.getElementById(id);
 let toastTimer = null;
 let allGuides = [];
+let RUBRICS = {};
 let selectedUnit = localStorage.getItem(UNIT_STORAGE_KEY) || "IV Unidad";
 if(!["III Unidad","IV Unidad","Todas"].includes(selectedUnit)) selectedUnit = "IV Unidad";
 
@@ -326,22 +329,36 @@ function classroomTitle(g){
   const unit = g.unit ? ` — ${g.unit}` : "";
   return `${number}${unit} — ${g.course}`;
 }
+function rubricForGuide(g){
+  return String(RUBRICS[g.path] || "").trim();
+}
+function rubricStatus(g){
+  return rubricForGuide(g) ? "Rúbrica disponible" : "Rúbrica pendiente";
+}
 function classroomText(g){
   const number = g.guideNumber ? `Guía No. ${g.guideNumber}` : "guía interactiva";
   const unitText = g.unit ? ` correspondiente a la ${g.unit}` : "";
+  const rubric = rubricForGuide(g);
   let text =
 `Jóvenes, ya está disponible la ${number} de ${g.course}${unitText}.
 
 Antes de comenzar, lean con atención todo el contenido de la guía. La actividad está organizada para que puedan avanzar paso a paso y conservar su trabajo durante el proceso.
 
-${GENERAL_INSTRUCTIONS}
+${GENERAL_INSTRUCTIONS}`;
 
-GUÍA INTERACTIVA:
-${g.url}`;
+  if(rubric){
+    text += `\n\nRÚBRICA DE CALIFICACIÓN\n\n${rubric}`;
+  }
+
+  text += `\n\nGUÍA INTERACTIVA:\n${g.url}`;
 
   if(g.publication) text += `\n\nFecha de publicación detectada: ${g.publication}`;
   if(g.delivery) text += `\nFecha de entrega detectada: ${g.delivery}`;
   if(g.points) text += `\nValor detectado: ${g.points}`;
+
+  if(!rubric){
+    text += `\n\nIMPORTANTE PARA EL DOCENTE: esta guía todavía no tiene una rúbrica registrada en rubricas.json.`;
+  }
 
   text += `\n\nTrabajen con tiempo. Si encuentran un estado PENDIENTE, revisen qué requisito falta antes de realizar la entrega final.`;
   return text;
@@ -379,7 +396,8 @@ function cardHtml(g, globalIndex){
     ["Publicación",g.publication || "No detectada"],
     ["Entrega",g.delivery || "No detectada"],
     ["Valor",g.points || "No detectado"],
-    ["Unidad",g.unit || "No reconocida"]
+    ["Unidad",g.unit || "No reconocida"],
+    ["Rúbrica",rubricStatus(g)]
   ];
   return `<article class="guide-card">
     <div class="guide-top">
@@ -393,6 +411,7 @@ function cardHtml(g, globalIndex){
     <div class="actions">
       <a class="button" href="${esc(g.url)}" target="_blank" rel="noopener">Abrir guía</a>
       <button class="secondary copy-link" data-index="${globalIndex}">Copiar enlace</button>
+      ${rubricForGuide(g) ? `<button class="ghost copy-rubric" data-index="${globalIndex}">Copiar rúbrica</button>` : ""}
       <button class="ghost toggle-editor" data-index="${globalIndex}">Preparar tarea Classroom</button>
     </div>
     <details>
@@ -403,6 +422,9 @@ function cardHtml(g, globalIndex){
       <label>Título sugerido para la tarea</label>
       <textarea class="title-box" id="title_${globalIndex}">${esc(classroomTitle(g))}</textarea>
       <div class="actions"><button class="ghost copy-title" data-index="${globalIndex}">Copiar título</button></div>
+      ${rubricForGuide(g) ? `<label>Rúbrica para rubrica.lazarochacon.edu.gt / Sheets</label>
+      <textarea id="rubric_${globalIndex}" readonly>${esc(rubricForGuide(g))}</textarea>
+      <div class="actions"><button class="ghost copy-rubric-editor" data-index="${globalIndex}">Copiar solo rúbrica</button></div>` : `<div class="notice"><strong>Rúbrica pendiente:</strong> esta guía no tiene una entrada en rubricas.json.</div>`}
       <label>Instrucciones / comentario para Classroom</label>
       <textarea id="comment_${globalIndex}">${esc(classroomText(g))}</textarea>
       <div class="actions">
@@ -445,6 +467,8 @@ function render(){
   }).join("");
 
   document.querySelectorAll(".copy-link").forEach(b=>b.addEventListener("click",()=>copyText(allGuides[Number(b.dataset.index)].url)));
+  document.querySelectorAll(".copy-rubric").forEach(b=>b.addEventListener("click",()=>copyText(rubricForGuide(allGuides[Number(b.dataset.index)]))));
+  document.querySelectorAll(".copy-rubric-editor").forEach(b=>b.addEventListener("click",()=>copyText(rubricForGuide(allGuides[Number(b.dataset.index)]))));
   document.querySelectorAll(".toggle-editor").forEach(b=>b.addEventListener("click",()=>{
     $("editor_"+b.dataset.index).classList.toggle("open");
   }));
@@ -457,11 +481,28 @@ function render(){
     showToast("Texto restaurado");
   }));
 }
+async function loadRubrics(){
+  const candidates=[RUBRICS_URL,RUBRICS_RAW_URL];
+  for(const url of candidates){
+    try{
+      const r=await fetch(url,{cache:"no-store"});
+      if(!r.ok) continue;
+      const data=await r.json();
+      if(data && typeof data==="object" && !Array.isArray(data)){
+        RUBRICS=data;
+        return true;
+      }
+    }catch(e){}
+  }
+  RUBRICS={};
+  return false;
+}
 async function refresh(){
   allGuides=[];
   $("refreshBtn").disabled=true;
   $("syncStatus").innerHTML='<span class="loading"><span class="spinner"></span>Consultando la estructura del repositorio…</span>';
   try{
+    const rubricsLoaded = await loadRubrics();
     const res=await fetch(API_TREE,{headers:{"Accept":"application/vnd.github+json"}});
     if(!res.ok) throw new Error("GitHub respondió " + res.status);
     const data=await res.json();
@@ -489,7 +530,8 @@ async function refresh(){
     const u3=allGuides.filter(g=>g.unit==="III Unidad").length;
     const u4=allGuides.filter(g=>g.unit==="IV Unidad").length;
     const other=allGuides.filter(g=>!g.unit).length;
-    $("syncStatus").textContent=`Actualización terminada: III Unidad ${u3} · IV Unidad ${u4} · sin clasificar ${other}.`;
+    const rubricCount=allGuides.filter(g=>rubricForGuide(g)).length;
+    $("syncStatus").textContent=`Actualización terminada: III Unidad ${u3} · IV Unidad ${u4} · rúbricas disponibles ${rubricCount} · sin clasificar ${other}.`;
     render();
   }catch(e){
     $("syncStatus").textContent="No se pudo consultar GitHub: " + e.message + ". Comprueba la conexión o inténtalo de nuevo.";
