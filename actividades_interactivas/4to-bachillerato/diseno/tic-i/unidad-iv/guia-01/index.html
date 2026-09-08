@@ -1,93 +1,603 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Guía de Trabajo No. 1 — IV Unidad - TIC I</title><style>
-:root{--azul:#17365d;--azul2:#28578c;--claro:#eef4fb;--verde:#18794e;--rojo:#b42318;--amarillo:#fff7d6;--borde:#ccd6e0;--texto:#17202a;--gris:#667085;--naranja:#a04b00}
-*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fa;color:var(--texto);line-height:1.55}
-header{background:var(--azul);color:#fff;padding:22px 16px;text-align:center} header h1{margin:0;font-size:1.55rem} header p{margin:5px 0}
-main{max-width:1100px;margin:auto;padding:18px}.card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:20px;margin:15px 0;box-shadow:0 2px 7px #0001}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:7px 22px}
-label{font-weight:bold;display:block;margin-top:10px} input,textarea,select{width:100%;padding:10px;border:1px solid #aab7c4;border-radius:7px;font:inherit;background:#fff} textarea{min-height:120px;resize:vertical}
-button{background:var(--azul2);color:#fff;border:0;border-radius:7px;padding:10px 14px;cursor:pointer;font-weight:bold;margin:4px}button.secondary{background:#5f6b7a}button.danger{background:var(--rojo)}button.good{background:var(--verde)}
-nav{display:flex;flex-wrap:wrap;gap:6px;margin:15px 0}.nav-btn.active{background:var(--verde)}.panel{display:none}.panel.active{display:block}.hidden{display:none!important}
-.notice{background:var(--amarillo);border-left:5px solid #d6a600;padding:12px;margin:12px 0}.info{background:#eef6ff;border-left:5px solid var(--azul2);padding:12px;margin:12px 0}.task{background:#f8fafc;border:1px solid #d9e2ec;border-radius:8px;padding:12px}
-.status{padding:9px;border-radius:7px;margin:8px 0}.complete{background:#e8f7ef;color:#11613e}.pending{background:#fff1f0;color:#8f1d16}.preview{max-width:100%;max-height:380px;border:1px solid var(--borde);margin-top:8px;border-radius:6px}.small{color:var(--gris);font-size:.92rem}
-#saveStatus{position:fixed;right:12px;bottom:12px;background:#17202a;color:#fff;padding:8px 12px;border-radius:7px;z-index:20}.dialog{position:fixed;inset:0;background:#0009;display:flex;align-items:center;justify-content:center;z-index:50}.dialog-box{background:#fff;padding:22px;border-radius:12px;max-width:520px;width:92%}
-.score{display:inline-block;background:var(--claro);color:var(--azul);font-weight:bold;padding:4px 8px;border-radius:999px}.field-note{margin:4px 0 0;color:var(--gris);font-size:.9rem}.print-only{display:none}
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17365d">
+<meta name="lazaro-guide" content="1">
+<meta name="lazaro-type" content="mejoramiento">
+<title>Proceso de Mejoramiento — Guía No. 1 — IV Unidad — TIC I</title>
+<style>
+:root{
+  --azul:#17365d;--azul2:#28578c;--claro:#eef4fb;--verde:#18794e;
+  --rojo:#b42318;--amarillo:#fff7d6;--borde:#ccd6e0;--texto:#17202a;
+  --gris:#667085;--naranja:#a04b00;--fondo:#f4f7fa
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.55}
+header{background:var(--azul);color:#fff;padding:22px 16px;text-align:center}
+header h1{margin:0;font-size:1.55rem} header p{margin:5px 0}
+main{max-width:1100px;margin:auto;padding:18px}
+.card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:20px;margin:15px 0;box-shadow:0 2px 7px #0001}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:7px 22px}
+label{font-weight:bold;display:block;margin-top:10px}
+input,textarea,select{width:100%;padding:10px;border:1px solid #aab7c4;border-radius:7px;font:inherit;background:#fff}
+textarea{min-height:120px;resize:vertical}
+button,.btn-link{background:var(--azul2);color:#fff;border:0;border-radius:7px;padding:10px 14px;cursor:pointer;font-weight:bold;margin:4px;text-decoration:none;display:inline-block}
+button.secondary{background:#5f6b7a} button.danger{background:var(--rojo)} button.good{background:var(--verde)}
+button:disabled{opacity:.5;cursor:not-allowed}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:15px 0}
+.nav-btn.active{background:var(--verde)}
+.panel{display:none}.panel.active{display:block}.hidden{display:none!important}
+.notice{background:var(--amarillo);border-left:5px solid #d6a600;padding:12px;margin:12px 0}
+.info{background:#eef6ff;border-left:5px solid var(--azul2);padding:12px;margin:12px 0}
+.improve{background:#fff4e8;border-left:5px solid var(--naranja);padding:12px;margin:12px 0}
+.task{background:#f8fafc;border:1px solid #d9e2ec;border-radius:8px;padding:12px}
+.status{padding:9px;border-radius:7px;margin:8px 0}
+.complete{background:#e8f7ef;color:#11613e}.pending{background:#fff1f0;color:#8f1d16}
+.small{color:var(--gris);font-size:.92rem}.score{display:inline-block;background:var(--claro);color:var(--azul);font-weight:bold;padding:4px 8px;border-radius:999px}
+.reading{border:1px solid var(--borde);border-radius:10px;padding:14px;margin:10px 0;background:#fbfcfd}
+.reading h3{margin:0 0 6px}.reading-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.reading-state{font-weight:bold}.reading-state.ok{color:var(--verde)}.reading-state.no{color:var(--rojo)}
+.locked{opacity:.65}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:10px 0;min-width:760px}
+th,td{border:1px solid var(--borde);padding:8px;vertical-align:top;text-align:left}
+th{background:var(--claro);color:var(--azul)}
+#saveStatus{position:fixed;right:12px;bottom:12px;background:#17202a;color:#fff;padding:8px 12px;border-radius:7px;z-index:20}
+.dialog{position:fixed;inset:0;background:#0009;display:flex;align-items:center;justify-content:center;z-index:50}
+.dialog-box{background:#fff;padding:22px;border-radius:12px;max-width:520px;width:92%}
+.print-only{display:none}
 @media(max-width:600px){header h1{font-size:1.25rem}.card{padding:15px}main{padding:10px}}
-@media print{body{background:#fff}header,nav,#identityScreen,#reviewPanel,#backupPanel,#saveStatus,.dialog,.no-print{display:none!important}main{max-width:none;padding:0}.panel{display:none!important}.card{box-shadow:none;border:0;padding:3px}.print-only{display:block!important}#printReport h1,#printReport h2,#printReport h3{color:#000}.print-value{border-bottom:1px solid #bbb;padding:4px 0;margin-bottom:8px;white-space:pre-wrap}.print-img{max-width:620px;max-height:460px}}
-</style></head>
-<body><header><h1>Guía de Trabajo No. 1 — IV Unidad</h1><p>TIC I</p><p>Evolución de las herramientas digitales utilizadas en diseño</p></header>
-<main><section id="identityScreen" class="card"><h2>Identificar estudiante</h2><p>Ingresa tu Clave/Carné y Sección antes de abrir o recuperar tu trabajo.</p><div class="grid"><div><label for="studentKey">Clave/Carné</label><input id="studentKey"></div><div><label for="section">Sección</label><input id="section"></div><div><label for="studentName">Nombre</label><input id="studentName"></div></div><button id="identifyBtn">Ingresar a la guía</button></section>
-<div id="app" class="hidden"><nav class="no-print"><button class="nav-btn active" data-panel="guidePanel">Guía</button><button class="nav-btn" data-panel="activity1">Actividad 1</button><button class="nav-btn" data-panel="activity2">Actividad 2</button><button class="nav-btn" data-panel="activity3">Actividad 3</button><button class="nav-btn" data-panel="reviewPanel">Revisar</button><button class="nav-btn" data-panel="backupPanel">Respaldo / PDF</button></nav>
-<section id="guidePanel" class="panel active card"><h2>Datos generales</h2><div class="meta-grid"><p><strong>Institución:</strong> Instituto Industrial Central General Lázaro Chacón González</p><p><strong>Carrera:</strong> Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</p><p><strong>Grado:</strong> Cuarto Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</p><p><strong>Curso:</strong> TIC I</p><p><strong>Docente:</strong> Erick Enrique Zamora Paz</p><p><strong>Fecha de publicación:</strong> Lunes 31/08/2026</p><p><strong>Fecha de entrega:</strong> Viernes 04/09/2026</p><p><strong>Ponderación:</strong> 10 puntos netos</p></div>
-<h3>Competencia / base curricular</h3><p>Competencia 4: Valora el impacto y conveniencia del uso de las TIC en su contexto inmediato, en función de los factores de riesgo que conlleva su implementación.</p><h3>Indicador de logro</h3><p>Indicador 4.1: Analiza el impacto de las TIC en los distintos ámbitos en que se desenvuelve.</p><h3>Contenido relacionado</h3><p>Contenido 4.1.1: interpretación del impacto de la evolución tecnológica en el desarrollo humano, en los diferentes ámbitos en que se desenvuelve.</p>
-<div class="info"><strong>Propósito:</strong> Observarás cómo la tecnología ha cambiado la forma de crear, editar, presentar y publicar productos de diseño. La actividad se centra en el proceso de trabajo: qué se hacía antes, qué herramienta apareció y qué cambió para el diseñador.</div>
-<div class="notice"><strong>Entrega:</strong> trabaja durante la semana y entrega el viernes. Cuando la guía solicite un archivo o evidencia, adjúntalo directamente en Google Classroom. No utilices enlaces de Drive como sustituto del archivo solicitado. El botón <em>Revisar mi entrega</em> solo comprueba que existan los componentes requeridos; no asigna una nota oficial.</div>
+@media print{
+  body{background:#fff}header,nav,#identityScreen,#reviewPanel,#backupPanel,#saveStatus,.dialog,.no-print{display:none!important}
+  main{max-width:none;padding:0}.panel{display:none!important}.card{box-shadow:none;border:0;padding:3px}
+  .print-only{display:block!important}#printReport h1,#printReport h2,#printReport h3{color:#000}
+  .print-value{border-bottom:1px solid #bbb;padding:4px 0;margin-bottom:8px;white-space:pre-wrap}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Proceso de Mejoramiento — Guía No. 1 — IV Unidad</h1>
+  <p>TIC I — Cuarto Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</p>
+  <p>Del proceso manual al entorno digital: cambios en la forma de diseñar</p>
+</header>
+
+<main>
+<section id="identityScreen" class="card">
+  <h2>Identificar estudiante</h2>
+  <p>Ingresa tu Clave/Carné, Sección y nombre. El proceso de mejoramiento se guardará de forma independiente a la Guía No. 1 original.</p>
+  <div class="grid">
+    <div><label for="studentKey">Clave/Carné</label><input id="studentKey" autocomplete="off"></div>
+    <div><label for="section">Sección</label><input id="section" autocomplete="off"></div>
+    <div><label for="studentName">Nombre completo</label><input id="studentName" autocomplete="name"></div>
+  </div>
+  <button id="identifyBtn">Ingresar al mejoramiento</button>
 </section>
+
+<div id="app" class="hidden">
+<nav class="no-print">
+  <button class="nav-btn active" data-panel="guidePanel">Guía</button>
+  <button class="nav-btn" data-panel="readingPanel">Lectura previa</button>
+  <button class="nav-btn activity-nav" data-panel="activity1" disabled>Actividad 1</button>
+  <button class="nav-btn activity-nav" data-panel="activity2" disabled>Actividad 2</button>
+  <button class="nav-btn activity-nav" data-panel="activity3" disabled>Actividad 3</button>
+  <button class="nav-btn activity-nav" data-panel="reviewPanel" disabled>Revisar</button>
+  <button class="nav-btn" data-panel="backupPanel">Respaldo / Entrega</button>
+</nav>
+
+<section id="guidePanel" class="panel active card">
+  <h2>Datos generales</h2>
+  <div class="meta-grid">
+    <p><strong>Institución:</strong> Instituto Industrial Central General Lázaro Chacón González</p>
+    <p><strong>Curso:</strong> TIC I</p>
+    <p><strong>Grado:</strong> Cuarto Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</p>
+    <p><strong>Docente:</strong> Erick Enrique Zamora Paz</p>
+    <p><strong>Unidad:</strong> IV Unidad</p>
+    <p><strong>Tipo:</strong> Proceso de Mejoramiento de la Guía No. 1</p>
+    <p><strong>Fecha de publicación:</strong> Según Classroom</p>
+    <p><strong>Fecha de entrega:</strong> Según la tarea de mejoramiento publicada en Classroom</p>
+    <p><strong>Ponderación:</strong> 10 puntos netos</p>
+  </div>
+
+  <div class="improve">
+    <strong>Proceso de mejoramiento:</strong> esta actividad no repite la Guía No. 1 original. Evalúa los mismos aprendizajes mediante nuevas evidencias. Está destinada únicamente a estudiantes con el proceso habilitado por el docente.
+  </div>
+
+  <h3>Competencia</h3>
+  <p>Competencia 4: Valora el impacto y conveniencia del uso de las TIC en su contexto inmediato, en función de los factores de riesgo que conlleva su implementación.</p>
+
+  <h3>Indicador de logro</h3>
+  <p>Indicador 4.1: Analiza el impacto de las TIC en los distintos ámbitos en que se desenvuelve.</p>
+
+  <h3>Contenido relacionado</h3>
+  <p>Interpretación del impacto de la evolución tecnológica en el desarrollo humano, aplicado al aprendizaje y al trabajo de diseño.</p>
+
+  <div class="info">
+    <strong>Propósito:</strong> analizarás cambios concretos producidos por las herramientas digitales en el diseño, compararás un proceso tradicional con uno digital y explicarás qué decisiones continúan dependiendo del criterio del diseñador.
+  </div>
+
+  <div class="notice">
+    <strong>Antes de responder:</strong> debes consultar los tres recursos de la sección <em>Lectura previa</em>. La guía registra el recurso como CONSULTADO cuando utilizas su botón de acceso. Consultar un recurso no significa que su contenido sea automáticamente correcto para tu respuesta: debes leerlo, seleccionar la información pertinente y redactar con tus propias palabras.
+  </div>
+</section>
+
+<section id="readingPanel" class="panel card">
+  <h2>Lectura previa</h2>
+  <p>Consulta los tres recursos. Cuando todos estén registrados como <strong>CONSULTADOS</strong>, se habilitarán las actividades.</p>
+
+  <article class="reading" data-reading="adobe">
+    <h3>1. Adobe — Fotomontaje: del recorte físico a la composición digital</h3>
+    <p>Revisa especialmente la explicación sobre cómo se componían publicaciones con recortes y maquetas antes del software de diseño digital y cómo cambió el proceso con herramientas digitales.</p>
+    <div class="reading-actions">
+      <a class="btn-link resource-link" data-resource="adobe" href="https://www.adobe.com/es/creativecloud/photography/discover/photomontage.html" target="_blank" rel="noopener">Abrir recurso</a>
+      <span class="reading-state no" id="state_adobe">NO CONSULTADO</span>
+    </div>
+  </article>
+
+  <article class="reading" data-reading="unesco">
+    <h3>2. IIPE UNESCO — El papel de las tecnologías digitales en los aprendizajes del siglo XXI</h3>
+    <p>Observa cómo las tecnologías digitales funcionan como herramientas de apoyo, pero también modifican procesos de aprendizaje, enseñanza y participación en entornos digitales.</p>
+    <div class="reading-actions">
+      <a class="btn-link resource-link" data-resource="unesco" href="https://www.iiep.unesco.org/es/publication/el-papel-de-las-tecnologias-digitales-en-los-aprendizajes-del-siglo-xxi" target="_blank" rel="noopener">Abrir recurso</a>
+      <span class="reading-state no" id="state_unesco">NO CONSULTADO</span>
+    </div>
+  </article>
+
+  <article class="reading" data-reading="gem">
+    <h3>3. UNESCO — Tecnología en la educación</h3>
+    <p>Revisa la idea de que la tecnología puede ampliar oportunidades de práctica, acceso e interacción, pero que sus efectos dependen de la forma en que se utiliza.</p>
+    <div class="reading-actions">
+      <a class="btn-link resource-link" data-resource="gem" href="https://gem-report-2023.unesco.org/es/tecnologia-en-la-educacion/" target="_blank" rel="noopener">Abrir recurso</a>
+      <span class="reading-state no" id="state_gem">NO CONSULTADO</span>
+    </div>
+  </article>
+
+  <div id="readingStatus" class="status pending">PENDIENTE — consulta los tres recursos para habilitar las actividades.</div>
+</section>
+
 <section id="activity1" class="panel card" data-activity-section>
-<h2>Actividad 1 — Línea del tiempo del diseño digital — 3 puntos</h2>
-<p><strong>Qué aprenderás:</strong> Relacionar herramientas y cambios tecnológicos con procesos reales de diseño.</p>
-<div class="task"><strong>Qué debes hacer:</strong> Registra cinco hitos relacionados con creación, edición, presentación o publicación de productos gráficos. Anota únicamente fechas o períodos que puedas comprobar.</div>
-<label for="a1_fecha1">Hito 1: año o período</label><input id="a1_fecha1" data-required="true" type="text" placeholder="Año o período comprobado"><label for="a1_herramienta1">Hito 1: herramienta o cambio tecnológico</label><input id="a1_herramienta1" data-required="true" type="text" placeholder="Nombre"><label for="a1_cambio1">Hito 1: cambio en el proceso de diseño</label><input id="a1_cambio1" data-required="true" type="text" placeholder="¿Qué permitió hacer?"><label for="a1_fecha2">Hito 2: año o período</label><input id="a1_fecha2" data-required="true" type="text" placeholder="Año o período comprobado"><label for="a1_herramienta2">Hito 2: herramienta o cambio tecnológico</label><input id="a1_herramienta2" data-required="true" type="text" placeholder="Nombre"><label for="a1_cambio2">Hito 2: cambio en el proceso de diseño</label><input id="a1_cambio2" data-required="true" type="text" placeholder="¿Qué permitió hacer?"><label for="a1_fecha3">Hito 3: año o período</label><input id="a1_fecha3" data-required="true" type="text" placeholder="Año o período comprobado"><label for="a1_herramienta3">Hito 3: herramienta o cambio tecnológico</label><input id="a1_herramienta3" data-required="true" type="text" placeholder="Nombre"><label for="a1_cambio3">Hito 3: cambio en el proceso de diseño</label><input id="a1_cambio3" data-required="true" type="text" placeholder="¿Qué permitió hacer?"><label for="a1_fecha4">Hito 4: año o período</label><input id="a1_fecha4" data-required="true" type="text" placeholder="Año o período comprobado"><label for="a1_herramienta4">Hito 4: herramienta o cambio tecnológico</label><input id="a1_herramienta4" data-required="true" type="text" placeholder="Nombre"><label for="a1_cambio4">Hito 4: cambio en el proceso de diseño</label><input id="a1_cambio4" data-required="true" type="text" placeholder="¿Qué permitió hacer?"><label for="a1_fecha5">Hito 5: año o período</label><input id="a1_fecha5" data-required="true" type="text" placeholder="Año o período comprobado"><label for="a1_herramienta5">Hito 5: herramienta o cambio tecnológico</label><input id="a1_herramienta5" data-required="true" type="text" placeholder="Nombre"><label for="a1_cambio5">Hito 5: cambio en el proceso de diseño</label><input id="a1_cambio5" data-required="true" type="text" placeholder="¿Qué permitió hacer?">
-<div class="status pending" data-status-for="activity1">PENDIENTE — aún faltan componentes requeridos.</div>
-</section><section id="activity2" class="panel card" data-activity-section>
-<h2>Actividad 2 — Del proceso manual al digital — 3 puntos</h2>
-<p><strong>Qué aprenderás:</strong> Comparar procesos y reconocer qué mejora y qué responsabilidad conserva el diseñador.</p>
-<div class="task"><strong>Qué debes hacer:</strong> Selecciona una tarea de diseño —por ejemplo bocetaje, edición fotográfica, diagramación o publicación— y compara un procedimiento tradicional con uno digital.</div>
-<label for="a2_tarea">Tarea seleccionada</label><input id="a2_tarea" data-required="true" type="text" placeholder="Indica qué proceso compararás."><label for="a2_manual">Proceso tradicional o manual</label><textarea id="a2_manual" data-required="true" rows="4" placeholder="Describe cómo se realizaba."></textarea><label for="a2_digital">Proceso digital actual</label><textarea id="a2_digital" data-required="true" rows="4" placeholder="Describe herramientas y cambios."></textarea><label for="a2_criterio">¿Qué sigue dependiendo del criterio del diseñador?</label><textarea id="a2_criterio" data-required="true" rows="4" placeholder="Explica qué decisiones no resuelve automáticamente la herramienta."></textarea>
-<div class="status pending" data-status-for="activity2">PENDIENTE — aún faltan componentes requeridos.</div>
-</section><section id="activity3" class="panel card" data-activity-section>
-<h2>Actividad 3 — Impacto en el aprendizaje y trabajo — 4 puntos</h2>
-<p><strong>Qué aprenderás:</strong> Argumentar cómo las TIC modifican oportunidades, tiempos y formas de comunicar un diseño.</p>
-<div class="task"><strong>Qué debes hacer:</strong> Escribe una reflexión donde relaciones al menos dos hitos de tu línea del tiempo con el aprendizaje del diseño y con el trabajo actual.</div>
-<label for="a3_reflexion">Reflexión argumentada</label><textarea id="a3_reflexion" data-required="true" rows="8" placeholder="Relaciona los hitos con situaciones concretas de estudio o trabajo."></textarea><label for="a3_fuentes">Fuentes consultadas</label><textarea id="a3_fuentes" data-required="true" rows="4" placeholder="Identifica las fuentes utilizadas para comprobar fechas o datos."></textarea>
-<div class="status pending" data-status-for="activity3">PENDIENTE — aún faltan componentes requeridos.</div>
+  <h2>Actividad 1 — Archivo de transformación tecnológica <span class="score">3 puntos</span></h2>
+  <p><strong>Qué debes demostrar:</strong> que reconoces cambios tecnológicos verificables y puedes explicar qué modificaron en un proceso de diseño.</p>
+  <div class="task">
+    Investiga cinco herramientas, tecnologías o cambios relacionados con creación, edición, presentación o publicación gráfica. No basta con nombrar un programa: debes explicar qué se hacía antes y qué cambió con la tecnología digital.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Período</th><th>Tecnología o cambio</th><th>Antes</th><th>Con tecnología digital</th><th>Cambio en el trabajo del diseñador</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><input id="a1_periodo1" data-required="true"></td><td><input id="a1_tec1" data-required="true"></td><td><textarea id="a1_antes1" data-required="true"></textarea></td><td><textarea id="a1_digital1" data-required="true"></textarea></td><td><textarea id="a1_cambio1" data-required="true"></textarea></td></tr>
+        <tr><td>2</td><td><input id="a1_periodo2" data-required="true"></td><td><input id="a1_tec2" data-required="true"></td><td><textarea id="a1_antes2" data-required="true"></textarea></td><td><textarea id="a1_digital2" data-required="true"></textarea></td><td><textarea id="a1_cambio2" data-required="true"></textarea></td></tr>
+        <tr><td>3</td><td><input id="a1_periodo3" data-required="true"></td><td><input id="a1_tec3" data-required="true"></td><td><textarea id="a1_antes3" data-required="true"></textarea></td><td><textarea id="a1_digital3" data-required="true"></textarea></td><td><textarea id="a1_cambio3" data-required="true"></textarea></td></tr>
+        <tr><td>4</td><td><input id="a1_periodo4" data-required="true"></td><td><input id="a1_tec4" data-required="true"></td><td><textarea id="a1_antes4" data-required="true"></textarea></td><td><textarea id="a1_digital4" data-required="true"></textarea></td><td><textarea id="a1_cambio4" data-required="true"></textarea></td></tr>
+        <tr><td>5</td><td><input id="a1_periodo5" data-required="true"></td><td><input id="a1_tec5" data-required="true"></td><td><textarea id="a1_antes5" data-required="true"></textarea></td><td><textarea id="a1_digital5" data-required="true"></textarea></td><td><textarea id="a1_cambio5" data-required="true"></textarea></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="status pending" data-status-for="activity1">PENDIENTE — aún faltan componentes requeridos.</div>
 </section>
-<section id="reviewPanel" class="panel card"><h2>REVISAR MI ENTREGA</h2><p>La revisión comprueba únicamente si existen los componentes requeridos. No evalúa la calidad de las respuestas ni sustituye la calificación del docente.</p><button id="reviewBtn" class="good">REVISAR MI ENTREGA</button><div id="reviewResults"></div></section>
-<section id="backupPanel" class="panel card"><h2>Respaldo y entrega</h2><p>El borrador se guarda localmente en este navegador para la identidad activa.</p><button id="saveBtn">Guardar ahora</button><button id="exportBtn">Descargar respaldo JSON</button><label for="importFile">Importar respaldo JSON</label><input id="importFile" type="file" accept=".json,application/json"><button id="printBtn" class="good">IMPRIMIR / GUARDAR COMO PDF</button><button id="changeStudentBtn" class="secondary">Cambiar de estudiante</button><p class="small">Conserva el respaldo JSON únicamente como copia de seguridad. La entrega oficial se realiza según las indicaciones publicadas en Classroom.</p></section>
-<section class="print-only" id="printReport"></section></div></main><div id="saveStatus" class="hidden">Guardado automáticamente ✓</div>
-<div id="draftDialog" class="dialog hidden"><div class="dialog-box"><h2>Se encontró un borrador</h2><p id="draftInfo"></p><button id="continueDraftBtn" class="good">Continuar trabajo</button><button id="newDraftBtn" class="danger">Iniciar nuevamente</button><button id="cancelDraftBtn" class="secondary">Cancelar</button></div></div>
+
+<section id="activity2" class="panel card" data-activity-section>
+  <h2>Actividad 2 — Un diseño, dos formas de hacerlo <span class="score">3 puntos</span></h2>
+  <div class="task">
+    Selecciona un producto gráfico: afiche, portada, logotipo, anuncio, publicación para redes sociales, invitación o folleto. Compara cómo podría elaborarse mediante un proceso tradicional y mediante un proceso digital actual.
+  </div>
+
+  <label for="a2_producto">Producto gráfico seleccionado</label>
+  <input id="a2_producto" data-required="true" placeholder="Ejemplo: afiche">
+
+  <label for="a2_etapas">Cuatro etapas del trabajo</label>
+  <textarea id="a2_etapas" data-required="true" rows="5" placeholder="Enumera y explica por lo menos cuatro etapas."></textarea>
+
+  <label for="a2_manual">Proceso tradicional o manual</label>
+  <textarea id="a2_manual" data-required="true" rows="5" placeholder="Materiales, herramientas y procedimiento."></textarea>
+
+  <label for="a2_digital">Proceso digital actual</label>
+  <textarea id="a2_digital" data-required="true" rows="5" placeholder="Herramientas digitales y cambios en cada etapa."></textarea>
+
+  <label for="a2_decision1">Decisión 1 que sigue dependiendo del diseñador</label>
+  <textarea id="a2_decision1" data-required="true" rows="3" placeholder="Explica la decisión y por qué una herramienta no la resuelve automáticamente."></textarea>
+
+  <label for="a2_decision2">Decisión 2 que sigue dependiendo del diseñador</label>
+  <textarea id="a2_decision2" data-required="true" rows="3"></textarea>
+
+  <div class="status pending" data-status-for="activity2">PENDIENTE — aún faltan componentes requeridos.</div>
+</section>
+
+<section id="activity3" class="panel card" data-activity-section>
+  <h2>Actividad 3 — Tecnología, aprendizaje y criterio de diseño <span class="score">4 puntos</span></h2>
+  <div class="task">
+    Redacta una reflexión de 180 a 250 palabras: <strong>¿Cómo han cambiado las TIC la manera de aprender diseño y de trabajar como diseñador gráfico?</strong>
+  </div>
+  <p>Debes utilizar al menos dos ejemplos trabajados en la Actividad 1, explicar una ventaja concreta de las herramientas digitales y señalar una responsabilidad o decisión que continúa correspondiendo a la persona que diseña.</p>
+
+  <label for="a3_reflexion">Reflexión</label>
+  <textarea id="a3_reflexion" data-required="true" rows="10"></textarea>
+  <p class="small">Palabras aproximadas: <strong id="wordCount">0</strong>. Para marcar la actividad como completa se requieren entre 180 y 250 palabras.</p>
+
+  <h3>Fuentes consultadas</h3>
+  <p>Registra al menos dos fuentes reales. No coloques únicamente el enlace: indica qué información utilizaste.</p>
+
+  <label for="a3_fuente1">Fuente 1 — título, institución/autor, enlace e información utilizada</label>
+  <textarea id="a3_fuente1" data-required="true" rows="4"></textarea>
+
+  <label for="a3_fuente2">Fuente 2 — título, institución/autor, enlace e información utilizada</label>
+  <textarea id="a3_fuente2" data-required="true" rows="4"></textarea>
+
+  <div class="status pending" data-status-for="activity3">PENDIENTE — aún faltan componentes requeridos.</div>
+</section>
+
+<section id="reviewPanel" class="panel card">
+  <h2>Revisar mi entrega</h2>
+  <p>Esta revisión comprueba requisitos de presencia y extensión. No asigna la calificación oficial ni evalúa automáticamente la calidad de tus respuestas.</p>
+  <button id="reviewBtn" class="good">REVISAR MI ENTREGA</button>
+  <div id="reviewResults"></div>
+</section>
+
+<section id="backupPanel" class="panel card">
+  <h2>Respaldo y entrega</h2>
+  <p>El borrador se guarda localmente en este navegador para la identidad activa.</p>
+  <button id="saveBtn">Guardar ahora</button>
+  <button id="exportBtn">Descargar respaldo JSON</button>
+  <label for="importFile">Importar respaldo JSON</label>
+  <input id="importFile" type="file" accept=".json,application/json">
+  <button id="printBtn" class="good">IMPRIMIR / GUARDAR COMO PDF</button>
+  <button id="changeStudentBtn" class="secondary">Cambiar de estudiante</button>
+
+  <div class="notice">
+    <strong>Entrega recomendada en Classroom:</strong> adjunta el PDF final y el archivo JSON de respaldo. El PDF permite la revisión visual y el JSON identifica el trabajo como <strong>PROCESO DE MEJORAMIENTO — GUÍA No. 1</strong> y conserva las respuestas en formato estructurado.
+  </div>
+</section>
+
+<section class="print-only" id="printReport"></section>
+</div>
+</main>
+
+<div id="saveStatus" class="hidden">Guardado automáticamente ✓</div>
+<div id="draftDialog" class="dialog hidden">
+  <div class="dialog-box">
+    <h2>Se encontró un borrador</h2>
+    <p id="draftInfo"></p>
+    <button id="continueDraftBtn" class="good">Continuar trabajo</button>
+    <button id="newDraftBtn" class="danger">Iniciar nuevamente</button>
+    <button id="cancelDraftBtn" class="secondary">Cancelar</button>
+  </div>
+</div>
+
 <script>
 "use strict";
-const DB_NAME = "Guia01TICIDisenoIV2026DB";
+
+const DB_NAME = "MejoramientoGuia01TICIDisenoIV2026DB";
 const DB_VERSION = 1;
 const STORE = "drafts";
-const SCHEMA_VERSION = "2026.IV.1";
-const GUIDE_ID = "tic-i-diseno-guia-01-iv-unidad-2026";
+const SCHEMA_VERSION = "2026.IV.MEJ.1";
+const GUIDE_ID = "tic-i-diseno-mejoramiento-guia-01-iv-unidad-2026";
+const ORIGINAL_GUIDE_ID = "tic-i-diseno-guia-01-iv-unidad-2026";
 const COURSE_ID = "tic-i-diseno";
-const GRADE = "Cuarto Bachillerato en Ciencias y Letras con Orientaci\u00f3n en Dise\u00f1o Gr\u00e1fico";
-const ORIENTATION = "Dise\u00f1o Gr\u00e1fico";
-const GUIDE_NUMBER = "Guía 01";
-let db=null, activeIdentity=null, draftKey=null, pendingDraft=null, saveTimer=null;
-let imageData={};
-const $=id=>document.getElementById(id);
-function normalize(v){return String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
-function makeDraftKey(key,section){return [normalize(GRADE),normalize(ORIENTATION),normalize(COURSE_ID),normalize(GUIDE_NUMBER),normalize(section),normalize(key)].join("__")}
-function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:"id"})};req.onsuccess=e=>{db=e.target.result;resolve(db)};req.onerror=()=>reject(req.error)})}
-function getDraft(id){return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readonly");const r=tx.objectStore(STORE).get(id);r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error)})}
-function putDraft(obj){return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put(obj);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
-function deleteDraft(id){return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
-function formData(){const data={};document.querySelectorAll("#app input:not([type=file]),#app textarea,#app select").forEach(el=>{if(el.type==="checkbox")data[el.id]=el.checked;else data[el.id]=el.value});return data}
-function fillData(data){Object.entries(data||{}).forEach(([id,val])=>{const el=$(id);if(!el)return;if(el.type==="checkbox")el.checked=!!val;else el.value=val})}
-function showImages(){document.querySelectorAll('[data-preview-for]').forEach(box=>{const id=box.dataset.previewFor;box.innerHTML='';if(imageData[id]){const img=document.createElement('img');img.src=imageData[id];img.className='preview';img.alt='Evidencia guardada';box.appendChild(img)}})}
-async function saveNow(){if(!activeIdentity||!draftKey)return;const record={id:draftKey,guideId:GUIDE_ID,schemaVersion:SCHEMA_VERSION,identity:activeIdentity,data:formData(),images:imageData,updatedAt:new Date().toISOString()};await putDraft(record);flashSave()}
-function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveNow().catch(console.error),650)}
-function flashSave(){const s=$("saveStatus");s.classList.remove("hidden");clearTimeout(flashSave.t);flashSave.t=setTimeout(()=>s.classList.add("hidden"),1300)}
-function setPanel(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.panel===id));window.scrollTo({top:0,behavior:'smooth'})}
-function requiredStatus(section){let ok=true;section.querySelectorAll('[data-required="true"]').forEach(el=>{if(el.dataset.imageRequired==='true'){if(!imageData[el.id])ok=false}else if(el.type==='checkbox'){if(!el.checked)ok=false}else if(!String(el.value||'').trim())ok=false});return ok}
-function updateActivityStatus(){document.querySelectorAll('[data-activity-section]').forEach(section=>{const id=section.id;const target=document.querySelector(`[data-status-for="${id}"]`);if(!target)return;const ok=requiredStatus(section);target.className='status '+(ok?'complete':'pending');target.textContent=ok?'COMPLETO — la guía detecta los componentes requeridos.':'PENDIENTE — aún faltan componentes requeridos.'})}
-function reviewAll(){const box=$("reviewResults");box.innerHTML='';let all=true;document.querySelectorAll('[data-activity-section]').forEach((section,i)=>{const ok=requiredStatus(section);all=all&&ok;const d=document.createElement('div');d.className='status '+(ok?'complete':'pending');d.textContent=`Actividad ${i+1}: ${ok?'COMPLETA':'PENDIENTE'}`;box.appendChild(d)});const p=document.createElement('p');p.innerHTML=all?'<strong>La guía detecta todos los componentes requeridos.</strong> Revisa el contenido antes de entregar.':'<strong>Hay componentes pendientes.</strong> Abre la actividad correspondiente y complétalos.';box.appendChild(p)}
-function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-function buildPrintReport(){const r=$("printReport");let out=`<h1>${escapeHtml(document.querySelector('header h1').textContent)}</h1><h2>${escapeHtml(document.querySelector('header p:nth-of-type(1)').textContent)}</h2><p><strong>Estudiante:</strong> ${escapeHtml(activeIdentity?.name||'')} &nbsp; <strong>Clave/Carné:</strong> ${escapeHtml(activeIdentity?.key||'')} &nbsp; <strong>Sección:</strong> ${escapeHtml(activeIdentity?.section||'')}</p>`;document.querySelectorAll('#guidePanel .meta-grid p').forEach(p=>out+=`<p>${p.innerHTML}</p>`);document.querySelectorAll('[data-activity-section]').forEach(section=>{out+=`<hr><h2>${escapeHtml(section.querySelector('h2').textContent)}</h2>`;section.querySelectorAll(':scope > p, :scope > .task').forEach(p=>out+=p.outerHTML);section.querySelectorAll('label').forEach(label=>{const id=label.getAttribute('for');const el=id?$(id):null;if(!el)return;out+=`<h3>${escapeHtml(label.textContent)}</h3>`;if(el.type==='file'){if(imageData[id])out+=`<img class="print-img" src="${imageData[id]}">`;else out+='<div class="print-value">Sin evidencia adjunta.</div>'}else out+=`<div class="print-value">${escapeHtml(el.value)}</div>`})});r.innerHTML=out}
-function download(name,text,type){const blob=new Blob([text],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
-async function identify(){const key=$("studentKey").value.trim(),section=$("section").value.trim(),name=$("studentName").value.trim();if(!key||!section||!name){alert('Completa Clave/Carné, Sección y Nombre.');return}activeIdentity={key,section,name};draftKey=makeDraftKey(key,section);const draft=await getDraft(draftKey);if(draft){pendingDraft=draft;$("draftInfo").textContent=`Se encontró un trabajo guardado para ${name}. Última actualización: ${new Date(draft.updatedAt).toLocaleString()}.`;$("draftDialog").classList.remove('hidden')}else startGuide()}
-function startGuide(draft=null){$("draftDialog").classList.add('hidden');$("identityScreen").classList.add('hidden');$("app").classList.remove('hidden');if(draft){fillData(draft.data);imageData=draft.images||{};showImages()}else{imageData={}}updateActivityStatus();setPanel('guidePanel')}
-function setup(){document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>setPanel(b.dataset.panel)));$("identifyBtn").addEventListener('click',()=>identify().catch(e=>alert('No fue posible abrir el borrador: '+e.message)));$("continueDraftBtn").addEventListener('click',()=>startGuide(pendingDraft));$("newDraftBtn").addEventListener('click',async()=>{if(pendingDraft)await deleteDraft(pendingDraft.id);pendingDraft=null;startGuide()});$("cancelDraftBtn").addEventListener('click',()=>$("draftDialog").classList.add('hidden'));
- document.querySelectorAll('#app input:not([type=file]),#app textarea,#app select').forEach(el=>{el.addEventListener('input',()=>{updateActivityStatus();scheduleSave()});el.addEventListener('change',()=>{updateActivityStatus();scheduleSave()})});
- document.querySelectorAll('input[type=file][accept^="image/"]').forEach(el=>el.addEventListener('change',()=>{const f=el.files&&el.files[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{imageData[el.id]=reader.result;showImages();updateActivityStatus();scheduleSave()};reader.readAsDataURL(f)}));
- document.querySelectorAll('[data-remove-image]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.removeImage;delete imageData[id];showImages();updateActivityStatus();scheduleSave()}));
- $("reviewBtn").addEventListener('click',reviewAll);$("saveBtn").addEventListener('click',()=>saveNow());$("exportBtn").addEventListener('click',async()=>{await saveNow();const d=await getDraft(draftKey);download(`${GUIDE_ID}__${normalize(activeIdentity.key)}.json`,JSON.stringify(d,null,2),'application/json')});
- $("importFile").addEventListener('change',async()=>{const f=$("importFile").files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(obj.guideId!==GUIDE_ID){alert('El respaldo pertenece a otra guía.');return}if(!confirm('¿Deseas importar este respaldo sobre el trabajo actual?'))return;obj.id=draftKey;obj.identity=activeIdentity;obj.updatedAt=new Date().toISOString();await putDraft(obj);fillData(obj.data);imageData=obj.images||{};showImages();updateActivityStatus();alert('Respaldo importado correctamente.')}catch(e){alert('No fue posible importar el archivo: '+e.message)}});
- $("printBtn").addEventListener('click',()=>{buildPrintReport();window.print()});$("changeStudentBtn").addEventListener('click',()=>location.reload());
+const PROCESS_TYPE = "MEJORAMIENTO";
+const REQUIRED_READINGS = ["adobe","unesco","gem"];
+
+let db = null;
+let activeIdentity = null;
+let pendingIdentity = null;
+let saveTimer = null;
+
+const $ = id => document.getElementById(id);
+const qa = sel => Array.from(document.querySelectorAll(sel));
+
+function norm(v){ return String(v || "").trim(); }
+function safeName(v){ return norm(v).replace(/[^\p{L}\p{N}_-]+/gu,"_").replace(/^_+|_+$/g,"") || "estudiante"; }
+function identityKey(id){ return `${GUIDE_ID}::${id.studentKey.toLowerCase()}::${id.section.toLowerCase()}`; }
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(DB_NAME,DB_VERSION);
+    req.onupgradeneeded=()=>{
+      const d=req.result;
+      if(!d.objectStoreNames.contains(STORE)) d.createObjectStore(STORE,{keyPath:"key"});
+    };
+    req.onsuccess=()=>{db=req.result;resolve(db);};
+    req.onerror=()=>reject(req.error);
+  });
 }
-openDB().then(setup).catch(e=>alert('El navegador no pudo abrir el almacenamiento local de la guía: '+e.message));
-</script></body></html>
+function dbGet(key){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(STORE,"readonly");
+    const r=tx.objectStore(STORE).get(key);
+    r.onsuccess=()=>resolve(r.result||null); r.onerror=()=>reject(r.error);
+  });
+}
+function dbPut(record){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(STORE,"readwrite");
+    tx.objectStore(STORE).put(record);
+    tx.oncomplete=()=>resolve(); tx.onerror=()=>reject(tx.error);
+  });
+}
+function dbDelete(key){
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(STORE,"readwrite");
+    tx.objectStore(STORE).delete(key);
+    tx.oncomplete=()=>resolve(); tx.onerror=()=>reject(tx.error);
+  });
+}
+
+function collectFields(){
+  const fields={};
+  qa("#app input[id],#app textarea[id],#app select[id]").forEach(el=>{
+    if(el.type==="file") return;
+    fields[el.id]=el.value;
+  });
+  return fields;
+}
+function applyFields(fields){
+  Object.entries(fields||{}).forEach(([id,value])=>{
+    const el=$(id); if(el && el.type!=="file") el.value=value ?? "";
+  });
+  updateWordCount();
+  updateActivityStatuses();
+}
+function collectReadings(){
+  const out={};
+  REQUIRED_READINGS.forEach(id=>{
+    out[id] = $("state_"+id)?.classList.contains("ok") || false;
+  });
+  return out;
+}
+function applyReadings(readings){
+  REQUIRED_READINGS.forEach(id=>setReading(id, !!(readings && readings[id]), false));
+  updateReadingGate();
+}
+function payload(){
+  return {
+    schemaVersion:SCHEMA_VERSION,
+    guideId:GUIDE_ID,
+    originalGuideId:ORIGINAL_GUIDE_ID,
+    processType:PROCESS_TYPE,
+    courseId:COURSE_ID,
+    guideNumber:1,
+    unit:"IV Unidad",
+    course:"TIC I",
+    orientation:"Diseño Gráfico",
+    institution:"Instituto Industrial Central General Lázaro Chacón González",
+    student:{...activeIdentity},
+    readings:collectReadings(),
+    fields:collectFields(),
+    status:overallStatus(),
+    updatedAt:new Date().toISOString()
+  };
+}
+async function saveNow(show=true){
+  if(!activeIdentity || !db) return;
+  const p=payload();
+  await dbPut({key:identityKey(activeIdentity),payload:p,updatedAt:p.updatedAt});
+  if(show){
+    $("saveStatus").classList.remove("hidden");
+    setTimeout(()=>$("saveStatus").classList.add("hidden"),900);
+  }
+}
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>saveNow(true).catch(()=>{}),500);
+}
+
+function setReading(id,ok,autosave=true){
+  const el=$("state_"+id); if(!el) return;
+  el.textContent=ok?"CONSULTADO":"NO CONSULTADO";
+  el.classList.toggle("ok",ok); el.classList.toggle("no",!ok);
+  updateReadingGate();
+  if(autosave) scheduleSave();
+}
+function readingsComplete(){
+  return REQUIRED_READINGS.every(id=>$("state_"+id)?.classList.contains("ok"));
+}
+function updateReadingGate(){
+  const ok=readingsComplete();
+  $("readingStatus").className="status "+(ok?"complete":"pending");
+  $("readingStatus").textContent=ok
+    ?"COMPLETO — los tres recursos están registrados como consultados. Las actividades están habilitadas."
+    :"PENDIENTE — consulta los tres recursos para habilitar las actividades.";
+  qa(".activity-nav").forEach(b=>b.disabled=!ok);
+}
+
+function requiredComplete(section){
+  return qa(`#${section} [data-required="true"]`).every(el=>norm(el.value)!=="");
+}
+function wordCount(){
+  const t=norm($("a3_reflexion")?.value);
+  return t ? t.split(/\s+/).filter(Boolean).length : 0;
+}
+function updateWordCount(){
+  const n=wordCount(); if($("wordCount")) $("wordCount").textContent=String(n);
+}
+function activityComplete(id){
+  if(id==="activity3"){
+    const wc=wordCount();
+    return requiredComplete(id) && wc>=180 && wc<=250;
+  }
+  return requiredComplete(id);
+}
+function updateActivityStatuses(){
+  ["activity1","activity2","activity3"].forEach(id=>{
+    const ok=activityComplete(id);
+    const el=document.querySelector(`[data-status-for="${id}"]`);
+    if(el){
+      el.className="status "+(ok?"complete":"pending");
+      el.textContent=ok?"COMPLETO — requisitos mínimos registrados.":"PENDIENTE — aún faltan componentes requeridos.";
+    }
+  });
+}
+function overallStatus(){
+  const readings=readingsComplete();
+  const acts=["activity1","activity2","activity3"].map(activityComplete);
+  return readings && acts.every(Boolean) ? "COMPLETO" : "PENDIENTE";
+}
+
+function showPanel(id){
+  qa(".panel").forEach(p=>p.classList.remove("active"));
+  qa(".nav-btn").forEach(b=>b.classList.remove("active"));
+  const panel=$(id); if(panel) panel.classList.add("active");
+  const btn=document.querySelector(`.nav-btn[data-panel="${id}"]`);
+  if(btn) btn.classList.add("active");
+}
+function enterApp(){
+  $("identityScreen").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  showPanel("guidePanel");
+}
+
+async function identify(){
+  const id={
+    studentKey:norm($("studentKey").value),
+    section:norm($("section").value),
+    studentName:norm($("studentName").value)
+  };
+  if(!id.studentKey || !id.section || !id.studentName){
+    alert("Completa Clave/Carné, Sección y nombre.");
+    return;
+  }
+  pendingIdentity=id;
+  const found=await dbGet(identityKey(id));
+  if(found && found.payload){
+    $("draftInfo").textContent=`Existe un borrador guardado para ${id.studentName}, sección ${id.section}.`;
+    $("draftDialog").classList.remove("hidden");
+  }else{
+    activeIdentity=id; enterApp(); await saveNow(false);
+  }
+}
+
+function buildReview(){
+  updateActivityStatuses();
+  const checks=[
+    ["Lectura previa",readingsComplete(),"Los tres recursos deben estar registrados como consultados."],
+    ["Actividad 1",activityComplete("activity1"),"Completa los cinco registros de transformación tecnológica."],
+    ["Actividad 2",activityComplete("activity2"),"Completa producto, cuatro etapas, comparación y dos decisiones del diseñador."],
+    ["Actividad 3",activityComplete("activity3"),"Completa la reflexión de 180–250 palabras y registra dos fuentes."]
+  ];
+  $("reviewResults").innerHTML=checks.map(x=>`<div class="status ${x[1]?"complete":"pending"}"><strong>${x[0]}:</strong> ${x[1]?"COMPLETO":"PENDIENTE"}${x[1]?"":" — "+x[2]}</div>`).join("")+
+    `<div class="status ${overallStatus()==="COMPLETO"?"complete":"pending"}"><strong>Estado general:</strong> ${overallStatus()}</div>`;
+}
+function htmlEsc(v){
+  return String(v??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+}
+function buildPrint(){
+  const p=payload();
+  const field=(label,id)=>`<h3>${htmlEsc(label)}</h3><div class="print-value">${htmlEsc(p.fields[id]||"")}</div>`;
+  let rows="";
+  for(let i=1;i<=5;i++){
+    rows+=`<tr><td>${i}</td><td>${htmlEsc(p.fields["a1_periodo"+i]||"")}</td><td>${htmlEsc(p.fields["a1_tec"+i]||"")}</td><td>${htmlEsc(p.fields["a1_antes"+i]||"")}</td><td>${htmlEsc(p.fields["a1_digital"+i]||"")}</td><td>${htmlEsc(p.fields["a1_cambio"+i]||"")}</td></tr>`;
+  }
+  $("printReport").innerHTML=`
+    <h1>Proceso de Mejoramiento — Guía No. 1 — TIC I</h1>
+    <p><strong>Institución:</strong> Instituto Industrial Central General Lázaro Chacón González</p>
+    <p><strong>Estudiante:</strong> ${htmlEsc(p.student.studentName)} &nbsp; <strong>Clave/Carné:</strong> ${htmlEsc(p.student.studentKey)} &nbsp; <strong>Sección:</strong> ${htmlEsc(p.student.section)}</p>
+    <p><strong>Estado de requisitos:</strong> ${htmlEsc(p.status)}</p>
+    <h2>Actividad 1 — Archivo de transformación tecnológica</h2>
+    <table><thead><tr><th>#</th><th>Período</th><th>Tecnología</th><th>Antes</th><th>Digital</th><th>Cambio</th></tr></thead><tbody>${rows}</tbody></table>
+    <h2>Actividad 2 — Un diseño, dos formas de hacerlo</h2>
+    ${field("Producto seleccionado","a2_producto")}
+    ${field("Cuatro etapas","a2_etapas")}
+    ${field("Proceso tradicional o manual","a2_manual")}
+    ${field("Proceso digital actual","a2_digital")}
+    ${field("Decisión 1 del diseñador","a2_decision1")}
+    ${field("Decisión 2 del diseñador","a2_decision2")}
+    <h2>Actividad 3 — Tecnología, aprendizaje y criterio de diseño</h2>
+    ${field("Reflexión","a3_reflexion")}
+    <p><strong>Palabras:</strong> ${wordCount()}</p>
+    ${field("Fuente 1","a3_fuente1")}
+    ${field("Fuente 2","a3_fuente2")}
+    <p><strong>Identificador:</strong> ${GUIDE_ID}</p>
+    <p><strong>Tipo de proceso:</strong> ${PROCESS_TYPE}</p>`;
+}
+
+function downloadJSON(){
+  const p=payload();
+  const blob=new Blob([JSON.stringify(p,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`MEJORAMIENTO_Guia01_TIC_I_${safeName(activeIdentity.studentKey)}_${safeName(activeIdentity.studentName)}.json`;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+async function importJSON(file){
+  const text=await file.text();
+  const data=JSON.parse(text);
+  if(!data || data.guideId!==GUIDE_ID) throw new Error("El archivo no corresponde a este proceso de mejoramiento.");
+  if(!data.student) throw new Error("El respaldo no contiene identidad de estudiante.");
+  activeIdentity={
+    studentKey:norm(data.student.studentKey),
+    section:norm(data.student.section),
+    studentName:norm(data.student.studentName)
+  };
+  applyReadings(data.readings||{});
+  applyFields(data.fields||{});
+  await saveNow(false);
+  alert("Respaldo cargado correctamente.");
+}
+
+qa(".nav-btn").forEach(b=>b.addEventListener("click",()=>{
+  if(b.disabled) return;
+  showPanel(b.dataset.panel);
+}));
+qa(".resource-link").forEach(a=>a.addEventListener("click",()=>setReading(a.dataset.resource,true,true)));
+
+$("identifyBtn").addEventListener("click",()=>identify().catch(e=>alert(e.message)));
+$("continueDraftBtn").addEventListener("click",async()=>{
+  const found=await dbGet(identityKey(pendingIdentity));
+  activeIdentity=pendingIdentity;
+  $("draftDialog").classList.add("hidden");
+  enterApp();
+  if(found?.payload){ applyReadings(found.payload.readings); applyFields(found.payload.fields); }
+});
+$("newDraftBtn").addEventListener("click",async()=>{
+  await dbDelete(identityKey(pendingIdentity));
+  activeIdentity=pendingIdentity;
+  $("draftDialog").classList.add("hidden");
+  applyReadings({});
+  applyFields({});
+  enterApp();
+  await saveNow(false);
+});
+$("cancelDraftBtn").addEventListener("click",()=>$("draftDialog").classList.add("hidden"));
+
+qa("#app input,#app textarea,#app select").forEach(el=>{
+  if(el.type==="file") return;
+  el.addEventListener("input",()=>{
+    if(el.id==="a3_reflexion") updateWordCount();
+    updateActivityStatuses();
+    scheduleSave();
+  });
+  el.addEventListener("change",scheduleSave);
+});
+
+$("reviewBtn").addEventListener("click",buildReview);
+$("saveBtn").addEventListener("click",()=>saveNow(true).catch(e=>alert(e.message)));
+$("exportBtn").addEventListener("click",()=>{buildReview();downloadJSON();});
+$("printBtn").addEventListener("click",()=>{buildReview();buildPrint();window.print();});
+$("importFile").addEventListener("change",async e=>{
+  const f=e.target.files?.[0]; if(!f) return;
+  try{await importJSON(f);}catch(err){alert(err.message);}finally{e.target.value="";}
+});
+$("changeStudentBtn").addEventListener("click",()=>{
+  activeIdentity=null;
+  $("app").classList.add("hidden");
+  $("identityScreen").classList.remove("hidden");
+  $("studentKey").value="";$("section").value="";$("studentName").value="";
+});
+
+(async()=>{
+  if(!("indexedDB" in window)){
+    alert("Este navegador no dispone de IndexedDB. Podrás usar la guía, pero el autoguardado local no estará disponible.");
+  }else{
+    try{await openDB();}catch(e){console.error(e);}
+  }
+  updateReadingGate();
+  updateWordCount();
+  updateActivityStatuses();
+})();
+</script>
+</body>
+</html>
