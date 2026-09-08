@@ -528,13 +528,7 @@ async function refresh(){
   try{
     const rubricsLoaded = await loadRubrics();
     const treeUrl = API_TREE + `&_=${Date.now()}`;
-    const res=await fetch(treeUrl,{
-      cache:"no-store",
-      headers:{
-        "Accept":"application/vnd.github+json",
-        "Cache-Control":"no-cache"
-      }
-    });
+    const res = await fetch(treeUrl);
     if(!res.ok) throw new Error("GitHub respondió " + res.status);
     const data=await res.json();
     const tree=Array.isArray(data.tree)?data.tree:[];
