@@ -97,15 +97,41 @@ function validationReport(){
  if(!state.reading.primary) missing.push('Lectura previa obligatoria');
  return {ok:missing.length===0,missing};
 }
+function requirementsSnapshot(){
+ return {
+   requiredValues:[...document.querySelectorAll('[data-required="1"]')].map(el=>el.id),
+   requiredImages:[...document.querySelectorAll('[data-required-image="1"]')].map(el=>el.id),
+   readingPrimary:true
+ };
+}
+function semanticActivities(){
+ const cfg=window.GUIDE_CFG||{};
+ return (cfg.activities||[]).map((a,i)=>{
+   const answers={};
+   document.querySelectorAll('#a'+(i+1)+' [data-save="1"]').forEach(el=>{
+     answers[el.id]=state.values[el.id]||'';
+   });
+   return {
+     number:i+1,
+     title:a.title||('Actividad '+(i+1)),
+     maxPoints:a.points??'',
+     answers
+   };
+ });
+}
 function deliverySnapshot(){
  const stats=requiredStats();
  return {
    formatVersion:2,
+   schemaVersion:'lazaro-delivery-2.1',
    guideId:GUIDE_ID,
    status:'COMPLETO',
    exportedAt:new Date().toISOString(),
    completion:{done:stats.done,total:stats.total,pct:stats.pct},
    identity:JSON.parse(JSON.stringify(identity)),
+   requirements:requirementsSnapshot(),
+   activities:semanticActivities(),
+   images:JSON.parse(JSON.stringify(state.images||{})),
    state:JSON.parse(JSON.stringify(state))
  };
 }
