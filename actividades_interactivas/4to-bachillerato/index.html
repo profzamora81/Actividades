@@ -274,9 +274,22 @@ function normalizeUnit(value){
 }
 function detectUnit(path, bodyText, titleText){
   const low = path.toLowerCase();
-  if(low.includes("/unidad-iv/")) return "IV Unidad";
-  if(low.includes("/unidad-iii/")) return "III Unidad";
+  if(/\/unidad[-_ ]?iv\//i.test(low)) return "IV Unidad";
+  if(/\/unidad[-_ ]?iii\//i.test(low)) return "III Unidad";
   return normalizeUnit(titleText) || normalizeUnit(bodyText);
+}
+
+function guideNumberFromPath(path){
+  const m = String(path || "").match(/\/guia[-_ ]?0*(\d+)(?:\/|$)/i);
+  return m ? String(Number(m[1])) : "";
+}
+
+function guideNumberFromMeta(doc){
+  const meta = doc.querySelector('meta[name="lazaro-guide"]');
+  if(!meta) return "";
+  const value = String(meta.getAttribute("content") || "").trim();
+  const m = value.match(/\d+/);
+  return m ? String(Number(m[0])) : "";
 }
 function parseGuide(html, path, fallbackCourse){
   if(!/<html[\s>]/i.test(html) || !/<body[\s>]/i.test(html)) return null;
@@ -289,10 +302,13 @@ function parseGuide(html, path, fallbackCourse){
   const heading = h1 || titleTag || path.split("/").slice(-2,-1)[0];
   const unit = detectUnit(path, bodyText, `${titleTag} ${h1}`);
 
-  const guideNumber = firstMatch(bodyText,[
-    /GU[IÍ]A(?:\s+DE\s+TRABAJO|\s+INTERACTIVA)?\s*(?:NO\.?|NÚMERO)?\s*[:#-]?\s*(\d+)/i,
-    /Gu[ií]a\s+No\.\s*(\d+)/i
-  ]);
+  const guideNumber =
+    guideNumberFromMeta(doc) ||
+    firstMatch(bodyText,[
+      /GU[IÍ]A(?:\s+DE\s+TRABAJO|\s+INTERACTIVA)?\s*(?:NO\.?|NÚMERO)?\s*[:#-]?\s*(\d+)/i,
+      /Gu[ií]a\s+No\.\s*(\d+)/i
+    ]) ||
+    guideNumberFromPath(path);
   const delivery = firstMatch(bodyText,[
     /Fecha\s+(?:y\s+Hora\s+de\s+)?Entrega\s*:\s*([^\n]+)/i,
     /Fecha\s+de\s+Entrega\s*:\s*([^\n]+)/i,
@@ -503,7 +519,14 @@ async function refresh(){
   $("syncStatus").innerHTML='<span class="loading"><span class="spinner"></span>Consultando la estructura del repositorio…</span>';
   try{
     const rubricsLoaded = await loadRubrics();
-    const res=await fetch(API_TREE,{headers:{"Accept":"application/vnd.github+json"}});
+    const treeUrl = API_TREE + `&_=${Date.now()}`;
+    const res=await fetch(treeUrl,{
+      cache:"no-store",
+      headers:{
+        "Accept":"application/vnd.github+json",
+        "Cache-Control":"no-cache"
+      }
+    });
     if(!res.ok) throw new Error("GitHub respondió " + res.status);
     const data=await res.json();
     const tree=Array.isArray(data.tree)?data.tree:[];
@@ -517,7 +540,9 @@ async function refresh(){
     const loaded=await Promise.all(htmlFiles.map(async item=>{
       const course=courseForPath(item.path);
       try{
-        const r=await fetch(rawUrl(item.path),{cache:"no-store"});
+        const r=await fetch(rawUrl(item.path) + `?v=${encodeURIComponent(item.sha || Date.now())}`,{
+          cache:"no-store"
+        });
         if(!r.ok) return null;
         const text=await r.text();
         return parseGuide(text,item.path,course);
@@ -531,7 +556,8 @@ async function refresh(){
     const u4=allGuides.filter(g=>g.unit==="IV Unidad").length;
     const other=allGuides.filter(g=>!g.unit).length;
     const rubricCount=allGuides.filter(g=>rubricForGuide(g)).length;
-    $("syncStatus").textContent=`Actualización terminada: III Unidad ${u3} · IV Unidad ${u4} · rúbricas disponibles ${rubricCount} · sin clasificar ${other}.`;
+    const guia2 = allGuides.filter(g=>g.unit==="IV Unidad" && Number(g.guideNumber)===2).length;
+    $("syncStatus").textContent=`Actualización terminada: III Unidad ${u3} · IV Unidad ${u4} · Guías No. 2 detectadas ${guia2} · rúbricas disponibles ${rubricCount} · sin clasificar ${other}.`;
     render();
   }catch(e){
     $("syncStatus").textContent="No se pudo consultar GitHub: " + e.message + ". Comprueba la conexión o inténtalo de nuevo.";
