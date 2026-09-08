@@ -338,8 +338,8 @@ function parseGuide(html, path, fallbackCourse){
     /Ponderaci[oó]n\s*:\s*([^\n]+)/i,
     /Valor\s*:\s*([^\n]+)/i
   ]);
-  const courseFromHtml = firstMatch(bodyText,[/\bCurso\s*:\s*([^\n]+)/i]);
-  const gradeFromHtml = firstMatch(bodyText,[/\bGrado\s*:\s*([^\n]+)/i]);
+  // Curso, grado y orientación se obtienen de COURSES según la ruta.
+  // No se intentan deducir desde texto interno de la guía.
 
   return {
     path,
@@ -351,8 +351,8 @@ function parseGuide(html, path, fallbackCourse){
     delivery,
     publication,
     points,
-    course:courseFromHtml || fallbackCourse.course,
-    grade:gradeFromHtml || fallbackCourse.grade,
+    course:fallbackCourse.course,
+    grade:fallbackCourse.grade,
     orientation:fallbackCourse.orientation
   };
 }
