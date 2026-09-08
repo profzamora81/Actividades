@@ -298,7 +298,21 @@ function parseGuide(html, path, fallbackCourse){
   if(/NUEVA GUÍA\s+—\s+CONSTRUIR PRIMERO EL CONTRATO ACADÉMICO/i.test(html)) return null;
 
   const doc = new DOMParser().parseFromString(html,"text/html");
-  const bodyText = doc.body ? doc.body.innerText : "";
+
+  // Crear una copia limpia para analizar únicamente contenido visible.
+  // Evita que cadenas internas de JavaScript como
+  // "<b>Curso:</b> '+cfg.course+'" se interpreten como metadatos.
+  const readableBody = doc.body ? doc.body.cloneNode(true) : null;
+
+  if(readableBody){
+    readableBody
+      .querySelectorAll("script,style,noscript,template")
+      .forEach(el => el.remove());
+  }
+
+  const bodyText = readableBody
+    ? (readableBody.innerText || readableBody.textContent || "")
+    : "";
   const titleTag = compact(doc.title || "");
   const h1 = compact(doc.querySelector("h1")?.textContent || "");
   const heading = h1 || titleTag || path.split("/").slice(-2,-1)[0];
