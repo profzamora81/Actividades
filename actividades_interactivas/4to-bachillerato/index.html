@@ -88,6 +88,8 @@ summary{cursor:pointer;color:var(--azul);font-weight:700}
   .stats{grid-template-columns:1fr}
   .meta-grid{grid-template-columns:1fr}
 }
+
+.classroom-preview{background:#f7f9fb;border:1px solid #d8e2ea;border-radius:10px;padding:11px;margin:8px 0;white-space:pre-wrap;font-family:Arial,Helvetica,sans-serif;font-size:.9rem;max-height:330px;overflow:auto}.classroom-preview.title-preview{font-weight:800;color:var(--azul);max-height:none}.edit-details{margin-top:10px}.edit-details summary{font-weight:800}
 </style>
 </head>
 <body>
@@ -436,13 +438,15 @@ function cardHtml(g, globalIndex){
     </details>
     <div class="editor" id="editor_${globalIndex}">
       <label>Título sugerido para la tarea</label>
-      <textarea class="title-box" id="title_${globalIndex}">${esc(classroomTitle(g))}</textarea>
+      <div class="classroom-preview title-preview" id="titlePreview_${globalIndex}">${esc(classroomTitle(g))}</div>
       <div class="actions"><button class="ghost copy-title" data-index="${globalIndex}">Copiar título</button></div>
+      <details class="edit-details"><summary>Editar título</summary><textarea class="title-box" id="title_${globalIndex}">${esc(classroomTitle(g))}</textarea></details>
       ${rubricForGuide(g) ? `<label>Rúbrica para rubrica.lazarochacon.edu.gt / Sheets</label>
       <textarea id="rubric_${globalIndex}" readonly>${esc(rubricForGuide(g))}</textarea>
       <div class="actions"><button class="ghost copy-rubric-editor" data-index="${globalIndex}">Copiar solo rúbrica</button></div>` : `<div class="notice"><strong>Rúbrica pendiente:</strong> esta guía no tiene una entrada en rubricas.json.</div>`}
       <label>Instrucciones / comentario para Classroom</label>
-      <textarea id="comment_${globalIndex}">${esc(classroomText(g))}</textarea>
+      <div class="classroom-preview" id="commentPreview_${globalIndex}">${esc(classroomText(g))}</div>
+      <details class="edit-details"><summary>Editar instrucciones antes de copiar</summary><textarea id="comment_${globalIndex}">${esc(classroomText(g))}</textarea></details>
       <div class="actions">
         <button class="good copy-comment" data-index="${globalIndex}">Copiar texto para Classroom</button>
         <button class="secondary reset-comment" data-index="${globalIndex}">Restaurar texto</button>
@@ -489,11 +493,15 @@ function render(){
     $("editor_"+b.dataset.index).classList.toggle("open");
   }));
   document.querySelectorAll(".copy-title").forEach(b=>b.addEventListener("click",()=>copyText($("title_"+b.dataset.index).value)));
+  document.querySelectorAll('[id^="title_"]').forEach(el=>el.addEventListener("input",()=>{const i=el.id.split("_")[1];const p=$("titlePreview_"+i);if(p)p.textContent=el.value;}));
+  document.querySelectorAll('[id^="comment_"]').forEach(el=>el.addEventListener("input",()=>{const i=el.id.split("_")[1];const p=$("commentPreview_"+i);if(p)p.textContent=el.value;}));
   document.querySelectorAll(".copy-comment").forEach(b=>b.addEventListener("click",()=>copyText($("comment_"+b.dataset.index).value)));
   document.querySelectorAll(".reset-comment").forEach(b=>b.addEventListener("click",()=>{
     const i=Number(b.dataset.index);
     $("title_"+i).value=classroomTitle(allGuides[i]);
     $("comment_"+i).value=classroomText(allGuides[i]);
+    $("titlePreview_"+i).textContent=$("title_"+i).value;
+    $("commentPreview_"+i).textContent=$("comment_"+i).value;
     showToast("Texto restaurado");
   }));
 }
