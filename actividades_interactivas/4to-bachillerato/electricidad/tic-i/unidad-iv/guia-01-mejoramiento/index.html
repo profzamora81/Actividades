@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="lazaro-course" content="tic-i-electricidad">
+<meta name="lazaro-unit" content="IV">
+<meta name="lazaro-guide" content="1">
+<meta name="lazaro-assessment-type" content="mejoramiento">
+<title>Guía de Mejoramiento No. 1 — IV Unidad - TIC I — Electricidad</title>
+<style>
+:root{--azul:#17365d;--azul2:#28578c;--claro:#eef4fb;--verde:#18794e;--rojo:#b42318;--amarillo:#fff7d6;--borde:#ccd6e0;--texto:#17202a;--gris:#667085;--morado:#6840a5}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fa;color:var(--texto);line-height:1.55}
+header{background:var(--azul);color:#fff;padding:22px 16px;text-align:center}header h1{margin:0;font-size:1.55rem}header p{margin:5px 0}.badge{display:inline-block;margin-top:7px;background:#fff;color:var(--azul);font-weight:bold;padding:4px 10px;border-radius:999px}
+main{max-width:1100px;margin:auto;padding:18px}.card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:20px;margin:15px 0;box-shadow:0 2px 7px #0001}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:7px 22px}
+label{font-weight:bold;display:block;margin-top:10px}input,textarea,select{width:100%;padding:10px;border:1px solid #aab7c4;border-radius:7px;font:inherit;background:#fff}input[type=checkbox]{width:auto;margin-right:7px}textarea{min-height:105px;resize:vertical}
+button{background:var(--azul2);color:#fff;border:0;border-radius:7px;padding:10px 14px;cursor:pointer;font-weight:bold;margin:4px}button.secondary{background:#5f6b7a}button.danger{background:var(--rojo)}button.good{background:var(--verde)}button.resource{background:var(--morado)}button:disabled{background:#98a2b3;cursor:not-allowed;opacity:.72}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:15px 0}.nav-btn.active{background:var(--verde)}.panel{display:none}.panel.active{display:block}.hidden{display:none!important}
+.notice{background:var(--amarillo);border-left:5px solid #d6a600;padding:12px;margin:12px 0}.info{background:#eef6ff;border-left:5px solid var(--azul2);padding:12px;margin:12px 0}.task{background:#f8fafc;border:1px solid #d9e2ec;border-radius:8px;padding:12px}.improvement{background:#f5efff;border-left:5px solid var(--morado);padding:12px;margin:12px 0}.resource-card{border:1px solid #d8cbed;background:#fcfaff;border-radius:10px;padding:15px;margin:12px 0}
+.status{padding:9px;border-radius:7px;margin:8px 0}.complete{background:#e8f7ef;color:#11613e}.pending{background:#fff1f0;color:#8f1d16}.small{color:var(--gris);font-size:.92rem}.score{display:inline-block;background:var(--claro);color:var(--azul);font-weight:bold;padding:4px 8px;border-radius:999px}.field-note{margin:4px 0 0;color:var(--gris);font-size:.9rem}.rubric{margin-top:12px;border:1px solid #d9e2ec;border-radius:8px;padding:10px;background:#fff}.rubric summary{font-weight:bold;cursor:pointer}.reading-check{display:flex;align-items:center;gap:5px;margin-top:10px;font-weight:bold}.scenario{border:1px solid #d9e2ec;border-radius:9px;padding:14px;margin:14px 0;background:#fbfcfe}.print-only{display:none}
+#saveStatus{position:fixed;right:12px;bottom:12px;background:#17202a;color:#fff;padding:8px 12px;border-radius:7px;z-index:20}.dialog{position:fixed;inset:0;background:#0009;display:flex;align-items:center;justify-content:center;z-index:50}.dialog-box{background:#fff;padding:22px;border-radius:12px;max-width:520px;width:92%}
+@media(max-width:600px){header h1{font-size:1.25rem}.card{padding:15px}main{padding:10px}}
+@media print{body{background:#fff}header,nav,#identityScreen,#reviewPanel,#backupPanel,#saveStatus,.dialog,.no-print{display:none!important}main{max-width:none;padding:0}.panel{display:none!important}.card{box-shadow:none;border:0;padding:3px}.print-only{display:block!important}#printReport h1,#printReport h2,#printReport h3{color:#000}.print-value{border-bottom:1px solid #bbb;padding:4px 0;margin-bottom:8px;white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<header>
+<h1>Guía de Mejoramiento No. 1 — IV Unidad</h1>
+<p>TIC I — Electricidad</p>
+<p>De la medición manual al flujo digital: decisiones tecnológicas en el trabajo eléctrico</p>
+<span class="badge">PROCESO DE MEJORAMIENTO · 10 PUNTOS</span>
+</header>
+
+<main>
+<section id="identityScreen" class="card">
+<h2>Identificar estudiante</h2>
+<p>Ingresa tu Clave/Carné y Sección antes de abrir o recuperar tu trabajo.</p>
+<div class="grid">
+<div><label for="studentKey">Clave/Carné</label><input id="studentKey" autocomplete="off"></div>
+<div><label for="section">Sección</label><input id="section" autocomplete="off"></div>
+<div><label for="studentName">Nombre</label><input id="studentName" autocomplete="name"></div>
+</div>
+<button id="identifyBtn">Ingresar a la guía</button>
+</section>
+
+<div id="app" class="hidden">
+<nav class="no-print">
+<button class="nav-btn active" data-panel="guidePanel">Guía</button>
+<button class="nav-btn" data-panel="readingPanel">Lectura previa</button>
+<button class="nav-btn activity-nav" data-panel="activity1" disabled>Actividad 1</button>
+<button class="nav-btn activity-nav" data-panel="activity2" disabled>Actividad 2</button>
+<button class="nav-btn activity-nav" data-panel="activity3" disabled>Actividad 3</button>
+<button class="nav-btn" data-panel="reviewPanel">Revisar</button>
+<button class="nav-btn" data-panel="backupPanel">Respaldo / PDF</button>
+</nav>
+
+<section id="guidePanel" class="panel active card">
+<h2>Datos generales</h2>
+<div class="meta-grid">
+<p><strong>Institución:</strong> Instituto Industrial Central General Lázaro Chacón González</p>
+<p><strong>Carrera:</strong> Bachillerato en Ciencias y Letras con Orientación en Electricidad</p>
+<p><strong>Grado:</strong> Cuarto Bachillerato en Ciencias y Letras con Orientación en Electricidad</p>
+<p><strong>Curso:</strong> TIC I</p>
+<p><strong>Docente:</strong> Erick Enrique Zamora Paz</p>
+<p><strong>Fecha de publicación:</strong> Martes 08/09/2026</p>
+<p><strong>Fecha de entrega:</strong> Viernes 11/09/2026</p>
+<p><strong>Ponderación:</strong> 10 puntos netos</p>
+</div>
+
+<h3>Competencia / base curricular</h3>
+<p><strong>Competencia 4:</strong> Valora el impacto y conveniencia del uso de las TIC en su contexto inmediato, en función de los factores de riesgo que conlleva su implementación.</p>
+<h3>Indicador de logro</h3>
+<p><strong>Indicador 4.1:</strong> Analiza el impacto de las TIC en los distintos ámbitos en que se desenvuelve.</p>
+<h3>Contenido relacionado</h3>
+<p><strong>Contenido 4.1.1:</strong> interpretación del impacto de la evolución tecnológica en el desarrollo humano, en los diferentes ámbitos en que se desenvuelve.</p>
+
+<div class="info"><strong>Propósito:</strong> demostrar que puedes analizar cómo las TIC modifican tareas eléctricas concretas, escoger una herramienta según la necesidad y explicar qué beneficios, límites y responsabilidades técnicas permanecen en el trabajo.</div>
+
+<div class="improvement"><strong>Este trabajo corresponde al mejoramiento de la Guía No. 1.</strong> No debes repetir la línea del tiempo original. Las actividades presentan situaciones nuevas para comprobar el mismo aprendizaje.</div>
+
+<div class="notice"><strong>Entrega:</strong> completa la guía, revisa que todas las secciones aparezcan como COMPLETO y genera tu PDF. El respaldo JSON sirve para continuar el trabajo en otro equipo o navegador compatible; conserva una copia hasta confirmar la entrega en Classroom. La revisión automática comprueba componentes, no asigna la nota oficial.</div>
+</section>
+
+<section id="readingPanel" class="panel card" data-reading-section>
+<h2>Lectura previa</h2>
+<p>Consulta los dos recursos antes de resolver las actividades. No copies los textos: identifica ideas que te ayuden a explicar los cambios producidos por herramientas digitales en medición y documentación eléctrica.</p>
+
+<div class="resource-card">
+<h3>1. Fluke — ¿Qué es un multímetro digital?</h3>
+<p>Revisa qué valores puede medir un multímetro digital, qué diferencias presenta frente a los medidores analógicos de aguja y por qué la seguridad sigue siendo parte del uso de un instrumento de prueba.</p>
+<button type="button" class="resource" data-resource-target="read_fluke" data-resource-url="https://www.fluke.com/es-es/informacion/blog/electrica/que-es-un-multimetro-digital">Abrir recurso de Fluke</button>
+<div class="reading-check"><input id="read_fluke" type="checkbox" data-required="true" disabled><label for="read_fluke" style="margin:0">Recurso consultado</label></div>
+</div>
+
+<div class="resource-card">
+<h3>2. Autodesk — Planos y dibujos eléctricos</h3>
+<p>Revisa para qué sirve un plano eléctrico y cómo un software de dibujo eléctrico puede ayudar a crear, modificar y documentar sistemas mediante símbolos, conexiones y anotaciones.</p>
+<button type="button" class="resource" data-resource-target="read_autodesk" data-resource-url="https://www.autodesk.com/es/solutions/aec/electrical-drawing">Abrir recurso de Autodesk</button>
+<div class="reading-check"><input id="read_autodesk" type="checkbox" data-required="true" disabled><label for="read_autodesk" style="margin:0">Recurso consultado</label></div>
+</div>
+
+<div id="readingStatus" class="status pending">PENDIENTE — consulta los dos recursos para habilitar las actividades.</div>
+<p class="small">El registro “recurso consultado” solo confirma que abriste el material de apoyo. No representa una calificación automática.</p>
+</section>
+
+<section id="activity1" class="panel card" data-activity-section>
+<h2>Actividad 1 — Analizar dos cambios tecnológicos — <span class="score">3 puntos</span></h2>
+<p><strong>Qué aprenderás:</strong> reconocer cómo una herramienta digital modifica una tarea y qué cuidados siguen dependiendo del criterio técnico.</p>
+<div class="task"><strong>Qué debes hacer:</strong> analiza los dos cambios indicados. Explica el procedimiento anterior, el cambio producido por la herramienta digital, un beneficio concreto y un cuidado o limitación que todavía debe considerarse.</div>
+
+<div class="scenario">
+<h3>A. Medición eléctrica: medidor analógico → multímetro digital</h3>
+<label for="a1_medicion_antes">¿Cómo se obtenía o interpretaba la medición antes del uso extendido de instrumentos digitales?</label>
+<textarea id="a1_medicion_antes" data-required="true" placeholder="Escribe con tus propias palabras a partir de la lectura."></textarea>
+<label for="a1_medicion_cambio">¿Qué cambió con el multímetro digital?</label>
+<textarea id="a1_medicion_cambio" data-required="true" placeholder="Relaciona funciones, lectura de valores o diagnóstico."></textarea>
+<label for="a1_medicion_beneficio">Beneficio concreto para una tarea eléctrica</label>
+<textarea id="a1_medicion_beneficio" data-required="true" placeholder="Explica un beneficio real, no solo 'es mejor'."></textarea>
+<label for="a1_medicion_cuidado">Cuidado, límite o responsabilidad técnica que se mantiene</label>
+<textarea id="a1_medicion_cuidado" data-required="true" placeholder="Relaciona la herramienta con seguridad, interpretación o uso adecuado."></textarea>
+</div>
+
+<div class="scenario">
+<h3>B. Documentación eléctrica: dibujo en papel → software de dibujo eléctrico</h3>
+<label for="a1_plano_antes">¿Cómo se elaboraba o actualizaba un plano sin software de dibujo?</label>
+<textarea id="a1_plano_antes" data-required="true"></textarea>
+<label for="a1_plano_cambio">¿Qué cambia al utilizar software de dibujo eléctrico?</label>
+<textarea id="a1_plano_cambio" data-required="true" placeholder="Piensa en símbolos, modificaciones, anotaciones y documentación."></textarea>
+<label for="a1_plano_beneficio">Beneficio concreto para el trabajo eléctrico</label>
+<textarea id="a1_plano_beneficio" data-required="true"></textarea>
+<label for="a1_plano_cuidado">Cuidado, límite o responsabilidad técnica que se mantiene</label>
+<textarea id="a1_plano_cuidado" data-required="true" placeholder="Explica qué debe seguir comprobando una persona aunque use software."></textarea>
+</div>
+
+<details class="rubric">
+<summary>Ver criterio de evaluación — 3 puntos</summary>
+<p><strong>Excelente (3):</strong> analiza los dos cambios con claridad, diferencia el procedimiento anterior del actual, identifica beneficios concretos y explica al menos un cuidado o límite en cada caso.</p>
+<p><strong>Aceptable (2):</strong> presenta los dos cambios, pero una explicación, beneficio o cuidado queda incompleto o poco relacionado con la tarea eléctrica.</p>
+<p><strong>No cumple (0):</strong> no presenta los dos análisis o las respuestas no permiten reconocer el cambio tecnológico trabajado.</p>
+</details>
+<div class="status pending" data-status-for="activity1">PENDIENTE — aún faltan componentes requeridos.</div>
+</section>
+
+<section id="activity2" class="panel card" data-activity-section>
+<h2>Actividad 2 — Elegir la tecnología según la necesidad — <span class="score">3 puntos</span></h2>
+<p><strong>Qué aprenderás:</strong> seleccionar herramientas digitales por su función y no únicamente porque sean más recientes.</p>
+<div class="task"><strong>Qué debes hacer:</strong> para cada situación selecciona la opción que utilizarías y explica por qué. Puedes escoger <em>multímetro digital</em>, <em>software de dibujo eléctrico</em> o <em>ambos</em>.</div>
+
+<div class="scenario">
+<h3>Situación 1</h3>
+<p>En un circuito de práctica se necesita obtener valores eléctricos para apoyar la localización de una falla.</p>
+<label for="a2_s1_tool">Herramienta que corresponde</label>
+<select id="a2_s1_tool" data-required="true">
+<option value="">Selecciona</option>
+<option>Multímetro digital</option>
+<option>Software de dibujo eléctrico</option>
+<option>Ambos</option>
+</select>
+<label for="a2_s1_reason">Justificación</label>
+<textarea id="a2_s1_reason" data-required="true"></textarea>
+</div>
+
+<div class="scenario">
+<h3>Situación 2</h3>
+<p>Una instalación fue modificada y se necesita actualizar el plano, conservar símbolos claros y dejar documentación comprensible para otra persona.</p>
+<label for="a2_s2_tool">Herramienta que corresponde</label>
+<select id="a2_s2_tool" data-required="true">
+<option value="">Selecciona</option>
+<option>Multímetro digital</option>
+<option>Software de dibujo eléctrico</option>
+<option>Ambos</option>
+</select>
+<label for="a2_s2_reason">Justificación</label>
+<textarea id="a2_s2_reason" data-required="true"></textarea>
+</div>
+
+<div class="scenario">
+<h3>Situación 3</h3>
+<p>Después de revisar una instalación se necesita relacionar los valores obtenidos con el plano existente y dejar un registro actualizado del trabajo.</p>
+<label for="a2_s3_tool">Herramienta que corresponde</label>
+<select id="a2_s3_tool" data-required="true">
+<option value="">Selecciona</option>
+<option>Multímetro digital</option>
+<option>Software de dibujo eléctrico</option>
+<option>Ambos</option>
+</select>
+<label for="a2_s3_reason">Justificación</label>
+<textarea id="a2_s3_reason" data-required="true"></textarea>
+</div>
+
+<label for="a2_human">¿Qué decisión o responsabilidad no debe dejarse únicamente a la herramienta digital?</label>
+<textarea id="a2_human" data-required="true" placeholder="Relaciona tu respuesta con interpretación, seguridad, verificación o criterio técnico."></textarea>
+
+<details class="rubric">
+<summary>Ver criterio de evaluación — 3 puntos</summary>
+<p><strong>Excelente (3):</strong> selecciona herramientas coherentes con las tres necesidades, justifica la función de cada elección y reconoce una responsabilidad que sigue dependiendo del criterio técnico.</p>
+<p><strong>Aceptable (2):</strong> resuelve las situaciones de forma general, pero una elección o justificación requiere corrección o mayor precisión.</p>
+<p><strong>No cumple (0):</strong> las selecciones no corresponden con las necesidades planteadas o faltan las justificaciones.</p>
+</details>
+<div class="status pending" data-status-for="activity2">PENDIENTE — aún faltan componentes requeridos.</div>
+</section>
+
+<section id="activity3" class="panel card" data-activity-section>
+<h2>Actividad 3 — Caso integrador: medir, interpretar y documentar — <span class="score">4 puntos</span></h2>
+<p><strong>Qué aprenderás:</strong> explicar cómo varias TIC pueden formar parte de un mismo proceso de trabajo sin reemplazar la responsabilidad técnica.</p>
+
+<div class="task"><strong>Caso:</strong> en el taller se reporta una falla intermitente en un circuito didáctico y el plano disponible ya no coincide completamente con las modificaciones realizadas. Debes proponer un procedimiento de trabajo. No realices intervenciones eléctricas desde esta guía; describe el proceso académico considerando los protocolos del taller y la supervisión docente.</div>
+
+<label for="a3_etapa1">Etapa 1 — preparación y verificación previa</label>
+<textarea id="a3_etapa1" data-required="true" placeholder="¿Qué información o condiciones deben revisarse antes de iniciar el diagnóstico?"></textarea>
+
+<label for="a3_etapa2">Etapa 2 — obtención de información mediante medición</label>
+<textarea id="a3_etapa2" data-required="true" placeholder="Explica qué aporta el instrumento digital al diagnóstico, sin inventar valores."></textarea>
+
+<label for="a3_etapa3">Etapa 3 — comparación e interpretación</label>
+<textarea id="a3_etapa3" data-required="true" placeholder="¿Cómo relacionarías los datos obtenidos con la documentación existente?"></textarea>
+
+<label for="a3_etapa4">Etapa 4 — actualización y comunicación</label>
+<textarea id="a3_etapa4" data-required="true" placeholder="Explica cómo dejarías la información organizada para que otra persona comprenda el trabajo realizado."></textarea>
+
+<label for="a3_impacto">Conclusión: impacto de las TIC en el aprendizaje y en el trabajo eléctrico</label>
+<textarea id="a3_impacto" data-required="true" rows="7" placeholder="Relaciona medición, documentación, precisión, aprendizaje, seguridad y criterio técnico."></textarea>
+
+<label for="a3_fuentes">¿Qué idea útil tomaste de cada lectura previa?</label>
+<textarea id="a3_fuentes" data-required="true" placeholder="Menciona Fluke y Autodesk y explica brevemente qué idea utilizaste de cada recurso."></textarea>
+
+<details class="rubric">
+<summary>Ver criterio de evaluación — 4 puntos</summary>
+<p><strong>Excelente (4):</strong> propone un proceso coherente de cuatro etapas, integra medición y documentación digital, explica cómo las TIC apoyan el aprendizaje y el trabajo, y reconoce límites, verificación y responsabilidad técnica.</p>
+<p><strong>Aceptable (3):</strong> el proceso general es comprensible, pero una etapa, relación entre herramientas o explicación del impacto necesita mayor desarrollo.</p>
+<p><strong>No cumple (0):</strong> el caso queda incompleto o no relaciona las TIC con el diagnóstico, la documentación y el criterio técnico.</p>
+</details>
+<div class="status pending" data-status-for="activity3">PENDIENTE — aún faltan componentes requeridos.</div>
+</section>
+
+<section id="reviewPanel" class="panel card">
+<h2>REVISAR MI ENTREGA</h2>
+<p>La revisión comprueba únicamente si existen los componentes requeridos. No evalúa la calidad ni asigna la calificación oficial.</p>
+<button id="reviewBtn" class="good">REVISAR MI ENTREGA</button>
+<div id="reviewResults"></div>
+</section>
+
+<section id="backupPanel" class="panel card">
+<h2>Respaldo y entrega</h2>
+<p>El borrador se guarda localmente en este navegador para la identidad activa.</p>
+<button id="saveBtn">Guardar ahora</button>
+<button id="exportBtn">Descargar respaldo JSON</button>
+<label for="importFile">Importar respaldo JSON</label>
+<input id="importFile" type="file" accept=".json,application/json">
+<button id="printBtn" class="good">IMPRIMIR / GUARDAR COMO PDF</button>
+<button id="changeStudentBtn" class="secondary">Cambiar de estudiante</button>
+<p class="small">Entrega en Classroom el PDF solicitado por el docente y conserva el JSON como respaldo hasta confirmar que tu trabajo fue recibido correctamente.</p>
+</section>
+
+<section class="print-only" id="printReport"></section>
+</div>
+</main>
+
+<div id="saveStatus" class="hidden">Guardado automáticamente ✓</div>
+<div id="draftDialog" class="dialog hidden"><div class="dialog-box"><h2>Se encontró un borrador</h2><p id="draftInfo"></p><button id="continueDraftBtn" class="good">Continuar trabajo</button><button id="newDraftBtn" class="danger">Iniciar nuevamente</button><button id="cancelDraftBtn" class="secondary">Cancelar</button></div></div>
+
+<script>
+"use strict";
+const DB_NAME = "MejoramientoGuia01TICIElectricidadIV2026DB";
+const DB_VERSION = 1;
+const STORE = "drafts";
+const SCHEMA_VERSION = "2026.IV.M1.1";
+const GUIDE_ID = "tic-i-electricidad-mejoramiento-guia-01-iv-unidad-2026";
+const ORIGINAL_GUIDE_ID = "tic-i-electricidad-guia-01-iv-unidad-2026";
+const ASSESSMENT_TYPE = "mejoramiento";
+const COURSE_ID = "tic-i-electricidad";
+const GRADE = "Cuarto Bachillerato en Ciencias y Letras con Orientación en Electricidad";
+const ORIENTATION = "Electricidad";
+const GUIDE_NUMBER = "Mejoramiento Guía 01";
+const MAX_SCORE = 10;
+let db=null,activeIdentity=null,draftKey=null,pendingDraft=null,saveTimer=null;
+const $=id=>document.getElementById(id);
+
+function normalize(v){return String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function makeDraftKey(key,section){return [normalize(GRADE),normalize(ORIENTATION),normalize(COURSE_ID),normalize(GUIDE_NUMBER),normalize(section),normalize(key)].join("__")}
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:"id"})};req.onsuccess=e=>{db=e.target.result;resolve(db)};req.onerror=()=>reject(req.error)})}
+function getDraft(id){return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readonly");const r=tx.objectStore(STORE).get(id);r.onsuccess=()=>resolve(r.result||null);r.onerror=()=>reject(r.error)})}
+function putDraft(obj){return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put(obj);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+function deleteDraft(id){return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).delete(id);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+function formData(){const data={};document.querySelectorAll("#app input:not([type=file]),#app textarea,#app select").forEach(el=>{data[el.id]=el.type==="checkbox"?el.checked:el.value});return data}
+function fillData(data){Object.entries(data||{}).forEach(([id,val])=>{const el=$(id);if(!el)return;if(el.type==="checkbox")el.checked=!!val;else el.value=val})}
+
+async function saveNow(){
+ if(!activeIdentity||!draftKey)return;
+ const record={
+  id:draftKey,
+  guideId:GUIDE_ID,
+  originalGuideId:ORIGINAL_GUIDE_ID,
+  assessmentType:ASSESSMENT_TYPE,
+  courseId:COURSE_ID,
+  guideNumber:GUIDE_NUMBER,
+  maxScore:MAX_SCORE,
+  schemaVersion:SCHEMA_VERSION,
+  identity:activeIdentity,
+  data:formData(),
+  resourceConsultation:{
+   fluke:!!$("read_fluke")?.checked,
+   autodesk:!!$("read_autodesk")?.checked
+  },
+  updatedAt:new Date().toISOString()
+ };
+ await putDraft(record);flashSave()
+}
+function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveNow().catch(console.error),650)}
+function flashSave(){const s=$("saveStatus");s.classList.remove("hidden");clearTimeout(flashSave.t);flashSave.t=setTimeout(()=>s.classList.add("hidden"),1300)}
+function setPanel(id){const target=$(id);if(!target)return;const nav=document.querySelector(`.nav-btn[data-panel="${id}"]`);if(nav&&nav.disabled){alert("Primero consulta los dos recursos de Lectura previa.");return}document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.panel===id));window.scrollTo({top:0,behavior:"smooth"})}
+function requiredStatus(section){let ok=true;section.querySelectorAll('[data-required="true"]').forEach(el=>{if(el.type==="checkbox"){if(!el.checked)ok=false}else if(!String(el.value||"").trim())ok=false});return ok}
+function readingComplete(){return !!$("read_fluke")?.checked&&!!$("read_autodesk")?.checked}
+function updateReadingGate(){const ok=readingComplete();document.querySelectorAll(".activity-nav").forEach(b=>b.disabled=!ok);const s=$("readingStatus");if(s){s.className="status "+(ok?"complete":"pending");s.textContent=ok?"COMPLETO — recursos registrados como consultados. Actividades habilitadas.":"PENDIENTE — consulta los dos recursos para habilitar las actividades."}}
+function updateActivityStatus(){document.querySelectorAll("[data-activity-section]").forEach(section=>{const id=section.id;const target=document.querySelector(`[data-status-for="${id}"]`);if(!target)return;const ok=requiredStatus(section);target.className="status "+(ok?"complete":"pending");target.textContent=ok?"COMPLETO — la guía detecta los componentes requeridos.":"PENDIENTE — aún faltan componentes requeridos."});updateReadingGate()}
+function reviewAll(){const box=$("reviewResults");box.innerHTML="";const reading=readingComplete();const rd=document.createElement("div");rd.className="status "+(reading?"complete":"pending");rd.textContent=`Lectura previa: ${reading?"COMPLETA":"PENDIENTE"}`;box.appendChild(rd);let all=reading;document.querySelectorAll("[data-activity-section]").forEach((section,i)=>{const ok=requiredStatus(section);all=all&&ok;const d=document.createElement("div");d.className="status "+(ok?"complete":"pending");d.textContent=`Actividad ${i+1}: ${ok?"COMPLETA":"PENDIENTE"}`;box.appendChild(d)});const p=document.createElement("p");p.innerHTML=all?"<strong>La guía detecta todos los componentes requeridos.</strong> Revisa el contenido antes de entregar.":"<strong>Hay componentes pendientes.</strong> Abre la sección correspondiente y complétalos.";box.appendChild(p)}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function buildPrintReport(){
+ const r=$("printReport");
+ let out=`<h1>${escapeHtml(document.querySelector("header h1").textContent)}</h1><h2>${escapeHtml(document.querySelector("header p:nth-of-type(1)").textContent)}</h2><p><strong>Estudiante:</strong> ${escapeHtml(activeIdentity?.name||"")} &nbsp; <strong>Clave/Carné:</strong> ${escapeHtml(activeIdentity?.key||"")} &nbsp; <strong>Sección:</strong> ${escapeHtml(activeIdentity?.section||"")}</p>`;
+ document.querySelectorAll("#guidePanel .meta-grid p").forEach(p=>out+=`<p>${p.innerHTML}</p>`);
+ out+=`<p><strong>Lecturas consultadas:</strong> Fluke: ${$("read_fluke").checked?"Sí":"No"}; Autodesk: ${$("read_autodesk").checked?"Sí":"No"}.</p>`;
+ document.querySelectorAll("[data-activity-section]").forEach(section=>{
+  out+=`<hr><h2>${escapeHtml(section.querySelector("h2").textContent)}</h2>`;
+  section.querySelectorAll(":scope > p, :scope > .task, :scope > .scenario").forEach(p=>{
+   if(p.classList.contains("scenario")){
+    out+=`<h3>${escapeHtml(p.querySelector("h3")?.textContent||"Situación")}</h3>`;
+    p.querySelectorAll("label").forEach(label=>{
+     const id=label.getAttribute("for"),el=id?$(id):null;if(!el)return;
+     out+=`<h4>${escapeHtml(label.textContent)}</h4><div class="print-value">${escapeHtml(el.value)}</div>`;
+    });
+   } else out+=p.outerHTML;
+  });
+  section.querySelectorAll(":scope > label").forEach(label=>{
+   const id=label.getAttribute("for"),el=id?$(id):null;if(!el)return;
+   out+=`<h3>${escapeHtml(label.textContent)}</h3><div class="print-value">${escapeHtml(el.value)}</div>`;
+  });
+ });
+ r.innerHTML=out
+}
+function download(name,text,type){const blob=new Blob([text],{type});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+async function identify(){const key=$("studentKey").value.trim(),section=$("section").value.trim(),name=$("studentName").value.trim();if(!key||!section||!name){alert("Completa Clave/Carné, Sección y Nombre.");return}activeIdentity={key,section,name};draftKey=makeDraftKey(key,section);const draft=await getDraft(draftKey);if(draft){pendingDraft=draft;$("draftInfo").textContent=`Se encontró un trabajo guardado para ${name}. Última actualización: ${new Date(draft.updatedAt).toLocaleString()}.`;$("draftDialog").classList.remove("hidden")}else startGuide()}
+function startGuide(draft=null){$("draftDialog").classList.add("hidden");$("identityScreen").classList.add("hidden");$("app").classList.remove("hidden");if(draft)fillData(draft.data);updateActivityStatus();setPanel("guidePanel")}
+function setup(){
+ document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>setPanel(b.dataset.panel)));
+ $("identifyBtn").addEventListener("click",()=>identify().catch(e=>alert("No fue posible abrir el borrador: "+e.message)));
+ $("continueDraftBtn").addEventListener("click",()=>startGuide(pendingDraft));
+ $("newDraftBtn").addEventListener("click",async()=>{if(pendingDraft)await deleteDraft(pendingDraft.id);pendingDraft=null;startGuide()});
+ $("cancelDraftBtn").addEventListener("click",()=>$("draftDialog").classList.add("hidden"));
+ document.querySelectorAll("[data-resource-url]").forEach(btn=>btn.addEventListener("click",()=>{window.open(btn.dataset.resourceUrl,"_blank","noopener,noreferrer");const cb=$(btn.dataset.resourceTarget);if(cb)cb.checked=true;updateReadingGate();scheduleSave()}));
+ document.querySelectorAll("#app input:not([type=file]),#app textarea,#app select").forEach(el=>{el.addEventListener("input",()=>{updateActivityStatus();scheduleSave()});el.addEventListener("change",()=>{updateActivityStatus();scheduleSave()})});
+ $("reviewBtn").addEventListener("click",reviewAll);
+ $("saveBtn").addEventListener("click",()=>saveNow());
+ $("exportBtn").addEventListener("click",async()=>{await saveNow();const d=await getDraft(draftKey);download(`${GUIDE_ID}__${normalize(activeIdentity.key)}.json`,JSON.stringify(d,null,2),"application/json")});
+ $("importFile").addEventListener("change",async()=>{const f=$("importFile").files[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(obj.guideId!==GUIDE_ID){alert("El respaldo pertenece a otra guía.");return}if(!confirm("¿Deseas importar este respaldo sobre el trabajo actual?"))return;obj.id=draftKey;obj.identity=activeIdentity;obj.updatedAt=new Date().toISOString();await putDraft(obj);fillData(obj.data);updateActivityStatus();alert("Respaldo importado correctamente.")}catch(e){alert("No fue posible importar el archivo: "+e.message)}});
+ $("printBtn").addEventListener("click",()=>{buildPrintReport();window.print()});
+ $("changeStudentBtn").addEventListener("click",()=>location.reload())
+}
+openDB().then(setup).catch(e=>alert("El navegador no pudo abrir el almacenamiento local de la guía: "+e.message));
+</script>
+</body>
+</html>
