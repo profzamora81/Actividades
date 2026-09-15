@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="lazaro-guide" content="03">
+<meta name="lazaro-unit" content="IV">
+<meta name="lazaro-course" content="laboratorio-i">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de Trabajo No. 3 — Integración de contenidos de las Guías No. 2 y No. 3 — Laboratorio I — IV Unidad 2026</title>
+<style>
+:root{--navy:#17233f;--navy2:#22365f;--blue:#315dd6;--blue2:#eaf0ff;--bg:#f4f6fa;--card:#fff;--text:#20283a;--muted:#64708a;--line:#d7deea;--ok:#087a4b;--okbg:#e8f7ef;--warn:#9a5a00;--warnbg:#fff6dc;--danger:#b42318;--shadow:0 8px 26px rgba(24,39,75,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.46}header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 18px}.head{max-width:1120px;margin:auto}.kicker{text-transform:uppercase;font-size:12px;letter-spacing:.08em;color:#c9d4ff;font-weight:700}.head h1{margin:5px 0 6px;font-size:28px;line-height:1.15}.head p{margin:3px 0;color:#e4e9f8}.statusbar{position:sticky;top:0;background:rgba(255,255,255,.98);border-bottom:1px solid var(--line);z-index:30}.statusin{max-width:1120px;margin:auto;padding:9px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.bar{height:9px;background:#e7ebf3;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--blue);transition:.25s}.statusline{display:flex;gap:10px;align-items:center;justify-content:flex-end;font-size:13px}.badge{padding:5px 9px;border-radius:999px;background:#edf0f5;font-weight:700;color:#58647a}.badge.ok{background:var(--okbg);color:var(--ok)}main{max-width:1120px;margin:18px auto 95px;padding:0 16px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;box-shadow:var(--shadow)}.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px 16px}.meta div{padding:8px 0;border-bottom:1px solid #edf0f5}.meta b{display:block;color:#526079;font-size:12px;text-transform:uppercase;letter-spacing:.03em}.notice{border-left:4px solid var(--blue);background:var(--blue2);padding:12px 14px;border-radius:8px;margin:14px 0}.warning{border-left:4px solid #d88a0b;background:var(--warnbg);padding:12px 14px;border-radius:8px;margin:14px 0}.reading{border:1px solid #c9d6ff;background:#f8faff;border-radius:12px;padding:15px;margin:10px 0}.reading h3{margin:0 0 5px}.reading .source{color:var(--muted);font-size:13px}.reading-status{font-size:13px;font-weight:700;margin-top:8px}.reading-status.ok{color:var(--ok)}button,.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;background:var(--blue);color:#fff}.btn.secondary,button.secondary{background:#eef2f8;color:#2b3a57;border:1px solid #ccd5e4}.btn.ok,button.ok{background:var(--ok)}button.danger{background:#fff;color:var(--danger);border:1px solid #e5b8b4}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.tabs button{background:#e9eef8;color:#2b3a57}.tabs button.active{background:var(--navy);color:#fff}.tab{display:none}.tab.active{display:block}.activity-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.points{font-weight:700;background:#eef2ff;color:#304bb3;border-radius:999px;padding:5px 9px;white-space:nowrap}.field{margin:13px 0}.field label{font-weight:700;display:block;margin-bottom:5px}.req{color:var(--danger)}textarea,input[type=text],select{width:100%;border:1px solid #bcc7d9;border-radius:8px;padding:10px 11px;font:inherit;background:#fff}textarea.code{font-family:Consolas,"Courier New",monospace;min-height:190px;tab-size:4}textarea:focus,input[type=text]:focus,select:focus{outline:3px solid rgba(49,93,214,.12);border-color:var(--blue)}.hint,.muted{font-size:12px;color:var(--muted)}.table-wrap{overflow-x:auto}.worktable,.rubric{width:100%;border-collapse:collapse;font-size:14px}.worktable th,.worktable td,.rubric th,.rubric td{border:1px solid #ccd5e4;padding:8px;vertical-align:top}.worktable th,.rubric th{background:#edf2f9;text-align:left}.worktable textarea{min-width:150px;border:0;padding:5px;background:#fbfcfe}.problem{background:#f7f8fb;border:1px solid #d7deea;border-radius:12px;padding:15px}.problem code,.code-chip{font-family:Consolas,"Courier New",monospace;background:#eef1f7;border-radius:5px;padding:1px 5px}.evidence-box{padding:12px;background:#fafbfe;border:1px dashed #b8c4d7;border-radius:10px}.preview img{max-width:100%;max-height:340px;border:1px solid var(--line);border-radius:8px;margin-top:8px}.checklist{margin:8px 0 8px 18px}.checklist li{margin:5px 0}.footer-actions{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);box-shadow:0 -5px 22px rgba(24,39,75,.08);z-index:40}.footer-inner{max-width:1120px;margin:auto;padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap}.identity{position:fixed;inset:0;background:rgba(14,22,39,.78);display:grid;place-items:center;z-index:100;padding:16px}.identity.hidden{display:none}.identity-card{background:#fff;width:min(660px,100%);padding:22px;border-radius:15px;box-shadow:0 25px 70px rgba(0,0,0,.3)}.identity-card h2{margin-top:0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gate-note{padding:14px;border:1px solid #f0c36b;background:#fff9e8;border-radius:10px}.complete-box{border:1px solid #b8dec9;background:#f3fbf6;border-radius:10px;padding:12px}.validator{border:1px solid #ccd5e4;background:#fafbfe;border-radius:10px;padding:12px;margin-top:10px}.validator ul{margin:8px 0 0 20px}.validator .yes{color:var(--ok)}.validator .no{color:var(--danger)}.small{font-size:13px}.status-msg{font-size:12px;color:var(--muted);margin-left:auto}#printArea{display:none}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}.head h1{font-size:22px}.statusin{grid-template-columns:1fr}.statusline{justify-content:flex-start}.activity-title{display:block}.points{display:inline-block;margin-bottom:5px}}
+@media print{body{background:#fff}.no-print,.statusbar,.footer-actions,.identity{display:none!important}main{display:none!important}#printArea{display:block!important;padding:0 10mm;color:#111}.print-head{border-bottom:2px solid #18233f;padding-bottom:10px;margin-bottom:12px}.print-head h1{font-size:18px;margin:0}.print-meta{font-size:11px;margin-top:6px}.print-section{break-inside:avoid;margin:12px 0}.print-section h2{font-size:14px;border-bottom:1px solid #aaa;padding-bottom:3px}.print-answer{white-space:pre-wrap;border:1px solid #ddd;padding:7px;margin:5px 0;font-size:11px}.print-img{max-width:100%;max-height:105mm;display:block;margin:6px 0}@page{size:A4;margin:12mm}}
+</style>
+</head>
+<body data-guide-id="lazaro-2026-4to-computacion-laboratorio-i-iv-guia-03-integrada">
+<div id="identityModal" class="identity">
+  <div class="identity-card">
+    <div class="kicker" style="color:#51658f">Instituto Industrial Central General Lázaro Chacón González</div>
+    <h2>Identificación del estudiante</h2>
+    <p>Escribe tus datos para abrir tu avance de esta guía.</p>
+    <div class="grid2">
+      <div class="field"><label for="idKey">Clave / Carné</label><input id="idKey" type="text"></div>
+      <div class="field"><label for="idSection">Sección</label><input id="idSection" type="text"></div>
+    </div>
+    <div class="field"><label for="idName">Nombre completo</label><input id="idName" type="text"></div>
+    <div class="actions"><button id="identifyBtn" type="button">Continuar</button></div>
+    <p id="identityMsg" class="small" aria-live="polite"></p>
+  </div>
+</div>
+<header>
+  <div class="head">
+    <div class="kicker">Ciclo lectivo 2026 · IV Unidad</div>
+    <h1>Guía de Trabajo No. 3 — Integración de contenidos de las Guías No. 2 y No. 3 — De los datos a una decisión en Python</h1>
+    <p>Cuarto Bachillerato en Ciencias y Letras con Orientación en Computación · Laboratorio I</p>
+    <p>Docente: Erick Enrique Zamora Paz · Valor: 20 puntos</p>
+  </div>
+</header>
+<div class="statusbar no-print">
+  <div class="statusin">
+    <div><div class="bar"><span id="progressFill"></span></div><div id="progressText" class="small">Avance: 0%</div></div>
+    <div class="statusline"><span id="badge" class="badge">PENDIENTE</span><span id="saveMsg">Sin cambios</span></div>
+  </div>
+</div>
+<main>
+  <div class="tabs no-print">
+    <button class="active" type="button" data-tab="guide">Guía</button>
+    <button type="button" data-tab="reading">Lectura previa</button>
+    <button type="button" data-tab="a1" data-activity-tab="1" disabled>Actividad 1</button>
+    <button type="button" data-tab="a2" data-activity-tab="1" disabled>Actividad 2</button>
+    <button type="button" data-tab="a3" data-activity-tab="1" disabled>Actividad 3</button>
+    <button type="button" data-tab="a4" data-activity-tab="1" disabled>Actividad 4</button>
+    <button type="button" data-tab="rubric">Criterios</button>
+    <button type="button" data-tab="backup">Entrega / Respaldo</button>
+  </div>
+
+  <section id="guide" class="tab active card">
+    <h2>Información de la guía</h2>
+    <div class="meta">
+      <div><b>Institución</b>Instituto Industrial Central General Lázaro Chacón González</div>
+      <div><b>Docente</b>Erick Enrique Zamora Paz</div>
+      <div><b>Curso</b>Laboratorio I</div>
+      <div><b>Orientación</b>Computación</div>
+      <div><b>Publicación</b>15/09/2026</div>
+      <div><b>Trabajo</b>Viernes 18/09/2026</div>
+      <div><b>Entrega</b>Viernes 18/09/2026</div>
+      <div><b>Ponderación</b>20 puntos</div>
+    </div>
+    <div class="notice"><b>Tema integrado:</b> variables, tipos de datos, <code>input()</code>, <code>print()</code>, conversiones, operadores aritméticos, relacionales y lógicos, e introducción a la decisión con <code>if</code>.</div>
+    <p><b>Continuidad:</b> en la Guía No. 1 analizaste un problema mediante entrada → proceso → salida, pseudocódigo y diagrama de flujo. En esta guía convertirás esa lógica en un programa de Python y luego agregarás una decisión sencilla.</p>
+    <p class="small"><b>Alineación:</b> integra los contenidos previstos para las Guías No. 2 y No. 3 de la IV Unidad. Sirve también como preparación práctica para el primer parcial.</p>
+    <div class="problem">
+      <h3>Problema de trabajo: compra de insumos del laboratorio</h3>
+      <p>Crearás un programa que pida el <b>nombre del insumo</b>, su <b>precio unitario</b> y la <b>cantidad</b>. El programa calculará el subtotal. Después iniciará el descuento en cero y aplicará un descuento del <b>10%</b> únicamente cuando se cumplan las dos condiciones: <b>subtotal mayor o igual a Q150</b> y <b>cantidad mayor o igual a 3</b>. Al final mostrará subtotal, descuento y total a pagar.</p>
+      <p class="small">La condición combina un operador relacional con el operador lógico <code>and</code>. No debes usar todavía <code>elif</code> ni <code>match/case</code>.</p>
+    </div>
+    <div class="warning"><b>Regla de evidencia:</b> escribe y prueba el programa tú mismo. No inventes resultados de ejecución. Las capturas son opcionales, pero los campos de código, pruebas y explicación sí forman parte de la entrega.</div>
+  </section>
+
+  <section id="reading" class="tab card">
+    <h2>Lectura previa</h2>
+    <p>Para habilitar las actividades debes consultar los dos recursos obligatorios. La guía registrará que el recurso fue abierto; ese registro significa <b>recurso consultado</b>, no que la lectura haya sido comprendida.</p>
+    <div class="reading">
+      <div class="kicker" style="color:#42557f">Recurso obligatorio 1</div>
+      <h3>Una introducción informal a Python</h3>
+      <div class="source">Documentación oficial de Python en español</div>
+      <p>Concéntrate en variables, números, texto, asignación y operadores aritméticos.</p>
+      <a id="read1Link" class="btn" href="https://docs.python.org/es/3/tutorial/introduction.html" target="_blank" rel="noopener noreferrer">Abrir recurso</a>
+      <div id="read1Status" class="reading-status">Pendiente de consultar</div>
+    </div>
+    <div class="reading">
+      <div class="kicker" style="color:#42557f">Recurso obligatorio 2</div>
+      <h3>Más herramientas para control de flujo</h3>
+      <div class="source">Documentación oficial de Python en español</div>
+      <p>Ubica la sección sobre la sentencia <code>if</code> y observa cómo una condición controla la ejecución de un bloque.</p>
+      <a id="read2Link" class="btn" href="https://docs.python.org/es/3/tutorial/controlflow.html" target="_blank" rel="noopener noreferrer">Abrir recurso</a>
+      <div id="read2Status" class="reading-status">Pendiente de consultar</div>
+    </div>
+    <div class="reading">
+      <div class="kicker" style="color:#42557f">Recurso complementario</div>
+      <h3>Entrada y salida</h3>
+      <div class="source">Documentación oficial de Python en español</div>
+      <p>Úsalo si necesitas repasar cómo presentar resultados con <code>print()</code>.</p>
+      <a class="btn secondary" href="https://docs.python.org/es/3/tutorial/inputoutput.html" target="_blank" rel="noopener noreferrer">Abrir recurso opcional</a>
+    </div>
+    <div id="gateState" class="gate-note">Consulta los dos recursos obligatorios para habilitar las actividades.</div>
+  </section>
+
+  <section id="a1" class="tab card">
+    <div class="activity-title"><div><h2>Actividad 1 — Del problema a las variables</h2><p><b>Aprendizaje:</b> relacionar entrada, proceso y salida con variables y tipos de datos.</p></div><span class="points">4 pts</span></div>
+    <div class="field"><label for="a1_vars">1. Escribe las variables que utilizarás, indicando para cada una qué dato guarda y qué tipo de dato corresponde. <span class="req">*</span></label><textarea id="a1_vars" data-save="1" data-label="Variables y tipos" rows="7" placeholder="Ejemplo de formato: nombre_variable — tipo — dato que guarda"></textarea></div>
+    <div class="field"><label for="a1_formula">2. Explica con tus palabras cómo se calcula el subtotal, el descuento y el total. <span class="req">*</span></label><textarea id="a1_formula" data-save="1" data-label="Cálculos del programa" rows="5"></textarea></div>
+    <div class="field"><label for="a1_pseudo">3. Escribe el pseudocódigo del programa, desde la entrada de datos hasta la salida final. <span class="req">*</span></label><textarea id="a1_pseudo" data-save="1" data-label="Pseudocódigo" rows="10"></textarea><div class="hint">Debe aparecer una decisión simple equivalente a: si se cumplen las dos condiciones, calcular el descuento.</div></div>
+  </section>
+
+  <section id="a2" class="tab card">
+    <div class="activity-title"><div><h2>Actividad 2 — Construir el programa secuencial</h2><p><b>Aprendizaje:</b> usar variables, entrada, conversión, operación y salida.</p></div><span class="points">5 pts</span></div>
+    <p>Primero escribe una versión que pida los datos, convierta los valores numéricos, calcule el subtotal y lo muestre. Todavía no agregues la condición del descuento.</p>
+    <div class="field"><label for="a2_code">Código de la etapa 1 <span class="req">*</span></label><textarea id="a2_code" class="code" data-save="1" data-label="Código etapa 1" spellcheck="false" placeholder="# Escribe aquí tu código de la etapa 1"></textarea></div>
+    <div class="field"><label for="a2_explain">Explica por qué el precio y la cantidad necesitan conversión después de usar input(). <span class="req">*</span></label><textarea id="a2_explain" data-save="1" data-label="Explicación de conversiones" rows="4"></textarea></div>
+    <div class="evidence-box">
+      <label for="imgA2"><b>Evidencia opcional:</b> captura del programa ejecutando la etapa 1.</label><input id="imgA2" data-image="1" type="file" accept="image/*">
+      <div id="previewA2" class="preview"></div>
+    </div>
+  </section>
+
+  <section id="a3" class="tab card">
+    <div class="activity-title"><div><h2>Actividad 3 — Agregar la decisión con if</h2><p><b>Aprendizaje:</b> combinar operadores aritméticos, relacionales y lógicos dentro de una decisión simple.</p></div><span class="points">6 pts</span></div>
+    <p>Modifica tu programa para iniciar el descuento en cero. Usa una condición <code>if</code> que aplique el 10% cuando el subtotal sea al menos Q150 <b>y</b> la cantidad sea al menos 3. Después calcula el total.</p>
+    <div class="field"><label for="a3_code">Código final del programa <span class="req">*</span></label><textarea id="a3_code" class="code" data-save="1" data-label="Código final con if" spellcheck="false" placeholder="# Pega o escribe aquí tu programa final"></textarea></div>
+    <div class="actions no-print"><button id="validateCode" type="button" class="secondary">Revisar estructura del código</button></div>
+    <div id="validatorBox" class="validator"><b>Comprobación de estructura:</b> todavía no se ha revisado el texto del código. Esta comprobación solo orienta; no asigna nota.</div>
+    <div class="field"><label for="a3_condition">Explica en una oración qué debe ser verdadero para que el programa aplique el descuento. <span class="req">*</span></label><textarea id="a3_condition" data-save="1" data-label="Explicación de la condición" rows="4"></textarea></div>
+    <div class="field"><label for="a3_ops">Identifica un operador aritmético, uno relacional y uno lógico que aparezcan en tu programa y explica para qué sirve cada uno. <span class="req">*</span></label><textarea id="a3_ops" data-save="1" data-label="Operadores usados" rows="5"></textarea></div>
+  </section>
+
+  <section id="a4" class="tab card">
+    <div class="activity-title"><div><h2>Actividad 4 — Probar, corregir y documentar</h2><p><b>Aprendizaje:</b> comprobar el comportamiento del programa con datos distintos y registrar una corrección real.</p></div><span class="points">5 pts</span></div>
+    <div class="table-wrap"><table class="worktable"><thead><tr><th>Prueba</th><th>Datos usados</th><th>Resultado esperado</th><th>Resultado obtenido</th></tr></thead><tbody>
+      <tr><td><b>Prueba A</b><br><span class="hint">Debe cumplir la condición del descuento.</span></td><td><textarea id="a4_testA_data" data-save="1" data-label="Prueba A - datos" rows="4"></textarea></td><td><textarea id="a4_testA_expected" data-save="1" data-label="Prueba A - esperado" rows="4"></textarea></td><td><textarea id="a4_testA_actual" data-save="1" data-label="Prueba A - obtenido" rows="4"></textarea></td></tr>
+      <tr><td><b>Prueba B</b><br><span class="hint">No debe cumplir la condición del descuento.</span></td><td><textarea id="a4_testB_data" data-save="1" data-label="Prueba B - datos" rows="4"></textarea></td><td><textarea id="a4_testB_expected" data-save="1" data-label="Prueba B - esperado" rows="4"></textarea></td><td><textarea id="a4_testB_actual" data-save="1" data-label="Prueba B - obtenido" rows="4"></textarea></td></tr>
+    </tbody></table></div>
+    <div class="field"><label for="a4_debug">Describe un error que encontraste al programar o, si no apareció un error, una comprobación que realizaste para asegurarte de que el programa funciona. <span class="req">*</span></label><textarea id="a4_debug" data-save="1" data-label="Depuración o comprobación" rows="5"></textarea></div>
+    <div class="field"><label for="a4_reflect">¿Qué cambia en un programa cuando deja de ser solo secuencial y comienza a tomar una decisión? <span class="req">*</span></label><textarea id="a4_reflect" data-save="1" data-label="Reflexión final" rows="4"></textarea></div>
+    <div class="evidence-box">
+      <label for="imgA4"><b>Evidencia opcional:</b> captura del programa final o de una de las pruebas.</label><input id="imgA4" data-image="1" type="file" accept="image/*">
+      <div id="previewA4" class="preview"></div>
+    </div>
+  </section>
+
+  <section id="rubric" class="tab card">
+    <h2>Criterios de evaluación — 20 puntos</h2>
+    <div class="table-wrap"><table class="rubric"><thead><tr><th>Criterio</th><th>Valor</th><th>Qué se revisará</th></tr></thead><tbody>
+      <tr><td>1. Planificación de variables y lógica</td><td>4 pts</td><td>Relaciona correctamente los datos con variables y tipos; explica los cálculos y presenta un pseudocódigo coherente con el problema.</td></tr>
+      <tr><td>2. Programa secuencial</td><td>5 pts</td><td>Usa <code>input()</code>, conversiones, variables, operación aritmética y <code>print()</code> de forma coherente.</td></tr>
+      <tr><td>3. Decisión simple con operadores</td><td>6 pts</td><td>Integra <code>if</code>, operadores relacionales y el operador lógico <code>and</code>; calcula el descuento y el total según la condición indicada.</td></tr>
+      <tr><td>4. Pruebas y depuración</td><td>5 pts</td><td>Registra dos pruebas con resultados verificables, compara esperado/obtenido y explica una corrección o comprobación real.</td></tr>
+    </tbody></table></div>
+    <div class="notice"><b>Total: 20 puntos.</b> La completitud de la guía no equivale a la calificación. La nota se asigna según la evidencia y los criterios anteriores.</div>
+  </section>
+
+  <section id="backup" class="tab card">
+    <h2>Entrega y respaldo</h2>
+    <p>La guía guarda el avance en este navegador. Descarga un respaldo JSON si vas a continuar en otra computadora o si deseas conservar una copia adicional.</p>
+    <div id="completeBox" class="gate-note">La guía todavía está PENDIENTE.</div>
+    <div class="actions no-print" style="margin-top:14px">
+      <button id="saveBtn" type="button">Guardar ahora</button>
+      <button id="exportJson" type="button" class="secondary">Descargar respaldo JSON</button>
+      <button id="importJsonBtn" type="button" class="secondary">Cargar respaldo JSON</button>
+      <input id="importJson" type="file" accept="application/json,.json" hidden>
+      <button id="printBtn" type="button" class="ok">Generar / imprimir PDF</button>
+      <button id="clearBtn" type="button" class="danger">Borrar borrador</button>
+    </div>
+    <p class="small">Entrega recomendada en Classroom: PDF de la guía y respaldo JSON. El JSON conserva las respuestas y puede facilitar la revisión técnica.</p>
+  </section>
+</main>
+<div class="footer-actions no-print"><div class="footer-inner"><button id="footerSave" type="button">Guardar</button><button id="changeStudent" type="button" class="secondary">Cambiar estudiante</button><span id="footerStatus" class="status-msg">Avance guardado localmente cuando realizas cambios.</span></div></div>
+<div id="printArea"></div>
+<script>
+(()=>{
+'use strict';
+const GUIDE={
+ id:'lazaro-2026-4to-computacion-laboratorio-i-iv-guia-03-integrada',
+ title:'Guía de Trabajo No. 3 — Integración de contenidos de las Guías No. 2 y No. 3 — De los datos a una decisión en Python',
+ course:'Laboratorio I',orientation:'Computación',delivery:'18/09/2026',value:'20 puntos',unit:'IV Unidad'
+};
+const DB_NAME='Guia_Lazaro_LabI_02_03_2026',STORE='guias',KEY='state';
+let identity={key:'',section:'',name:''};
+let state={version:1,updatedAt:null,reading:{r1:null,r2:null},values:{},images:{}};
+let storageKey='';let saveTimer=null;
+const $=id=>document.getElementById(id);const $$=s=>Array.from(document.querySelectorAll(s));
+const requiredIds=['a1_vars','a1_formula','a1_pseudo','a2_code','a2_explain','a3_code','a3_condition','a3_ops','a4_testA_data','a4_testA_expected','a4_testA_actual','a4_testB_data','a4_testB_expected','a4_testB_actual','a4_debug','a4_reflect'];
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function safeName(){return (identity.name||identity.key||'estudiante').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'_').replace(/^_+|_+$/g,'')||'estudiante'}
+function keyFor(k,s){return GUIDE.id+'__'+String(k).trim().toLowerCase()+'__'+String(s).trim().toLowerCase()}
+function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB_NAME,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE)};r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function dbGet(k){try{const db=await openDB();return await new Promise((res,rej)=>{const tx=db.transaction(STORE,'readonly'),rq=tx.objectStore(STORE).get(k);rq.onsuccess=()=>res(rq.result||null);rq.onerror=()=>rej(rq.error)})}catch(e){try{const raw=localStorage.getItem(k);return raw?JSON.parse(raw):null}catch(_){return null}}}
+async function dbSet(k,v){v.updatedAt=new Date().toISOString();let ok=false;try{const db=await openDB();await new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(v,k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});ok=true}catch(e){}try{localStorage.setItem(k,JSON.stringify({...v,images:{}}));ok=true}catch(e){}return ok}
+async function dbDelete(k){try{const db=await openDB();await new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).delete(k);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}catch(e){}try{localStorage.removeItem(k)}catch(e){}}
+function capture(){$$('[data-save="1"]').forEach(el=>state.values[el.id]=el.value);return state}
+function apply(){Object.entries(state.values||{}).forEach(([id,v])=>{const el=$(id);if(el)el.value=v??''});renderImage('imgA2','previewA2');renderImage('imgA4','previewA4');updateReading();updateProgress()}
+async function save(show=true){if(!storageKey)return;capture();const ok=await dbSet(storageKey,{guideId:GUIDE.id,identity,state});if(show){$('saveMsg').textContent=ok?'Guardado':'No se pudo guardar';$('footerStatus').textContent=ok?'Avance guardado.':'No se pudo guardar; descarga el JSON.'}updateProgress()}
+function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>save(false),350);$('saveMsg').textContent='Guardando…'}
+function isFilled(id){return String($(id)?.value||'').trim().length>0}
+function gateOpen(){return !!(state.reading.r1&&state.reading.r2)}
+function updateReading(){const s1=$('read1Status'),s2=$('read2Status');s1.textContent=state.reading.r1?'Recurso consultado':'Pendiente de consultar';s2.textContent=state.reading.r2?'Recurso consultado':'Pendiente de consultar';s1.className='reading-status'+(state.reading.r1?' ok':'');s2.className='reading-status'+(state.reading.r2?' ok':'');const open=gateOpen();$$('[data-activity-tab="1"]').forEach(b=>b.disabled=!open);$('gateState').className=open?'complete-box':'gate-note';$('gateState').innerHTML=open?'<b>Recursos consultados.</b> Las actividades están habilitadas.':'Consulta los dos recursos obligatorios para habilitar las actividades.'}
+function updateProgress(){const answered=requiredIds.filter(isFilled).length;const readingDone=(state.reading.r1?1:0)+(state.reading.r2?1:0);const total=requiredIds.length+2,done=answered+readingDone,pct=Math.round(done/total*100),complete=done===total;$('progressFill').style.width=pct+'%';$('progressText').textContent='Avance: '+pct+'% · '+done+' de '+total+' requisitos';$('badge').textContent=complete?'COMPLETO':'PENDIENTE';$('badge').className='badge'+(complete?' ok':'');$('completeBox').className=complete?'complete-box':'gate-note';$('completeBox').innerHTML=complete?'<b>COMPLETO.</b> Ya puedes generar el PDF y descargar el respaldo JSON.':'<b>PENDIENTE.</b> Faltan '+(total-done)+' requisitos por completar.'}
+function setTab(id){if(/^a[1-4]$/.test(id)&&!gateOpen())id='reading';$$('.tab').forEach(x=>x.classList.toggle('active',x.id===id));$$('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));window.scrollTo({top:0,behavior:'smooth'})}
+function download(name,text,type){const bl=new Blob([text],{type}),u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1200)}
+async function exportJSON(){await save(false);download('laboratorio-i-guia-03-integrada-iv-unidad-2026__'+safeName()+'.json',JSON.stringify({guideId:GUIDE.id,guide:GUIDE,exportedAt:new Date().toISOString(),identity,state},null,2),'application/json')}
+async function importJSON(file){try{const obj=JSON.parse(await file.text());if(obj.guideId!==GUIDE.id)throw new Error('El respaldo pertenece a otra guía.');identity=obj.identity||identity;state=obj.state||state;storageKey=keyFor(identity.key,identity.section);$('idKey').value=identity.key||'';$('idSection').value=identity.section||'';$('idName').value=identity.name||'';await dbSet(storageKey,{guideId:GUIDE.id,identity,state});$('identityModal').classList.add('hidden');apply();setTab('guide');alert('Respaldo cargado correctamente.')}catch(e){alert(e.message||'No se pudo cargar el respaldo.')}}
+function compressImage(file){return new Promise((res,rej)=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{let w=img.width,h=img.height,max=1400;if(w>max||h>max){const r=Math.min(max/w,max/h);w=Math.round(w*r);h=Math.round(h*r)}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',.78))};img.onerror=rej;img.src=reader.result};reader.onerror=rej;reader.readAsDataURL(file)})}
+function renderImage(inputId,previewId){const p=$(previewId),data=state.images[inputId];p.innerHTML=data?'<img src="'+data+'" alt="Evidencia cargada">':''}
+function validateCode(){const code=$('a3_code').value;const checks=[['Usa input()',/\binput\s*\(/.test(code)],['Convierte al menos un dato numérico',/\b(?:int|float)\s*\(/.test(code)],['Usa una operación aritmética',/[+\-*\/]/.test(code)],['Incluye una sentencia if',/^\s*if\s+.+:/m.test(code)],['Incluye una comparación relacional',/(>=|<=|==|!=|>|<)/.test(code)],['Usa el operador lógico and',/\band\b/.test(code)],['Muestra resultados con print()',/\bprint\s*\(/.test(code)]];let html='<b>Comprobación de estructura:</b><ul>';checks.forEach(([t,ok])=>html+='<li class="'+(ok?'yes':'no')+'">'+(ok?'✓ ':'✗ ')+esc(t)+'</li>');html+='</ul><div class="hint">Esta revisión busca elementos del texto. No ejecuta Python ni sustituye la revisión del docente.</div>';$('validatorBox').innerHTML=html}
+function fieldReport(){let html='';requiredIds.forEach(id=>{const el=$(id),label=el.dataset.label||id;html+='<div><b>'+esc(label)+'</b><div class="print-answer">'+esc(el.value||'')+'</div></div>'});return html}
+function imageReport(){let html='';[['imgA2','Evidencia opcional - etapa 1'],['imgA4','Evidencia opcional - programa final/pruebas']].forEach(([id,title])=>{if(state.images[id])html+='<div><b>'+esc(title)+'</b><img class="print-img" src="'+state.images[id]+'"></div>'});return html}
+function makePrint(){capture();const complete=requiredIds.every(isFilled)&&gateOpen();$('printArea').innerHTML='<div class="print-head"><h1>'+esc(GUIDE.title)+'</h1><div class="print-meta"><b>Institución:</b> Instituto Industrial Central General Lázaro Chacón González · <b>Docente:</b> Erick Enrique Zamora Paz<br><b>Estudiante:</b> '+esc(identity.name)+' · <b>Clave/Carné:</b> '+esc(identity.key)+' · <b>Sección:</b> '+esc(identity.section)+'<br><b>Curso:</b> Laboratorio I · <b>Unidad:</b> IV Unidad · <b>Entrega:</b> 18/09/2026 · <b>Valor:</b> 20 puntos</div></div><div class="print-section"><h2>Registro de lectura previa</h2><div class="print-answer">Recurso 1 consultado: '+(state.reading.r1?new Date(state.reading.r1).toLocaleString():'No registrado')+'\nRecurso 2 consultado: '+(state.reading.r2?new Date(state.reading.r2).toLocaleString():'No registrado')+'</div></div><div class="print-section"><h2>Trabajo registrado por el estudiante</h2>'+fieldReport()+'</div>'+(imageReport()?'<div class="print-section"><h2>Evidencias</h2>'+imageReport()+'</div>':'')+'<div class="print-section"><h2>Estado de completitud</h2><div class="print-answer"><b>'+(complete?'COMPLETO':'PENDIENTE')+'</b>\nLa completitud no constituye una calificación automática.</div></div>';document.title='Guia_Integrada_02-03_Laboratorio_I_'+safeName();setTimeout(()=>window.print(),150)}
+$$('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(!b.disabled)setTab(b.dataset.tab)}));
+$$('[data-save="1"]').forEach(el=>{el.addEventListener('input',()=>{state.values[el.id]=el.value;updateProgress();scheduleSave()});el.addEventListener('change',()=>{state.values[el.id]=el.value;updateProgress();scheduleSave()})});
+$('read1Link').addEventListener('click',()=>{state.reading.r1=state.reading.r1||new Date().toISOString();updateReading();updateProgress();scheduleSave()});
+$('read2Link').addEventListener('click',()=>{state.reading.r2=state.reading.r2||new Date().toISOString();updateReading();updateProgress();scheduleSave()});
+$('identifyBtn').addEventListener('click',async()=>{const k=$('idKey').value.trim(),s=$('idSection').value.trim(),n=$('idName').value.trim();if(!k||!s||!n){$('identityMsg').textContent='Completa Clave/Carné, Sección y Nombre.';return}identity={key:k,section:s,name:n};storageKey=keyFor(k,s);const saved=await dbGet(storageKey);if(saved&&saved.guideId===GUIDE.id){if(confirm('Se encontró un borrador guardado para esta identificación. ¿Deseas continuarlo?')){identity=saved.identity||identity;state=saved.state||state}else{state={version:1,updatedAt:null,reading:{r1:null,r2:null},values:{},images:{}};await dbSet(storageKey,{guideId:GUIDE.id,identity,state})}}else{await dbSet(storageKey,{guideId:GUIDE.id,identity,state})}$('identityModal').classList.add('hidden');apply();setTab('guide')});
+$('changeStudent').addEventListener('click',()=>{$('identityModal').classList.remove('hidden')});
+$('saveBtn').addEventListener('click',()=>save(true));$('footerSave').addEventListener('click',()=>save(true));$('exportJson').addEventListener('click',exportJSON);$('importJsonBtn').addEventListener('click',()=>$('importJson').click());$('importJson').addEventListener('change',async()=>{if($('importJson').files[0])await importJSON($('importJson').files[0]);$('importJson').value=''});$('printBtn').addEventListener('click',()=>{if(!(requiredIds.every(isFilled)&&gateOpen())&&!confirm('La guía todavía está incompleta. ¿Deseas generar el PDF de todos modos?'))return;makePrint()});$('validateCode').addEventListener('click',validateCode);$('clearBtn').addEventListener('click',async()=>{if(confirm('¿Borrar todo el avance guardado de esta guía para este estudiante?')){await dbDelete(storageKey);state={version:1,updatedAt:null,reading:{r1:null,r2:null},values:{},images:{}};apply();alert('Borrador eliminado.')}});
+$$('[data-image="1"]').forEach(inp=>inp.addEventListener('change',async()=>{if(!inp.files[0])return;try{state.images[inp.id]=await compressImage(inp.files[0]);renderImage(inp.id,inp.id==='imgA2'?'previewA2':'previewA4');await save(false)}catch(e){alert('No se pudo procesar la imagen.')}inp.value=''}));
+updateReading();updateProgress();
+})();
+</script>
+</body>
+</html>
+
