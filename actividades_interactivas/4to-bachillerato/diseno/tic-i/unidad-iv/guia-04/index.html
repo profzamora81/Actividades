@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía No. 4 — TIC I — Mi tablet como herramienta académica</title>
+  <style>
+    :root{
+      --bg:#f4f7fb; --card:#ffffff; --text:#1f2937; --muted:#64748b;
+      --primary:#244c8f; --primary2:#3b82f6; --ok:#15803d; --warn:#b45309;
+      --border:#dbe3ee; --soft:#eef4ff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+    .wrap{max-width:980px;margin:auto;padding:20px}
+    .hero{background:linear-gradient(135deg,#244c8f,#3b82f6);color:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .hero h1{margin:0 0 8px;font-size:clamp(1.5rem,4vw,2.25rem)}
+    .hero p{margin:4px 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .meta{background:rgba(255,255,255,.12);padding:10px 12px;border-radius:12px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-top:18px;box-shadow:0 4px 14px rgba(15,23,42,.06)}
+    h2{margin-top:0;color:var(--primary)}
+    h3{color:#334155}
+    .note{background:#fff7ed;border-left:5px solid #f59e0b;padding:14px;border-radius:10px}
+    .academic{background:#eff6ff;border-left:5px solid var(--primary2);padding:14px;border-radius:10px}
+    .success{background:#ecfdf5;border-left:5px solid #22c55e;padding:14px;border-radius:10px}
+    label{font-weight:700;display:block;margin-top:14px}
+    input[type=text], textarea, select{
+      width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font-size:1rem;background:#fff
+    }
+    textarea{min-height:95px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:700px){.row{grid-template-columns:1fr}}
+    .apps{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .appbox{border:1px dashed #94a3b8;border-radius:12px;padding:14px}
+    .checkline{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+    .checkline input{margin-top:4px;transform:scale(1.15)}
+    .progressWrap{margin-top:12px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+    .progress{height:14px;background:#22c55e;width:0%;transition:.25s}
+    .status{font-weight:700;margin-top:8px}
+    .rubric{width:100%;border-collapse:collapse}
+    .rubric th,.rubric td{border:1px solid var(--border);padding:10px;text-align:left}
+    .rubric th{background:#eff6ff}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    button{border:0;border-radius:10px;padding:11px 16px;font-size:1rem;cursor:pointer;font-weight:700}
+    .primary{background:var(--primary);color:white}
+    .secondary{background:#e2e8f0;color:#0f172a}
+    .danger{background:#fee2e2;color:#991b1b}
+    .small{font-size:.92rem;color:var(--muted)}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#e2e8f0;font-size:.88rem;font-weight:700}
+    .footer{padding:20px 0 40px;text-align:center;color:var(--muted);font-size:.9rem}
+    .hidden{display:none}
+    @media print{
+      body{background:#fff}
+      .wrap{max-width:none;padding:0}
+      .hero,.card{box-shadow:none;break-inside:avoid}
+      .actions,.danger,#capturaInput,.small{display:none !important}
+      textarea,input[type=text]{border:1px solid #999;background:#fff}
+      #capturaPreviewWrap{display:block !important}
+      #capturaPreview{max-height:720px;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <h1>Guía No. 4 — Mi tablet como herramienta académica</h1>
+    <p><strong>Curso:</strong> Tecnologías de la Información y la Comunicación I — TIC I</p>
+    <p><strong>Grado:</strong> 4.º Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</p>
+    <div class="grid">
+      <div class="meta"><strong>Unidad:</strong><br>IV Unidad</div>
+      <div class="meta"><strong>Valor:</strong><br>10 puntos</div>
+      <div class="meta"><strong>Entrega:</strong><br>02 de octubre de 2026</div>
+      <div class="meta"><strong>Producto:</strong><br>Recurso digital accesible</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>1. Identificación del estudiante</h2>
+    <div class="row">
+      <div>
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" type="text" placeholder="Escribe tu nombre y apellido">
+      </div>
+      <div>
+        <label for="clave">Clave / carné</label>
+        <input id="clave" type="text" placeholder="Escribe tu clave o carné">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="seccion">Sección</label>
+        <input id="seccion" type="text" placeholder="Ejemplo: A">
+      </div>
+      <div>
+        <label for="fecha">Fecha de trabajo</label>
+        <input id="fecha" type="text" placeholder="dd/mm/aaaa">
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. Lectura y reflexión</h2>
+    <div class="academic">
+      <strong>Tu tablet Zeno10 es una herramienta académica.</strong><br>
+      Puedes utilizarla para investigar, leer, diseñar, tomar apuntes, trabajar en Classroom, crear presentaciones y organizar tus tareas.
+      Durante las clases, evita utilizarla para juegos u otras actividades que no estén relacionadas con el trabajo indicado por tu docente.
+      <br><br>
+      <strong>Usa las aplicaciones instaladas cuando estén disponibles.</strong>
+      Por ejemplo, si tienes <strong>Canva</strong> instalada en la tablet, puedes trabajar directamente desde la aplicación en lugar de abrir siempre la versión web.
+      Esto te permite acostumbrarte a utilizar la tablet como una herramienta de trabajo y mantener tus recursos académicos mejor organizados.
+    </div>
+
+    <p>Lee la siguiente idea:</p>
+    <blockquote>
+      <strong>“Haz de tu tablet tu mejor aliada para construir tus metas.”</strong>
+    </blockquote>
+
+    <p>Antes de abrir una aplicación durante la clase, pregúntate:</p>
+    <div class="note">
+      <strong>¿Lo que voy a hacer en la tablet me ayuda con la actividad que estoy realizando?</strong>
+    </div>
+
+    <label for="reflexion1">¿Qué aplicación de tu tablet utilizas más para estudiar y para qué te sirve?</label>
+    <textarea id="reflexion1"></textarea>
+
+    <label for="reflexion2">¿Qué puedes hacer para evitar que juegos, videos o redes sociales te distraigan cuando realizas una tarea?</label>
+    <textarea id="reflexion2"></textarea>
+
+    <label for="reflexion3">¿Qué herramienta nueva te gustaría aprender a utilizar en tu tablet durante este ciclo escolar?</label>
+    <textarea id="reflexion3"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>3. Organiza tu Zeno10 para estudiar</h2>
+    <p>La Zeno10 puede mostrar un espacio <strong>Personal</strong> y un espacio de <strong>Trabajo</strong>. Aprende a reconocerlos y utiliza cada uno según corresponda.</p>
+
+    <div class="row">
+      <div class="appbox">
+        <h3>Espacio de Trabajo</h3>
+        <p>Procura mantener aquí las aplicaciones y recursos que utilizas para estudiar, siempre que estén disponibles en este perfil.</p>
+        <p>Ejemplos: Classroom, Drive, Documentos, Presentaciones, Canva y otras aplicaciones autorizadas para tus actividades académicas.</p>
+      </div>
+      <div class="appbox">
+        <h3>Espacio Personal</h3>
+        <p>Puede contener aplicaciones de uso personal. Durante el horario de clase, evita abrir juegos, redes sociales u otras aplicaciones que te distraigan del trabajo.</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:14px">
+      <strong>Crea carpetas para organizar tus aplicaciones educativas.</strong><br>
+      Puedes agruparlas por función, por ejemplo: <em>Clases</em>, <em>Diseño</em>, <em>Google</em>, <em>Investigación</em> o <em>Herramientas</em>.
+      La idea es que encuentres rápidamente lo que necesitas para trabajar.
+    </div>
+
+    <label for="carpeta">Escribe el nombre de una carpeta académica que podrías crear en tu tablet</label>
+    <input id="carpeta" type="text" placeholder="Ejemplo: Diseño y TIC">
+
+    <label for="appsCarpeta">¿Qué aplicaciones educativas colocarías dentro?</label>
+    <textarea id="appsCarpeta" placeholder="Escribe dos o más aplicaciones"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>4. Clasifica tus aplicaciones</h2>
+    <p>Escribe algunos ejemplos de aplicaciones que tengas o conozcas. No necesitas desinstalar nada. La intención es reconocer para qué sirve cada aplicación.</p>
+    <div class="apps">
+      <div class="appbox">
+        <h3>Aplicaciones académicas</h3>
+        <input id="acad1" type="text" placeholder="Ejemplo: Classroom">
+        <input id="acad2" type="text" placeholder="Ejemplo: Canva" style="margin-top:8px">
+        <input id="acad3" type="text" placeholder="Otro ejemplo" style="margin-top:8px">
+      </div>
+      <div class="appbox">
+        <h3>Entretenimiento</h3>
+        <input id="ent1" type="text" placeholder="Ejemplo: juego">
+        <input id="ent2" type="text" placeholder="Ejemplo: red social" style="margin-top:8px">
+        <input id="ent3" type="text" placeholder="Otro ejemplo" style="margin-top:8px">
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>5. Actividad principal: recurso digital accesible</h2>
+    <p>Utiliza tu tablet Zeno10 para crear <strong>una sola página o diapositiva</strong>. Si tienes la aplicación <strong>Canva</strong> instalada, puedes realizar el trabajo directamente desde la app en lugar de utilizar la versión web. También puedes usar otra aplicación educativa disponible en tu perfil de Trabajo.</p>
+    <p>El recurso debe llevar el título:</p>
+    <div class="success"><strong>MI TABLET, MI HERRAMIENTA DE APRENDIZAJE</strong></div>
+
+    <p>Tu recurso debe incluir:</p>
+    <div class="checkline"><input class="req" type="checkbox" id="r1"><label for="r1">Tres usos académicos que puedes darle a tu tablet.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r2"><label for="r2">Dos aplicaciones o herramientas que te ayuden en tus estudios.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r3"><label for="r3">Una acción concreta para evitar distracciones mientras estudias.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r4"><label for="r4">Un mensaje dirigido a otros estudiantes sobre el uso responsable de la tablet.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r5"><label for="r5">Al menos un elemento visual relacionado con tecnología o educación.</label></div>
+
+    <h3>Accesibilidad del diseño</h3>
+    <div class="checkline"><input class="req" type="checkbox" id="r6"><label for="r6">El texto se puede leer con facilidad.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r7"><label for="r7">Existe buen contraste entre texto y fondo.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r8"><label for="r8">La información está ordenada y no hay elementos innecesarios.</label></div>
+  </section>
+
+  
+<section class="card">
+  <h2>6. Evidencias: capturas de pantalla</h2>
+  <p>Al terminar tu diseño, guarda el archivo en tu tablet y toma una captura de pantalla del trabajo terminado.</p>
+
+  <div class="note">
+    <strong>Importante:</strong><br>
+    La captura debe cargarse dentro de esta guía. No basta con indicar que ya fue realizada.
+    La imagen quedará guardada junto con tu avance y se incluirá tanto en el respaldo JSON como en el PDF que generes desde esta página.
+  </div>
+
+  <label for="capturaInput">Captura No. 2 — Recurso digital: Mi tablet, mi herramienta de aprendizaje</label>
+  <input id="capturaInput" type="file" accept="image/*">
+
+  <div id="capturaPreviewWrap" style="margin-top:14px;display:none">
+    <p><span class="pill">Captura cargada</span></p>
+    <img id="capturaPreview" alt="Vista previa de la Captura No. 2"
+         style="max-width:100%;border:1px solid #cbd5e1;border-radius:12px;display:block">
+    <button type="button" class="danger" style="margin-top:10px" onclick="eliminarCaptura()">Eliminar captura</button>
+  </div>
+
+  <label for="archivo">Nombre del archivo o aplicación utilizada</label>
+  <input id="archivo" type="text" placeholder="Ejemplo: Canva — mi_tablet_aprendizaje.png">
+
+  <div class="academic" style="margin-top:14px">
+    <strong>Antes de finalizar:</strong><br>
+    Verifica que la captura se vea completa, que no muestre contraseñas ni información privada y que corresponda al trabajo solicitado.
+  </div>
+</section>
+
+
+  <section class="card">
+    <h2>7. Rúbrica — 10 puntos</h2>
+    <table class="rubric">
+      <thead>
+        <tr><th>Criterio</th><th>Punteo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tres usos académicos y dos herramientas solicitadas</td><td>2 pts</td></tr>
+        <tr><td>Acción para evitar distracciones y mensaje de uso responsable</td><td>2 pts</td></tr>
+        <tr><td>Organización, legibilidad y contraste</td><td>2 pts</td></tr>
+        <tr><td>Uso adecuado de elementos visuales</td><td>2 pts</td></tr>
+        <tr><td>Captura completa y respuestas de reflexión</td><td>2 pts</td></tr>
+        <tr><th>Total</th><th>10 pts</th></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>8. Estado de avance</h2>
+    <div class="progressWrap"><div id="progress" class="progress"></div></div>
+    <div id="status" class="status">PENDIENTE — 0%</div>
+    <p class="small">El avance y la captura se guardan automáticamente en este navegador. El respaldo JSON incluye la captura. Al usar “Imprimir / Guardar PDF”, la imagen cargada también aparecerá dentro del documento.</p>
+
+    <div class="actions">
+      <button class="primary" onclick="guardar()">Guardar avance</button>
+      <button class="secondary" onclick="descargarJSON()">Descargar respaldo JSON</button>
+      <button class="secondary" onclick="imprimirPDF()">Imprimir / Guardar PDF</button>
+      <button class="secondary" onclick="document.getElementById('jsonFile').click()">Cargar respaldo JSON</button>
+      <button class="danger" onclick="reiniciar()">Reiniciar guía</button>
+      <input id="jsonFile" type="file" accept=".json,application/json" class="hidden">
+    </div>
+    <div id="savedMsg" class="small" style="margin-top:10px"></div>
+  </section>
+
+  <div class="footer">
+    Instituto Industrial Central General Lázaro Chacón González · TIC I · IV Unidad · 2026
+  </div>
+</div>
+
+<script>
+const ids = [
+  "nombre","clave","seccion","fecha",
+  "reflexion1","reflexion2","reflexion3",
+  "carpeta","appsCarpeta",
+  "acad1","acad2","acad3","ent1","ent2","ent3",
+  "archivo"
+];
+const checks = ["r1","r2","r3","r4","r5","r6","r7","r8"];
+const STORAGE_KEY = "tic1_4to_diseno_guia4_z10_2026";
+let capturaDataURL = "";
+
+function obtenerDatos(){
+  const data = {};
+  ids.forEach(id => data[id] = document.getElementById(id).value);
+  checks.forEach(id => data[id] = document.getElementById(id).checked);
+  data.capturaDataURL = capturaDataURL;
+  data.meta = {
+    guia: 4,
+    curso: "TIC I",
+    grado: "4.º Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico",
+    unidad: "IV",
+    valor: 10,
+    entrega: "02/10/2026",
+    actualizado: new Date().toISOString()
+  };
+  return data;
+}
+
+function aplicarDatos(data){
+  ids.forEach(id => {
+    if(data[id] !== undefined) document.getElementById(id).value = data[id];
+  });
+  checks.forEach(id => {
+    if(data[id] !== undefined) document.getElementById(id).checked = !!data[id];
+  });
+  capturaDataURL = data.capturaDataURL || "";
+  mostrarCaptura();
+  actualizarProgreso();
+}
+
+function guardar(silencioso=false){
+  const data = obtenerDatos();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  if(!silencioso){
+    document.getElementById("savedMsg").textContent =
+      "Avance guardado: " + new Date().toLocaleString("es-GT");
+  }
+}
+
+function cargar(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try{ aplicarDatos(JSON.parse(raw)); }catch(e){}
+  }
+}
+
+function descargarJSON(){
+  const data = obtenerDatos();
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+  const a = document.createElement("a");
+  const estudiante = (data.nombre || "estudiante").trim().replace(/\s+/g,"_");
+  a.href = URL.createObjectURL(blob);
+  a.download = `guia4_tic1_${estudiante}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+document.getElementById("jsonFile").addEventListener("change", function(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try{
+      const data = JSON.parse(e.target.result);
+      aplicarDatos(data);
+      guardar(true);
+      alert("Respaldo cargado correctamente.");
+    }catch(err){
+      alert("No se pudo leer el archivo JSON.");
+    }
+  };
+  reader.readAsText(file);
+});
+
+function reiniciar(){
+  if(confirm("¿Deseas borrar todo el avance guardado de esta guía?")){
+    localStorage.removeItem(STORAGE_KEY);
+    ids.forEach(id => document.getElementById(id).value = "");
+    checks.forEach(id => document.getElementById(id).checked = false);
+    capturaDataURL = "";
+    document.getElementById("capturaInput").value = "";
+    mostrarCaptura();
+    actualizarProgreso();
+    document.getElementById("savedMsg").textContent = "Guía reiniciada.";
+  }
+}
+
+function actualizarProgreso(){
+  let total = 0, complete = 0;
+
+  // identificación: 3 campos principales
+  ["nombre","clave","seccion"].forEach(id=>{
+    total++;
+    if(document.getElementById(id).value.trim()) complete++;
+  });
+
+  // reflexiones
+  ["reflexion1","reflexion2","reflexion3"].forEach(id=>{
+    total++;
+    if(document.getElementById(id).value.trim().length >= 12) complete++;
+  });
+
+  // organización académica de la tablet
+  ["carpeta","appsCarpeta"].forEach(id=>{
+    total++;
+    if(document.getElementById(id).value.trim()) complete++;
+  });
+
+  // clasificación: al menos dos académicas y dos de entretenimiento
+  total += 2;
+  if(["acad1","acad2","acad3"].filter(id=>document.getElementById(id).value.trim()).length >= 2) complete++;
+  if(["ent1","ent2","ent3"].filter(id=>document.getElementById(id).value.trim()).length >= 2) complete++;
+
+  // checklist
+  checks.forEach(id=>{
+    total++;
+    if(document.getElementById(id).checked) complete++;
+  });
+
+  // captura cargada
+  total++;
+  if(capturaDataURL) complete++;
+
+  // nombre archivo/aplicación
+  total++;
+  if(document.getElementById("archivo").value.trim()) complete++;
+
+  const pct = Math.round((complete/total)*100);
+  document.getElementById("progress").style.width = pct + "%";
+  document.getElementById("status").textContent =
+    (pct === 100 ? "COMPLETO" : "PENDIENTE") + " — " + pct + "%";
+}
+
+
+document.getElementById("capturaInput").addEventListener("change", function(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")){
+    alert("Selecciona un archivo de imagen.");
+    ev.target.value = "";
+    return;
+  }
+
+  const maxBytes = 4 * 1024 * 1024;
+  if(file.size > maxBytes){
+    alert("La imagen es demasiado grande. Usa una captura menor de 4 MB.");
+    ev.target.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      // Reducimos dimensiones para que JSON/localStorage no crezcan demasiado.
+      const maxSide = 1600;
+      let w = img.width, h = img.height;
+      const scale = Math.min(1, maxSide / Math.max(w,h));
+      w = Math.round(w * scale);
+      h = Math.round(h * scale);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, w, h);
+      capturaDataURL = canvas.toDataURL("image/jpeg", 0.82);
+      mostrarCaptura();
+      actualizarProgreso();
+      guardar(true);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function mostrarCaptura(){
+  const wrap = document.getElementById("capturaPreviewWrap");
+  const img = document.getElementById("capturaPreview");
+  if(capturaDataURL){
+    img.src = capturaDataURL;
+    wrap.style.display = "block";
+  }else{
+    img.removeAttribute("src");
+    wrap.style.display = "none";
+  }
+}
+
+function eliminarCaptura(){
+  if(confirm("¿Deseas eliminar la captura cargada?")){
+    capturaDataURL = "";
+    document.getElementById("capturaInput").value = "";
+    mostrarCaptura();
+    actualizarProgreso();
+    guardar(true);
+  }
+}
+
+function imprimirPDF(){
+  guardar(true);
+  if(!capturaDataURL){
+    alert("Primero carga la Captura No. 2 para que aparezca en el PDF.");
+    return;
+  }
+  window.print();
+}
+
+document.querySelectorAll("input, textarea").forEach(el=>{
+  el.addEventListener("input", ()=>{actualizarProgreso(); guardar(true);});
+  el.addEventListener("change", ()=>{actualizarProgreso(); guardar(true);});
+});
+
+cargar();
+actualizarProgreso();
+</script>
+</body>
+</html>

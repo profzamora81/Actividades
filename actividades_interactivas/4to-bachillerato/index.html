@@ -110,7 +110,7 @@ summary{cursor:pointer;color:var(--azul);font-weight:700}
   <section class="notice">
     <strong>Detección automática:</strong> el panel consulta el repositorio público
     <strong>profzamora81/Actividades</strong>. Reconoce las guías antiguas de la III Unidad por el contenido del HTML
-    y las nuevas guías de la IV Unidad por la carpeta <code>unidad-iv</code> o por el texto de la propia guía. Las rúbricas se cargan desde <code>rubricas.json</code> y se agregan automáticamente al texto para Classroom.
+    y las nuevas guías de la IV Unidad por la carpeta <code>unidad-iv</code> o por el texto de la propia guía. También verifica si cada HTML utiliza capturas, respaldo JSON, PDF y estado de avance para adaptar las instrucciones de Classroom. Las rúbricas se cargan desde <code>rubricas.json</code>.
   </section>
 
   <section class="toolbar">
@@ -191,6 +191,7 @@ const COURSES = [
   {
     id:"diseno-grafico",
     root:`${ROOT}/diseno/diseño-computarizado-i`,
+    aliases:[`${ROOT}/diseno/diseno-computarizado-i`],
     grade:"4.º Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico",
     course:"Diseño Gráfico Computarizado I",
     orientation:"Diseño Gráfico"
@@ -221,16 +222,16 @@ const COURSES = [
 const GENERAL_INSTRUCTIONS = `INSTRUCCIONES GENERALES
 
 • Ingresa correctamente tu Clave/Carné, Sección y nombre antes de comenzar.
-• Lee primero la sección Guía completa: propósito, instrucciones, actividades, evidencias y forma de entrega.
+• Lee primero toda la guía: propósito, actividades, evidencias, fecha de entrega y forma de finalizar.
 • Desarrolla las actividades en el orden indicado y responde con información obtenida de tu propio trabajo.
-• Si existe un simulador o práctica formativa, no lo presentes como evidencia real cuando la guía solicite una práctica, archivo o resultado real.
-• Utiliza “Revisar mi entrega” para comprobar los estados COMPLETO/PENDIENTE. Esa revisión no asigna la calificación oficial.
-• Antes de cerrar la guía, guarda tu avance y descarga el respaldo JSON.
-• Si continúas en otra computadora o navegador, utiliza la opción de cargar el respaldo JSON.
+• Cuando la guía solicite capturas, cárgalas dentro de la misma guía en el espacio correspondiente; no basta con indicar que ya las realizaste.
+• Guarda tu avance durante el trabajo. Si la guía dispone de respaldo JSON, descárgalo antes de cerrar y consérvalo.
+• Si continúas en otra computadora, tablet o navegador, utiliza “Cargar respaldo JSON” cuando la guía lo permita.
 • Evita el modo incógnito si necesitas conservar el autoguardado local.
-• Genera PDF o comprobante únicamente cuando la guía lo solicite.
-• Entrega en Google Classroom exactamente los archivos o evidencias indicados en la guía.
-• No sustituyas un archivo solicitado por un enlace de Drive u otro servicio, salvo autorización expresa en la guía.`;
+• Si la guía indica que las capturas quedan incluidas en el JSON y en el PDF, verifica que las imágenes aparezcan antes de descargar el respaldo o guardar el PDF.
+• Genera el PDF o comprobante únicamente cuando la guía lo solicite.
+• Entrega en Google Classroom únicamente los archivos finales que indique la propia guía o el docente.
+• No sustituyas una evidencia solicitada por un enlace de Drive u otro servicio, salvo autorización expresa.`;
 
 const $ = id => document.getElementById(id);
 let toastTimer = null;
@@ -255,8 +256,13 @@ function pageUrl(path){
 function sourceUrl(path){
   return `https://github.com/${OWNER}/${REPO}/blob/${BRANCH}/` + encodePath(path);
 }
+function courseRoots(course){
+  return [course.root, ...(Array.isArray(course.aliases) ? course.aliases : [])];
+}
 function courseForPath(path){
-  return COURSES.find(c => path === c.root + "/index.html" || path.startsWith(c.root + "/")) || null;
+  return COURSES.find(c => courseRoots(c).some(root =>
+    path === root + "/index.html" || path.startsWith(root + "/")
+  )) || null;
 }
 function compact(text){
   return String(text || "").replace(/\s+/g," ").trim();
@@ -328,7 +334,8 @@ function parseGuide(html, path, fallbackCourse){
   const delivery = firstMatch(bodyText,[
     /Fecha\s+(?:y\s+Hora\s+de\s+)?Entrega\s*:\s*([^\n]+)/i,
     /Fecha\s+de\s+Entrega\s*:\s*([^\n]+)/i,
-    /Fecha\s+de\s+entrega\s+([^\n]+)/i
+    /Fecha\s+de\s+entrega\s+([^\n]+)/i,
+    /(?:^|\n)\s*Entrega\s*:\s*([^\n]+)/i
   ]);
   const publication = firstMatch(bodyText,[
     /Fecha\s+(?:de\s+)?Asignaci[oó]n(?:\/publicaci[oó]n)?\s*:\s*([^\n]+)/i,
@@ -338,9 +345,25 @@ function parseGuide(html, path, fallbackCourse){
     /Ponderaci[oó]n\s*:\s*([^\n]+)/i,
     /Valor\s*:\s*([^\n]+)/i
   ]);
-  // Curso, grado y orientación se obtienen de COURSES según la ruta.
-  // No se intentan deducir desde texto interno de la guía.
+  // Detectar funciones reales de la guía para preparar instrucciones coherentes.
+  const lowText = bodyText.toLowerCase();
+  const hasJson =
+    /respaldo\s+json|descargar\s+respaldo\s+json|cargar\s+respaldo\s+json/i.test(bodyText) ||
+    !!doc.querySelector('input[type="file"][accept*="json"]');
+  const hasPdf =
+    /imprimir\s*\/\s*guardar\s+pdf|guardar\s+pdf|generar\s+(?:el\s+)?pdf|comprobante/i.test(bodyText);
+  const hasCapture =
+    /captura\s+(?:no\.?\s*)?\d+|capturas?\s+de\s+pantalla|carga(?:r)?\s+la\s+captura/i.test(bodyText) ||
+    !!doc.querySelector('input[type="file"][accept*="image"]');
+  const captureStored =
+    /json\s+incluye\s+la\s+captura|captura.*respaldo\s+json|imagen.*respaldo\s+json/i.test(lowText) ||
+    /capturaDataURL/i.test(html);
+  const hasProgress =
+    /estado\s+de\s+avance|completo\s*[—-]|pendiente\s*[—-]|barra\s+de\s+progreso/i.test(bodyText);
+  const usesZeno =
+    /zeno\s*10|zeno10|espacio\s+de\s+trabajo|perfil\s+de\s+trabajo/i.test(bodyText);
 
+  // Curso, grado y orientación se obtienen de COURSES según la ruta.
   return {
     path,
     url:pageUrl(path),
@@ -351,6 +374,12 @@ function parseGuide(html, path, fallbackCourse){
     delivery,
     publication,
     points,
+    hasJson,
+    hasPdf,
+    hasCapture,
+    captureStored,
+    hasProgress,
+    usesZeno,
     course:fallbackCourse.course,
     grade:fallbackCourse.grade,
     orientation:fallbackCourse.orientation
@@ -371,12 +400,28 @@ function classroomText(g){
   const number = g.guideNumber ? `Guía No. ${g.guideNumber}` : "guía interactiva";
   const unitText = g.unit ? ` correspondiente a la ${g.unit}` : "";
   const rubric = rubricForGuide(g);
+
   let text =
 `Jóvenes, ya está disponible la ${number} de ${g.course}${unitText}.
 
-Antes de comenzar, lean con atención todo el contenido de la guía. La actividad está organizada para que puedan avanzar paso a paso y conservar su trabajo durante el proceso.
+Antes de comenzar, lean con atención todo el contenido de la guía. La actividad está organizada para avanzar paso a paso y conservar el trabajo durante el proceso.
 
 ${GENERAL_INSTRUCTIONS}`;
+
+  const detected = [];
+  if(g.usesZeno) detected.push("Esta guía está preparada para trabajar con la tablet Zeno10 y sus aplicaciones educativas.");
+  if(g.hasCapture){
+    detected.push(g.captureStored
+      ? "La guía solicita captura(s) de pantalla cargadas dentro del propio HTML. Verifiquen que la vista previa aparezca; la evidencia queda incorporada en el respaldo de la guía."
+      : "La guía solicita captura(s) de pantalla. Cárguenlas en el espacio indicado antes de finalizar.");
+  }
+  if(g.hasJson) detected.push("Descarguen el respaldo JSON al finalizar para conservar respuestas y evidencias integradas.");
+  if(g.hasPdf) detected.push("Cuando terminen, utilicen la opción de imprimir/guardar PDF y revisen que las respuestas y capturas aparezcan completas.");
+  if(g.hasProgress) detected.push("Revisen el estado de avance y corrijan cualquier requisito que todavía aparezca PENDIENTE.");
+
+  if(detected.length){
+    text += `\n\nINSTRUCCIONES DETECTADAS EN ESTA GUÍA\n• ${detected.join("\n• ")}`;
+  }
 
   if(rubric){
     text += `\n\nRÚBRICA DE CALIFICACIÓN\n\n${rubric}`;
@@ -392,7 +437,7 @@ ${GENERAL_INSTRUCTIONS}`;
     text += `\n\nIMPORTANTE PARA EL DOCENTE: esta guía todavía no tiene una rúbrica registrada en rubricas.json.`;
   }
 
-  text += `\n\nTrabajen con tiempo. Si encuentran un estado PENDIENTE, revisen qué requisito falta antes de realizar la entrega final.`;
+  text += `\n\nAntes de entregar, comprueben que el archivo final conserva las respuestas y todas las evidencias solicitadas.`;
   return text;
 }
 function showToast(msg){
@@ -429,6 +474,9 @@ function cardHtml(g, globalIndex){
     ["Entrega",g.delivery || "No detectada"],
     ["Valor",g.points || "No detectado"],
     ["Unidad",g.unit || "No reconocida"],
+    ["Evidencia",g.hasCapture ? "Captura detectada" : "Sin captura detectada"],
+    ["Respaldo",g.hasJson ? "JSON detectado" : "JSON no detectado"],
+    ["PDF",g.hasPdf ? "PDF detectado" : "PDF no detectado"],
     ["Rúbrica",rubricStatus(g)]
   ];
   return `<article class="guide-card">
@@ -546,7 +594,9 @@ async function refresh(){
     if(!res.ok) throw new Error("GitHub respondió " + res.status);
     const data=await res.json();
     const tree=Array.isArray(data.tree)?data.tree:[];
-    const scoped=tree.filter(item=>COURSES.some(c=>item.path===c.root || item.path.startsWith(c.root+"/")));
+    const scoped=tree.filter(item=>COURSES.some(c=>courseRoots(c).some(root =>
+      item.path===root || item.path.startsWith(root+"/")
+    )));
     const folders=scoped.filter(x=>x.type==="tree");
     const htmlFiles=scoped.filter(x=>x.type==="blob" && /\/index\.html$/i.test(x.path));
 

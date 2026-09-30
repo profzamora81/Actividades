@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía No. 4 — TIC I — Inclusión y acceso</title>
+  <style>
+    :root{
+      --bg:#f4f7fb; --card:#ffffff; --text:#1f2937; --muted:#64748b;
+      --primary:#244c8f; --primary2:#3b82f6; --ok:#15803d; --warn:#b45309;
+      --border:#dbe3ee; --soft:#eef4ff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+    .wrap{max-width:980px;margin:auto;padding:20px}
+    .hero{background:linear-gradient(135deg,#244c8f,#3b82f6);color:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .hero h1{margin:0 0 8px;font-size:clamp(1.5rem,4vw,2.25rem)}
+    .hero p{margin:4px 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .meta{background:rgba(255,255,255,.12);padding:10px 12px;border-radius:12px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-top:18px;box-shadow:0 4px 14px rgba(15,23,42,.06)}
+    h2{margin-top:0;color:var(--primary)}
+    h3{color:#334155}
+    .note{background:#fff7ed;border-left:5px solid #f59e0b;padding:14px;border-radius:10px}
+    .academic{background:#eff6ff;border-left:5px solid var(--primary2);padding:14px;border-radius:10px}
+    .success{background:#ecfdf5;border-left:5px solid #22c55e;padding:14px;border-radius:10px}
+    label{font-weight:700;display:block;margin-top:14px}
+    input[type=text], textarea{
+      width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font-size:1rem;background:#fff
+    }
+    textarea{min-height:95px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:700px){.row{grid-template-columns:1fr}}
+    .apps{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .appbox{border:1px dashed #94a3b8;border-radius:12px;padding:14px}
+    .checkline{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+    .checkline input{margin-top:4px;transform:scale(1.15)}
+    .progressWrap{margin-top:12px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+    .progress{height:14px;background:#22c55e;width:0%;transition:.25s}
+    .status{font-weight:700;margin-top:8px}
+    .rubric{width:100%;border-collapse:collapse}
+    .rubric th,.rubric td{border:1px solid var(--border);padding:10px;text-align:left}
+    .rubric th{background:#eff6ff}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    button{border:0;border-radius:10px;padding:11px 16px;font-size:1rem;cursor:pointer;font-weight:700}
+    .primary{background:var(--primary);color:white}
+    .secondary{background:#e2e8f0;color:#0f172a}
+    .danger{background:#fee2e2;color:#991b1b}
+    .small{font-size:.92rem;color:var(--muted)}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#e2e8f0;font-size:.88rem;font-weight:700}
+    .footer{padding:20px 0 40px;text-align:center;color:var(--muted);font-size:.9rem}
+    .hidden{display:none}
+    @media print{
+      body{background:#fff}
+      .wrap{max-width:none;padding:0}
+      .hero,.card{box-shadow:none;break-inside:avoid}
+      .actions,.danger,#capturaInput,.small{display:none !important}
+      textarea,input[type=text]{border:1px solid #999;background:#fff}
+      #capturaPreviewWrap{display:block !important}
+      #capturaPreview{max-height:720px;object-fit:contain}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <h1>Guía No. 4 — Inclusión y acceso</h1>
+    <p><strong>Curso:</strong> Tecnologías de la Información y la Comunicación I — TIC I</p>
+    <p><strong>Grado:</strong> 4.º Bachillerato en Ciencias y Letras con Orientación en Mecánica</p>
+    <div class="grid">
+      <div class="meta"><strong>Unidad:</strong><br>IV Unidad</div>
+      <div class="meta"><strong>Valor:</strong><br>10 puntos</div>
+      <div class="meta"><strong>Entrega:</strong><br>02 de octubre de 2026</div>
+      <div class="meta"><strong>Producto:</strong><br>Recurso digital informativo</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>1. Identificación del estudiante</h2>
+    <div class="row">
+      <div>
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" type="text" placeholder="Escribe tu nombre y apellido">
+      </div>
+      <div>
+        <label for="clave">Clave / carné</label>
+        <input id="clave" type="text" placeholder="Escribe tu clave o carné">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="seccion">Sección</label>
+        <input id="seccion" type="text" placeholder="Ejemplo: A">
+      </div>
+      <div>
+        <label for="fecha">Fecha de trabajo</label>
+        <input id="fecha" type="text" placeholder="dd/mm/aaaa">
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. Lectura y reflexión</h2>
+
+    <div class="academic">
+      <strong>La tecnología debe ayudar a que más personas puedan aprender y participar.</strong><br>
+      Tener acceso a una tablet, Internet, aplicaciones educativas o recursos digitales puede facilitar el estudio, pero no todas las personas tienen las mismas condiciones de acceso. En el área de Mecánica, la tecnología también puede apoyar el aprendizaje mediante manuales, diagramas, simuladores, videos técnicos y documentos de seguridad.
+    </div>
+
+    <p>Lee y piensa en esta situación:</p>
+    <div class="note">
+      Dos estudiantes deben investigar cómo funciona un sistema mecánico. Uno tiene acceso constante a Internet y varias aplicaciones. El otro solo puede conectarse algunos momentos y depende principalmente de los recursos descargados en su tablet.
+      <br><br>
+      <strong>¿Ambos tienen las mismas condiciones para realizar el trabajo?</strong>
+    </div>
+
+    <label for="reflexion1">¿Qué entiendes por inclusión cuando hablamos de tecnología?</label>
+    <textarea id="reflexion1"></textarea>
+
+    <label for="reflexion2">¿Qué dificultades puede tener un estudiante que no cuenta siempre con Internet, computadora o aplicaciones actualizadas?</label>
+    <textarea id="reflexion2"></textarea>
+
+    <label for="reflexion3">¿Qué se podría hacer para que un recurso sobre mecánica pueda ser utilizado por más estudiantes?</label>
+    <textarea id="reflexion3"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>3. Organiza tu Zeno10 para estudiar</h2>
+    <p>La Zeno10 puede mostrar un espacio <strong>Personal</strong> y un espacio de <strong>Trabajo</strong>. Utiliza el espacio de Trabajo para tus actividades académicas siempre que las aplicaciones estén disponibles allí.</p>
+
+    <div class="row">
+      <div class="appbox">
+        <h3>Espacio de Trabajo</h3>
+        <p>Organiza aquí aplicaciones y recursos para estudiar: Classroom, Drive, Documentos, Presentaciones, Canva, lector de PDF u otras herramientas autorizadas.</p>
+      </div>
+      <div class="appbox">
+        <h3>Espacio Personal</h3>
+        <p>Puede contener aplicaciones de uso personal. Durante la clase, evita juegos, redes sociales u otras aplicaciones que no estén relacionadas con la actividad.</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:14px">
+      <strong>Crea carpetas académicas.</strong><br>
+      Por ejemplo: <em>TIC</em>, <em>Mecánica</em>, <em>Manuales</em>, <em>Mantenimiento</em> o <em>Herramientas</em>. Así podrás encontrar más rápido los recursos que necesites.
+    </div>
+
+    <label for="carpeta">Escribe el nombre de una carpeta académica que podrías crear en tu tablet</label>
+    <input id="carpeta" type="text" placeholder="Ejemplo: Mecánica y TIC">
+
+    <label for="appsCarpeta">¿Qué aplicaciones o recursos colocarías dentro?</label>
+    <textarea id="appsCarpeta" placeholder="Escribe dos o más ejemplos"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>4. Investigación breve: inclusión, equidad y acceso</h2>
+    <p>Utiliza tu tablet para investigar los tres conceptos siguientes. Puedes consultar una fuente académica, institucional, educativa o técnica.</p>
+
+    <label for="inclusion">Inclusión tecnológica — escribe una explicación breve con tus propias palabras</label>
+    <textarea id="inclusion"></textarea>
+
+    <label for="equidad">Equidad en el acceso a la tecnología — escribe una explicación breve</label>
+    <textarea id="equidad"></textarea>
+
+    <label for="acceso">Acceso a recursos tecnológicos — explica a qué se refiere</label>
+    <textarea id="acceso"></textarea>
+
+    <label for="fuente">Recurso consultado</label>
+    <input id="fuente" type="text" placeholder="Escribe el nombre del sitio, documento o institución consultada">
+
+    <label for="enlace">Enlace del recurso consultado</label>
+    <input id="enlace" type="text" placeholder="https://...">
+
+    <div class="success" style="margin-top:14px">
+      <strong>Relaciona el tema con Mecánica.</strong><br>
+      Piensa en materiales como diagramas mecánicos, manuales de mantenimiento, despieces, videos técnicos, simuladores o guías de seguridad. Un recurso accesible debe poder comprenderse y utilizarse con facilidad.
+    </div>
+
+    <label for="ejemploElec">Escribe un ejemplo de cómo mejorarías el acceso a un recurso tecnológico relacionado con Mecánica</label>
+    <textarea id="ejemploElec"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>5. Actividad principal: recurso digital informativo</h2>
+    <p>Utiliza tu Zeno10 para crear <strong>una sola página o diapositiva</strong>. Si tienes <strong>Canva</strong> instalada, puedes trabajar directamente desde la aplicación en lugar de usar la versión web. También puedes utilizar otra aplicación educativa disponible en tu perfil de Trabajo.</p>
+
+    <p>El recurso debe llevar el título:</p>
+    <div class="success"><strong>TECNOLOGÍA PARA TODOS: INCLUSIÓN, EQUIDAD Y ACCESO</strong></div>
+
+    <p>Tu recurso debe incluir:</p>
+    <div class="checkline"><input class="req" type="checkbox" id="r1"><label for="r1">Una explicación breve de inclusión tecnológica.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r2"><label for="r2">Una explicación breve de equidad en el acceso.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r3"><label for="r3">Un ejemplo relacionado con el área de Mecánica.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r4"><label for="r4">Una propuesta para facilitar el acceso a un recurso tecnológico.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r5"><label for="r5">Al menos un elemento visual relacionado con tecnología o mecánica.</label></div>
+
+    <h3>Presentación y accesibilidad</h3>
+    <div class="checkline"><input class="req" type="checkbox" id="r6"><label for="r6">El texto se puede leer con facilidad.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r7"><label for="r7">Existe buen contraste entre texto y fondo.</label></div>
+    <div class="checkline"><input class="req" type="checkbox" id="r8"><label for="r8">La información está organizada y se comprende con facilidad.</label></div>
+  </section>
+
+  <section class="card">
+    <h2>6. Evidencias: capturas de pantalla</h2>
+    <p>Cuando termines tu recurso, toma una captura de pantalla y cárgala dentro de esta guía.</p>
+
+    <div class="note">
+      <strong>Importante:</strong><br>
+      La imagen quedará guardada junto con tu avance y se incluirá tanto en el respaldo JSON como en el PDF generado desde esta página.
+    </div>
+
+    <label for="capturaInput">Captura No. 2 — Recurso digital sobre inclusión, equidad y acceso</label>
+    <input id="capturaInput" type="file" accept="image/*">
+
+    <div id="capturaPreviewWrap" style="margin-top:14px;display:none">
+      <p><span class="pill">Captura cargada</span></p>
+      <img id="capturaPreview" alt="Vista previa de la Captura No. 2"
+           style="max-width:100%;border:1px solid #cbd5e1;border-radius:12px;display:block">
+      <button type="button" class="danger" style="margin-top:10px" onclick="eliminarCaptura()">Eliminar captura</button>
+    </div>
+
+    <label for="archivo">Nombre del archivo o aplicación utilizada</label>
+    <input id="archivo" type="text" placeholder="Ejemplo: Canva — inclusion_acceso_mecánica.png">
+
+    <div class="academic" style="margin-top:14px">
+      <strong>Antes de finalizar:</strong><br>
+      Revisa que la captura esté completa y que no muestre contraseñas, mensajes personales ni otra información privada.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>7. Rúbrica — 10 puntos</h2>
+    <table class="rubric">
+      <thead>
+        <tr><th>Criterio</th><th>Punteo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Explica inclusión, equidad y acceso con claridad</td><td>2 pts</td></tr>
+        <tr><td>Relaciona el tema con una situación del área de Mecánica</td><td>2 pts</td></tr>
+        <tr><td>Propone una forma de facilitar el acceso a un recurso tecnológico</td><td>2 pts</td></tr>
+        <tr><td>Presenta un recurso visual ordenado, legible y comprensible</td><td>2 pts</td></tr>
+        <tr><td>Registra la fuente consultada y carga la evidencia solicitada</td><td>2 pts</td></tr>
+        <tr><th>Total</th><th>10 pts</th></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>8. Estado de avance</h2>
+    <div class="progressWrap"><div id="progress" class="progress"></div></div>
+    <div id="status" class="status">PENDIENTE — 0%</div>
+    <p class="small">El avance y la captura se guardan automáticamente en este navegador. El respaldo JSON incluye la captura. Al usar “Imprimir / Guardar PDF”, la imagen cargada también aparecerá dentro del documento.</p>
+
+    <div class="actions">
+      <button class="primary" onclick="guardar()">Guardar avance</button>
+      <button class="secondary" onclick="descargarJSON()">Descargar respaldo JSON</button>
+      <button class="secondary" onclick="imprimirPDF()">Imprimir / Guardar PDF</button>
+      <button class="secondary" onclick="document.getElementById('jsonFile').click()">Cargar respaldo JSON</button>
+      <button class="danger" onclick="reiniciar()">Reiniciar guía</button>
+      <input id="jsonFile" type="file" accept=".json,application/json" class="hidden">
+    </div>
+    <div id="savedMsg" class="small" style="margin-top:10px"></div>
+  </section>
+
+  <div class="footer">
+    Instituto Industrial Central General Lázaro Chacón González · TIC I · 4.º Mecánica · IV Unidad · 2026
+  </div>
+</div>
+
+<script>
+const ids = [
+  "nombre","clave","seccion","fecha",
+  "reflexion1","reflexion2","reflexion3",
+  "carpeta","appsCarpeta",
+  "inclusion","equidad","acceso","fuente","enlace","ejemploElec",
+  "archivo"
+];
+const checks = ["r1","r2","r3","r4","r5","r6","r7","r8"];
+const STORAGE_KEY = "tic1_4to_mecanica_guia4_inclusion_2026";
+let capturaDataURL = "";
+
+function obtenerDatos(){
+  const data = {};
+  ids.forEach(id => data[id] = document.getElementById(id).value);
+  checks.forEach(id => data[id] = document.getElementById(id).checked);
+  data.capturaDataURL = capturaDataURL;
+  data.meta = {
+    guia: 4,
+    curso: "TIC I",
+    grado: "4.º Bachillerato en Ciencias y Letras con Orientación en Mecánica",
+    unidad: "IV",
+    tema: "Inclusión y acceso",
+    valor: 10,
+    entrega: "02/10/2026",
+    actualizado: new Date().toISOString()
+  };
+  return data;
+}
+
+function aplicarDatos(data){
+  ids.forEach(id => {
+    if(data[id] !== undefined) document.getElementById(id).value = data[id];
+  });
+  checks.forEach(id => {
+    if(data[id] !== undefined) document.getElementById(id).checked = !!data[id];
+  });
+  capturaDataURL = data.capturaDataURL || "";
+  mostrarCaptura();
+  actualizarProgreso();
+}
+
+function guardar(silencioso=false){
+  const data = obtenerDatos();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  if(!silencioso){
+    document.getElementById("savedMsg").textContent =
+      "Avance guardado: " + new Date().toLocaleString("es-GT");
+  }
+}
+
+function cargar(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try{ aplicarDatos(JSON.parse(raw)); }catch(e){}
+  }
+}
+
+function descargarJSON(){
+  const data = obtenerDatos();
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+  const a = document.createElement("a");
+  const estudiante = (data.nombre || "estudiante").trim().replace(/\s+/g,"_");
+  a.href = URL.createObjectURL(blob);
+  a.download = `guia4_tic1_mecanica_${estudiante}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+document.getElementById("jsonFile").addEventListener("change", function(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try{
+      const data = JSON.parse(e.target.result);
+      aplicarDatos(data);
+      guardar(true);
+      alert("Respaldo cargado correctamente.");
+    }catch(err){
+      alert("No se pudo leer el archivo JSON.");
+    }
+  };
+  reader.readAsText(file);
+});
+
+function reiniciar(){
+  if(confirm("¿Deseas borrar todo el avance guardado de esta guía?")){
+    localStorage.removeItem(STORAGE_KEY);
+    ids.forEach(id => document.getElementById(id).value = "");
+    checks.forEach(id => document.getElementById(id).checked = false);
+    capturaDataURL = "";
+    document.getElementById("capturaInput").value = "";
+    mostrarCaptura();
+    actualizarProgreso();
+    document.getElementById("savedMsg").textContent = "Guía reiniciada.";
+  }
+}
+
+document.getElementById("capturaInput").addEventListener("change", function(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")){
+    alert("Selecciona un archivo de imagen.");
+    ev.target.value = "";
+    return;
+  }
+
+  const maxBytes = 4 * 1024 * 1024;
+  if(file.size > maxBytes){
+    alert("La imagen es demasiado grande. Usa una captura menor de 4 MB.");
+    ev.target.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const maxSide = 1600;
+      let w = img.width, h = img.height;
+      const scale = Math.min(1, maxSide / Math.max(w,h));
+      w = Math.round(w * scale);
+      h = Math.round(h * scale);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, w, h);
+      capturaDataURL = canvas.toDataURL("image/jpeg", 0.82);
+      mostrarCaptura();
+      actualizarProgreso();
+      guardar(true);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function mostrarCaptura(){
+  const wrap = document.getElementById("capturaPreviewWrap");
+  const img = document.getElementById("capturaPreview");
+  if(capturaDataURL){
+    img.src = capturaDataURL;
+    wrap.style.display = "block";
+  }else{
+    img.removeAttribute("src");
+    wrap.style.display = "none";
+  }
+}
+
+function eliminarCaptura(){
+  if(confirm("¿Deseas eliminar la captura cargada?")){
+    capturaDataURL = "";
+    document.getElementById("capturaInput").value = "";
+    mostrarCaptura();
+    actualizarProgreso();
+    guardar(true);
+  }
+}
+
+function imprimirPDF(){
+  guardar(true);
+  if(!capturaDataURL){
+    alert("Primero carga la Captura No. 2 para que aparezca en el PDF.");
+    return;
+  }
+  window.print();
+}
+
+function actualizarProgreso(){
+  let total = 0, complete = 0;
+
+  ["nombre","clave","seccion"].forEach(id=>{
+    total++;
+    if(document.getElementById(id).value.trim()) complete++;
+  });
+
+  ["reflexion1","reflexion2","reflexion3"].forEach(id=>{
+    total++;
+    if(document.getElementById(id).value.trim().length >= 12) complete++;
+  });
+
+  ["carpeta","appsCarpeta"].forEach(id=>{
+    total++;
+    if(document.getElementById(id).value.trim()) complete++;
+  });
+
+  ["inclusion","equidad","acceso","fuente","enlace","ejemploElec"].forEach(id=>{
+    total++;
+    if(document.getElementById(id).value.trim()) complete++;
+  });
+
+  checks.forEach(id=>{
+    total++;
+    if(document.getElementById(id).checked) complete++;
+  });
+
+  total++;
+  if(capturaDataURL) complete++;
+
+  total++;
+  if(document.getElementById("archivo").value.trim()) complete++;
+
+  const pct = Math.round((complete/total)*100);
+  document.getElementById("progress").style.width = pct + "%";
+  document.getElementById("status").textContent =
+    (pct === 100 ? "COMPLETO" : "PENDIENTE") + " — " + pct + "%";
+}
+
+document.querySelectorAll("input, textarea").forEach(el=>{
+  el.addEventListener("input", ()=>{actualizarProgreso(); guardar(true);});
+  el.addEventListener("change", ()=>{actualizarProgreso(); guardar(true);});
+});
+
+cargar();
+actualizarProgreso();
+</script>
+</body>
+</html>
