@@ -332,18 +332,19 @@ function parseGuide(html, path, fallbackCourse){
     ]) ||
     guideNumberFromPath(path);
   const delivery = firstMatch(bodyText,[
-    /Fecha\s+(?:y\s+Hora\s+de\s+)?Entrega\s*:\s*([^\n]+)/i,
-    /Fecha\s+de\s+Entrega\s*:\s*([^\n]+)/i,
-    /Fecha\s+de\s+entrega\s+([^\n]+)/i,
-    /(?:^|\n)\s*Entrega\s*:\s*([^\n]+)/i
+    /Fecha\s+(?:y\s+Hora\s+de\s+)?Entrega\s*:?\s*([^\n]+)/i,
+    /Fecha\s+de\s+Entrega\s*:?\s*([^\n]+)/i,
+    /Fecha\s+de\s+entrega\s*:?\s*([^\n]+)/i,
+    /(?:^|\n)\s*Entrega\s*:?\s*([^\n]+)/i,
+    /\bEntrega\s*:?\s*((?:Lunes|Martes|Mi[eé]rcoles|Jueves|Viernes|S[aá]bado|Domingo)[^\n]+)/i
   ]);
   const publication = firstMatch(bodyText,[
     /Fecha\s+(?:de\s+)?Asignaci[oó]n(?:\/publicaci[oó]n)?\s*:\s*([^\n]+)/i,
     /Fecha\s+de\s+publicaci[oó]n\s*:\s*([^\n]+)/i
   ]);
   const points = firstMatch(bodyText,[
-    /Ponderaci[oó]n\s*:\s*([^\n]+)/i,
-    /Valor\s*:\s*([^\n]+)/i
+    /Ponderaci[oó]n\s*:?\s*([^\n]+)/i,
+    /Valor\s*:?\s*((?:\d+(?:[.,]\d+)?)\s*(?:pts?|puntos?))/i
   ]);
   // Detectar funciones reales de la guía para preparar instrucciones coherentes.
   const lowText = bodyText.toLowerCase();
@@ -391,7 +392,19 @@ function classroomTitle(g){
   return `${number}${unit} — ${g.course}`;
 }
 function rubricForGuide(g){
-  return String(RUBRICS[g.path] || "").trim();
+  const exact = String(RUBRICS[g.path] || "").trim();
+  if(exact) return exact;
+
+  const aliases = [
+    g.path.replace("/diseno/diseno-computarizado-i/","/diseno/diseño-computarizado-i/"),
+    g.path.replace("/diseno/diseño-computarizado-i/","/diseno/diseno-computarizado-i/")
+  ];
+
+  for(const path of aliases){
+    const rubric = String(RUBRICS[path] || "").trim();
+    if(rubric) return rubric;
+  }
+  return "";
 }
 function rubricStatus(g){
   return rubricForGuide(g) ? "Rúbrica disponible" : "Rúbrica pendiente";
@@ -622,8 +635,25 @@ async function refresh(){
     const u4=allGuides.filter(g=>g.unit==="IV Unidad").length;
     const other=allGuides.filter(g=>!g.unit).length;
     const rubricCount=allGuides.filter(g=>rubricForGuide(g)).length;
-    const guia2 = allGuides.filter(g=>g.unit==="IV Unidad" && Number(g.guideNumber)===2).length;
-    $("syncStatus").textContent=`Actualización terminada: III Unidad ${u3} · IV Unidad ${u4} · Guías No. 2 detectadas ${guia2} · rúbricas disponibles ${rubricCount} · sin clasificar ${other}.`;
+
+    const guideCounts = allGuides
+      .filter(g=>g.unit==="IV Unidad" && g.guideNumber)
+      .reduce((acc,g)=>{
+        const n=Number(g.guideNumber);
+        if(Number.isFinite(n)) acc[n]=(acc[n]||0)+1;
+        return acc;
+      },{});
+
+    const guideSummary = Object.keys(guideCounts)
+      .map(Number)
+      .sort((a,b)=>a-b)
+      .map(n=>`Guía No. ${n}: ${guideCounts[n]}`)
+      .join(" · ");
+
+    $("syncStatus").textContent=
+      `Actualización terminada: III Unidad ${u3} · IV Unidad ${u4}` +
+      (guideSummary ? ` · ${guideSummary}` : "") +
+      ` · rúbricas disponibles ${rubricCount} · sin clasificar ${other}.`;
     render();
   }catch(e){
     $("syncStatus").textContent="No se pudo consultar GitHub: " + e.message + ". Comprueba la conexión o inténtalo de nuevo.";

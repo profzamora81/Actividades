@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Guía No. 4 — Sistema operativo | Sistemas de Instalación de Software</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--text:#1f2937;--muted:#64748b;--line:#d9e0e7;--accent:#244f74;--accent2:#eaf2f8;--ok:#166534;--warn:#9a3412;--danger:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5}.wrap{max-width:1080px;margin:0 auto;padding:22px}.hero{background:linear-gradient(135deg,#173e5f,#2d6c98);color:#fff;border-radius:18px;padding:26px;box-shadow:0 10px 28px rgba(15,23,42,.14)}.hero h1{margin:0 0 8px;font-size:2rem}.hero p{margin:5px 0}.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.meta div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px}.meta b{display:block;font-size:.82rem}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:18px;box-shadow:0 5px 14px rgba(15,23,42,.05)}h2{margin:0 0 12px;color:#173e5f;font-size:1.3rem}h3{margin:18px 0 8px;font-size:1.05rem}.note{background:#fff7ed;border-left:5px solid #f97316;padding:12px 14px;border-radius:10px}.okbox{background:#effaf3;border-left:5px solid #16a34a;padding:12px 14px;border-radius:10px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.field label{display:block;font-weight:700;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:10px 11px;border:1px solid #b8c4d0;border-radius:9px;background:#fff;font:inherit}.field textarea{min-height:90px;resize:vertical}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff}.btn.secondary{background:#475569}.btn.light{background:#e8eef5;color:#173e5f}.btn.danger{background:#b91c1c}.btn:disabled{opacity:.48;cursor:not-allowed}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.activity{border:1px solid #d5dde6;border-radius:14px;padding:16px;margin:14px 0;background:#fbfcfe}.score{display:inline-block;background:#eaf2f8;color:#173e5f;border-radius:999px;padding:4px 9px;font-size:.84rem;font-weight:700}.locked{opacity:.52;pointer-events:none;filter:grayscale(.2)}.preview{margin-top:10px;display:none;max-width:100%;max-height:280px;border:1px solid #cbd5e1;border-radius:10px}.progress-wrap{background:#e5e7eb;border-radius:999px;height:16px;overflow:hidden}.progress{height:100%;width:0;background:#2d6c98;transition:width .2s}.small{font-size:.9rem;color:var(--muted)}.checkline{display:flex;gap:9px;align-items:flex-start}.rubric{width:100%;border-collapse:collapse;margin-top:10px}.rubric th,.rubric td{border:1px solid #cbd5e1;padding:9px;vertical-align:top}.rubric th{background:#eef3f8;text-align:left}.status{font-weight:700}.footer{text-align:center;color:#64748b;font-size:.86rem;padding:20px 0 4px}.tag{display:inline-block;background:#eef2ff;color:#3730a3;padding:3px 8px;border-radius:999px;font-size:.8rem}.source a{color:#0b5fa5}.hidden{display:none}.statebox{display:inline-block;padding:5px 10px;border-radius:999px;font-size:.86rem;font-weight:700;background:#fff7ed;color:#9a3412}.statebox.complete{background:#effaf3;color:#166534}.checklist label{display:block;margin:7px 0}.step{border-left:4px solid #9fb9cf;padding-left:12px;margin:12px 0}.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.evidence{border:1px dashed #9aa9b7;border-radius:12px;padding:12px;background:#fff}.sourcebox{background:#f8fafc;border:1px solid #dbe3ea;border-radius:12px;padding:12px}.warn{color:#9a3412;font-weight:700}@media(max-width:760px){.meta,.grid2,.grid3,.evidence-grid{grid-template-columns:1fr}.wrap{padding:12px}.hero{padding:20px}.hero h1{font-size:1.55rem}}@media print{body{background:#fff}.wrap{max-width:none;padding:0}.hero{box-shadow:none}.btn,.fileinput,.actions .btn{display:none!important}.card{box-shadow:none;break-inside:avoid}.activity{break-inside:avoid}.preview{display:block!important;max-height:220px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <span class="tag">IV Unidad · 2026</span>
+    <h1>Guía No. 4 — Sistema operativo</h1>
+    <p><strong>Sistemas de Instalación de Software · 4.º Bachillerato en Computación</strong></p>
+    <p>Instalación documentada de un sistema operativo en máquina virtual.</p>
+    <div class="meta">
+      <div><b>Valor</b>10 puntos</div>
+      <div><b>Entrega</b>Viernes 02 de octubre de 2026</div>
+      <div><b>Modalidad</b>Práctica e interactiva</div>
+      <div><b>Producto final</b>Instalación funcional y documentada</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>1. Identificación del estudiante</h2>
+    <div class="grid2">
+      <div class="field"><label>Nombre completo</label><input id="nombre" autocomplete="name" /></div>
+      <div class="field"><label>Sección</label><input id="seccion" placeholder="Ej. A" /></div>
+      <div class="field"><label>Clave o carné</label><input id="carne" /></div>
+      <div class="field"><label>Fecha de trabajo</label><input id="fecha" type="date" /></div>
+    </div>
+  </section>
+
+  <section class="card source">
+    <h2>2. Recurso consultado</h2>
+    <div class="sourcebox">
+      <p>Antes de iniciar, revisa la introducción del manual de Oracle VM VirtualBox. Concéntrate en la creación de una máquina virtual, la asignación de memoria, el disco virtual y el uso de una imagen ISO como medio de instalación.</p>
+      <p><a href="https://www.virtualbox.org/manual/ch01.html" target="_blank" rel="noopener">Abrir recurso técnico: Oracle VM VirtualBox User Manual — First Steps</a></p>
+    </div>
+    <div class="checkline" style="margin-top:12px">
+      <input type="checkbox" id="recurso" />
+      <label for="recurso"><strong>Confirmo que consulté el recurso.</strong> Al marcar esta casilla se habilitan las actividades.</label>
+    </div>
+    <p class="small">Utiliza únicamente una imagen ISO obtenida legalmente. Puede ser una distribución libre de Linux o un sistema operativo autorizado por el establecimiento. No se solicita evadir licencias ni activaciones.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. Actividades</h2>
+    <div class="note">Trabaja en una máquina virtual. No formatees ni modifiques el sistema operativo principal de la computadora. Las capturas deben mostrar tu propio proceso.</div>
+
+    <div id="actividades" class="locked">
+      <div class="activity">
+        <span class="score">2 pts</span>
+        <h3>Actividad 1 — Plan de instalación</h3>
+        <p>Antes de instalar, registra cómo prepararás la máquina virtual.</p>
+        <div class="grid2">
+          <div class="field"><label>Sistema operativo que instalarás</label><input id="sistema" placeholder="Ej. Ubuntu 24.04, Windows 11..." /></div>
+          <div class="field"><label>Programa de virtualización</label><select id="virtualizador"><option value="">Selecciona</option><option>VirtualBox</option><option>VMware Workstation</option><option>Hyper-V</option><option>Otro</option></select></div>
+          <div class="field"><label>Memoria RAM asignada</label><input id="ram" placeholder="Ej. 4096 MB" /></div>
+          <div class="field"><label>Espacio de disco virtual</label><input id="disco" placeholder="Ej. 30 GB" /></div>
+        </div>
+        <div class="field" style="margin-top:10px"><label>¿Por qué elegiste esa cantidad de RAM y espacio en disco?</label><textarea id="justificacion" placeholder="Explica brevemente según los recursos disponibles en tu equipo."></textarea></div>
+      </div>
+
+      <div class="activity">
+        <span class="score">2 pts</span>
+        <h3>Actividad 2 — Preparación de la máquina virtual</h3>
+        <p>Crea la máquina virtual y revisa su configuración antes de iniciar la instalación.</p>
+        <div class="checklist">
+          <label><input type="checkbox" id="chkNombre" /> La máquina virtual tiene un nombre identificable.</label>
+          <label><input type="checkbox" id="chkRam" /> La memoria RAM está configurada.</label>
+          <label><input type="checkbox" id="chkDisco" /> El disco virtual fue creado.</label>
+          <label><input type="checkbox" id="chkIso" /> La imagen ISO está montada como medio de instalación.</label>
+        </div>
+        <div class="field fileinput" style="margin-top:10px"><label>Evidencia 1: captura de la configuración de la máquina virtual</label><input type="file" id="ev1" accept="image/*" /></div>
+        <img id="prev1" class="preview" alt="Configuración de la máquina virtual" />
+      </div>
+
+      <div class="activity">
+        <span class="score">4 pts</span>
+        <h3>Actividad 3 — Instalación documentada</h3>
+        <p>Realiza la instalación y documenta tres momentos. Las capturas deben permitir seguir el proceso.</p>
+        <div class="evidence-grid">
+          <div class="evidence">
+            <strong>Momento A — Inicio del instalador</strong>
+            <p class="small">Debe observarse la pantalla inicial o selección de instalación.</p>
+            <div class="field fileinput"><input type="file" id="ev2" accept="image/*" /></div>
+            <img id="prev2" class="preview" alt="Inicio del instalador" />
+          </div>
+          <div class="evidence">
+            <strong>Momento B — Configuración durante la instalación</strong>
+            <p class="small">Ejemplo: idioma, disco virtual, usuario o ajustes equivalentes.</p>
+            <div class="field fileinput"><input type="file" id="ev3" accept="image/*" /></div>
+            <img id="prev3" class="preview" alt="Configuración del instalador" />
+          </div>
+          <div class="evidence">
+            <strong>Momento C — Sistema ya instalado</strong>
+            <p class="small">Debe observarse el escritorio, terminal o pantalla principal funcionando.</p>
+            <div class="field fileinput"><input type="file" id="ev4" accept="image/*" /></div>
+            <img id="prev4" class="preview" alt="Sistema operativo instalado" />
+          </div>
+          <div class="evidence">
+            <strong>Registro del proceso</strong>
+            <div class="field"><label>Escribe 3 pasos que realizaste</label><textarea id="pasos" placeholder="1. ...\n2. ...\n3. ..."></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity">
+        <span class="score">2 pts</span>
+        <h3>Actividad 4 — Verificación final</h3>
+        <p>Comprueba que la instalación quedó funcional.</p>
+        <div class="grid2">
+          <div class="field"><label>Estado de la instalación</label><select id="estadoInst"><option value="">Selecciona</option><option>Instalación completada y sistema inicia correctamente</option><option>Instalación completada con un problema menor</option><option>No se logró completar la instalación</option></select></div>
+          <div class="field"><label>¿Qué elemento verificaste al terminar?</label><input id="verificacion" placeholder="Ej. inicio de sesión, red, almacenamiento..." /></div>
+        </div>
+        <div class="field" style="margin-top:10px"><label>Explica un problema que encontraste o una decisión que tuviste que tomar durante la instalación</label><textarea id="problema" placeholder="Si no tuviste problemas, explica qué decisión técnica tomaste y por qué."></textarea></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>4. Rúbrica de evaluación — 10 puntos</h2>
+    <table class="rubric">
+      <thead><tr><th>Criterio</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Planifica la instalación indicando sistema operativo, virtualizador, RAM y disco, con una justificación breve.</td><td>2</td></tr>
+        <tr><td>Configura correctamente la máquina virtual y presenta evidencia de la preparación.</td><td>2</td></tr>
+        <tr><td>Documenta la instalación con tres capturas claras y registra los pasos realizados.</td><td>4</td></tr>
+        <tr><td>Verifica el funcionamiento del sistema instalado y explica una decisión o problema del proceso.</td><td>2</td></tr>
+        <tr><th>Total</th><th>10</th></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>5. Estado de avance y respaldo</h2>
+    <p>Estado de la guía: <span id="estadoGuia" class="statebox">PENDIENTE</span></p>
+    <div class="progress-wrap"><div id="barra" class="progress"></div></div>
+    <p><span class="status" id="estado">0% completado</span></p>
+    <div class="actions">
+      <button class="btn" id="guardar">Guardar avance</button>
+      <button class="btn secondary" id="descargar">Descargar respaldo JSON</button>
+      <button class="btn light" id="cargarBtn">Cargar respaldo JSON</button>
+      <input id="cargar" class="hidden" type="file" accept="application/json,.json" />
+      <button class="btn" id="pdf">Guardar comprobante PDF</button>
+      <button class="btn danger" id="limpiar">Borrar datos</button>
+    </div>
+    <p class="small"><strong>Antes de cerrar la guía, descarga el respaldo JSON.</strong> El autoguardado depende del navegador y del dispositivo utilizado. El respaldo te permite continuar después en este u otro equipo.</p>
+  </section>
+
+  <div class="footer">Sistemas de Instalación de Software · Guía No. 4 · IV Unidad 2026</div>
+</div>
+
+<script>
+const textIds=['nombre','seccion','carne','fecha','sistema','virtualizador','ram','disco','justificacion','pasos','estadoInst','verificacion','problema'];
+const checkIds=['recurso','chkNombre','chkRam','chkDisco','chkIso'];
+const allIds=[...textIds,...checkIds];
+const key='guia4_sistema_operativo_4to_computacion_2026';
+const actividades=document.getElementById('actividades');
+const recurso=document.getElementById('recurso');
+let imgs=['','','',''];
+
+function val(id){const e=document.getElementById(id);return e.type==='checkbox'?e.checked:e.value}
+function setVal(id,v){const e=document.getElementById(id);if(e.type==='checkbox')e.checked=!!v;else e.value=v??''}
+function datos(){const o={};allIds.forEach(id=>o[id]=val(id));o.evidencias=imgs;o.guardado=new Date().toISOString();o.guia='Guía No. 4 — Sistema operativo';o.curso='Sistemas de Instalación de Software';o.valor=10;return o}
+function aplicar(o){allIds.forEach(id=>{if(id in o)setVal(id,o[id])});imgs=Array.isArray(o.evidencias)?o.evidencias.slice(0,4):['','','',''];while(imgs.length<4)imgs.push('');imgs.forEach((src,i)=>mostrarImagen('prev'+(i+1),src));actualizarBloqueo();actualizarProgreso()}
+function guardar(silencioso=true){try{localStorage.setItem(key,JSON.stringify(datos()))}catch(e){if(!silencioso)alert('No se pudo guardar todo en el navegador. Descarga el respaldo JSON para conservar el trabajo.');}actualizarProgreso()}
+function actualizarBloqueo(){actividades.classList.toggle('locked',!recurso.checked)}
+function completo(id){return String(val(id)||'').trim().length>0}
+function actualizarProgreso(){
+  const checks=[
+    completo('nombre'),completo('seccion'),completo('carne'),recurso.checked,
+    completo('sistema'),completo('virtualizador'),completo('ram'),completo('disco'),completo('justificacion'),
+    val('chkNombre'),val('chkRam'),val('chkDisco'),val('chkIso'),!!imgs[0],
+    !!imgs[1],!!imgs[2],!!imgs[3],completo('pasos'),
+    completo('estadoInst'),completo('verificacion'),completo('problema')
+  ];
+  const pct=Math.round(checks.filter(Boolean).length/checks.length*100);
+  document.getElementById('barra').style.width=pct+'%';
+  document.getElementById('estado').textContent=pct+'% completado';
+  const badge=document.getElementById('estadoGuia');
+  const complete=pct===100;
+  badge.textContent=complete?'COMPLETO':'PENDIENTE';
+  badge.classList.toggle('complete',complete);
+}
+function mostrarImagen(id,src){const im=document.getElementById(id);if(src){im.src=src;im.style.display='block'}else{im.removeAttribute('src');im.style.display='none'}}
+function procesarImagen(file,indice){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    const image=new Image();
+    image.onload=()=>{
+      const max=1280;let w=image.width,h=image.height;
+      if(w>max){h=Math.round(h*max/w);w=max}if(h>max){w=Math.round(w*max/h);h=max}
+      const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+      canvas.getContext('2d').drawImage(image,0,0,w,h);
+      imgs[indice]=canvas.toDataURL('image/jpeg',0.76);
+      mostrarImagen('prev'+(indice+1),imgs[indice]);guardar();
+    };
+    image.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+}
+function descargarJSON(){guardar();const blob=new Blob([JSON.stringify(datos(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);const nom=(val('nombre')||'estudiante').trim().replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+/g,'_');a.download=`Guia4_Sistema_Operativo_${nom}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+
+allIds.forEach(id=>{const el=document.getElementById(id);el.addEventListener('input',()=>{actualizarBloqueo();guardar()});el.addEventListener('change',()=>{actualizarBloqueo();guardar()})});
+['ev1','ev2','ev3','ev4'].forEach((id,i)=>document.getElementById(id).addEventListener('change',e=>procesarImagen(e.target.files&&e.target.files[0],i)));
+document.getElementById('guardar').addEventListener('click',()=>{guardar(false);alert('Avance guardado en este navegador.')});
+document.getElementById('descargar').addEventListener('click',descargarJSON);
+document.getElementById('cargarBtn').addEventListener('click',()=>document.getElementById('cargar').click());
+document.getElementById('cargar').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);aplicar(o);guardar();alert('Respaldo cargado correctamente.')}catch{alert('El archivo JSON no es válido.')}};r.readAsText(f)});
+document.getElementById('pdf').addEventListener('click',()=>{guardar();window.print()});
+document.getElementById('limpiar').addEventListener('click',()=>{if(confirm('¿Deseas borrar todos los datos guardados de esta guía?')){localStorage.removeItem(key);location.reload()}});
+
+const prev=localStorage.getItem(key);if(prev){try{aplicar(JSON.parse(prev))}catch{}}
+if(!val('fecha'))document.getElementById('fecha').value=new Date().toISOString().slice(0,10);
+actualizarBloqueo();actualizarProgreso();
+</script>
+</body>
+</html>

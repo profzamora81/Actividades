@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía No. 4 — Condicionales | Laboratorio I</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#ffffff; --text:#1f2937; --muted:#667085;
+    --line:#d0d5dd; --accent:#2457a6; --accent2:#e9f0fb;
+    --ok:#157347; --warn:#b54708; --bad:#b42318;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+  .wrap{max-width:1050px;margin:0 auto;padding:18px}
+  .hero{background:linear-gradient(135deg,#1f4f96,#2f6fc4);color:#fff;padding:24px;border-radius:14px}
+  .hero h1{margin:0 0 6px;font-size:1.7rem}
+  .hero p{margin:4px 0}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:14px}
+  h2{font-size:1.2rem;margin:0 0 12px}
+  h3{font-size:1rem;margin:14px 0 8px}
+  label{display:block;font-weight:700;margin-bottom:5px}
+  input,select,textarea{width:100%;padding:10px;border:1px solid #b8c0cc;border-radius:8px;background:#fff;font:inherit}
+  textarea{min-height:100px;resize:vertical}
+  .small{font-size:.92rem;color:var(--muted)}
+  .badge{display:inline-block;padding:4px 9px;border-radius:999px;font-size:.84rem;font-weight:700;background:#eef2f6;color:#344054}
+  .badge.ok{background:#e8f5ee;color:var(--ok)}
+  .badge.warn{background:#fff3e8;color:var(--warn)}
+  .resource{border:1px solid var(--line);padding:12px;border-radius:10px;margin:9px 0}
+  .resource a{color:var(--accent);font-weight:700}
+  .btns{display:flex;flex-wrap:wrap;gap:8px}
+  button,.btn{
+    border:0;border-radius:8px;padding:10px 13px;background:var(--accent);color:#fff;
+    font-weight:700;cursor:pointer;text-decoration:none;display:inline-block
+  }
+  button.secondary,.btn.secondary{background:#475467}
+  button.light{background:#eef2f6;color:#344054}
+  button.danger{background:#b42318}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  .locked{opacity:.62}
+  .notice{padding:11px 13px;border-left:4px solid var(--accent);background:var(--accent2);border-radius:8px}
+  .success{padding:10px;border:1px solid #a6d8bd;background:#ecf8f1;color:#11633c;border-radius:8px}
+  .error{padding:10px;border:1px solid #f5b7b1;background:#fff0ee;color:#8b1e16;border-radius:8px}
+  .question{border-top:1px dashed var(--line);padding-top:13px;margin-top:13px}
+  .option{display:block;font-weight:400;margin:7px 0}
+  .option input{width:auto;margin-right:7px}
+  pre{background:#101828;color:#f2f4f7;padding:12px;border-radius:8px;overflow:auto}
+  code{font-family:Consolas,Monaco,monospace}
+  .progress-shell{height:13px;background:#eaecf0;border-radius:999px;overflow:hidden}
+  .progress-bar{height:100%;width:0;background:#2f6fc4;transition:.2s}
+  .scorebox{font-size:1.1rem;font-weight:700}
+  .rubric{width:100%;border-collapse:collapse}
+  .rubric th,.rubric td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:top}
+  .rubric th{background:#f2f4f7}
+  .hidden{display:none}
+  footer{color:#667085;text-align:center;padding:20px 0 10px;font-size:.9rem}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}.hero h1{font-size:1.4rem}}
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    .hero{border-radius:0}
+    button,.btn,.no-print{display:none!important}
+    .card{break-inside:avoid;border-color:#bbb}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="badge" style="background:#fff;color:#1f4f96">IV Unidad · Guía No. 4</div>
+    <h1>Condicionales: programa con if / elif / else y validación básica</h1>
+    <p><strong>Curso:</strong> Laboratorio I · 4.º Bachillerato en Computación</p>
+    <p><strong>Entrega:</strong> Viernes 02 de octubre de 2026 · <strong>Valor:</strong> 10 puntos</p>
+  </section>
+
+  <section class="card">
+    <h2>1. Identificación</h2>
+    <div class="grid">
+      <div><label for="nombre">Nombre completo</label><input id="nombre" autocomplete="name"></div>
+      <div><label for="carne">Carné o código</label><input id="carne"></div>
+      <div><label for="seccion">Sección</label><input id="seccion" placeholder="Ejemplo: A"></div>
+      <div><label for="fecha">Fecha de trabajo</label><input id="fecha" type="date"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. Lectura previa y verificación de recursos</h2>
+    <p>Antes de resolver las actividades, abre los dos recursos y revisa los ejemplos. La guía registra la apertura de cada enlace.</p>
+
+    <div class="resource">
+      <strong>Recurso 1 — Python: control de flujo</strong><br>
+      Explica el uso de <code>if</code>, <code>elif</code> y <code>else</code> con ejemplos.
+      <div class="btns" style="margin-top:8px">
+        <a class="btn" href="https://docs.python.org/es/3/tutorial/controlflow.html#if-statements" target="_blank" rel="noopener" onclick="markResource('r1')">Abrir recurso 1</a>
+        <span id="r1estado" class="badge warn">Pendiente</span>
+      </div>
+    </div>
+
+    <div class="resource">
+      <strong>Recurso 2 — Python: entrada y conversión de datos</strong><br>
+      Sirve para repasar cómo recibir datos y convertirlos, por ejemplo con <code>int()</code>.
+      <div class="btns" style="margin-top:8px">
+        <a class="btn" href="https://docs.python.org/es/3/tutorial/inputoutput.html" target="_blank" rel="noopener" onclick="markResource('r2')">Abrir recurso 2</a>
+        <span id="r2estado" class="badge warn">Pendiente</span>
+      </div>
+    </div>
+
+    <div id="unlockMsg" class="notice" style="margin-top:12px">
+      Abre ambos recursos para habilitar las actividades.
+    </div>
+  </section>
+
+  <section id="activities" class="locked">
+    <fieldset id="activityFieldset" disabled style="border:0;padding:0;margin:0">
+
+      <section class="card">
+        <h2>Actividad 1 — Comprender la decisión en un programa <span class="badge">2 pts</span></h2>
+        <p>Selecciona la respuesta correcta en cada caso.</p>
+
+        <div class="question">
+          <p><strong>1.</strong> ¿Para qué se utiliza principalmente una estructura <code>if</code>?</p>
+          <label class="option"><input type="radio" name="q1" value="a"> Para repetir siempre una instrucción.</label>
+          <label class="option"><input type="radio" name="q1" value="b"> Para ejecutar instrucciones cuando se cumple una condición.</label>
+          <label class="option"><input type="radio" name="q1" value="c"> Para borrar variables.</label>
+        </div>
+
+        <div class="question">
+          <p><strong>2.</strong> ¿Cuándo es útil <code>elif</code>?</p>
+          <label class="option"><input type="radio" name="q2" value="a"> Cuando queremos evaluar otra condición si la anterior no se cumplió.</label>
+          <label class="option"><input type="radio" name="q2" value="b"> Cuando queremos detener Python.</label>
+          <label class="option"><input type="radio" name="q2" value="c"> Solo cuando usamos texto.</label>
+        </div>
+
+        <button type="button" onclick="checkActivity1()">Comprobar actividad 1</button>
+        <div id="a1feedback" style="margin-top:10px"></div>
+      </section>
+
+      <section class="card">
+        <h2>Actividad 2 — Completar una condición <span class="badge">2 pts</span></h2>
+        <p>Observa el objetivo del programa: indicar si una nota está aprobada o no. Completa las partes faltantes.</p>
+
+<pre><code>nota = int(input("Ingrese la nota: "))
+
+____ nota &gt;= 60:
+    print("Aprobado")
+____:
+    print("No aprobado")</code></pre>
+
+        <div class="grid">
+          <div>
+            <label for="a2_1">Primera palabra faltante</label>
+            <input id="a2_1" placeholder="Escribe la palabra">
+          </div>
+          <div>
+            <label for="a2_2">Segunda palabra faltante</label>
+            <input id="a2_2" placeholder="Escribe la palabra">
+          </div>
+        </div>
+        <button type="button" style="margin-top:10px" onclick="checkActivity2()">Comprobar actividad 2</button>
+        <div id="a2feedback" style="margin-top:10px"></div>
+      </section>
+
+      <section class="card">
+        <h2>Actividad 3 — Programa con if / elif / else <span class="badge">4 pts</span></h2>
+        <p>Escribe un programa sencillo que pida una edad y muestre uno de estos mensajes:</p>
+        <ul>
+          <li>Menor de edad, si la edad es menor de 18.</li>
+          <li>Adulto, si está entre 18 y 64.</li>
+          <li>Adulto mayor, si tiene 65 años o más.</li>
+        </ul>
+        <p>Debe utilizar <code>if</code>, <code>elif</code> y <code>else</code>.</p>
+
+        <label for="codigo">Escribe tu código</label>
+        <textarea id="codigo" spellcheck="false" style="font-family:Consolas,Monaco,monospace;min-height:220px" placeholder='edad = int(input("Ingrese su edad: "))'></textarea>
+
+        <div class="btns" style="margin-top:10px">
+          <button type="button" onclick="reviewCode()">Verificar estructura</button>
+          <button type="button" class="light" onclick="insertExample()">Cargar estructura inicial</button>
+        </div>
+        <div id="codefeedback" style="margin-top:10px"></div>
+
+        <h3>Prueba mental del programa</h3>
+        <div class="grid">
+          <div><label for="prueba17">¿Qué debería mostrar si se ingresa 17?</label><input id="prueba17"></div>
+          <div><label for="prueba30">¿Qué debería mostrar si se ingresa 30?</label><input id="prueba30"></div>
+          <div><label for="prueba70">¿Qué debería mostrar si se ingresa 70?</label><input id="prueba70"></div>
+          <div><label for="explica">¿Qué función cumple <code>elif</code> en tu programa?</label><textarea id="explica" style="min-height:90px"></textarea></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Actividad 4 — Validación básica <span class="badge">2 pts</span></h2>
+        <p>Lee el siguiente caso:</p>
+<pre><code>edad = int(input("Ingrese su edad: "))</code></pre>
+        <p>Si el usuario escribe <strong>quince</strong> en lugar de <strong>15</strong>, el programa no podrá convertir ese texto directamente a un número.</p>
+
+        <label for="validacion">Explica con tus palabras qué debería verificar un programa antes de trabajar con el dato ingresado.</label>
+        <textarea id="validacion" placeholder="Escribe una explicación breve y clara."></textarea>
+
+        <label for="mejora" style="margin-top:10px">Escribe un mensaje que podrías mostrar al usuario si el dato no es válido.</label>
+        <input id="mejora" placeholder="Ejemplo de mensaje para el usuario">
+
+        <button type="button" style="margin-top:10px" onclick="checkActivity4()">Revisar actividad 4</button>
+        <div id="a4feedback" style="margin-top:10px"></div>
+      </section>
+
+    </fieldset>
+  </section>
+
+  <section class="card">
+    <h2>Rúbrica de evaluación — 10 puntos</h2>
+    <table class="rubric">
+      <thead><tr><th>Actividad</th><th>Criterio</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>1. Comprender la decisión</td><td>Reconoce el propósito de <code>if</code> y <code>elif</code>.</td><td>2 pts</td></tr>
+        <tr><td>2. Completar una condición</td><td>Identifica correctamente <code>if</code> y <code>else</code>.</td><td>2 pts</td></tr>
+        <tr><td>3. Programa condicional</td><td>Usa <code>if</code>, <code>elif</code> y <code>else</code>, plantea condiciones coherentes y explica su funcionamiento.</td><td>4 pts</td></tr>
+        <tr><td>4. Validación básica</td><td>Reconoce la necesidad de verificar la entrada y propone un mensaje comprensible para un dato incorrecto.</td><td>2 pts</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Estado de avance</h2>
+    <div class="progress-shell"><div id="progressBar" class="progress-bar"></div></div>
+    <p><span id="progressText">0% completado</span> · <span id="estadoGeneral" class="badge warn">PENDIENTE</span></p>
+    <p class="small">El avance se guarda automáticamente en este navegador. Antes de cerrar, descarga también el respaldo JSON.</p>
+
+    <div class="btns no-print">
+      <button type="button" onclick="saveNow()">Guardar ahora</button>
+      <button type="button" class="secondary" onclick="downloadJSON()">Descargar respaldo JSON</button>
+      <label class="btn light" style="cursor:pointer">
+        Cargar respaldo JSON
+        <input id="jsonFile" type="file" accept=".json,application/json" style="display:none" onchange="loadJSON(event)">
+      </label>
+      <button type="button" class="secondary" onclick="window.print()">Guardar / imprimir PDF</button>
+      <button type="button" class="danger" onclick="resetGuide()">Borrar datos de esta guía</button>
+    </div>
+    <div id="saveMsg" style="margin-top:10px"></div>
+  </section>
+
+  <footer>
+    Instituto Industrial Central General Lázaro Chacón González · Laboratorio I · IV Unidad 2026
+  </footer>
+</div>
+
+<script>
+const STORAGE_KEY = "lazaro_lab1_u4_guia4_condicionales_2026";
+const fields = ["nombre","carne","seccion","fecha","a2_1","a2_2","codigo","prueba17","prueba30","prueba70","explica","validacion","mejora"];
+let state = {
+  resources:{r1:false,r2:false},
+  checks:{a1:false,a2:false,a3:false,a4:false}
+};
+
+function markResource(id){
+  state.resources[id] = true;
+  saveNow(false);
+  renderResources();
+  unlockIfReady();
+}
+
+function renderResources(){
+  ["r1","r2"].forEach(id=>{
+    const el = document.getElementById(id+"estado");
+    if(state.resources[id]){
+      el.textContent="Consultado";
+      el.className="badge ok";
+    }else{
+      el.textContent="Pendiente";
+      el.className="badge warn";
+    }
+  });
+}
+
+function unlockIfReady(){
+  const ready = state.resources.r1 && state.resources.r2;
+  document.getElementById("activityFieldset").disabled = !ready;
+  document.getElementById("activities").classList.toggle("locked", !ready);
+  document.getElementById("unlockMsg").innerHTML = ready
+    ? '<span style="color:#157347;font-weight:700">Recursos consultados. Las actividades están habilitadas.</span>'
+    : 'Abre ambos recursos para habilitar las actividades.';
+}
+
+function selected(name){
+  const r=document.querySelector('input[name="'+name+'"]:checked');
+  return r ? r.value : "";
+}
+
+function checkActivity1(){
+  const q1=selected("q1"), q2=selected("q2");
+  const ok1=q1==="b", ok2=q2==="a";
+  const pts=(ok1?1:0)+(ok2?1:0);
+  state.checks.a1 = pts===2;
+  document.getElementById("a1feedback").innerHTML =
+    pts===2 ? '<div class="success">Correcto: 2 de 2 respuestas.</div>' :
+    '<div class="error">Tienes '+pts+' de 2 respuestas correctas. Revisa nuevamente la lectura.</div>';
+  saveNow(false);
+}
+
+function checkActivity2(){
+  const x=document.getElementById("a2_1").value.trim().toLowerCase();
+  const y=document.getElementById("a2_2").value.trim().toLowerCase();
+  const ok=x==="if" && y==="else";
+  state.checks.a2=ok;
+  document.getElementById("a2feedback").innerHTML = ok
+    ? '<div class="success">Correcto. La estructura queda con <code>if</code> y <code>else</code>.</div>'
+    : '<div class="error">Todavía hay una palabra que no coincide. Revisa la estructura condicional.</div>';
+  saveNow(false);
+}
+
+function reviewCode(){
+  const c=document.getElementById("codigo").value.toLowerCase();
+  const hasIf=/\bif\b/.test(c);
+  const hasElif=/\belif\b/.test(c);
+  const hasElse=/\belse\b/.test(c);
+  const hasInput=/\binput\s*\(/.test(c);
+  const hasInt=/\bint\s*\(/.test(c);
+  const ok=hasIf&&hasElif&&hasElse&&hasInput&&hasInt;
+  state.checks.a3=ok;
+
+  let missing=[];
+  if(!hasInput) missing.push("input()");
+  if(!hasInt) missing.push("int()");
+  if(!hasIf) missing.push("if");
+  if(!hasElif) missing.push("elif");
+  if(!hasElse) missing.push("else");
+
+  document.getElementById("codefeedback").innerHTML = ok
+    ? '<div class="success">La estructura básica está presente. Revisa ahora que tus condiciones y mensajes produzcan los tres resultados solicitados.</div>'
+    : '<div class="error">Falta revisar: '+missing.join(", ")+'. Esta verificación revisa la estructura, no ejecuta el programa.</div>';
+  saveNow(false);
+}
+
+function insertExample(){
+  const box=document.getElementById("codigo");
+  if(box.value.trim() && !confirm("Esto reemplazará el código escrito. ¿Continuar?")) return;
+  box.value = 'edad = int(input("Ingrese su edad: "))\\n\\nif edad < 18:\\n    print("Menor de edad")\\nelif edad < 65:\\n    print("Adulto")\\nelse:\\n    print("Adulto mayor")';
+  saveNow(false);
+}
+
+function checkActivity4(){
+  const a=document.getElementById("validacion").value.trim();
+  const b=document.getElementById("mejora").value.trim();
+  const ok=a.length>=25 && b.length>=10;
+  state.checks.a4=ok;
+  document.getElementById("a4feedback").innerHTML = ok
+    ? '<div class="success">Respuesta registrada. El docente revisará la claridad de la explicación.</div>'
+    : '<div class="error">Amplía un poco la explicación y escribe un mensaje claro para el usuario.</div>';
+  saveNow(false);
+}
+
+function collect(){
+  const data={...state, answers:{}, radios:{q1:selected("q1"),q2:selected("q2")}, savedAt:new Date().toISOString()};
+  fields.forEach(id=>data.answers[id]=document.getElementById(id).value);
+  return data;
+}
+
+function apply(data){
+  if(!data) return;
+  state.resources = Object.assign({r1:false,r2:false}, data.resources||{});
+  state.checks = Object.assign({a1:false,a2:false,a3:false,a4:false}, data.checks||{});
+  const ans=data.answers||{};
+  fields.forEach(id=>{ if(ans[id]!==undefined) document.getElementById(id).value=ans[id]; });
+  const radios=data.radios||{};
+  ["q1","q2"].forEach(name=>{
+    if(radios[name]){
+      const el=document.querySelector('input[name="'+name+'"][value="'+radios[name]+'"]');
+      if(el) el.checked=true;
+    }
+  });
+  renderResources(); unlockIfReady(); updateProgress();
+}
+
+function saveNow(show=true){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(collect()));
+  updateProgress();
+  if(show){
+    const m=document.getElementById("saveMsg");
+    m.innerHTML='<div class="success">Avance guardado en este navegador.</div>';
+    setTimeout(()=>m.innerHTML="",1800);
+  }
+}
+
+function updateProgress(){
+  let total=0, done=0;
+  const checks=[
+    document.getElementById("nombre").value.trim().length>2,
+    document.getElementById("carne").value.trim().length>0,
+    state.resources.r1 && state.resources.r2,
+    state.checks.a1,
+    state.checks.a2,
+    state.checks.a3,
+    document.getElementById("prueba17").value.trim().length>0 &&
+    document.getElementById("prueba30").value.trim().length>0 &&
+    document.getElementById("prueba70").value.trim().length>0 &&
+    document.getElementById("explica").value.trim().length>=15,
+    state.checks.a4
+  ];
+  total=checks.length; done=checks.filter(Boolean).length;
+  const pct=Math.round(done/total*100);
+  document.getElementById("progressBar").style.width=pct+"%";
+  document.getElementById("progressText").textContent=pct+"% completado";
+  const status=document.getElementById("estadoGeneral");
+  if(pct===100){
+    status.textContent="COMPLETO"; status.className="badge ok";
+  }else{
+    status.textContent="PENDIENTE"; status.className="badge warn";
+  }
+}
+
+function downloadJSON(){
+  saveNow(false);
+  const data=JSON.stringify(collect(),null,2);
+  const blob=new Blob([data],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  const student=(document.getElementById("nombre").value.trim()||"estudiante").replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+/g,"_");
+  a.download="Guia04_Condicionales_"+student+".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function loadJSON(event){
+  const file=event.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      apply(data);
+      saveNow(false);
+      document.getElementById("saveMsg").innerHTML='<div class="success">Respaldo cargado correctamente.</div>';
+    }catch(e){
+      document.getElementById("saveMsg").innerHTML='<div class="error">No se pudo leer el archivo JSON.</div>';
+    }
+  };
+  reader.readAsText(file);
+  event.target.value="";
+}
+
+function resetGuide(){
+  if(!confirm("¿Deseas borrar todo el avance guardado de esta guía en este navegador?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+document.addEventListener("input",()=>{saveNow(false)});
+document.addEventListener("change",()=>{saveNow(false)});
+
+(function init(){
+  const saved=localStorage.getItem(STORAGE_KEY);
+  if(saved){ try{apply(JSON.parse(saved));}catch(e){} }
+  if(!document.getElementById("fecha").value){
+    document.getElementById("fecha").value = new Date().toISOString().slice(0,10);
+  }
+  renderResources(); unlockIfReady(); updateProgress();
+})();
+</script>
+</body>
+</html>
