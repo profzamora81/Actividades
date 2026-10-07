@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mejoramiento — Guía No. 4: inclusión, equidad y acceso en mecánica</title><style>
+:root{
+  --navy:#17233f;--navy2:#22365f;--blue:#315dd6;--blue2:#eaf0ff;--bg:#f4f6fa;
+  --card:#fff;--text:#20283a;--muted:#64708a;--line:#d7deea;--ok:#087a4b;
+  --okbg:#e8f7ef;--warn:#a65a00;--warnbg:#fff6dc;--danger:#b42318;
+  --shadow:0 8px 26px rgba(24,39,75,.08)
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.45}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 18px}
+.head{max-width:1120px;margin:auto}.kicker{text-transform:uppercase;font-size:12px;letter-spacing:.08em;color:#c9d4ff;font-weight:700}
+.head h1{margin:5px 0 6px;font-size:28px;line-height:1.15}.head p{margin:3px 0;color:#e4e9f8}
+.statusbar{position:sticky;top:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);z-index:30}
+.statusin{max-width:1120px;margin:auto;padding:9px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.bar{height:9px;background:#e7ebf3;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--blue);transition:.25s}
+.statusline{display:flex;gap:10px;align-items:center;justify-content:flex-end;font-size:13px}
+.badge{padding:5px 9px;border-radius:999px;background:#edf0f5;font-weight:700;color:#58647a}.badge.ok{background:var(--okbg);color:var(--ok)}
+main{max-width:1120px;margin:18px auto 90px;padding:0 16px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;box-shadow:var(--shadow)}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px 16px}.meta div{padding:8px 0;border-bottom:1px solid #edf0f5}.meta b{display:block;color:#526079;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+.notice{border-left:4px solid var(--blue);background:var(--blue2);padding:12px 14px;border-radius:8px;margin:14px 0}
+.warning{border-left:4px solid #d88a0b;background:var(--warnbg);padding:12px 14px;border-radius:8px;margin:14px 0}
+.reading{border:1px solid #c9d6ff;background:#f8faff;border-radius:12px;padding:15px;margin:10px 0}.reading h3{margin:0 0 5px}.reading .source{color:var(--muted);font-size:13px}
+.reading-status{font-size:13px;font-weight:700;margin-top:8px}.reading-status.ok{color:var(--ok)}
+button,.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;background:var(--blue);color:#fff}
+.btn.secondary,button.secondary{background:#eef2f8;color:#2b3a57;border:1px solid #ccd5e4}.btn.ok,button.ok{background:var(--ok)}button:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.tabs button{background:#e9eef8;color:#2b3a57}.tabs button.active{background:var(--navy);color:#fff}.tabs button.locked{opacity:.42}
+.tab{display:none}.tab.active{display:block}.activity-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.points{font-weight:700;background:#eef2ff;color:#304bb3;border-radius:999px;padding:5px 9px;white-space:nowrap}
+.field{margin:13px 0}.field label{font-weight:700;display:block;margin-bottom:5px}.req{color:var(--danger)}
+textarea,input[type=text],select{width:100%;border:1px solid #bcc7d9;border-radius:8px;padding:10px 11px;font:inherit;background:#fff}
+textarea:focus,input[type=text]:focus,select:focus{outline:3px solid rgba(49,93,214,.12);border-color:var(--blue)}
+input[type=file]{max-width:100%;margin-top:8px}.hint,.muted,.small{font-size:12px;color:var(--muted)}
+.rubric{width:100%;border-collapse:collapse;font-size:14px}.rubric th,.rubric td{border:1px solid #ccd5e4;padding:8px;vertical-align:top}.rubric th{background:#edf2f9;text-align:left}
+.preview img{max-width:100%;max-height:340px;border:1px solid var(--line);border-radius:8px;margin-top:8px}.evidence-box{padding:12px;background:#fafbfe;border:1px dashed #b8c4d7;border-radius:10px}
+.footer-actions{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);box-shadow:0 -5px 22px rgba(24,39,75,.08);z-index:40}
+.footer-inner{max-width:1120px;margin:auto;padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap}
+.identity{position:fixed;inset:0;background:rgba(14,22,39,.78);display:grid;place-items:center;z-index:100;padding:16px}.identity.hidden{display:none}.identity-card{background:#fff;width:min(660px,100%);padding:22px;border-radius:15px;box-shadow:0 25px 70px rgba(0,0,0,.3)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.complete-box{border:1px solid #b8dec9;background:#f3fbf6;border-radius:10px;padding:12px}.status-msg{font-size:12px;color:var(--muted);margin-left:auto}
+#printArea{display:none}.student-strip{font-size:13px;color:#dbe5ff;margin:7px 0 0}
+.checkline{display:flex;gap:10px;align-items:flex-start;margin:9px 0}.checkline input{margin-top:4px;transform:scale(1.15)}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}.head h1{font-size:22px}.statusin{grid-template-columns:1fr}.statusline{justify-content:flex-start}.activity-title{display:block}.points{display:inline-block;margin-bottom:5px}}
+@media print{body{background:#fff}.no-print,.statusbar,.footer-actions,.identity,header{display:none!important}main{display:none!important}#printArea{display:block!important;padding:0 7mm;color:#111}.print-head{border-bottom:2px solid #18233f;padding-bottom:8px;margin-bottom:10px}.print-head h1{font-size:18px;margin:0}.print-meta{font-size:10.5px;margin-top:5px}.print-section{break-inside:avoid;margin:10px 0}.print-section h2{font-size:13px;border-bottom:1px solid #aaa;padding-bottom:3px}.print-answer{white-space:pre-wrap;border:1px solid #ddd;padding:6px;margin:4px 0;font-size:10.5px}.print-answer b{display:block;margin-bottom:3px}.print-img{max-width:100%;max-height:100mm;display:block;margin:6px 0}@page{size:A4;margin:11mm}}
+</style></head>
+<body data-guide-id="lazaro-2026-4to-mecanica-tic-i-iv-guia-04-mejoramiento">
+<div id="identityModal" class="identity"><div class="identity-card"><div class="kicker" style="color:#51658f">Instituto Industrial Central General Lázaro Chacón González</div><h2>Identificación del estudiante</h2><p>Escribe tus datos para iniciar o recuperar el proceso de mejoramiento.</p><div class="grid2"><div class="field"><label for="idKey">Clave / Carné</label><input id="idKey" type="text"></div><div class="field"><label for="idSection">Sección</label><input id="idSection" type="text"></div></div><div class="field"><label for="idName">Nombre completo</label><input id="idName" type="text"></div><div class="actions"><button id="identifyBtn" type="button">Continuar</button></div><p id="identityMsg" class="small"></p></div></div>
+<header><div class="head"><div class="kicker">Proceso de mejoramiento · Ciclo 2026 · IV Unidad</div><h1>Mejoramiento — Guía No. 4: inclusión, equidad y acceso en mecánica</h1><p>Cuarto Bachillerato en Ciencias y Letras con Orientación en Mecánica · TIC I</p><p>Docente: Erick Enrique Zamora Paz · Valor: 10 puntos</p><div id="studentLine" class="student-strip"></div></div></header>
+<div class="statusbar no-print"><div class="statusin"><div><div class="bar"><span id="progressFill"></span></div><div id="progressText" class="small">Avance: 0%</div></div><div class="statusline"><span id="badge" class="badge">PENDIENTE</span><span id="saveMsg">Sin cambios</span></div></div></div>
+<main>
+<div class="tabs no-print"><button class="active" data-tab="guide">Guía</button><button data-tab="reading">Lecturas</button><button data-tab="a1" data-activity-tab="1" disabled>Actividad 1</button><button data-tab="a2" data-activity-tab="1" disabled>Actividad 2</button><button data-tab="a3" data-activity-tab="1" disabled>Actividad 3</button><button data-tab="rubric">Criterios</button><button data-tab="backup">Entrega</button></div>
+
+<section id="guide" class="tab active card"><h2>Información del mejoramiento</h2>
+<div class="meta"><div><b>Curso</b>TIC I</div><div><b>Orientación</b>Mecánica</div><div><b>Unidad</b>IV Unidad</div><div><b>Valor</b>10 puntos</div><div><b>Tipo</b>Proceso de mejoramiento</div><div><b>Producto</b>Recurso técnico accesible</div></div>
+<div class="notice"><b>Propósito:</b> mejorar la capacidad de reconocer barreras de acceso y adaptar recursos técnicos de Mecánica para que puedan comprenderse y utilizarse en distintas condiciones de conectividad y dispositivo.</div></section>
+
+<section id="reading" class="tab card"><h2>Lecturas previas</h2><p>Abre y registra los dos recursos obligatorios.</p>
+<div class="reading" data-reading-id="r1" data-required="1"><h3>La inclusión en la educación</h3><div class="source">UNESCO</div><p>Inclusión, participación y eliminación de barreras para aprender.</p><div class="actions"><a class="btn" data-reading-link="r1" href="https://www.unesco.org/es/education/inclusion" target="_blank" rel="noopener">Abrir recurso</a><button class="secondary" type="button" data-consult="r1">Registrar como consultado</button></div><div class="reading-status">PENDIENTE DE CONSULTA · obligatorio</div></div>
+<div class="reading" data-reading-id="r2" data-required="1"><h3>Recomendación sobre los Recursos Educativos Abiertos (REA)</h3><div class="source">UNESCO</div><p>Acceso inclusivo y equitativo a materiales educativos.</p><div class="actions"><a class="btn" data-reading-link="r2" href="https://www.unesco.org/es/legal-affairs/recommendation-open-educational-resources-oer" target="_blank" rel="noopener">Abrir recurso</a><button class="secondary" type="button" data-consult="r2">Registrar como consultado</button></div><div class="reading-status">PENDIENTE DE CONSULTA · obligatorio</div></div>
+<div id="gateMsg" class="notice"></div></section>
+
+<section id="a1" class="tab card"><div class="activity-title"><h2>Actividad 1 — Detectar barreras en recursos de Mecánica</h2><span class="points">3 pts</span></div>
+<div class="field"><label>1. Un manual de mantenimiento solo puede consultarse en línea y un estudiante no tiene conexión permanente. ¿Qué barrera existe y qué solución concreta propondrías? <span class="req">*</span></label><textarea id="a1q1" required data-save="1" data-print="A1.1 — Manual sin conexión" rows="5"></textarea></div>
+<div class="field"><label>2. Un despiece tiene texto muy pequeño y demasiados elementos juntos. ¿Qué cambios harías para mejorar su comprensión? <span class="req">*</span></label><textarea id="a1q2" required data-save="1" data-print="A1.2 — Despiece difícil de leer" rows="5"></textarea></div>
+<div class="field"><label>3. Una aplicación de diagnóstico no funciona en todos los dispositivos. ¿Cómo permitirías que el grupo alcance el mismo aprendizaje sin depender de esa aplicación? <span class="req">*</span></label><textarea id="a1q3" required data-save="1" data-print="A1.3 — Alternativa de acceso" rows="5"></textarea></div>
+</section>
+
+<section id="a2" class="tab card"><div class="activity-title"><h2>Actividad 2 — Crear un recurso técnico más accesible</h2><span class="points">4 pts</span></div>
+<p>Elige un recurso del área de Mecánica y crea una versión de una sola página o diapositiva que sea más fácil de consultar.</p>
+<div class="field"><label>Tipo de recurso <span class="req">*</span></label><select id="a2q1" required data-save="1" data-print="A2.1 — Tipo de recurso"><option value="">Selecciona…</option><option>Guía de mantenimiento</option><option>Despiece</option><option>Ficha de herramienta</option><option>Procedimiento de seguridad</option><option>Resumen de diagnóstico</option><option>Otro recurso de Mecánica</option></select></div>
+<div class="field"><label>2. Explica qué problema de acceso o comprensión quieres corregir. <span class="req">*</span></label><textarea id="a2q2" required data-save="1" data-print="A2.2 — Problema identificado" rows="5"></textarea></div>
+<div class="checkline"><input id="c1" type="checkbox" required data-save="1" data-print="A2 — Texto legible"><label for="c1">Texto legible y organizado.</label></div>
+<div class="checkline"><input id="c2" type="checkbox" required data-save="1" data-print="A2 — Contraste"><label for="c2">Buen contraste entre texto, fondo e imágenes.</label></div>
+<div class="checkline"><input id="c3" type="checkbox" required data-save="1" data-print="A2 — Uso sin conexión"><label for="c3">Puede consultarse sin depender de conexión permanente.</label></div>
+<div class="checkline"><input id="c4" type="checkbox" required data-save="1" data-print="A2 — Relación con Mecánica"><label for="c4">La información se relaciona claramente con Mecánica.</label></div>
+<div class="evidence-box"><label><b>Captura obligatoria del recurso mejorado</b></label><input id="evidenceFile" type="file" accept="image/*"><div class="preview" id="evidencePreview"></div></div>
+<div class="field"><label>3. Explica tres decisiones que tomaste para mejorar el acceso o la comprensión del recurso. <span class="req">*</span></label><textarea id="a2q3" required data-save="1" data-print="A2.3 — Tres decisiones de accesibilidad" rows="6"></textarea></div>
+</section>
+
+<section id="a3" class="tab card"><div class="activity-title"><h2>Actividad 3 — Plan de acceso para una actividad de taller</h2><span class="points">3 pts</span></div>
+<div class="notice"><b>Situación:</b> el grupo debe prepararse para una práctica de mantenimiento. Algunos estudiantes tienen Internet permanente y otros solo pueden conectarse por momentos.</div>
+<div class="field"><label>1. ¿Qué materiales prepararías para que todos puedan estudiar antes de la práctica? Incluye al menos una opción sin conexión. <span class="req">*</span></label><textarea id="a3q1" required data-save="1" data-print="A3.1 — Materiales de acceso" rows="5"></textarea></div>
+<div class="field"><label>2. ¿Cómo organizarías los archivos o recursos para que puedan encontrarse fácilmente en la tablet o computadora? <span class="req">*</span></label><textarea id="a3q2" required data-save="1" data-print="A3.2 — Organización de recursos" rows="5"></textarea></div>
+<div class="field"><label>3. Explica qué parte del aprendizaje debe comprobarse de forma práctica en el taller y por qué. <span class="req">*</span></label><textarea id="a3q3" required data-save="1" data-print="A3.3 — Verificación práctica" rows="5"></textarea></div>
+<div class="field"><label>Fuente consultada <span class="req">*</span></label><input id="sourceUsed" type="text" required data-save="1" data-print="A3.4 — Fuente consultada"></div>
+<div class="field"><label>Enlace de la fuente <span class="req">*</span></label><input id="sourceUrl" type="text" required data-save="1" data-print="A3.5 — Enlace"></div>
+</section>
+
+<section id="rubric" class="tab card"><h2>Rúbrica — 10 puntos</h2><table class="rubric"><thead><tr><th>Criterio</th><th>Excelente</th><th>Aceptable</th><th>En proceso</th><th>No cumple</th></tr></thead><tbody>
+<tr><td><b>1. Identificación de barreras y soluciones</b><br>3 pts</td><td>Identifica las barreras de las tres situaciones y propone soluciones concretas y viables. <b>3</b></td><td>Resuelve las situaciones con una explicación poco desarrollada. <b>2</b></td><td>Reconoce parte de las barreras pero las soluciones son incompletas. <b>1</b></td><td>No presenta evidencia suficiente. <b>0</b></td></tr>
+<tr><td><b>2. Recurso técnico accesible</b><br>4 pts</td><td>Presenta un recurso legible, organizado, relacionado con Mecánica y justifica tres decisiones de accesibilidad. <b>4</b></td><td>Cumple la mayoría de requisitos con una omisión menor. <b>3</b></td><td>El recurso es parcial o presenta problemas de acceso, legibilidad o justificación. <b>2</b></td><td>No presenta evidencia verificable. <b>0</b></td></tr>
+<tr><td><b>3. Plan de acceso y verificación práctica</b><br>3 pts</td><td>Propone materiales viables, incluye opción sin conexión, organiza el acceso y reconoce qué debe verificarse en el taller. <b>3</b></td><td>El plan es adecuado con una omisión menor. <b>2</b></td><td>El plan es parcial o poco aplicable. <b>1</b></td><td>No presenta un plan suficiente. <b>0</b></td></tr>
+</tbody></table></section>
+
+<section id="backup" class="tab card"><h2>Entrega y respaldo</h2><div id="completeMsg" class="complete-box"></div><div class="actions"><button id="jsonBtn" type="button">Descargar respaldo JSON</button><label class="btn secondary" for="importFile">Cargar respaldo JSON</label><input id="importFile" type="file" accept=".json,application/json" style="display:none"><button id="printBtn" type="button" class="ok" disabled>Generar / imprimir PDF</button></div></section>
+</main>
+<div class="footer-actions no-print"><div class="footer-inner"><button id="saveNowBtn" type="button">Guardar ahora</button><button id="resetBtn" type="button" class="secondary">Borrar borrador local</button><span id="saveMsg" class="status-msg">Autoguardado activo</span></div></div>
+<div id="printArea"></div>
+
+<script>
+(() => {
+  const GUIDE_ID = "lazaro-2026-4to-mecanica-tic-i-iv-guia-04-mejoramiento";
+  const GUIDE_TITLE = "Mejoramiento — Guía No. 4: inclusión, equidad y acceso en mecánica";
+  const GUIDE_META = {"institucion": "Instituto Industrial Central General Lázaro Chacón González", "docente": "Erick Enrique Zamora Paz", "grado": "Cuarto Bachillerato en Ciencias y Letras con Orientación en Mecánica", "curso": "TIC I", "unidad": "IV Unidad", "guia": "Mejoramiento Guía No. 4", "ponderacion": "10 puntos", "tema": "Inclusión, equidad y acceso aplicados a recursos de Mecánica"};
+  const requiredReadingIds = ["r1", "r2"];
+  const readings = {};
+  const opened = {};
+  let currentStudent = null;
+  let currentKey = null;
+  let imageData = null;
+  let saveTimer = null;
+
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const normalize = v => String(v || '').trim().replace(/\s+/g,' ').toLowerCase();
+
+  function setTab(id){
+    $$('.tab').forEach(x=>x.classList.toggle('active',x.id===id));
+    $$('.tabs button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{ if(!b.disabled) setTab(b.dataset.tab); }));
+
+  function readingsDone(){ return requiredReadingIds.every(id => readings[id]); }
+  function updateReadingUI(){
+    document.querySelectorAll('[data-reading-id]').forEach(card=>{
+      const id=card.dataset.readingId, st=card.querySelector('.reading-status');
+      if(readings[id]){ st.textContent='RECURSO CONSULTADO · '+new Date(readings[id]).toLocaleString('es-GT'); st.classList.add('ok'); }
+      else { st.textContent = card.dataset.required==='1' ? 'PENDIENTE DE CONSULTA · obligatorio' : 'PENDIENTE DE CONSULTA · complementario'; st.classList.remove('ok'); }
+    });
+    $$('[data-activity-tab]').forEach(b=>{ b.disabled=!readingsDone(); b.classList.toggle('locked',!readingsDone()); });
+    $('#gateMsg').textContent = readingsDone() ? 'Lecturas obligatorias registradas. Ya puedes desarrollar las actividades.' : 'Abre y registra los recursos obligatorios para habilitar las actividades.';
+    updateProgress();
+  }
+  document.querySelectorAll('[data-reading-link]').forEach(a=>a.addEventListener('click',()=>{ opened[a.dataset.readingLink]=true; }));
+  document.querySelectorAll('[data-consult]').forEach(b=>b.addEventListener('click',()=>{
+    const id=b.dataset.consult;
+    if(!opened[id]){ alert('Primero abre el recurso para consultarlo.'); return; }
+    readings[id]=new Date().toISOString(); updateReadingUI(); scheduleSave();
+  }));
+
+  function captureFields(){
+    const fields={};
+    $$('[data-save="1"]').forEach(el=>{ fields[el.id]=el.type==='checkbox' ? el.checked : el.value; });
+    return fields;
+  }
+  function applyFields(fields={}){
+    Object.entries(fields).forEach(([id,val])=>{ const el=document.getElementById(id); if(!el) return; if(el.type==='checkbox') el.checked=!!val; else el.value=val ?? ''; });
+  }
+  function renderImage(){
+    const box=$('#evidencePreview'); if(!box) return; box.innerHTML='';
+    if(imageData){ const img=document.createElement('img'); img.src=imageData; img.alt='Evidencia seleccionada'; box.appendChild(img); }
+  }
+  async function compressImage(file){
+    if(!file || !file.type.startsWith('image/')) return null;
+    const data=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error);r.readAsDataURL(file);});
+    const img=await new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=data;});
+    const max=1400, scale=Math.min(1,max/Math.max(img.width,img.height));
+    const c=document.createElement('canvas'); c.width=Math.round(img.width*scale); c.height=Math.round(img.height*scale);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height); return c.toDataURL('image/jpeg',0.8);
+  }
+  const evFile=$('#evidenceFile');
+  if(evFile) evFile.addEventListener('change',async e=>{ try{imageData=await compressImage(e.target.files[0]);renderImage();updateProgress();scheduleSave();}catch(err){alert('No fue posible procesar la imagen seleccionada.');} });
+
+  function completion(){
+    const req=$$('[required]'); let filled=0;
+    req.forEach(el=>{ if(el.type==='checkbox'){ if(el.checked) filled++; } else if(String(el.value||'').trim()) filled++; });
+    const readDone=requiredReadingIds.filter(id=>readings[id]).length;
+    const evidenceDone = 1 ? (imageData ? 1 : 0) : 0;
+    const total=req.length+requiredReadingIds.length+(1);
+    const done=filled+readDone+evidenceDone;
+    return {done,total,pct:total?Math.round(done*100/total):0,complete:done===total};
+  }
+  function updateProgress(){
+    const c=completion();
+    $('#progressFill').style.width=c.pct+'%';
+    $('#progressText').textContent=`Avance: ${c.pct}% (${c.done}/${c.total})`;
+    $('#badge').textContent=c.complete?'COMPLETO':'PENDIENTE';
+    $('#badge').classList.toggle('ok',c.complete);
+    $('#printBtn').disabled=!c.complete;
+    $('#completeMsg').innerHTML=c.complete?'<b>Mejoramiento completo.</b> Ya puedes generar el PDF y descargar el respaldo JSON.':'Completa los campos obligatorios, registra las lecturas y agrega la evidencia requerida.';
+  }
+  $$('[data-save="1"]').forEach(el=>{ el.addEventListener('input',()=>{updateProgress();scheduleSave();}); el.addEventListener('change',()=>{updateProgress();scheduleSave();}); });
+
+  function saveDraft(){
+    if(!currentKey) return;
+    const payload={guideId:GUIDE_ID,student:currentStudent,fields:captureFields(),readings:{...readings},imageData,updatedAt:new Date().toISOString()};
+    try{localStorage.setItem(currentKey,JSON.stringify(payload));$('#saveMsg').textContent='Guardado '+new Date().toLocaleTimeString('es-GT',{hour:'2-digit',minute:'2-digit'});}catch(e){$('#saveMsg').textContent='No se pudo guardar';}
+  }
+  function scheduleSave(){ clearTimeout(saveTimer); $('#saveMsg').textContent='Guardando…'; saveTimer=setTimeout(saveDraft,450); }
+  function loadDraft(){
+    const raw=localStorage.getItem(currentKey); if(!raw) return;
+    try{const d=JSON.parse(raw); applyFields(d.fields||{}); Object.assign(readings,d.readings||{}); imageData=d.imageData||null; renderImage(); updateReadingUI(); updateProgress(); $('#saveMsg').textContent='Borrador recuperado';}catch(e){}
+  }
+
+  $('#identifyBtn').addEventListener('click',()=>{
+    const key=$('#idKey').value.trim(), section=$('#idSection').value.trim(), name=$('#idName').value.trim();
+    if(!key||!section||!name){$('#identityMsg').textContent='Completa Clave/Carné, Sección y Nombre completo.';return;}
+    currentStudent={key,section,name};
+    currentKey=`${GUIDE_ID}::${normalize(key)}::${normalize(section)}`;
+    $('#identityModal').classList.add('hidden');
+    $('#studentLine').textContent=`Estudiante: ${name} · Clave/Carné: ${key} · Sección: ${section}`;
+    loadDraft(); updateReadingUI(); updateProgress();
+  });
+
+  function download(name,text,type){ const blob=new Blob([text],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000); }
+  $('#jsonBtn').addEventListener('click',()=>{
+    if(!currentStudent) return;
+    const c=completion();
+    const obj={format:'guia-interactiva-lazaro-v1',guideId:GUIDE_ID,title:GUIDE_TITLE,metadata:GUIDE_META,student:currentStudent,status:c.complete?'COMPLETO':'PENDIENTE',progress:c.pct,readings:{...readings},fields:captureFields(),imageData,exportedAt:new Date().toISOString()};
+    const safe=(currentStudent.key+'_'+currentStudent.name).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+/g,'_');
+    download(`${GUIDE_ID}_${safe}.json`,JSON.stringify(obj,null,2),'application/json;charset=utf-8');
+  });
+  $('#importFile').addEventListener('change',async e=>{
+    const f=e.target.files[0]; if(!f) return;
+    try{const obj=JSON.parse(await f.text()); if(obj.guideId!==GUIDE_ID){alert('El respaldo pertenece a otra guía.');e.target.value='';return;} applyFields(obj.fields||{}); Object.keys(readings).forEach(k=>delete readings[k]); Object.assign(readings,obj.readings||{}); imageData=obj.imageData||null; renderImage(); updateReadingUI(); updateProgress(); scheduleSave(); alert('Respaldo cargado correctamente.');}
+    catch(err){alert('No fue posible leer el archivo JSON.');} finally{e.target.value='';}
+  });
+
+  function buildPrint(){
+    const p=$('#printArea'); const c=completion();
+    let html=`<div class="print-head"><h1>${esc(GUIDE_TITLE)}</h1><div class="print-meta">${esc(GUIDE_META.institucion)}<br>${esc(GUIDE_META.grado)} · ${esc(GUIDE_META.curso)} · ${esc(GUIDE_META.unidad)}<br>Docente: ${esc(GUIDE_META.docente)} · Valor: ${esc(GUIDE_META.ponderacion)}<br>Estudiante: ${esc(currentStudent.name)} · Clave/Carné: ${esc(currentStudent.key)} · Sección: ${esc(currentStudent.section)} · Estado: ${c.complete?'COMPLETO':'PENDIENTE'}</div></div>`;
+    html+='<div class="print-section"><h2>Recursos consultados</h2>';
+    document.querySelectorAll('[data-reading-id]').forEach(card=>{const id=card.dataset.readingId;if(readings[id]) html+=`<div class="print-answer"><b>${esc(card.querySelector('h3').textContent)}</b>${esc(card.querySelector('.source').textContent)}</div>`;});
+    html+='</div>';
+    let lastAct='';
+    $$('[data-print]').forEach(el=>{
+      const act=el.closest('section')?.querySelector('.activity-title h2')?.textContent || 'Respuestas';
+      if(act!==lastAct){html+=`${lastAct?'</div>':''}<div class="print-section"><h2>${esc(act)}</h2>`;lastAct=act;}
+      const val=el.type==='checkbox'?(el.checked?'Sí':'No'):el.value;
+      html+=`<div class="print-answer"><b>${esc(el.dataset.print)}</b>${esc(val)}</div>`;
+    });
+    if(lastAct) html+='</div>';
+    if(imageData) html+=`<div class="print-section"><h2>Evidencia</h2><img class="print-img" src="${imageData}" alt="Evidencia"></div>`;
+    p.innerHTML=html;
+  }
+  $('#printBtn').addEventListener('click',()=>{ if(!completion().complete) return; buildPrint(); window.print(); });
+  $('#resetBtn').addEventListener('click',()=>{ if(!currentKey) return; if(confirm('¿Borrar el borrador local de este mejoramiento?')){localStorage.removeItem(currentKey); location.reload();} });
+  $('#saveNowBtn').addEventListener('click',saveDraft);
+
+  updateReadingUI(); updateProgress();
+})();
+</script>
+
+</body></html>
