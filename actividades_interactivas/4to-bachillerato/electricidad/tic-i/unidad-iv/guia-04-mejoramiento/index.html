@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mejoramiento Guía No. 4 — TIC I — Inclusión, equidad y acceso</title>
+<style>
+:root{
+  --bg:#f4f7fb;--card:#fff;--text:#1f2937;--muted:#64748b;
+  --primary:#244c8f;--primary2:#3b82f6;--ok:#15803d;--warn:#b45309;
+  --danger:#b42318;--border:#dbe3ee;--soft:#eef4ff;--okbg:#ecfdf5;
+  --shadow:0 8px 24px rgba(15,23,42,.08)
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+.wrap{max-width:1040px;margin:auto;padding:20px 16px 110px}
+.hero{background:linear-gradient(135deg,#244c8f,#3b82f6);color:#fff;border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+.hero h1{margin:0 0 8px;font-size:clamp(1.55rem,4vw,2.25rem)}
+.hero p{margin:4px 0}
+.kicker{text-transform:uppercase;font-size:12px;letter-spacing:.08em;font-weight:700;opacity:.9}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:14px}
+.meta{background:rgba(255,255,255,.12);padding:10px 12px;border-radius:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-top:18px;box-shadow:var(--shadow)}
+h2{margin-top:0;color:var(--primary)} h3{color:#334155}
+.note{background:#fff7ed;border-left:5px solid #f59e0b;padding:14px;border-radius:10px}
+.academic{background:#eff6ff;border-left:5px solid var(--primary2);padding:14px;border-radius:10px}
+.success{background:var(--okbg);border-left:5px solid #22c55e;padding:14px;border-radius:10px}
+.warning{background:#fff7ed;border-left:5px solid #f59e0b;padding:14px;border-radius:10px}
+.reading{border:1px solid #c9d6ff;background:#f8faff;border-radius:12px;padding:15px;margin:12px 0}
+.reading-status{font-size:.9rem;font-weight:700;margin-top:8px;color:var(--warn)}
+.reading-status.ok{color:var(--ok)}
+label{font-weight:700;display:block;margin-top:14px}
+input[type=text],textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;font-size:1rem;background:#fff}
+textarea{min-height:105px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.row{grid-template-columns:1fr}.wrap{padding-bottom:130px}}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center}
+button,.btn{border:0;border-radius:10px;padding:10px 14px;font-size:.96rem;cursor:pointer;font-weight:700;text-decoration:none;display:inline-block}
+.primary,.btn.primary{background:var(--primary);color:#fff}
+.secondary,.btn.secondary{background:#e2e8f0;color:#0f172a}
+.ok,.btn.ok{background:var(--ok);color:#fff}
+.danger{background:#fee2e2;color:#991b1b}
+button:disabled{opacity:.45;cursor:not-allowed}
+.small{font-size:.9rem;color:var(--muted)}
+.pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#e2e8f0;font-size:.86rem;font-weight:700}
+.points{float:right;background:#eaf0ff;color:#244c8f;border-radius:999px;padding:5px 10px;font-weight:700}
+.locked{opacity:.56}
+.checkline{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+.checkline input{margin-top:4px;transform:scale(1.15)}
+.evidence{border:1px dashed #94a3b8;border-radius:12px;padding:14px;background:#fbfdff}
+.preview img{max-width:100%;max-height:420px;border:1px solid #cbd5e1;border-radius:10px;margin-top:10px}
+.rubric{width:100%;border-collapse:collapse;font-size:.95rem}
+.rubric th,.rubric td{border:1px solid var(--border);padding:9px;text-align:left;vertical-align:top}
+.rubric th{background:#eff6ff}
+.progressWrap{background:#e2e8f0;border-radius:999px;overflow:hidden}
+.progress{height:14px;background:#22c55e;width:0;transition:.25s}
+.statusbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);margin:0 -16px;padding:10px 16px}
+.statusrow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.badge{padding:5px 9px;border-radius:999px;background:#edf0f5;font-weight:700;color:#58647a}
+.badge.ok{background:#dcfce7;color:#166534}
+.footer-actions{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--border);box-shadow:0 -5px 22px rgba(24,39,75,.08);z-index:40}
+.footer-inner{max-width:1040px;margin:auto;padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap}
+.hidden{display:none!important}
+#identityModal{position:fixed;inset:0;background:rgba(15,23,42,.78);display:grid;place-items:center;z-index:100;padding:16px}
+.identity-card{background:#fff;width:min(650px,100%);padding:22px;border-radius:16px}
+.identity-card h2{margin-top:0}
+#activityArea.locked-area{pointer-events:none;opacity:.48;filter:grayscale(.1)}
+#printArea{display:none}
+@media print{
+ body{background:#fff}
+ .no-print,#identityModal,.footer-actions,.statusbar{display:none!important}
+ .wrap{max-width:none;padding:0}
+ .hero,.card{box-shadow:none;break-inside:avoid}
+ #printArea{display:block!important}
+ #screenContent{display:none!important}
+ .print-head{border-bottom:2px solid #111;padding-bottom:8px;margin-bottom:12px}
+ .print-section{break-inside:avoid;margin:12px 0}
+ .print-answer{border:1px solid #bbb;padding:7px;margin:6px 0;white-space:pre-wrap}
+ .print-img{max-width:100%;max-height:110mm}
+ @page{size:A4;margin:12mm}
+}
+</style>
+</head>
+<body data-guide-id="lazaro-2026-4to-electricidad-tic-i-iv-guia-04-mejoramiento">
+
+<div id="identityModal">
+  <div class="identity-card">
+    <div class="kicker" style="color:#51658f">Instituto Industrial Central General Lázaro Chacón González</div>
+    <h2>Identificación del estudiante</h2>
+    <p>Escribe tus datos para iniciar o recuperar tu proceso de mejoramiento.</p>
+    <div class="row">
+      <div><label for="idKey">Clave / Carné</label><input id="idKey" type="text"></div>
+      <div><label for="idSection">Sección</label><input id="idSection" type="text"></div>
+    </div>
+    <label for="idName">Nombre completo</label>
+    <input id="idName" type="text">
+    <div class="actions"><button id="identifyBtn" class="primary" type="button">Continuar</button></div>
+    <div id="identityMsg" class="small" aria-live="polite"></div>
+  </div>
+</div>
+
+<div id="screenContent" class="wrap">
+
+<section class="hero">
+  <div class="kicker">Proceso de mejoramiento · IV Unidad · 2026</div>
+  <h1>Mejoramiento — Guía No. 4: Inclusión, equidad y acceso</h1>
+  <p><strong>Curso:</strong> Tecnologías de la Información y la Comunicación I — TIC I</p>
+  <p><strong>Grado:</strong> 4.º Bachillerato en Ciencias y Letras con Orientación en Electricidad</p>
+  <p><strong>Docente:</strong> Erick Enrique Zamora Paz</p>
+  <div class="grid">
+    <div class="meta"><strong>Valor:</strong><br>10 puntos</div>
+    <div class="meta"><strong>Tipo:</strong><br>Proceso de mejoramiento</div>
+    <div class="meta"><strong>Producto:</strong><br>Recurso técnico accesible</div>
+    <div class="meta"><strong>Entrega:</strong><br>Según indicación del docente</div>
+  </div>
+  <div id="studentLine" class="small" style="color:#eaf2ff;margin-top:10px"></div>
+</section>
+
+<div class="statusbar no-print">
+  <div class="statusrow">
+    <div>
+      <div class="progressWrap"><div id="progress" class="progress"></div></div>
+      <div id="progressText" class="small">Avance: 0%</div>
+    </div>
+    <span id="badge" class="badge">PENDIENTE</span>
+  </div>
+</div>
+
+<section class="card">
+  <h2>¿Qué debes mejorar?</h2>
+  <div class="academic">
+    Este trabajo no consiste en repetir la Guía No. 4. Debes demostrar que ahora puedes
+    <strong>identificar barreras de acceso, proponer ajustes concretos y preparar un recurso relacionado con Electricidad que pueda utilizarse en distintas condiciones</strong>.
+  </div>
+  <p>Trabaja con tus propias palabras. No inventes fuentes, datos ni resultados. Cuando utilices información externa, identifica el recurso consultado.</p>
+</section>
+
+<section class="card">
+  <h2>Lectura previa</h2>
+  <p>Abre los dos recursos. Después de revisarlos, pulsa <strong>Registrar como consultado</strong>. Las actividades se habilitan al registrar ambas lecturas.</p>
+
+  <div class="reading" data-reading-id="r1">
+    <h3>La inclusión en la educación</h3>
+    <p class="small">UNESCO — explica la inclusión como la identificación y eliminación de barreras que impiden el acceso y la participación educativa.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://www.unesco.org/es/education/inclusion" target="_blank" rel="noopener" data-open="r1">Abrir recurso</a>
+      <button type="button" class="secondary consultBtn" data-consult="r1">Registrar como consultado</button>
+    </div>
+    <div class="reading-status" id="status-r1">PENDIENTE DE CONSULTA</div>
+  </div>
+
+  <div class="reading" data-reading-id="r2">
+    <h3>Recomendación sobre los Recursos Educativos Abiertos (REA)</h3>
+    <p class="small">UNESCO — plantea que los recursos educativos y la tecnología deben favorecer un acceso efectivo, inclusivo y equitativo.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://www.unesco.org/es/legal-affairs/recommendation-open-educational-resources-oer" target="_blank" rel="noopener" data-open="r2">Abrir recurso</a>
+      <button type="button" class="secondary consultBtn" data-consult="r2">Registrar como consultado</button>
+    </div>
+    <div class="reading-status" id="status-r2">PENDIENTE DE CONSULTA</div>
+  </div>
+
+  <div id="gateMsg" class="warning">Consulta y registra los dos recursos para habilitar las actividades.</div>
+</section>
+
+<div id="activityArea" class="locked-area">
+
+<section class="card">
+  <span class="points">3 pts</span>
+  <h2>Actividad 1 — Detectar barreras y proponer soluciones</h2>
+  <p>Analiza las tres situaciones. No basta con decir que existe un problema: explica qué barrera aparece y qué solución concreta aplicarías.</p>
+
+  <label for="a1q1">Situación A: un estudiante solo tiene Internet algunos momentos del día. ¿Qué barrera enfrenta y cómo adaptarías un manual o guía de Electricidad para que pueda trabajar sin conexión?</label>
+  <textarea id="a1q1" data-save="1" required></textarea>
+
+  <label for="a1q2">Situación B: un diagrama eléctrico está lleno de texto pequeño y símbolos poco visibles. ¿Qué cambios harías para que sea más fácil de consultar?</label>
+  <textarea id="a1q2" data-save="1" required></textarea>
+
+  <label for="a1q3">Situación C: una aplicación necesaria para la actividad no está disponible en todos los dispositivos. Propón una alternativa para que el grupo pueda realizar el mismo aprendizaje.</label>
+  <textarea id="a1q3" data-save="1" required></textarea>
+</section>
+
+<section class="card">
+  <span class="points">4 pts</span>
+  <h2>Actividad 2 — Rediseña un recurso técnico para que sea más accesible</h2>
+  <p>Selecciona un recurso relacionado con Electricidad y crea una versión mejorada de una sola página o diapositiva. Puede ser un diagrama, una guía de seguridad, una ficha de componentes, instrucciones para usar un simulador o un pequeño manual.</p>
+
+  <label for="a2q1">Recurso que vas a mejorar</label>
+  <select id="a2q1" data-save="1" required>
+    <option value="">Selecciona…</option>
+    <option>Diagrama eléctrico</option>
+    <option>Guía de seguridad</option>
+    <option>Ficha de componentes</option>
+    <option>Instrucciones de simulador</option>
+    <option>Manual o guía técnica breve</option>
+    <option>Otro recurso relacionado con Electricidad</option>
+  </select>
+
+  <label for="a2q2">Explica qué problema de acceso o comprensión tenía el recurso original o qué problema quieres prevenir.</label>
+  <textarea id="a2q2" data-save="1" required></textarea>
+
+  <h3>Tu versión mejorada debe cumplir:</h3>
+  <div class="checkline"><input type="checkbox" id="c1" data-save="1" required><label for="c1">Texto legible y organizado.</label></div>
+  <div class="checkline"><input type="checkbox" id="c2" data-save="1" required><label for="c2">Contraste suficiente entre texto, fondo y elementos visuales.</label></div>
+  <div class="checkline"><input type="checkbox" id="c3" data-save="1" required><label for="c3">Información necesaria sin depender de conexión permanente a Internet.</label></div>
+  <div class="checkline"><input type="checkbox" id="c4" data-save="1" required><label for="c4">Relación clara con una tarea, procedimiento o aprendizaje del área de Electricidad.</label></div>
+  <div class="checkline"><input type="checkbox" id="c5" data-save="1" required><label for="c5">No muestra datos personales, contraseñas ni información privada.</label></div>
+
+  <div class="evidence">
+    <label for="evidenceFile">Captura obligatoria del recurso mejorado</label>
+    <input id="evidenceFile" type="file" accept="image/*">
+    <div id="evidencePreview" class="preview"></div>
+    <div class="small">La captura se guarda en el borrador local y en el respaldo JSON.</div>
+  </div>
+
+  <label for="a2q3">Explica tres decisiones que tomaste para hacer el recurso más accesible o fácil de utilizar.</label>
+  <textarea id="a2q3" data-save="1" required placeholder="Decisión 1…&#10;Decisión 2…&#10;Decisión 3…"></textarea>
+</section>
+
+<section class="card">
+  <span class="points">3 pts</span>
+  <h2>Actividad 3 — Plan de acceso para una práctica de Electricidad</h2>
+  <div class="note">
+    <strong>Situación:</strong> todo el grupo debe prepararse para una práctica de circuitos. Algunas personas pueden conectarse siempre, otras solo por momentos y no todos disponen de las mismas aplicaciones.
+  </div>
+
+  <label for="a3q1">¿Qué materiales digitales prepararías para que todos puedan estudiar antes de la práctica? Incluye al menos una opción que pueda usarse sin conexión.</label>
+  <textarea id="a3q1" data-save="1" required></textarea>
+
+  <label for="a3q2">¿Cómo organizarías el acceso para que las diferencias de conexión o dispositivo no impidan realizar el aprendizaje?</label>
+  <textarea id="a3q2" data-save="1" required></textarea>
+
+  <label for="a3q3">Explica qué parte del aprendizaje debe comprobarse finalmente con una práctica o verificación técnica y por qué.</label>
+  <textarea id="a3q3" data-save="1" required></textarea>
+
+  <label for="sourceUsed">Fuente o recurso consultado</label>
+  <input id="sourceUsed" type="text" data-save="1" required placeholder="Ej.: UNESCO — La inclusión en la educación">
+
+  <label for="sourceUrl">Enlace de la fuente</label>
+  <input id="sourceUrl" type="text" data-save="1" required placeholder="https://...">
+</section>
+
+</div>
+
+<section class="card">
+  <h2>Rúbrica — 10 puntos</h2>
+  <table class="rubric">
+    <thead><tr><th>Criterio</th><th>Excelente</th><th>Aceptable</th><th>En proceso</th><th>No cumple</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Identificación de barreras y soluciones</strong><br>3 pts</td>
+        <td>Identifica con claridad las barreras de las tres situaciones y propone soluciones concretas y aplicables. <strong>3</strong></td>
+        <td>Resuelve las tres situaciones, pero una explicación o solución necesita mayor precisión. <strong>2</strong></td>
+        <td>Reconoce parte de las barreras, pero las soluciones son incompletas o poco aplicables. <strong>1</strong></td>
+        <td>No presenta respuestas suficientes o no identifica las barreras planteadas. <strong>0</strong></td>
+      </tr>
+      <tr>
+        <td><strong>2. Recurso técnico accesible</strong><br>4 pts</td>
+        <td>Presenta un recurso legible y organizado, relacionado con Electricidad, con evidencia y tres decisiones de accesibilidad claramente justificadas. <strong>4</strong></td>
+        <td>El recurso cumple la mayoría de requisitos, pero una decisión, evidencia o aspecto de accesibilidad requiere mejora. <strong>3</strong></td>
+        <td>El recurso es parcial o presenta problemas de legibilidad, organización, acceso o justificación. <strong>2</strong></td>
+        <td>No presenta una evidencia que permita comprobar el recurso solicitado. <strong>0</strong></td>
+      </tr>
+      <tr>
+        <td><strong>3. Plan de acceso y verificación práctica</strong><br>3 pts</td>
+        <td>Propone materiales y formas de acceso viables, incluye una alternativa sin conexión, reconoce la necesidad de verificación práctica e identifica una fuente consultada. <strong>3</strong></td>
+        <td>El plan es adecuado, pero una alternativa, justificación o fuente necesita mayor desarrollo. <strong>2</strong></td>
+        <td>Presenta un plan parcial que no resuelve todas las condiciones planteadas. <strong>1</strong></td>
+        <td>No presenta un plan suficiente o las respuestas no corresponden con la situación. <strong>0</strong></td>
+      </tr>
+      <tr><th colspan="4">Total</th><th>10 pts</th></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>Entrega y respaldo</h2>
+  <div id="completeMsg" class="success">Completa los campos requeridos, las lecturas y la evidencia.</div>
+  <div class="actions">
+    <button id="jsonBtn" type="button" class="secondary">Descargar respaldo JSON</button>
+    <label class="btn secondary" for="importFile">Cargar respaldo JSON</label>
+    <input id="importFile" type="file" accept=".json,application/json" class="hidden">
+    <button id="printBtn" type="button" class="ok" disabled>Generar / imprimir PDF</button>
+  </div>
+  <p class="small">Conserva el JSON como respaldo y entrega el PDF según las indicaciones del docente.</p>
+</section>
+
+</div>
+
+<div class="footer-actions no-print">
+  <div class="footer-inner">
+    <button id="saveBtn" type="button" class="primary">Guardar ahora</button>
+    <button id="resetBtn" type="button" class="danger">Borrar borrador local</button>
+    <span id="saveMsg" class="small" style="margin-left:auto">Autoguardado activo</span>
+  </div>
+</div>
+
+<div id="printArea"></div>
+
+<script>
+(()=>{
+const GUIDE_ID="lazaro-2026-4to-electricidad-tic-i-iv-guia-04-mejoramiento";
+const GUIDE_TITLE="Mejoramiento — Guía No. 4: Inclusión, equidad y acceso";
+const REQUIRED_READINGS=["r1","r2"];
+const opened={r1:false,r2:false};
+const readings={};
+let currentStudent=null,currentKey=null,imageData=null,saveTimer=null;
+
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=v=>String(v||"").trim().replace(/\s+/g," ").toLowerCase();
+
+function storageKey(){
+  return `${GUIDE_ID}::${norm(currentStudent?.key)}::${norm(currentStudent?.section)}`;
+}
+function readingsDone(){return REQUIRED_READINGS.every(id=>readings[id]);}
+function updateGate(){
+  REQUIRED_READINGS.forEach(id=>{
+    const el=$("#status-"+id);
+    if(readings[id]){el.textContent="RECURSO CONSULTADO · "+new Date(readings[id]).toLocaleString("es-GT");el.classList.add("ok");}
+    else{el.textContent="PENDIENTE DE CONSULTA";el.classList.remove("ok");}
+  });
+  const done=readingsDone();
+  $("#activityArea").classList.toggle("locked-area",!done);
+  $("#gateMsg").textContent=done?"Lecturas registradas. Ya puedes desarrollar las actividades.":"Consulta y registra los dos recursos para habilitar las actividades.";
+  updateProgress();
+}
+$$("[data-open]").forEach(a=>a.addEventListener("click",()=>{opened[a.dataset.open]=true;}));
+$$("[data-consult]").forEach(b=>b.addEventListener("click",()=>{
+  const id=b.dataset.consult;
+  if(!opened[id]){alert("Primero abre el recurso para consultarlo.");return;}
+  readings[id]=new Date().toISOString();
+  updateGate();scheduleSave();
+}));
+
+function captureFields(){
+  const f={};
+  $$("[data-save='1']").forEach(el=>{f[el.id]=el.type==="checkbox"?el.checked:el.value;});
+  return f;
+}
+function applyFields(f={}){
+  Object.entries(f).forEach(([id,val])=>{
+    const el=document.getElementById(id);if(!el)return;
+    if(el.type==="checkbox")el.checked=!!val;else el.value=val??"";
+  });
+}
+function renderImage(){
+  const box=$("#evidencePreview");box.innerHTML="";
+  if(imageData){const img=document.createElement("img");img.src=imageData;img.alt="Evidencia del recurso mejorado";box.appendChild(img);}
+}
+async function compressImage(file){
+  if(!file||!file.type.startsWith("image/"))return null;
+  const data=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error);r.readAsDataURL(file);});
+  const img=await new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=data;});
+  const max=1400,scale=Math.min(1,max/Math.max(img.width,img.height));
+  const c=document.createElement("canvas");c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);
+  c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+  return c.toDataURL("image/jpeg",.8);
+}
+$("#evidenceFile").addEventListener("change",async e=>{
+  try{imageData=await compressImage(e.target.files[0]);renderImage();updateProgress();scheduleSave();}
+  catch(err){alert("No fue posible procesar la imagen.");}
+});
+
+function completion(){
+  const req=$$("[required]");let filled=0;
+  req.forEach(el=>{
+    if(el.type==="checkbox"){if(el.checked)filled++;}
+    else if(String(el.value||"").trim())filled++;
+  });
+  const rd=REQUIRED_READINGS.filter(id=>readings[id]).length;
+  const evidence=imageData?1:0;
+  const total=req.length+REQUIRED_READINGS.length+1;
+  const done=filled+rd+evidence;
+  return {done,total,pct:Math.round(done*100/total),complete:done===total};
+}
+function updateProgress(){
+  const c=completion();
+  $("#progress").style.width=c.pct+"%";
+  $("#progressText").textContent=`Avance: ${c.pct}% (${c.done}/${c.total})`;
+  $("#badge").textContent=c.complete?"COMPLETO":"PENDIENTE";
+  $("#badge").classList.toggle("ok",c.complete);
+  $("#printBtn").disabled=!c.complete;
+  $("#completeMsg").innerHTML=c.complete?"<strong>Mejoramiento completo.</strong> Ya puedes generar el PDF y descargar el respaldo JSON.":"Completa los campos requeridos, las lecturas y la evidencia.";
+}
+$$("[data-save='1']").forEach(el=>{
+  ["input","change"].forEach(ev=>el.addEventListener(ev,()=>{updateProgress();scheduleSave();}));
+});
+
+function payload(){
+  return {
+    format:"guia-interactiva-lazaro-v1",
+    guideId:GUIDE_ID,
+    title:GUIDE_TITLE,
+    student:currentStudent,
+    status:completion().complete?"COMPLETO":"PENDIENTE",
+    progress:completion().pct,
+    readings:{...readings},
+    fields:captureFields(),
+    imageData,
+    updatedAt:new Date().toISOString()
+  };
+}
+function saveDraft(){
+  if(!currentKey)return;
+  try{
+    localStorage.setItem(currentKey,JSON.stringify(payload()));
+    $("#saveMsg").textContent="Guardado "+new Date().toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"});
+  }catch(e){$("#saveMsg").textContent="No se pudo guardar";}
+}
+function scheduleSave(){clearTimeout(saveTimer);$("#saveMsg").textContent="Guardando…";saveTimer=setTimeout(saveDraft,400);}
+function loadDraft(){
+  const raw=localStorage.getItem(currentKey);if(!raw)return;
+  try{
+    const d=JSON.parse(raw);
+    applyFields(d.fields||{});
+    Object.assign(readings,d.readings||{});
+    imageData=d.imageData||null;
+    renderImage();updateGate();updateProgress();
+    $("#saveMsg").textContent="Borrador recuperado";
+  }catch(e){}
+}
+
+$("#identifyBtn").addEventListener("click",()=>{
+  const key=$("#idKey").value.trim(),section=$("#idSection").value.trim(),name=$("#idName").value.trim();
+  if(!key||!section||!name){$("#identityMsg").textContent="Completa Clave/Carné, Sección y Nombre completo.";return;}
+  currentStudent={key,section,name};currentKey=storageKey();
+  $("#identityModal").classList.add("hidden");
+  $("#studentLine").textContent=`Estudiante: ${name} · Clave/Carné: ${key} · Sección: ${section}`;
+  loadDraft();updateGate();updateProgress();
+});
+
+function download(name,text,type){
+  const blob=new Blob([text],{type});const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$("#jsonBtn").addEventListener("click",()=>{
+  if(!currentStudent)return;
+  const safe=(currentStudent.key+"_"+currentStudent.name).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+/g,"_");
+  download(`${GUIDE_ID}_${safe}.json`,JSON.stringify(payload(),null,2),"application/json;charset=utf-8");
+});
+$("#importFile").addEventListener("change",async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{
+    const d=JSON.parse(await f.text());
+    if(d.guideId!==GUIDE_ID){alert("El respaldo pertenece a otra guía.");return;}
+    applyFields(d.fields||{});
+    Object.keys(readings).forEach(k=>delete readings[k]);
+    Object.assign(readings,d.readings||{});
+    imageData=d.imageData||null;renderImage();updateGate();updateProgress();scheduleSave();
+    alert("Respaldo cargado correctamente.");
+  }catch(err){alert("No fue posible leer el archivo JSON.");}
+  finally{e.target.value="";}
+});
+
+function buildPrint(){
+  const c=completion(),f=captureFields();
+  let h=`<div class="print-head"><h1>${esc(GUIDE_TITLE)}</h1>
+  <div>Instituto Industrial Central General Lázaro Chacón González<br>
+  TIC I · 4.º Bachillerato en Ciencias y Letras con Orientación en Electricidad · IV Unidad<br>
+  Docente: Erick Enrique Zamora Paz · Valor: 10 puntos<br>
+  Estudiante: ${esc(currentStudent.name)} · Clave/Carné: ${esc(currentStudent.key)} · Sección: ${esc(currentStudent.section)} · Estado: ${c.complete?"COMPLETO":"PENDIENTE"}</div></div>`;
+
+  const sections=[
+    ["Actividad 1 — Detectar barreras y proponer soluciones",["a1q1","a1q2","a1q3"]],
+    ["Actividad 2 — Recurso técnico accesible",["a2q1","a2q2","a2q3"]],
+    ["Actividad 3 — Plan de acceso para una práctica",["a3q1","a3q2","a3q3","sourceUsed","sourceUrl"]]
+  ];
+  sections.forEach(([title,ids])=>{
+    h+=`<div class="print-section"><h2>${esc(title)}</h2>`;
+    ids.forEach(id=>{
+      const el=document.getElementById(id);
+      const lab=el?.previousElementSibling?.textContent || id;
+      h+=`<div class="print-answer"><strong>${esc(lab)}</strong><br>${esc(f[id]||"")}</div>`;
+    });
+    h+="</div>";
+  });
+  h+=`<div class="print-section"><h2>Lecturas consultadas</h2>`;
+  REQUIRED_READINGS.forEach(id=>{
+    if(readings[id])h+=`<div class="print-answer">${id==="r1"?"UNESCO — La inclusión en la educación":"UNESCO — Recomendación sobre los Recursos Educativos Abiertos (REA)"}</div>`;
+  });
+  h+="</div>";
+  if(imageData)h+=`<div class="print-section"><h2>Evidencia del recurso mejorado</h2><img class="print-img" src="${imageData}"></div>`;
+  $("#printArea").innerHTML=h;
+}
+$("#printBtn").addEventListener("click",()=>{if(!completion().complete)return;buildPrint();window.print();});
+$("#saveBtn").addEventListener("click",saveDraft);
+$("#resetBtn").addEventListener("click",()=>{
+  if(!currentKey)return;
+  if(confirm("¿Borrar el borrador local de este mejoramiento?")){
+    localStorage.removeItem(currentKey);location.reload();
+  }
+});
+
+updateGate();updateProgress();
+})();
+</script>
+</body>
+</html>
