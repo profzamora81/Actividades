@@ -325,6 +325,7 @@ function parseGuide(html, path, fallbackCourse){
   const unit = detectUnit(path, bodyText, `${titleTag} ${h1}`);
 
   const guideNumber =
+    guideNumberFromPath(path) ||
     guideNumberFromMeta(doc) ||
     firstMatch(bodyText,[
       /GU[IÍ]A(?:\s+DE\s+TRABAJO|\s+INTERACTIVA)?\s*(?:NO\.?|NÚMERO)?\s*[:#-]?\s*(\d+)/i,
