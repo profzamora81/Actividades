@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="lazaro-course" content="sistemas-instalacion-software">
+<meta name="lazaro-unit" content="IV"><meta name="lazaro-guide" content="03-mejoramiento">
+<title>Mejoramiento Guías 02 y 03 — Sistemas e Instalación de Software</title>
+<style>
+:root{--navy:#192b4d;--blue:#2558bb;--bg:#f2f5fa;--ink:#17233c;--line:#d6deec;--ok:#146a4a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.5 Arial,sans-serif;color:var(--ink)}
+header{background:linear-gradient(125deg,#172641,#2f5287);color:white;padding:30px max(20px,calc((100vw - 1000px)/2))}
+header h1{font-size:clamp(23px,3vw,34px);margin:6px 0}header p{margin:5px 0;color:#e7edfc}
+main{max-width:1020px;margin:auto;padding:15px 18px 100px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:22px;margin:16px 0;box-shadow:0 3px 14px #1c3a6810}
+h2{color:var(--navy);margin-top:0}h3{margin-bottom:7px}.tag{display:inline-block;background:#e6efff;color:#19489b;font-weight:700;padding:4px 10px;border-radius:99px}
+.notice{background:#edf3ff;border-left:4px solid var(--blue);padding:12px 15px;border-radius:7px}
+.warning{background:#fff7de;border-left:4px solid #d68b18;padding:12px 15px;border-radius:7px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{margin:13px 0}
+label{display:block;font-weight:700;margin-bottom:5px}input[type=text],textarea,select{width:100%;padding:11px;border:1px solid #b9c6db;border-radius:8px;font:inherit;background:white}
+textarea{min-height:95px;resize:vertical}textarea.code{font-family:Consolas,monospace}
+button,.btn{display:inline-block;border:0;border-radius:8px;background:var(--blue);color:white;padding:10px 15px;font:700 14px Arial;cursor:pointer;text-decoration:none}
+button.alt{background:#e9eef8;color:#1f375c}button:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.tabs button{background:#e3eaf5;color:#22365b}.tabs button.active{background:var(--navy);color:white}
+.tab{display:none}.tab.active{display:block}.activity-title{display:flex;justify-content:space-between;gap:14px;align-items:center}
+table{width:100%;border-collapse:collapse;margin:14px 0}th,td{border:1px solid #c8d3e3;padding:9px;text-align:left;vertical-align:top}th{background:#eaf0f9}
+figure{margin:8px 0}.preview{max-width:100%;max-height:270px;border-radius:8px}
+.status{position:sticky;top:0;z-index:5;background:white;border-bottom:1px solid var(--line);padding:10px max(18px,calc((100vw - 1000px)/2));display:flex;gap:12px;align-items:center}
+progress{width:220px;height:14px}footer{position:fixed;bottom:0;background:white;border-top:1px solid var(--line);padding:10px 15px;left:0;right:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;z-index:8}
+.resource{padding:15px;border:1px solid #c7d7ef;background:#f8fbff;border-radius:10px;margin:12px 0}
+.small{font-size:13px;color:#61708a}.hidden{display:none!important}
+@media(max-width:650px){.grid{grid-template-columns:1fr}table{font-size:13px}th,td{padding:6px}.status{flex-wrap:wrap}progress{width:125px}}
+@media print{header{padding:12px 0;background:white;color:black}header p{color:black}body{background:white;font-size:12px}.status,.tabs,footer,.no-print{display:none!important}main{padding:0}.tab{display:block!important}.card{box-shadow:none;border:0;border-bottom:1px solid #bbb;padding:8px 0;margin:6px 0;break-inside:auto}.activity{break-before:page}textarea,input[type=text]{border:0;border-bottom:1px solid #bbb}textarea{height:auto;min-height:50px}.print-text{white-space:pre-wrap}img.preview{max-height:180px}.warning{background:white}@page{size:A4;margin:13mm}}
+</style>
+</head>
+<body data-guide-id="lazaro-2026-4to-sistemas-iv-guia-02-03-mejoramiento">
+<header><p>Instituto Industrial Central General Lázaro Chacón González · IV Unidad 2026</p>
+<h1>Mejoramiento — Guías unificadas No. 2 y 3</h1>
+<p>Cuarto Bachillerato en Computación · Sistemas e Instalación de Software</p>
+<p>Docente: Erick Enrique Zamora Paz · <strong>Valor: 20 puntos</strong></p></header>
+<div class="status no-print"><progress id="bar" value="0" max="100"></progress><span id="progressLabel">Avance 0 %</span><strong id="statusLabel">PENDIENTE</strong><span id="saveLabel" class="small"></span></div>
+<main>
+<section class="card" id="identity"><h2>Identificación del estudiante</h2>
+<div class="grid"><div class="field"><label for="carne">Clave / Carné *</label><input type="text" id="carne" data-save required></div><div class="field"><label for="seccion">Sección *</label><input type="text" id="seccion" data-save required></div></div>
+<div class="field"><label for="nombre">Nombre completo *</label><input type="text" id="nombre" data-save required></div>
+<div class="notice">Este mejoramiento integra cableado UTP, prueba con tester, adaptador de red, parámetros IPv4 y diagnóstico con <code>ipconfig</code> y <code>ping</code>. La entrega incluye una bitácora de diagnóstico de una estación de trabajo.</div>
+<p class="small">La marca COMPLETO solo indica que se llenaron los campos obligatorios. No es una nota.</p></section>
+<nav class="tabs no-print" aria-label="Secciones">
+<button class="active" data-tab="instructions">Instrucciones</button><button data-tab="reading">Lecturas</button>
+<button data-tab="a1" data-locked disabled>Actividad 1</button><button data-tab="a2" data-locked disabled>Actividad 2</button>
+<button data-tab="a3" data-locked disabled>Actividad 3</button><button data-tab="a4" data-locked disabled>Actividad 4</button>
+<button data-tab="rubric">Rúbrica</button><button data-tab="delivery">Entrega</button></nav>
+<section class="card tab active" id="instructions"><h2>Situación de mejoramiento</h2>
+<p>En el laboratorio, una computadora no logra comunicarse con otros equipos de la red. El estudiante deberá comprobar primero la conexión física, revisar el adaptador y los datos de IPv4, ejecutar pruebas seguras y explicar cuál podría ser el origen del problema.</p>
+<div class="warning"><strong>Seguridad:</strong> no cambies direcciones IP ni controladores, no desinstales dispositivos y no manipules el cableado institucional sin autorización docente. Cuando no tengas equipo o tester disponible, usa los resultados simulados indicados y aclara que son simulados.</div>
+<h3>Producto esperado</h3><p>Bitácora técnica con decisiones justificadas, resultados de pruebas y un diagnóstico coherente.</p><p>Abre los dos recursos obligatorios en la pestaña Lecturas para habilitar las actividades. El acceso se registra cuando se pulsa el enlace; no verifica el tiempo de lectura.</p></section>
+<section class="card tab" id="reading"><h2>Lecturas previas obligatorias</h2>
+<div class="resource"><h3>1. Prueba y verificación de cableado de red</h3><p>Fluke Networks. Identifica qué puede mostrar un comprobador y cómo documentar una falla física.</p><a id="resource1" class="btn" target="_blank" rel="noopener" href="https://es.flukenetworks.com/">Abrir recurso</a><p id="read1" class="small">Pendiente de consultar</p></div>
+<div class="resource"><h3>2. Comandos de diagnóstico de Windows</h3><p>Microsoft Learn. Consulta <code>ipconfig</code> y <code>ping</code>.</p><div class="actions"><a id="resource2a" class="btn" target="_blank" rel="noopener" href="https://learn.microsoft.com/es-es/windows-server/administration/windows-commands/ipconfig">Abrir ipconfig</a><a id="resource2b" class="btn" target="_blank" rel="noopener" href="https://learn.microsoft.com/es-es/windows-server/administration/windows-commands/ping">Abrir ping</a></div><p id="read2" class="small">Pendiente de consultar ambos enlaces</p></div>
+<p id="gateText" class="warning">Las actividades se habilitan al abrir los tres enlaces indicados.</p></section>
+<section class="card tab activity" id="a1"><div class="activity-title"><h2>Actividad 1 — Diagnóstico del cableado</h2><span class="tag">5 pts</span></div>
+<p><strong>Caso:</strong> en un cable directo se eligió T568B para ambos extremos. El tester informa: 1→1, 2→2, 3→6, 4→4, 5→5, 6→3, 7→7, 8→8.</p>
+<div class="field"><label for="a1standard">a) Escribe el orden correcto de los ocho colores para T568B. *</label><textarea id="a1standard" data-required data-save></textarea></div>
+<div class="field"><label for="a1fault">b) ¿Qué anomalía revela la prueba del tester? Explica por qué el cable no cumple el resultado esperado de un cable directo. *</label><textarea id="a1fault" data-required data-save></textarea></div>
+<div class="field"><label for="a1steps">c) Indica cómo corregirías y comprobarías el cable sin poner en riesgo los equipos. *</label><textarea id="a1steps" data-required data-save></textarea></div>
+<div class="field"><label for="a1evidence">d) Registra la prueba real efectuada o aclara «análisis de caso simulado». *</label><textarea id="a1evidence" data-required data-save></textarea></div>
+<div class="field no-print"><label for="img1">Evidencia fotográfica opcional (si se realizó prueba real)</label><input id="img1" type="file" accept="image/*"><div id="prev1"></div></div></section>
+<section class="card tab activity" id="a2"><div class="activity-title"><h2>Actividad 2 — Adaptador y parámetros IPv4</h2><span class="tag">5 pts</span></div>
+<p><strong>Caso:</strong> un equipo muestra adaptador Ethernet habilitado, IPv4 <code>192.168.10.25</code>, máscara <code>255.255.255.0</code> y puerta de enlace <code>192.168.10.1</code>. Otro equipo de referencia usa <code>192.168.20.16/24</code> y puerta de enlace <code>192.168.20.1</code>.</p>
+<div class="field"><label for="a2adapter">a) ¿Cómo verificarías el estado del adaptador y su controlador en Windows, sin modificarlos? *</label><textarea id="a2adapter" data-required data-save></textarea></div>
+<div class="field"><label for="a2params">b) Explica para qué sirven IPv4, máscara y puerta de enlace. *</label><textarea id="a2params" data-required data-save></textarea></div>
+<div class="field"><label for="a2conflict">c) Compara los datos de ambas computadoras. ¿Qué diferencia investigarías antes de concluir que hay una falla? *</label><textarea id="a2conflict" data-required data-save></textarea></div>
+<div class="field"><label for="a2record">d) Escribe el comando de Windows para consultar estos datos y explica qué buscarías en su resultado. *</label><textarea id="a2record" data-required data-save></textarea></div></section>
+<section class="card tab activity" id="a3"><div class="activity-title"><h2>Actividad 3 — Pruebas e interpretación de conectividad</h2><span class="tag">6 pts</span></div>
+<p><strong>Resultados de ejemplo:</strong> <code>ping 127.0.0.1</code> responde; <code>ping 192.168.10.1</code> agota el tiempo de espera; <code>ping 192.168.10.50</code> responde. Una ausencia de respuesta ICMP no prueba por sí sola que el destino esté apagado.</p>
+<div class="field"><label for="a3sequence">a) Escribe una secuencia ordenada de comprobaciones de cable, adaptador, IP y ping. *</label><textarea id="a3sequence" data-required data-save></textarea></div>
+<div class="field"><label for="a3local">b) ¿Qué confirma y qué NO confirma una respuesta de 127.0.0.1? *</label><textarea id="a3local" data-required data-save></textarea></div>
+<div class="field"><label for="a3gateway">c) Interpreta el fallo de ping a la puerta de enlace e indica dos posibles explicaciones. *</label><textarea id="a3gateway" data-required data-save></textarea></div>
+<div class="field"><label for="a3peer">d) ¿Qué indica la respuesta del otro equipo de la red? Relaciónala con las otras pruebas sin dar por segura una causa. *</label><textarea id="a3peer" data-required data-save></textarea></div>
+<div class="field no-print"><label for="img3">Captura opcional de pruebas reales</label><input id="img3" type="file" accept="image/*"><div id="prev3"></div></div></section>
+<section class="card tab activity" id="a4"><div class="activity-title"><h2>Actividad 4 — Informe técnico y decisión</h2><span class="tag">4 pts</span></div>
+<div class="field"><label for="a4report">a) Redacta un informe breve que relacione resultados de tester, adaptador, IPv4 y ping. Diferencia hechos observados de posibles causas. *</label><textarea id="a4report" data-required data-save style="min-height:170px"></textarea></div>
+<div class="field"><label for="a4priority">b) ¿Qué revisarías primero, segundo y tercero? Justifica el orden de tus pasos. *</label><textarea id="a4priority" data-required data-save></textarea></div>
+<div class="field"><label for="a4closure">c) Describe qué evidencia permitiría dar el problema por resuelto. *</label><textarea id="a4closure" data-required data-save></textarea></div></section>
+<section class="card tab" id="rubric"><h2>Rúbrica de revisión docente — 20 puntos</h2><table><thead><tr><th>Criterio</th><th>Valor</th><th>Aspectos que revisará el docente</th></tr></thead><tbody>
+<tr><td>1. Cableado UTP y comprobación</td><td>5 pts</td><td>Orden T568B, identificación de pares intercambiados, corrección y evidencia.</td></tr>
+<tr><td>2. NIC e IPv4</td><td>5 pts</td><td>Revisión segura del adaptador, función de parámetros y comparación contextualizada.</td></tr>
+<tr><td>3. Diagnóstico con comandos</td><td>6 pts</td><td>Secuencia técnica, interpretación correcta de pruebas y reconocimiento de límites de ping.</td></tr>
+<tr><td>4. Informe técnico</td><td>4 pts</td><td>Relación de pruebas, prioridades justificadas y comprobación final.</td></tr>
+<tr><th>Total</th><th>20 pts</th><th>La calificación se asigna exclusivamente mediante revisión docente.</th></tr></tbody></table></section>
+<section class="card tab" id="delivery"><h2>Entrega y respaldo</h2><p>Completa la guía, guarda un archivo JSON y genera el PDF mediante la opción de imprimir o guardar como PDF del navegador. Entrega los archivos por el medio indicado por el docente.</p>
+<div id="completeMessage" class="notice"></div><div class="actions no-print"><button type="button" id="saveBtn">Guardar avance</button><button type="button" id="exportBtn">Descargar JSON</button><button type="button" id="printBtn">Generar PDF / Imprimir</button></div>
+<div class="field no-print"><label for="importFile">Recuperar respaldo JSON</label><input type="file" id="importFile" accept=".json,application/json"></div>
+<p class="small">Los archivos de imagen seleccionados se comprimen y almacenan como datos en el respaldo. Evita adjuntar imágenes con datos personales innecesarios. El guardado del navegador es local a este dispositivo.</p></section>
+</main>
+<footer class="no-print"><button id="saveFooter" type="button">Guardar</button><button id="exportFooter" type="button" class="alt">Descargar JSON</button><button id="printFooter" type="button" class="alt">Guardar como PDF</button></footer>
+<script>
+"use strict";
+const GUIDE_ID="lazaro-2026-sistemas-iv-guia-02-03-mejoramiento-v1";
+const $=id=>document.getElementById(id);
+const fields=[...document.querySelectorAll("[data-save]")];
+const required=[...document.querySelectorAll("[data-required]"),$("carne"),$("seccion"),$("nombre")];
+let reads={r1:false,r2a:false,r2b:false},images={};
+function key(){return GUIDE_ID+"-"+($("carne").value.trim().toLowerCase()||"sin-carne")+"-"+($("seccion").value.trim().toLowerCase()||"sin-seccion");}
+function snapshot(){return {guideId:GUIDE_ID,version:1,exportedAt:new Date().toISOString(),fields:Object.fromEntries(fields.map(x=>[x.id,x.value])),reads,images};}
+function update(){
+ const n=required.filter(x=>x.value.trim()).length,percent=Math.round(n/required.length*100);
+ $("bar").value=percent;$("progressLabel").textContent="Avance "+percent+" %";$("statusLabel").textContent=percent===100?"COMPLETO":"PENDIENTE";
+ const ready=reads.r1&&reads.r2a&&reads.r2b;
+ document.querySelectorAll("[data-locked]").forEach(x=>x.disabled=!ready);
+ $("gateText").textContent=ready?"Recursos abiertos: actividades habilitadas.":"Para habilitar actividades, abre los tres enlaces de lectura obligatoria.";
+ $("read1").textContent=reads.r1?"Enlace consultado":"Pendiente de consultar";
+ $("read2").textContent=reads.r2a&&reads.r2b?"Ambos enlaces consultados":(reads.r2a||reads.r2b)?"Falta abrir uno de los dos enlaces":"Pendiente de consultar ambos enlaces";
+ $("completeMessage").textContent=percent===100?"Campos obligatorios completos. El docente evaluará la calidad de las respuestas.":"Hay campos obligatorios pendientes. Puedes descargar un respaldo parcial.";
+}
+function save(){try{localStorage.setItem(key(),JSON.stringify(snapshot()));$("saveLabel").textContent="Guardado en este navegador";}catch(e){$("saveLabel").textContent="No se pudo guardar: descarga JSON";}update();}
+function hydrate(s){if(!s||s.guideId!==GUIDE_ID||!s.fields||typeof s.fields!=="object")throw Error("Archivo no corresponde a este mejoramiento");
+ fields.forEach(f=>f.value=String(s.fields[f.id]||""));reads={r1:!!s.reads?.r1,r2a:!!s.reads?.r2a,r2b:!!s.reads?.r2b};images={};
+ for(const [id,v] of Object.entries(s.images||{})){if(["img1","img3"].includes(id)&&typeof v==="string"&&/^data:image\/(png|jpeg|webp);base64,/.test(v)&&v.length<5000000)images[id]=v;}
+ for(const id of ["img1","img3"])renderImg(id);update();}
+function exportJson(){save();const b=new Blob([JSON.stringify(snapshot(),null,2)],{type:"application/json"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download="mejoramiento-sistemas-02-03-"+($("carne").value.replace(/[^a-z0-9_-]/gi,"")||"estudiante")+".json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+function renderImg(id){const box=$(id==="img1"?"prev1":"prev3");box.replaceChildren();if(images[id]){const img=document.createElement("img");img.className="preview";img.alt="Evidencia del estudiante";img.src=images[id];box.append(img);}}
+function switchTab(id){document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x.dataset.tab===id));window.scrollTo({top:0,behavior:"smooth"});}
+document.querySelectorAll("[data-tab]").forEach(x=>x.addEventListener("click",()=>switchTab(x.dataset.tab)));
+for(const [id,name] of [["resource1","r1"],["resource2a","r2a"],["resource2b","r2b"]])$(id).addEventListener("click",()=>{reads[name]=true;save();});
+fields.forEach(x=>x.addEventListener("input",()=>{update();save();}));
+for(const id of ["img1","img3"])$(id).addEventListener("change",async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ if(!file.type.startsWith("image/")){alert("Selecciona una imagen.");return;}
+ const img=new Image(),url=URL.createObjectURL(file);
+ try{await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url;});const canvas=document.createElement("canvas");const scale=Math.min(1,1200/Math.max(img.width,img.height));canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);images[id]=canvas.toDataURL("image/jpeg",.72);renderImg(id);save();}catch(err){alert("No se pudo cargar la imagen.");}finally{URL.revokeObjectURL(url);}
+});
+function printable(){save();const tab=document.querySelector(".tab.active");document.querySelectorAll(".tab").forEach(x=>x.classList.add("active"));window.print();document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));if(tab)tab.classList.add("active");}
+for(const id of ["saveBtn","saveFooter"])$(id).addEventListener("click",save);
+for(const id of ["exportBtn","exportFooter"])$(id).addEventListener("click",exportJson);
+for(const id of ["printBtn","printFooter"])$(id).addEventListener("click",printable);
+$("importFile").addEventListener("change",async e=>{const file=e.target.files?.[0];if(!file)return;try{hydrate(JSON.parse(await file.text()));save();alert("Respaldo recuperado.");}catch(err){alert("No se pudo importar: "+err.message);}});
+function startup(){try{let saved=localStorage.getItem(key());if(saved)hydrate(JSON.parse(saved));}catch(e){}update();}
+startup();
+</script>
+</body></html>
